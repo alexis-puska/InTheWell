@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
 
 public class InTheWellGame extends Game {
@@ -16,6 +17,7 @@ public class InTheWellGame extends Game {
 		Gdx.app.log("tag", "create");
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		SaveService.getInstance();
 		SoundService.getInstance().playMusic();
 	}
 
