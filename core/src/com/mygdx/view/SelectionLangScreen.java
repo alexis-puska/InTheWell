@@ -4,14 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.InTheWellGame;
 
 public class SelectionLangScreen implements Screen {
 
 	final InTheWellGame game;
-	OrthographicCamera camera;
 
 	public Texture img;
 
@@ -22,16 +20,15 @@ public class SelectionLangScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if(Gdx.input.isKeyPressed(Keys.A)) {
-			Gdx.app.log("selectionLangScreen", "A PRESSED !!!");	
+		if (Gdx.input.isKeyJustPressed(Keys.A)) {
+			game.getScreen().dispose();
+			game.setScreen(new SelectAccountScreen(game));
 		}
-		Gdx.app.log("selectionLangScreen", "delta : " + Gdx.graphics.getFramesPerSecond());
-		Gdx.app.log("SelectionLangScreen", "draw");
-		Gdx.gl.glClearColor(0.2f, 0.2f, 1.0f, 1);
+		Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.batch.begin();
-		game.batch.draw(img, 0, 0);
-		game.batch.end();
+		game.getBatch().begin();
+		game.getBatch().draw(img, 0, 0);
+		game.getBatch().end();
 	}
 
 	@Override
@@ -61,7 +58,7 @@ public class SelectionLangScreen implements Screen {
 
 	@Override
 	public void dispose() {
-
+		img.dispose();
 	}
 
 }

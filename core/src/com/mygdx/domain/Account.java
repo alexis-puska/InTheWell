@@ -25,6 +25,9 @@ public class Account {
 		this.score = 0;
 		this.level = 0;
 		this.fridge = new Long[Constante.NB_ITEM_FRIDGE];
+		for (int i = 0; i < Constante.NB_ITEM_FRIDGE; i++) {
+			this.fridge[i] = 0l;
+		}
 	}
 
 	/**

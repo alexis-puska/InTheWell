@@ -4,6 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
+/**
+ * Play musique or a sound in game.
+ * 
+ * @author alexispuskarczyk
+ */
 public class SoundService {
 
 	private static SoundService INSTANCE = new SoundService();

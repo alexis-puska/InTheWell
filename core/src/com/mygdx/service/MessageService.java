@@ -13,7 +13,7 @@ import com.mygdx.enumeration.LocaleEnum;
 public class MessageService {
 	private static boolean init = false;
 	private static FileHandle baseFileHandle;
-	private static Locale currentLocale;
+	private static LocaleEnum currentLocale;
 	private static I18NBundle message;
 
 	/**
@@ -22,22 +22,20 @@ public class MessageService {
 	private static void init() {
 		if (!init) {
 			baseFileHandle = Gdx.files.internal("i18n/message");
-			currentLocale = new Locale(LocaleEnum.FRENCH.getCode());
-			message = I18NBundle.createBundle(baseFileHandle, currentLocale);
+			currentLocale = ConfigurationContext.getLocale();
+			message = I18NBundle.createBundle(baseFileHandle, new Locale(currentLocale.getCode()));
 			init = true;
 		}
 	}
 
 	/**
-	 * change the language of the service
-	 * 
-	 * @param locale
-	 *            the new Locale
+	 * Update Locale if the context change
 	 */
-	public static void setLocale(LocaleEnum locale) {
-		init();
-		currentLocale = new Locale(locale.getCode());
-		message = I18NBundle.createBundle(baseFileHandle, currentLocale);
+	private static void checkLocaleChange() {
+		if (ConfigurationContext.getLocale() != currentLocale) {
+			currentLocale = ConfigurationContext.getLocale();
+			message = I18NBundle.createBundle(baseFileHandle, new Locale(currentLocale.getCode()));
+		}
 	}
 
 	/**
@@ -47,6 +45,7 @@ public class MessageService {
 	 */
 	public static String getMessage(String key) {
 		init();
+		checkLocaleChange();
 		return message.get(key);
 	}
 
@@ -59,6 +58,7 @@ public class MessageService {
 	 */
 	public static String getMessage(String key, Object... args) {
 		init();
+		checkLocaleChange();
 		return message.format(key, args);
 	}
 }
