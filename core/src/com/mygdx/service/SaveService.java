@@ -27,33 +27,43 @@ public class SaveService {
 		initSaveFile();
 	}
 
+	/**
+	 * Load a saved account
+	 * 
+	 * @param accountId
+	 *            account Id of player
+	 */
 	public void loadAccount(int accountId) {
 		Path path = Paths.get(SAVE_PATH);
-		if (path.toFile().exists()) {
-			Gdx.app.log("SaveService", "File exists !");
-			try {
-				BufferedReader reader = new BufferedReader(new FileReader(SAVE_PATH));
-				String content = reader.readLine();
-				Gdx.app.log("reader", content);
-				for (int accountIndex = 0; accountIndex < NB_SAVE_PER_FILE; accountIndex++) {
-					for (int valueIndex = 0; valueIndex < NB_VALUE_SAVE; valueIndex++) {
-						Gdx.app.log("reader", "value " + valueIndex + " : "
-								+ Long.parseLong(content.substring((valueIndex * 8), (valueIndex * 8) + 8), 16));
-					}
+		if (!path.toFile().exists()) {
+			initSaveFile();
+		}
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(SAVE_PATH));
+			String content = reader.readLine();
+			Gdx.app.log("reader", content);
+			for (int accountIndex = 0; accountIndex < NB_SAVE_PER_FILE; accountIndex++) {
+				for (int valueIndex = 0; valueIndex < NB_VALUE_SAVE; valueIndex++) {
+					Gdx.app.log("reader", "value " + valueIndex + " : "
+							+ Long.parseLong(content.substring((valueIndex * 8), (valueIndex * 8) + 8), 16));
 				}
-				reader.close();
-			} catch (FileNotFoundException e) {
-				Gdx.app.error("SaveService", "loadAccount FileNotFoundException ! ", e);
-			} catch (IOException e) {
-				Gdx.app.error("SaveService", "loadAccount IOException !", e);
 			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			Gdx.app.error("SaveService", "loadAccount FileNotFoundException ! ", e);
+		} catch (IOException e) {
+			Gdx.app.error("SaveService", "loadAccount IOException !", e);
 		}
 	}
 
+	/**
+	 * Create a saving file if not exist one. Function must be called at the game
+	 * launch
+	 */
 	private void initSaveFile() {
 		Path path = Paths.get(SAVE_PATH);
 		if (!path.toFile().exists()) {
-			Gdx.app.log("SaveService", "File don't exists !");
+			Gdx.app.log("SaveService", "File don't exists ! create new");
 			BufferedWriter writer;
 			try {
 				writer = new BufferedWriter(new FileWriter(SAVE_PATH));

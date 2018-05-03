@@ -178,6 +178,25 @@ public class SoundService {
 		boss.dispose();
 		hurryUp.dispose();
 		lostTrack.dispose();
+		soundBlackBombe.dispose();
+		soundBlueBombe.dispose();
+		soundChangeType.dispose();
+		soundCristal.dispose();
+		soundDead.dispose();
+		soundGreenBombe.dispose();
+		soundHurryUp.dispose();
+		soundIgorFall.dispose();
+		soundIgorJump.dispose();
+		soundKickBombe.dispose();
+		soundKillEnnemis.dispose();
+		soundLetterEffectObject.dispose();
+		soundNextLevel.dispose();
+		soundNormalBombe.dispose();
+		soundPop.dispose();
+		soundPutBombe.dispose();
+		soundTake_object.dispose();
+		soundTeleporter.dispose();
+		soundTuberculoz.dispose();
 	}
 
 }

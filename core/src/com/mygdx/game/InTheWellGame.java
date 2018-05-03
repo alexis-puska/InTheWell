@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.enumeration.LocaleEnum;
 import com.mygdx.service.JsonService;
+import com.mygdx.service.MessageService;
 import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
 
@@ -18,6 +20,11 @@ public class InTheWellGame extends Game {
 		Gdx.app.log("tag", "create");
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
+		MessageService.changeLocale(LocaleEnum.ENGLISH);
+		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
+		MessageService.changeLocale(LocaleEnum.SPANISH);
+		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
 		SaveService.getInstance();
 		JsonService.getInstance();
 		SoundService.getInstance().playMusic();
