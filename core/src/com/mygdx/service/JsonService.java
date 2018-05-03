@@ -33,10 +33,20 @@ public class JsonService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
-		Gdx.app.log("LevelService", "Nb level type : " + levelFile.getType().size());
-		for (Type type : levelFile.getType()) {
-			Gdx.app.log("LevelService", "Nb level in this type : " + type.getLevel().size());
+		
+		FileHandle jsonLevel = Gdx.files.internal("json/json_level_parser.json");
+		LevelFile levelFile = null;
+		try {
+			levelFile = objectMapper.readValue(jsonLevel.file(), LevelFile.class);
+		} catch (JsonParseException e) {
+			Gdx.app.error("LevelService", "JsonParseException : ", e);
+		} catch (JsonMappingException e) {
+			Gdx.app.error("LevelService", "JsonMappingException : ", e);
+		} catch (IOException e) {
+			Gdx.app.error("LevelService", "IOException : ", e);
 		}
+		
+		
 	}
 
 	public static JsonService getInstance() {
