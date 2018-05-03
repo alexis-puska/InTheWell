@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.service.dto.level.LevelFile;
-import com.mygdx.service.dto.level.Type;
 
 public class JsonService {
 
@@ -34,8 +33,8 @@ public class JsonService {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
 		
-		FileHandle jsonLevel = Gdx.files.internal("json/json_level_parser.json");
-		LevelFile levelFile = null;
+		FileHandle jsonLevels = Gdx.files.internal("json/json_level_parser.json");
+		LevelFile levelFiles = null;
 		try {
 			levelFile = objectMapper.readValue(jsonLevel.file(), LevelFile.class);
 		} catch (JsonParseException e) {
@@ -45,7 +44,6 @@ public class JsonService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
-		
 		
 	}
 
