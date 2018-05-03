@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.service.JsonService;
 import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
 
@@ -18,6 +19,7 @@ public class InTheWellGame extends Game {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		SaveService.getInstance();
+		JsonService.getInstance();
 		SoundService.getInstance().playMusic();
 	}
 
@@ -26,7 +28,6 @@ public class InTheWellGame extends Game {
 		super.render();
 		Gdx.gl.glClearColor(0.5f, 0.5f, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
