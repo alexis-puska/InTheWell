@@ -2,46 +2,41 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.enumeration.LocaleEnum;
 import com.mygdx.service.JsonService;
 import com.mygdx.service.MessageService;
 import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
+import com.mygdx.view.SelectionLangScreen;
 
 public class InTheWellGame extends Game {
 
-	SpriteBatch batch;
-	Texture img;
+	public SpriteBatch batch;
+	public BitmapFont font;
+	public Texture img;
 
 	public void create() {
-		Gdx.app.log("tag", "create");
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		img = new Texture(Gdx.files.internal("sprite/badlogic.jpg"));
 		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
-		MessageService.changeLocale(LocaleEnum.ENGLISH);
+		MessageService.setLocale(LocaleEnum.ENGLISH);
 		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
-		MessageService.changeLocale(LocaleEnum.SPANISH);
+		MessageService.setLocale(LocaleEnum.SPANISH);
 		Gdx.app.log("InTheWell", MessageService.getMessage("menu.lang.title"));
-		SaveService.getInstance();
+		SaveService.getInstance().loadAccount(0);
 		JsonService.getInstance();
 		SoundService.getInstance().playMusic();
+		this.setScreen(new SelectionLangScreen(this));
 	}
 
 	public void render() {
-		Gdx.app.log("tag", "render");
 		super.render();
-		Gdx.gl.glClearColor(0.5f, 0.5f, 1, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
 	}
 
 	public void dispose() {
-		Gdx.app.log("tag", "dispose");
 		batch.dispose();
 		img.dispose();
 	}

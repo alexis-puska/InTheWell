@@ -7,7 +7,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygdx.service.dto.level.LevelFile;
+import com.mygdx.service.dto.database.DatabaseDTO;
+import com.mygdx.service.dto.level.LevelFileDTO;
+import com.mygdx.service.dto.sprite.SpriteFileContent;
 
 public class JsonService {
 
@@ -16,15 +18,15 @@ public class JsonService {
 	private final ObjectMapper objectMapper;
 
 	public JsonService() {
-		
+
 		/*******************************
 		 * --- LEVEL ---
 		 *******************************/
 		this.objectMapper = new ObjectMapper();
-		FileHandle jsonLevel = Gdx.files.internal("json/json_level_parser.json");
-		LevelFile levelFile = null;
+		FileHandle levelJsonFile = Gdx.files.internal("json/level.json");
+		LevelFileDTO levelFile = null;
 		try {
-			levelFile = objectMapper.readValue(jsonLevel.file(), LevelFile.class);
+			levelFile = objectMapper.readValue(levelJsonFile.file(), LevelFileDTO.class);
 		} catch (JsonParseException e) {
 			Gdx.app.error("LevelService", "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
@@ -32,11 +34,14 @@ public class JsonService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
-		
-		FileHandle jsonLevels = Gdx.files.internal("json/json_level_parser.json");
-		LevelFile levelFiles = null;
+
+		/*******************************
+		 * --- DATABASE ---
+		 *******************************/
+		FileHandle databaseJsonFile = Gdx.files.internal("json/database.json");
+		DatabaseDTO database = null;
 		try {
-			levelFile = objectMapper.readValue(jsonLevel.file(), LevelFile.class);
+			database = objectMapper.readValue(databaseJsonFile.file(), DatabaseDTO.class);
 		} catch (JsonParseException e) {
 			Gdx.app.error("LevelService", "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
@@ -44,7 +49,21 @@ public class JsonService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
-		
+
+		/*******************************
+		 * --- SPRITE ---
+		 *******************************/
+		FileHandle spriteJsonFile = Gdx.files.internal("json/sprite.json");
+		SpriteFileContent spriteFile = null;
+		try {
+			spriteFile = objectMapper.readValue(spriteJsonFile.file(), SpriteFileContent.class);
+		} catch (JsonParseException e) {
+			Gdx.app.error("LevelService", "JsonParseException : ", e);
+		} catch (JsonMappingException e) {
+			Gdx.app.error("LevelService", "JsonMappingException : ", e);
+		} catch (IOException e) {
+			Gdx.app.error("LevelService", "IOException : ", e);
+		}
 	}
 
 	public static JsonService getInstance() {

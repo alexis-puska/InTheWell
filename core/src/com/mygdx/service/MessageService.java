@@ -34,7 +34,7 @@ public class MessageService {
 	 * @param locale
 	 *            the new Locale
 	 */
-	public static void changeLocale(LocaleEnum locale) {
+	public static void setLocale(LocaleEnum locale) {
 		init();
 		currentLocale = new Locale(locale.getCode());
 		message = I18NBundle.createBundle(baseFileHandle, currentLocale);
