@@ -6,6 +6,7 @@ import com.mygdx.service.JsonService;
 import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
 import com.mygdx.view.SelectionLangScreen;
+import com.mygdx.view.SplashScreen;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +22,7 @@ public class InTheWellGame extends Game {
 		SaveService.getInstance().loadAccount(0);
 		JsonService.getInstance();
 		SoundService.getInstance().playMusic();
-		this.setScreen(new SelectionLangScreen(this));
+		this.setScreen(new SplashScreen(this));
 	}
 
 	public void render() {

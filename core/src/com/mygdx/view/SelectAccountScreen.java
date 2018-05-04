@@ -99,7 +99,7 @@ public class SelectAccountScreen implements Screen {
 	private void treatInput() {
 		if (Gdx.input.isKeyJustPressed(Keys.B)) {
 			game.getScreen().dispose();
-			game.setScreen(new SelectionLangScreen(game));
+			game.setScreen(new SplashScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.E)) {
 			ConfigurationContext.setLocale(LocaleEnum.ENGLISH);
