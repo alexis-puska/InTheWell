@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.service.dto.database.DatabaseDTO;
 import com.mygdx.service.dto.level.LevelFileDTO;
-import com.mygdx.service.dto.sprite.SpriteFileContent;
 
 public class JsonService {
 
@@ -50,20 +49,6 @@ public class JsonService {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
 
-		/*******************************
-		 * --- SPRITE ---
-		 *******************************/
-		FileHandle spriteJsonFile = Gdx.files.internal("json/sprite.json");
-		SpriteFileContent spriteFile = null;
-		try {
-			spriteFile = objectMapper.readValue(spriteJsonFile.file(), SpriteFileContent.class);
-		} catch (JsonParseException e) {
-			Gdx.app.error("LevelService", "JsonParseException : ", e);
-		} catch (JsonMappingException e) {
-			Gdx.app.error("LevelService", "JsonMappingException : ", e);
-		} catch (IOException e) {
-			Gdx.app.error("LevelService", "IOException : ", e);
-		}
 	}
 
 	public static JsonService getInstance() {

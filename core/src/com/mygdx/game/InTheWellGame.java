@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.service.JsonService;
 import com.mygdx.service.SaveService;
 import com.mygdx.service.SoundService;
-import com.mygdx.view.SelectionLangScreen;
+import com.mygdx.service.SpriteService;
 import com.mygdx.view.SplashScreen;
 
 import lombok.Getter;
@@ -19,8 +19,9 @@ public class InTheWellGame extends Game {
 
 	public void create() {
 		batch = new SpriteBatch();
-		SaveService.getInstance().loadAccount(0);
 		JsonService.getInstance();
+		SaveService.getInstance().loadAccount(0);
+		SpriteService.getInstance();
 		SoundService.getInstance().playMusic();
 		this.setScreen(new SplashScreen(this));
 	}
