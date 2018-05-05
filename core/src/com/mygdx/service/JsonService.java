@@ -7,7 +7,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mygdx.service.dto.database.DatabaseDTO;
 import com.mygdx.service.dto.level.LevelFileDTO;
 
 public class JsonService {
@@ -25,22 +24,7 @@ public class JsonService {
 		FileHandle levelJsonFile = Gdx.files.internal("json/level.json");
 		LevelFileDTO levelFile = null;
 		try {
-			levelFile = objectMapper.readValue(levelJsonFile.file(), LevelFileDTO.class);
-		} catch (JsonParseException e) {
-			Gdx.app.error("LevelService", "JsonParseException : ", e);
-		} catch (JsonMappingException e) {
-			Gdx.app.error("LevelService", "JsonMappingException : ", e);
-		} catch (IOException e) {
-			Gdx.app.error("LevelService", "IOException : ", e);
-		}
-
-		/*******************************
-		 * --- DATABASE ---
-		 *******************************/
-		FileHandle databaseJsonFile = Gdx.files.internal("json/database.json");
-		DatabaseDTO database = null;
-		try {
-			database = objectMapper.readValue(databaseJsonFile.file(), DatabaseDTO.class);
+			levelFile = objectMapper.readValue(levelJsonFile.read(), LevelFileDTO.class);
 		} catch (JsonParseException e) {
 			Gdx.app.error("LevelService", "JsonParseException : ", e);
 		} catch (JsonMappingException e) {

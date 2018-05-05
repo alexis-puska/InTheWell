@@ -30,6 +30,8 @@ public class GameScreen implements Screen {
 		this.game = game;
 		this.shapeRenderer = new ShapeRenderer();
 		this.fb = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false); // test
+		this.game.getSoundService().stopMusic();
+		this.game.getSoundService().playMusic();
 		x = 210;
 		y = 210;
 	}

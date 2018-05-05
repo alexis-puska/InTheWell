@@ -61,7 +61,7 @@ public class SelectOptionScreen implements Screen {
 		treatInput();
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
-		layout.setText(font, MessageService.getMessage("menu.main.title"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.title"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
 
 		for (int i = 0; i < 3; i++) {
@@ -69,11 +69,11 @@ public class SelectOptionScreen implements Screen {
 			game.getBatch().draw(flagTextureRegion, 127, DrawUtils.invert(147 + (90 * i), flagTextureRegion));
 		}
 
-		layout.setText(font, MessageService.getMessage("menu.main.play"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.play"));
 		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(167));
-		layout.setText(font, MessageService.getMessage("menu.main.fridge"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.fridge"));
 		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(257));
-		layout.setText(font, MessageService.getMessage("menu.main.quests"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.quests"));
 		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(347));
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);

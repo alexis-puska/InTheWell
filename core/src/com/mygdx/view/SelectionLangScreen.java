@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.enumeration.LocaleEnum;
 import com.mygdx.game.InTheWellGame;
-import com.mygdx.service.ConfigurationContext;
+import com.mygdx.service.Context;
 import com.mygdx.service.MessageService;
 import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
@@ -68,17 +68,17 @@ public class SelectionLangScreen implements Screen {
 					DrawUtils.invert(70 + (i * 150), flagTextureRegion));
 		}
 
-		layout.setText(font, MessageService.getMessage("menu.lang.title"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.title"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
-		layout.setText(font, MessageService.getMessage("menu.lang.lang1"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang1"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(154));
-		layout.setText(font, MessageService.getMessage("menu.lang.lang2"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang2"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(302));
-		layout.setText(font, MessageService.getMessage("menu.lang.lang3"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang3"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(454));
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		switch (ConfigurationContext.getLocale()) {
+		switch (Context.getLocale()) {
 		case FRENCH:
 			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(100, cursorTextureRegion));
 			break;
@@ -102,24 +102,24 @@ public class SelectionLangScreen implements Screen {
 			game.setScreen(new SplashScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-			switch (ConfigurationContext.getLocale()) {
+			switch (Context.getLocale()) {
 			case FRENCH:
 				break;
 			case ENGLISH:
-				ConfigurationContext.setLocale(LocaleEnum.FRENCH);
+				Context.setLocale(LocaleEnum.FRENCH);
 				break;
 			case SPANISH:
-				ConfigurationContext.setLocale(LocaleEnum.ENGLISH);
+				Context.setLocale(LocaleEnum.ENGLISH);
 				break;
 			}
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-			switch (ConfigurationContext.getLocale()) {
+			switch (Context.getLocale()) {
 			case FRENCH:
-				ConfigurationContext.setLocale(LocaleEnum.ENGLISH);
+				Context.setLocale(LocaleEnum.ENGLISH);
 				break;
 			case ENGLISH:
-				ConfigurationContext.setLocale(LocaleEnum.SPANISH);
+				Context.setLocale(LocaleEnum.SPANISH);
 				break;
 			case SPANISH:
 

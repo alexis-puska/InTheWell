@@ -11,31 +11,38 @@ import com.mygdx.enumeration.LocaleEnum;
  * @author apuskarczyk return specific translation for a code.
  */
 public class MessageService {
-	private static boolean init = false;
-	private static FileHandle baseFileHandle;
-	private static LocaleEnum currentLocale;
-	private static I18NBundle message;
+
+	private static MessageService INSTANCE;
+
+	private FileHandle baseFileHandle;
+	private LocaleEnum currentLocale;
+	private I18NBundle message;
 
 	/**
 	 * Init the service
 	 */
-	private static void init() {
-		if (!init) {
-			baseFileHandle = Gdx.files.internal("i18n/message");
-			currentLocale = ConfigurationContext.getLocale();
-			message = I18NBundle.createBundle(baseFileHandle, new Locale(currentLocale.getCode()));
-			init = true;
-		}
+	private MessageService() {
+		Gdx.app.log("MessageService", "Init");
+		baseFileHandle = Gdx.files.internal("i18n/message");
+		currentLocale = Context.getLocale();
+		message = I18NBundle.createBundle(baseFileHandle, new Locale(currentLocale.getCode()));
 	}
 
 	/**
 	 * Update Locale if the context change
 	 */
-	private static void checkLocaleChange() {
-		if (ConfigurationContext.getLocale() != currentLocale) {
-			currentLocale = ConfigurationContext.getLocale();
+	private void checkLocaleChange() {
+		if (Context.getLocale() != currentLocale) {
+			currentLocale = Context.getLocale();
 			message = I18NBundle.createBundle(baseFileHandle, new Locale(currentLocale.getCode()));
 		}
+	}
+
+	public static MessageService getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new MessageService();
+		}
+		return INSTANCE;
 	}
 
 	/**
@@ -43,8 +50,7 @@ public class MessageService {
 	 *            searched translation key
 	 * @return the translation
 	 */
-	public static String getMessage(String key) {
-		init();
+	public String getMessage(String key) {
 		checkLocaleChange();
 		return message.get(key);
 	}
@@ -56,8 +62,7 @@ public class MessageService {
 	 *            parameters
 	 * @return the translation
 	 */
-	public static String getMessage(String key, Object... args) {
-		init();
+	public String getMessage(String key, Object... args) {
 		checkLocaleChange();
 		return message.format(key, args);
 	}

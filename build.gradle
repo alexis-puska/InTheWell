@@ -60,7 +60,7 @@ project(":raspberry") {
 
     dependencies {
         compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$raspberryGdxVersion"
         compile "com.badlogicgames.gdx:gdx-backend-jogamp:$raspberryGdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$raspberryGdxVersion:natives-desktop"

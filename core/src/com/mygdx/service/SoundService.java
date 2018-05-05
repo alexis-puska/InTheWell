@@ -11,43 +11,70 @@ import com.badlogic.gdx.audio.Sound;
  */
 public class SoundService {
 
-	private static SoundService INSTANCE = new SoundService();
-
 	/*******************
 	 * --- musique ---
 	 *******************/
-	private Music boss2 = Gdx.audio.newMusic(Gdx.files.internal("music/music_boss_v2.3.mp3"));
-	private Music boss = Gdx.audio.newMusic(Gdx.files.internal("music/music_boss.mp3"));
-	private Music hurryUp = Gdx.audio.newMusic(Gdx.files.internal("music/music_hurry_up.mp3"));
-	private Music lostTrack = Gdx.audio.newMusic(Gdx.files.internal("music/music_lost_track.mp3"));
-	private Music music = Gdx.audio.newMusic(Gdx.files.internal("music/music_music.mp3"));
+	private Music boss2;
+	private Music boss;
+	private Music hurryUp;
+	private Music lostTrack;
+	private Music music;
 
 	/*******************
 	 * --- son ---
 	 *******************/
-	private Sound soundBlackBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_black_bombe.wav"));
-	private Sound soundBlueBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_blue_bombe.wav"));
-	private Sound soundChangeType = Gdx.audio.newSound(Gdx.files.internal("sound/sound_change_type.wav"));
-	private Sound soundCristal = Gdx.audio.newSound(Gdx.files.internal("sound/sound_cristal.wav"));
-	private Sound soundDead = Gdx.audio.newSound(Gdx.files.internal("sound/sound_dead.wav"));
-	private Sound soundGreenBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_green_bombe.wav"));
-	private Sound soundHurryUp = Gdx.audio.newSound(Gdx.files.internal("sound/sound_hurry_up.wav"));
-	private Sound soundIgorFall = Gdx.audio.newSound(Gdx.files.internal("sound/sound_igor_fall.wav"));
-	private Sound soundIgorJump = Gdx.audio.newSound(Gdx.files.internal("sound/sound_igor_jump.wav"));
-	private Sound soundKickBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_kick_bombe.wav"));
-	private Sound soundKillEnnemis = Gdx.audio.newSound(Gdx.files.internal("sound/sound_kill_ennemis.wav"));
-	private Sound soundLetterEffectObject = Gdx.audio
-			.newSound(Gdx.files.internal("sound/sound_letter_effect_object.wav"));
-	private Sound soundNextLevel = Gdx.audio.newSound(Gdx.files.internal("sound/sound_next_level.wav"));
-	private Sound soundNormalBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_normal_bombe.wav"));
-	private Sound soundPop = Gdx.audio.newSound(Gdx.files.internal("sound/sound_pop.wav"));
-	private Sound soundPutBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_put_bombe.wav"));
-	private Sound soundTake_object = Gdx.audio.newSound(Gdx.files.internal("sound/sound_take_object.wav"));
-	private Sound soundTeleporter = Gdx.audio.newSound(Gdx.files.internal("sound/sound_teleporter.wav"));
-	private Sound soundTuberculoz = Gdx.audio.newSound(Gdx.files.internal("sound/sound_tuberculoz.wav"));
+	private Sound soundBlackBombe;
+	private Sound soundBlueBombe;
+	private Sound soundChangeType;
+	private Sound soundCristal;
+	private Sound soundDead;
+	private Sound soundGreenBombe;
+	private Sound soundHurryUp;
+	private Sound soundIgorFall;
+	private Sound soundIgorJump;
+	private Sound soundKickBombe;
+	private Sound soundKillEnnemis;
+	private Sound soundLetterEffectObject;
+	private Sound soundNextLevel;
+	private Sound soundNormalBombe;
+	private Sound soundPop;
+	private Sound soundPutBombe;
+	private Sound soundTake_object;
+	private Sound soundTeleporter;
+	private Sound soundTuberculoz;
 
-	public static SoundService getInstance() {
-		return INSTANCE;
+	public SoundService() {
+		Gdx.app.log("SoundService", "Init");
+		/*******************
+		 * --- musique ---
+		 *******************/
+		boss2 = Gdx.audio.newMusic(Gdx.files.internal("music/music_boss_v2.3.mp3"));
+		boss = Gdx.audio.newMusic(Gdx.files.internal("music/music_boss.mp3"));
+		hurryUp = Gdx.audio.newMusic(Gdx.files.internal("music/music_hurry_up.mp3"));
+		lostTrack = Gdx.audio.newMusic(Gdx.files.internal("music/music_lost_track.mp3"));
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/music_music.mp3"));
+		/*******************
+		 * --- son ---
+		 *******************/
+		soundBlackBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_black_bombe.wav"));
+		soundBlueBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_blue_bombe.wav"));
+		soundChangeType = Gdx.audio.newSound(Gdx.files.internal("sound/sound_change_type.wav"));
+		soundCristal = Gdx.audio.newSound(Gdx.files.internal("sound/sound_cristal.wav"));
+		soundDead = Gdx.audio.newSound(Gdx.files.internal("sound/sound_dead.wav"));
+		soundGreenBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_green_bombe.wav"));
+		soundHurryUp = Gdx.audio.newSound(Gdx.files.internal("sound/sound_hurry_up.wav"));
+		soundIgorFall = Gdx.audio.newSound(Gdx.files.internal("sound/sound_igor_fall.wav"));
+		soundIgorJump = Gdx.audio.newSound(Gdx.files.internal("sound/sound_igor_jump.wav"));
+		soundKickBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_kick_bombe.wav"));
+		soundKillEnnemis = Gdx.audio.newSound(Gdx.files.internal("sound/sound_kill_ennemis.wav"));
+		soundLetterEffectObject = Gdx.audio.newSound(Gdx.files.internal("sound/sound_letter_effect_object.wav"));
+		soundNextLevel = Gdx.audio.newSound(Gdx.files.internal("sound/sound_next_level.wav"));
+		soundNormalBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_normal_bombe.wav"));
+		soundPop = Gdx.audio.newSound(Gdx.files.internal("sound/sound_pop.wav"));
+		soundPutBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_put_bombe.wav"));
+		soundTake_object = Gdx.audio.newSound(Gdx.files.internal("sound/sound_take_object.wav"));
+		soundTeleporter = Gdx.audio.newSound(Gdx.files.internal("sound/sound_teleporter.wav"));
+		soundTuberculoz = Gdx.audio.newSound(Gdx.files.internal("sound/sound_tuberculoz.wav"));
 	}
 
 	/*******************

@@ -24,45 +24,64 @@ import com.mygdx.service.dto.sprite.SpriteFileContent;
 public class SpriteService {
 
 	private static SpriteService INSTANCE = new SpriteService();
+	
 	private Map<String, TextureRegion[]> sprites;
-
-	/************************
-	 * --- JSON ---
-	 ************************/
-	private FileHandle spriteJsonFile = Gdx.files.internal("json/sprite.json");
+	private FileHandle spriteJsonFile;
 	private final ObjectMapper objectMapper;
-
+	
 	/************************
 	 * --- Texture ---
 	 ************************/
-	private Texture spriteAnimation = new Texture(Gdx.files.internal("sprite/sprite_animation.png"));
-	private Texture spriteArrow = new Texture(Gdx.files.internal("sprite/sprite_arrow.png"));
-	private Texture spriteBackgroundEffect = new Texture(Gdx.files.internal("sprite/sprite_background_effect.png"));
-	private Texture spriteBigCrystal = new Texture(Gdx.files.internal("sprite/sprite_big_crystal.png"));
-	private Texture spriteBombe = new Texture(Gdx.files.internal("sprite/sprite_bombe.png"));
-	private Texture spriteEnnemies = new Texture(Gdx.files.internal("sprite/sprite_ennemies.png"));
-	private Texture spriteFlag = new Texture(Gdx.files.internal("sprite/sprite_flag.png"));
-	private Texture spriteLevel = new Texture(Gdx.files.internal("sprite/sprite_level.png"));
-	private Texture spriteLight = new Texture(Gdx.files.internal("sprite/sprite_light.png"));
-	private Texture spriteMap = new Texture(Gdx.files.internal("sprite/sprite_map.png"));
-	private Texture spriteMenu = new Texture(Gdx.files.internal("sprite/sprite_menu.png"));
-	private Texture spriteMessage = new Texture(Gdx.files.internal("sprite/sprite_message.png"));
-	private Texture spriteObjets = new Texture(Gdx.files.internal("sprite/sprite_objets.png"));
-	private Texture spritePlayer = new Texture(Gdx.files.internal("sprite/sprite_player.png"));
-	private Texture spriteRayonTeleporter = new Texture(Gdx.files.internal("sprite/sprite_rayon_teleporter.png"));
-	private Texture spriteShadow = new Texture(Gdx.files.internal("sprite/sprite_shadow.png"));
+	private Texture spriteAnimation;
+	private Texture spriteArrow;
+	private Texture spriteBackgroundEffect;
+	private Texture spriteBigCrystal;
+	private Texture spriteBombe;
+	private Texture spriteEnnemies;
+	private Texture spriteFlag;
+	private Texture spriteLevel;
+	private Texture spriteLight;
+	private Texture spriteMap;
+	private Texture spriteMenu;
+	private Texture spriteMessage;
+	private Texture spriteObjets;
+	private Texture spritePlayer;
+	private Texture spriteRayonTeleporter;
+	private Texture spriteShadow;
 
 	public static SpriteService getInstance() {
 		return INSTANCE;
 	}
 
 	public SpriteService() {
-		int nbSprite = 0;
+		Gdx.app.log("SpriteService", "Init");
+		
+		spriteAnimation = new Texture(Gdx.files.internal("sprite/sprite_animation.png"));
+		spriteArrow = new Texture(Gdx.files.internal("sprite/sprite_arrow.png"));
+		spriteBackgroundEffect = new Texture(Gdx.files.internal("sprite/sprite_background_effect.png"));
+		spriteBigCrystal = new Texture(Gdx.files.internal("sprite/sprite_big_crystal.png"));
+		spriteBombe = new Texture(Gdx.files.internal("sprite/sprite_bombe.png"));
+		spriteEnnemies = new Texture(Gdx.files.internal("sprite/sprite_ennemies.png"));
+		spriteFlag = new Texture(Gdx.files.internal("sprite/sprite_flag.png"));
+		spriteLevel = new Texture(Gdx.files.internal("sprite/sprite_level.png"));
+		spriteLight = new Texture(Gdx.files.internal("sprite/sprite_light.png"));
+		spriteMap = new Texture(Gdx.files.internal("sprite/sprite_map.png"));
+		spriteMenu = new Texture(Gdx.files.internal("sprite/sprite_menu.png"));
+		spriteMessage = new Texture(Gdx.files.internal("sprite/sprite_message.png"));
+		spriteObjets = new Texture(Gdx.files.internal("sprite/sprite_objets.png"));
+		spritePlayer = new Texture(Gdx.files.internal("sprite/sprite_player.png"));
+		spriteRayonTeleporter = new Texture(Gdx.files.internal("sprite/sprite_rayon_teleporter.png"));
+		spriteShadow = new Texture(Gdx.files.internal("sprite/sprite_shadow.png"));
+		
+		spriteJsonFile = Gdx.files.internal("json/sprite.json");
 		sprites = new HashMap<>();
-		SpriteFileContent spriteFileContent = null;
 		this.objectMapper = new ObjectMapper();
+		
+		int nbSprite = 0;
+		SpriteFileContent spriteFileContent = null;
+		
 		try {
-			spriteFileContent = objectMapper.readValue(spriteJsonFile.file(), SpriteFileContent.class);
+			spriteFileContent = objectMapper.readValue(spriteJsonFile.read(), SpriteFileContent.class);
 		} catch (JsonParseException e) {
 			Gdx.app.error("LevelService", "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
@@ -78,7 +97,6 @@ public class SpriteService {
 				int idx = 0;
 				String animation = sprite.getAnimation();
 				TextureRegion[] regions = new TextureRegion[sprite.getN()];
-				Gdx.app.log("SpriteService", "Loaded animation : " + animation + ", n :" + sprite.getN());
 				for (int l = 0; l < sprite.getNy(); l++) {
 					for (int k = 0; k < sprite.getNx(); k++) {
 						regions[idx] = new TextureRegion(texture, sprite.getX() + (k * sprite.getSx()),

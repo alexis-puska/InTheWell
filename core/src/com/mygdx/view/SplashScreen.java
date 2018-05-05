@@ -19,7 +19,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectionLangScreen(game));
 		}

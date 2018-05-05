@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.mygdx.constante.Constante;
 import com.mygdx.game.InTheWellGame;
-import com.mygdx.service.ConfigurationContext;
 import com.mygdx.service.MessageService;
 import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
@@ -24,10 +24,12 @@ public class SelectAccountScreen implements Screen {
 	final InTheWellGame game;
 	private BitmapFont font;
 	private GlyphLayout layout;
+	private int indexAccount;
 
 	public SelectAccountScreen(final InTheWellGame game) {
 		this.game = game;
 		this.layout = new GlyphLayout();
+		this.indexAccount = 0;
 		initFont();
 	}
 
@@ -65,28 +67,29 @@ public class SelectAccountScreen implements Screen {
 			TextureRegion menuPlayerTextureRegion = SpriteService.getInstance().getTexture("menu_player", i);
 			game.getBatch().draw(menuPlayerTextureRegion, 67,
 					DrawUtils.invert(147 + (90 * i), menuPlayerTextureRegion));
-			if (i == ConfigurationContext.getIndexAccount()) {
+			if (i != indexAccount) {
 				TextureRegion menuIceTextureRegion = SpriteService.getInstance().getTexture("menu_ice", 0);
 				game.getBatch().draw(menuIceTextureRegion, 60, DrawUtils.invert(140 + (90 * i), menuIceTextureRegion));
 			}
 		}
-		layout.setText(font, MessageService.getMessage("menu.save.title1"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.title1"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
-		layout.setText(font, MessageService.getMessage("menu.save.title2"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.title2"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(60));
-		layout.setText(font, MessageService.getMessage("menu.save.name1"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name1"));
 		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(167));
-		layout.setText(font, MessageService.getMessage("menu.save.name2"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name2"));
 		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(257));
-		layout.setText(font, MessageService.getMessage("menu.save.name3"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name3"));
 		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(347));
-		layout.setText(font, MessageService.getMessage("menu.save.name4"));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name4"));
 		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(437));
 		game.getBatch().end();
 	}
 
 	public void treatInput() {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+			game.getAccountService().loadAccount(indexAccount);
 			game.getScreen().dispose();
 			game.setScreen(new MainScreen(game));
 		}
@@ -95,10 +98,14 @@ public class SelectAccountScreen implements Screen {
 			game.setScreen(new SelectionLangScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-			ConfigurationContext.decIndexAccount();
+			if (indexAccount > 0) {
+				indexAccount--;
+			}
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-			ConfigurationContext.incIndexAccount();
+			if (indexAccount < Constante.NB_SAVE_PER_FILE - 1) {
+				indexAccount++;
+			}
 		}
 	}
 
