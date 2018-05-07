@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.MessageService;
 import com.mygdx.service.SpriteService;
@@ -22,12 +23,10 @@ public class SelectModeScreen implements Screen {
 	final InTheWellGame game;
 	private BitmapFont font;
 	private GlyphLayout layout;
-	private int cursorPosition;
 
 	public SelectModeScreen(final InTheWellGame game) {
 		this.game = game;
 		this.layout = new GlyphLayout();
-		this.cursorPosition = 0;
 		initFont();
 	}
 
@@ -61,53 +60,118 @@ public class SelectModeScreen implements Screen {
 		treatInput();
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.mode.title"));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
 
-		for (int i = 0; i < 3; i++) {
-			TextureRegion flagTextureRegion = SpriteService.getInstance().getTexture("menu_game", i);
-			game.getBatch().draw(flagTextureRegion, 127, DrawUtils.invert(147 + (90 * i), flagTextureRegion));
+		// DRAW ICON
+		for (int i = 0; i < 5; i++) {
+			TextureRegion gameModeIcon = SpriteService.getInstance().getTexture("menu_game_option", i);
+			game.getBatch().draw(gameModeIcon, 107, DrawUtils.invert(147 + (60 * i), gameModeIcon));
 		}
 
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.play"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(167));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.fridge"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(257));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.quests"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(347));
+		// DRAW TEXT MODE
+		layout.setText(font, MessageService.getInstance().getMessage("menu.mode.solo"));
+		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(147));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.tutorial"));
+		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(207));
+		if (game.getAccountService().getAvailableMode().contains(GameModeEnum.TIME_ATTACK)) {
+			layout.setText(font, MessageService.getInstance().getMessage("menu.main.timeAttack"));
+		} else {
+			layout.setText(font, MessageService.getInstance().getMessage("noTranslation"));
+		}
+		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(267));
 
+		if (game.getAccountService().getAvailableMode().contains(GameModeEnum.MULTI_COOPERATIF)) {
+			layout.setText(font, MessageService.getInstance().getMessage("menu.main.multi"));
+		} else {
+			layout.setText(font, MessageService.getInstance().getMessage("noTranslation"));
+		}
+		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(327));
+		layout.setText(font, MessageService.getInstance().getMessage("menu.main.soccer"));
+		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(387));
+
+		// DRAW CURSOE
+		int offset = 0;
+		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+			offset = 0;
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {
+			offset = 1;
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TIME_ATTACK) {
+			offset = 2;
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
+			offset = 3;
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOCCERFEST) {
+			offset = 4;
+		}
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		switch (cursorPosition) {
-		case 0:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(167, cursorTextureRegion));
-			break;
-		case 1:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(257, cursorTextureRegion));
-			break;
-		case 2:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(347, cursorTextureRegion));
-			break;
-		}
+		game.getBatch().draw(cursorTextureRegion, 75, DrawUtils.invert(147 + offset * 60, cursorTextureRegion));
 		game.getBatch().end();
 	}
 
 	public void treatInput() {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			game.getScreen().dispose();
-			game.setScreen(new SelectOptionScreen(game));
+			if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+				game.getAccountService().resetGameOptionSelected();
+				game.setScreen(new SelectOptionSoloScreen(game));
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {
+				game.getAccountService().resetGameOptionSelected();
+				game.setScreen(new SelectOptionTutorialScreen(game));
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TIME_ATTACK) {
+				game.getAccountService().resetGameOptionSelected();
+				game.setScreen(new SelectOptionTimeAttackScreen(game));
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
+				game.getAccountService().resetGameOptionSelected();
+				game.setScreen(new SelectOptionMultiScreen(game));
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOCCERFEST) {
+				game.getAccountService().resetGameOptionSelected();
+				game.setScreen(new SelectOptionSoccerFestScreen(game));
+			}
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
 			game.getScreen().dispose();
 			game.setScreen(new MainScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
+			if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {
+				game.getAccountService().setGameModeSelected(GameModeEnum.SOLO);
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TIME_ATTACK) {
+				game.getAccountService().setGameModeSelected(GameModeEnum.TUTORIAL);
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
+				if (game.getAccountService().getAvailableMode().contains(GameModeEnum.TIME_ATTACK)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.TIME_ATTACK);
+				} else {
+					game.getAccountService().setGameModeSelected(GameModeEnum.TUTORIAL);
+				}
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOCCERFEST) {
+				if (game.getAccountService().getAvailableMode().contains(GameModeEnum.MULTI_COOPERATIF)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.MULTI_COOPERATIF);
+				} else if (game.getAccountService().getAvailableMode().contains(GameModeEnum.TIME_ATTACK)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.TIME_ATTACK);
+				} else {
+					game.getAccountService().setGameModeSelected(GameModeEnum.TUTORIAL);
+				}
 			}
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-			if (cursorPosition < 2) {
-				cursorPosition++;
+			if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+				game.getAccountService().setGameModeSelected(GameModeEnum.TUTORIAL);
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {
+				if (game.getAccountService().getAvailableMode().contains(GameModeEnum.TIME_ATTACK)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.TIME_ATTACK);
+				} else if (game.getAccountService().getAvailableMode().contains(GameModeEnum.MULTI_COOPERATIF)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.MULTI_COOPERATIF);
+				} else {
+					game.getAccountService().setGameModeSelected(GameModeEnum.SOCCERFEST);
+				}
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TIME_ATTACK) {
+				if (game.getAccountService().getAvailableMode().contains(GameModeEnum.MULTI_COOPERATIF)) {
+					game.getAccountService().setGameModeSelected(GameModeEnum.MULTI_COOPERATIF);
+				} else {
+					game.getAccountService().setGameModeSelected(GameModeEnum.SOCCERFEST);
+				}
+			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
+				game.getAccountService().setGameModeSelected(GameModeEnum.SOCCERFEST);
 			}
 		}
 	}

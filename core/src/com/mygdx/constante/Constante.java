@@ -1,6 +1,9 @@
 package com.mygdx.constante;
 
 public class Constante {
+
+	public static final boolean DEBUG = false;
+
 	public static final int SCREEN_SIZE_X = 420;
 	public static final int SCREEN_SIZE_Y = 520;
 	public static final int NB_ITEM_FRIDGE = 354;
@@ -15,7 +18,8 @@ public class Constante {
 	public static final int PROBA_COEF5 = 3410;
 	public static final int PROBA_COEF6 = 3411;
 	public static final int PROBA_COEF7 = 3471;
-	
+
+	public static final int NB_QUEST = 75;
 	public static final int NB_LIFE_DEFAULT = 2;
 	public static final int NB_LIGHT_DEFAULT = 2;
 }

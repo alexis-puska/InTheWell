@@ -6,11 +6,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.MessageService;
-import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
 
 /**
@@ -18,13 +16,14 @@ import com.mygdx.utils.DrawUtils;
  * 
  * @author alexispuskarczyk
  */
-public class SelectOptionScreen implements Screen {
+public class SelectOptionTimeAttackScreen implements Screen {
 	final InTheWellGame game;
-	private BitmapFont font;
+	private BitmapFont fontWhite;
+	private BitmapFont fontRed;
 	private GlyphLayout layout;
 	private int cursorPosition;
 
-	public SelectOptionScreen(final InTheWellGame game) {
+	public SelectOptionTimeAttackScreen(final InTheWellGame game) {
 		this.game = game;
 		this.layout = new GlyphLayout();
 		this.cursorPosition = 0;
@@ -33,7 +32,8 @@ public class SelectOptionScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		font.dispose();
+		fontWhite.dispose();
+		fontRed.dispose();
 	}
 
 	@Override
@@ -61,33 +61,16 @@ public class SelectOptionScreen implements Screen {
 		treatInput();
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
+		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.timeAttack.title"));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
 
-		for (int i = 0; i < 3; i++) {
-			TextureRegion flagTextureRegion = SpriteService.getInstance().getTexture("menu_game", i);
-			game.getBatch().draw(flagTextureRegion, 127, DrawUtils.invert(147 + (90 * i), flagTextureRegion));
-		}
+		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.timeAttack.description1"));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(70));
+		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.timeAttack.description2"));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(85));
+		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.timeAttack.description3"));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(100));
 
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.play"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(167));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.fridge"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(257));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.quests"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(347));
-
-		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		switch (cursorPosition) {
-		case 0:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(167, cursorTextureRegion));
-			break;
-		case 1:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(257, cursorTextureRegion));
-			break;
-		case 2:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(347, cursorTextureRegion));
-			break;
-		}
 		game.getBatch().end();
 	}
 
@@ -119,7 +102,12 @@ public class SelectOptionScreen implements Screen {
 		parameter.borderWidth = 0.5f;
 		parameter.borderColor = new Color(255, 0, 0, 255);
 		parameter.color = new Color(255, 0, 0, 255);
-		font = generator.generateFont(parameter);
+		fontRed = generator.generateFont(parameter);
+		parameter.size = 10;
+		parameter.borderWidth = 0.1f;
+		parameter.borderColor = new Color(255, 255, 255, 255);
+		parameter.color = new Color(255, 255, 255, 255);
+		fontWhite = generator.generateFont(parameter);
 		generator.dispose();
 
 	}

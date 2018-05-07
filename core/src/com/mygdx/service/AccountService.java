@@ -23,6 +23,7 @@ import com.mygdx.constante.Constante;
 import com.mygdx.enumeration.GameKeyEnum;
 import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.GameOptionEnum;
+import com.mygdx.enumeration.GameSoccerMapEnum;
 import com.mygdx.service.dto.database.DatabaseDTO;
 import com.mygdx.service.dto.database.FamilyDTO;
 import com.mygdx.service.dto.database.ItemDTO;
@@ -34,7 +35,7 @@ public class AccountService {
 	private final ObjectMapper objectMapper;
 
 	/***********
-	 * account
+	 * ACCOUNT
 	 **********/
 	private int accountId;
 	private long nbGame;
@@ -50,7 +51,14 @@ public class AccountService {
 	private int light;
 
 	/***********
-	 * Database
+	 * PARAMETER
+	 ***********/
+	private GameModeEnum gameModeSelected;
+	private List<GameOptionEnum> gameOptionSelected;
+	private GameSoccerMapEnum gameSoccerMapSelected;
+
+	/***********
+	 * DATABASE
 	 ***********/
 
 	DatabaseDTO database;
@@ -116,6 +124,9 @@ public class AccountService {
 		}
 		this.life = 2;
 		this.light = 0;
+		this.gameModeSelected = GameModeEnum.SOLO;
+		this.gameOptionSelected = new ArrayList<>();
+		this.gameSoccerMapSelected = GameSoccerMapEnum.GAZON_MAUDIT;
 		loadDatabase();
 	}
 
@@ -295,7 +306,9 @@ public class AccountService {
 		 ********************/
 
 		for (QuestDTO quest : database.getQuests()) {
-			Gdx.app.log("AccountService", "validation quete : " + quest.getId());
+			if (Constante.DEBUG) {
+				Gdx.app.log("AccountService", "validation quete : " + quest.getId());
+			}
 
 			boolean valide = true;
 			boolean started = false;
@@ -326,10 +339,6 @@ public class AccountService {
 
 		}
 		familyAvailable.removeAll(familyToRemove);
-		Gdx.app.log("AccountService", "FAMILLE DISPONIBLE");
-		for (Integer i : familyAvailable) {
-			Gdx.app.log("AccountService", database.getFamilys().get(i).getName().getFr());
-		}
 
 		/**************************
 		 * fill available object with unlocked familly
@@ -394,105 +403,122 @@ public class AccountService {
 			}
 		}
 
-		Gdx.app.log("AccountService", "base item load");
-		Gdx.app.log("AccountService", "base available point 7");
-		String tmp = "";
-		for (int i : availableItemPoint7) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 6");
-		tmp = "";
-		for (int i : availableItemPoint6) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 5");
-		tmp = "";
-		for (int i : availableItemPoint5) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 4");
-		tmp = "";
-		for (int i : availableItemPoint4) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 3");
-		tmp = "";
-		for (int i : availableItemPoint3) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 2");
-		tmp = "";
-		for (int i : availableItemPoint2) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 1");
-		tmp = "";
-		for (int i : availableItemPoint1) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available point 0");
-		tmp = "";
-		for (int i : availableItemPoint0) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 6");
-		tmp = "";
-		for (int i : availableItemEffect6) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 5");
-		tmp = "";
+		if (Constante.DEBUG) {
+			Gdx.app.log("AccountService", "FAMILLE DISPONIBLE");
+			for (Integer i : familyAvailable) {
+				Gdx.app.log("AccountService", database.getFamilys().get(i).getName().getFr());
+			}
 
-		for (int i : availableItemEffect5) {
-			tmp += i + " ";
+			Gdx.app.log("AccountService", "QUEST STARTED DISPONIBLE");
+			for (QuestDTO q : questStarted.values()) {
+				Gdx.app.log("AccountService", q.getTitre().getFr() + " " + q.getId());
+			}
+
+			Gdx.app.log("AccountService", "QUEST COMPLETE DISPONIBLE");
+			for (QuestDTO q : questCompleted.values()) {
+				Gdx.app.log("AccountService", q.getTitre().getFr() + " " + q.getId());
+			}
+
+			Gdx.app.log("AccountService", "base item load");
+			Gdx.app.log("AccountService", "base available point 7");
+			String tmp = "";
+			for (int i : availableItemPoint7) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 6");
+			tmp = "";
+			for (int i : availableItemPoint6) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 5");
+			tmp = "";
+			for (int i : availableItemPoint5) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 4");
+			tmp = "";
+			for (int i : availableItemPoint4) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 3");
+			tmp = "";
+			for (int i : availableItemPoint3) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 2");
+			tmp = "";
+			for (int i : availableItemPoint2) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 1");
+			tmp = "";
+			for (int i : availableItemPoint1) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available point 0");
+			tmp = "";
+			for (int i : availableItemPoint0) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 6");
+			tmp = "";
+			for (int i : availableItemEffect6) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 5");
+			tmp = "";
+
+			for (int i : availableItemEffect5) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 4");
+			tmp = "";
+
+			for (int i : availableItemEffect4) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 3");
+			tmp = "";
+
+			for (int i : availableItemEffect3) {
+				tmp += i + " ";
+			}
+
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 2");
+			tmp = "";
+
+			for (int i : availableItemEffect2) {
+				tmp += i + " ";
+			}
+
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 1");
+			tmp = "";
+
+			for (int i : availableItemEffect1) {
+				tmp += i + " ";
+			}
+
+			Gdx.app.log("AccountService", tmp);
+			Gdx.app.log("AccountService", "base available effect 0");
+			tmp = "";
+			for (int i : availableItemEffect0) {
+				tmp += i + " ";
+			}
+			Gdx.app.log("AccountService", tmp);
 		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 4");
-		tmp = "";
-
-		for (int i : availableItemEffect4) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 3");
-		tmp = "";
-
-		for (int i : availableItemEffect3) {
-			tmp += i + " ";
-		}
-
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 2");
-		tmp = "";
-
-		for (int i : availableItemEffect2) {
-			tmp += i + " ";
-		}
-
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 1");
-		tmp = "";
-
-		for (int i : availableItemEffect1) {
-			tmp += i + " ";
-		}
-
-		Gdx.app.log("AccountService", tmp);
-		Gdx.app.log("AccountService", "base available effect 0");
-		tmp = "";
-		for (int i : availableItemEffect0) {
-			tmp += i + " ";
-		}
-		Gdx.app.log("AccountService", tmp);
 	}
 
 	/**
@@ -518,6 +544,58 @@ public class AccountService {
 		if (quest.isLight()) {
 			this.light++;
 		}
+	}
+
+	public long getFridgeQuantity(int id) {
+		return this.fridge[id];
+	}
+
+	public String getItemName(int id) {
+		switch (Context.getLocale()) {
+		case ENGLISH:
+			return this.database.getItems().get(id).getName().getEn();
+		case FRENCH:
+			return this.database.getItems().get(id).getName().getFr();
+		case SPANISH:
+			return this.database.getItems().get(id).getName().getEs();
+		}
+		return "";
+	}
+
+	public String getQuestName(int id) {
+		switch (Context.getLocale()) {
+		case ENGLISH:
+			return this.database.getQuests().get(id).getTitre().getEn();
+		case FRENCH:
+			return this.database.getQuests().get(id).getTitre().getFr();
+		case SPANISH:
+			return this.database.getQuests().get(id).getTitre().getEs();
+		}
+		return "";
+	}
+
+	public String getQuestDescription(int id) {
+		switch (Context.getLocale()) {
+		case ENGLISH:
+			return this.database.getQuests().get(id).getDescription().getEn();
+		case FRENCH:
+			return this.database.getQuests().get(id).getDescription().getFr();
+		case SPANISH:
+			return this.database.getQuests().get(id).getDescription().getEs();
+		}
+		return "";
+	}
+
+	public Map<Integer, QuestDTO> getQuestStarted() {
+		return questStarted;
+	}
+
+	public Map<Integer, QuestDTO> getQuestCompleted() {
+		return questCompleted;
+	}
+
+	public QuestDTO getQuestDTO(int index) {
+		return database.getQuests().get(index);
 	}
 
 	/********************
@@ -704,19 +782,47 @@ void ItemFileSystem::simulateGame()
 		return this.light;
 	}
 
-	public long getFridgeQuantity(int id) {
-		return this.fridge[id];
+	/**************************************************
+	 * --- CONFIGURATION ---
+	 **************************************************/
+	public List<GameOptionEnum> getAvailableOption() {
+		return availableOption;
 	}
 
-	public String getItemName(int id) {
-		switch (Context.getLocale()) {
-		case ENGLISH:
-			return this.database.getItems().get(id).getName().getEn();
-		case FRENCH:
-			return this.database.getItems().get(id).getName().getFr();
-		case SPANISH:
-			return this.database.getItems().get(id).getName().getEs();
-		}
-		return "";
+	public List<GameModeEnum> getAvailableMode() {
+		return availableMode;
 	}
+	
+	public GameModeEnum getGameModeSelected() {
+		return gameModeSelected;
+	}
+
+	public void setGameModeSelected(GameModeEnum gameModeSelected) {
+		this.gameModeSelected = gameModeSelected;
+	}
+
+	public List<GameOptionEnum> getGameOptionSelected() {
+		return gameOptionSelected;
+	}
+
+	public void addGameOptionSelected(GameOptionEnum gameOptionSelected) {
+		this.gameOptionSelected.add(gameOptionSelected);
+	}
+
+	public void removeGameOptionSelected(GameOptionEnum gameOptionSelected) {
+		this.gameOptionSelected.remove(gameOptionSelected);
+	}
+
+	public void resetGameOptionSelected() {
+		this.gameOptionSelected.clear();
+	}
+	
+	public GameSoccerMapEnum getGameSoccerMapSelected() {
+		return gameSoccerMapSelected;
+	}
+
+	public void setGameSoccerMapSelected(GameSoccerMapEnum gameSoccerMapSelected) {
+		this.gameSoccerMapSelected = gameSoccerMapSelected;
+	}
+
 }

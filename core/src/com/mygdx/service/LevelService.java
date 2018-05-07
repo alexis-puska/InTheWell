@@ -32,6 +32,7 @@ public class LevelService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
+		Gdx.app.log("LevelService", "Nb level loaded : " + levelFile.getType().get(0).getLevel().size());
 
 	}
 

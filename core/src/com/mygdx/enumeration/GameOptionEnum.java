@@ -10,5 +10,6 @@ public enum GameOptionEnum {
 	PARTAGE_VIE,
 	NINJA,
 	BOMB_EXPERT,
+	TORNADE,
 	SET_TA_0;
 }
