@@ -20,20 +20,24 @@ import com.mygdx.utils.DrawUtils;
  */
 public class FridgeScreen implements Screen {
 	final InTheWellGame game;
-	private BitmapFont font;
+	private BitmapFont fontRed;
+	private BitmapFont fontWhite;
 	private GlyphLayout layout;
-	private int cursorPosition;
+	private int idItemSelected;
+	private int idFirstItemDraw;
 
 	public FridgeScreen(final InTheWellGame game) {
 		this.game = game;
 		this.layout = new GlyphLayout();
-		this.cursorPosition = 0;
+		this.idItemSelected = 0;
+		this.idFirstItemDraw = 0;
 		initFont();
 	}
 
 	@Override
 	public void dispose() {
-		font.dispose();
+		fontRed.dispose();
+		fontWhite.dispose();
 	}
 
 	@Override
@@ -61,49 +65,80 @@ public class FridgeScreen implements Screen {
 		treatInput();
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
+		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.fridge.title"));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(10));
 
-		for (int i = 0; i < 3; i++) {
-			TextureRegion flagTextureRegion = SpriteService.getInstance().getTexture("menu_game", i);
-			game.getBatch().draw(flagTextureRegion, 127, DrawUtils.invert(147 + (90 * i), flagTextureRegion));
+		if (idItemSelected < idFirstItemDraw) {
+			idFirstItemDraw = idItemSelected - (idItemSelected % 6);
+		} else if (idItemSelected > (idFirstItemDraw + 41)) {
+			idFirstItemDraw = idItemSelected - (idItemSelected % 6) - 36;
+		}
+		int index = idFirstItemDraw;
+		for (int y = 0; y < 7; y++) {
+			for (int x = 0; x < 6; x++) {
+				if (index > 352) {
+					break;
+				}
+				long qty = game.getAccountService().getFridgeQuantity(index);
+				if (qty > 0) {
+					TextureRegion tmp = SpriteService.getInstance().getTexture("objects", index);
+					game.getBatch().draw(tmp, 10 + (x * 63), DrawUtils.invert(10 + (61 * y), tmp));
+				} else {
+					TextureRegion tmp = SpriteService.getInstance().getTexture("objects", 353);
+					game.getBatch().draw(tmp, 10 + (x * 63), DrawUtils.invert(10 + (61 * y), tmp));
+				}
+				layout.setText(fontWhite, "" + qty);
+				fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+				index++;
+			}
+		}
+		// draw item name
+		if (game.getAccountService().getFridgeQuantity(idItemSelected) > 0) {
+			layout.setText(fontWhite, game.getAccountService().getItemName(idItemSelected));
+			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
+		} else {
+			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
+			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
 		}
 
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.play"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(167));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.fridge"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(257));
-		layout.setText(font, MessageService.getInstance().getMessage("menu.main.quests"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(347));
-
+		// draw item position
+		layout.setText(fontWhite, idItemSelected + 1 + " / 353");
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(480));
+		// draw cursor
+		int pos = idItemSelected - idFirstItemDraw;
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		switch (cursorPosition) {
-		case 0:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(167, cursorTextureRegion));
-			break;
-		case 1:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(257, cursorTextureRegion));
-			break;
-		case 2:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(347, cursorTextureRegion));
-			break;
-		}
+		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63,
+				DrawUtils.invert(50 + (int) (Math.floor(pos / 6)) * 61, cursorTextureRegion));
 		game.getBatch().end();
 	}
 
 	public void treatInput() {
 		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
-			game.getScreen().dispose();
-			game.setScreen(new MainScreen(game));
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
-			}
+			this.game.setScreen(new MainScreen(game));
 		}
 		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
-			if (cursorPosition < 2) {
-				cursorPosition++;
+			idItemSelected += 6;
+			if (idItemSelected > 352) {
+				idItemSelected = 352;
+			}
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+			idItemSelected -= 6;
+			if (idItemSelected < 0) {
+				idItemSelected = 0;
+			}
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+			idItemSelected--;
+			if (idItemSelected < 0) {
+				idItemSelected = 0;
+
+			}
+		}
+		if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+			idItemSelected++;
+			if (idItemSelected > 352) {
+				idItemSelected = 352;
 			}
 		}
 	}
@@ -111,11 +146,16 @@ public class FridgeScreen implements Screen {
 	public void initFont() {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 20;
-		parameter.borderWidth = 0.5f;
+		parameter.size = 10;
+		parameter.borderWidth = 0.2f;
+		parameter.borderColor = new Color(255, 255, 255, 255);
+		parameter.color = new Color(255, 255, 255, 255);
+		fontWhite = generator.generateFont(parameter);
+		parameter.size = 10;
+		parameter.borderWidth = 0.2f;
 		parameter.borderColor = new Color(255, 0, 0, 255);
 		parameter.color = new Color(255, 0, 0, 255);
-		font = generator.generateFont(parameter);
+		fontRed = generator.generateFont(parameter);
 		generator.dispose();
 	}
 }

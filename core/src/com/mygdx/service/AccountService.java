@@ -86,6 +86,9 @@ public class AccountService {
 
 		questStarted = new HashMap<>();
 		questCompleted = new HashMap<>();
+		availableOption = new ArrayList<>();
+		availableMode = new ArrayList<>();
+		availableKey = new ArrayList<>();
 		availableItemEffect0 = new ArrayList<>();
 		availableItemEffect1 = new ArrayList<>();
 		availableItemEffect2 = new ArrayList<>();
@@ -188,7 +191,7 @@ public class AccountService {
 		this.accountId = accountId;
 		this.fridge = new long[Constante.NB_ITEM_FRIDGE];
 		this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
-		for (int i = offset; i < (accountId * Constante.NB_ITEM_FRIDGE); i++) {
+		for (int i = offset; i < (accountId + 1 * Constante.NB_ITEM_FRIDGE); i++) {
 			fridge[i] = Long.parseLong(content.substring((i * 8), (i * 8) + 8), 16);
 		}
 		nbGame = Long.parseLong(content.substring(offset + (354 * 8), offset + (354 * 8) + 8), 16);
@@ -686,18 +689,34 @@ void ItemFileSystem::simulateGame()
 		}
 		return itemId;
 	}
-	
+
 	/**
 	 * @return nombre de vie disponible pour une partie
 	 */
 	public int getLifeForGame() {
 		return this.life;
 	}
-	
+
 	/**
 	 * @return nombre de lumière débloqué pour ce compte
 	 */
 	public int getLightForGame() {
 		return this.light;
+	}
+
+	public long getFridgeQuantity(int id) {
+		return this.fridge[id];
+	}
+
+	public String getItemName(int id) {
+		switch (Context.getLocale()) {
+		case ENGLISH:
+			return this.database.getItems().get(id).getName().getEn();
+		case FRENCH:
+			return this.database.getItems().get(id).getName().getFr();
+		case SPANISH:
+			return this.database.getItems().get(id).getName().getEs();
+		}
+		return "";
 	}
 }
