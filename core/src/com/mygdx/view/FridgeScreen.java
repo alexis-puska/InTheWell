@@ -64,16 +64,20 @@ public class FridgeScreen implements Screen {
 	public void render(float delta) {
 		treatInput();
 		game.getBatch().begin();
-		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
-		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.fridge.title"));
-		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(10));
-
+		
 		if (idItemSelected < idFirstItemDraw) {
 			idFirstItemDraw = idItemSelected - (idItemSelected % 6);
 		} else if (idItemSelected > (idFirstItemDraw + 41)) {
 			idFirstItemDraw = idItemSelected - (idItemSelected % 6) - 36;
 		}
 		int index = idFirstItemDraw;
+		
+		//DRAW TITLE
+		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
+		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.fridge.title"));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(10));
+
+		//DRAW ITEM
 		for (int y = 0; y < 7; y++) {
 			for (int x = 0; x < 6; x++) {
 				if (index > 352) {
@@ -92,7 +96,8 @@ public class FridgeScreen implements Screen {
 				index++;
 			}
 		}
-		// draw item name
+		
+		//DRAW ITEM NAME
 		if (game.getAccountService().getFridgeQuantity(idItemSelected) > 0) {
 			layout.setText(fontWhite, game.getAccountService().getItemName(idItemSelected));
 			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
@@ -101,10 +106,11 @@ public class FridgeScreen implements Screen {
 			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
 		}
 
-		// draw item position
+		// DRAW ITEM POSITON ex : X / 353
 		layout.setText(fontWhite, idItemSelected + 1 + " / 353");
 		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(480));
-		// draw cursor
+		
+		// DRAW CURSOR
 		int pos = idItemSelected - idFirstItemDraw;
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
 		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63,
@@ -147,12 +153,10 @@ public class FridgeScreen implements Screen {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 10;
-		parameter.borderWidth = 0.2f;
 		parameter.borderColor = new Color(255, 255, 255, 255);
 		parameter.color = new Color(255, 255, 255, 255);
 		fontWhite = generator.generateFont(parameter);
 		parameter.size = 10;
-		parameter.borderWidth = 0.2f;
 		parameter.borderColor = new Color(255, 0, 0, 255);
 		parameter.color = new Color(255, 0, 0, 255);
 		fontRed = generator.generateFont(parameter);
