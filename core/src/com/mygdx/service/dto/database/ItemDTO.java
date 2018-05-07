@@ -11,9 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ItemDTO {
 
-	private long id;
+	private int id;
 	private TextDTO name;
-	private long rarity;
-	private long value;
-	private long unlock;
+	private int rarity;
+	private int value;
+	private int unlock;
 }

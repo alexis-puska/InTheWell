@@ -9,5 +9,6 @@ public enum GameOptionEnum {
 	CHAUCHEMAR_MULTI,
 	PARTAGE_VIE,
 	NINJA,
-	BOMB_EXPERT;				
+	BOMB_EXPERT,
+	SET_TA_0;
 }

@@ -16,7 +16,7 @@ public class FamilyDTO implements Serializable {
 
 	private static final long serialVersionUID = -6487941132256363742L;
 
-	private long id;
+	private int id;
 	private TextDTO name;
-	private List<Long> items;
+	private List<Integer> items;
 }

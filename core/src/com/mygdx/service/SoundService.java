@@ -3,6 +3,8 @@ package com.mygdx.service;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.mygdx.enumeration.MusicEnum;
+import com.mygdx.enumeration.SoundEnum;
 
 /**
  * Play musique or a sound in game.
@@ -94,113 +96,96 @@ public class SoundService {
 		}
 	}
 
-	public void playMusicBoss2() {
+	public void playMusic(MusicEnum musicEnum) {
 		stopMusic();
-		boss2.play();
-		boss2.setLooping(true);
-	}
-
-	public void playMusicBoss() {
-		stopMusic();
-		boss.play();
-		boss.setLooping(true);
-	}
-
-	public void playMusicHurryUp() {
-		stopMusic();
-		hurryUp.play();
-		hurryUp.setLooping(true);
-	}
-
-	public void playMusicLostTrack() {
-		stopMusic();
-		lostTrack.play();
-		lostTrack.setLooping(true);
-	}
-
-	public void playMusic() {
-		stopMusic();
-		music.play();
-		music.setLooping(true);
+		switch (musicEnum) {
+		case BOSS2:
+			boss2.play();
+			boss2.setLooping(true);
+			break;
+		case BOSS:
+			boss.play();
+			boss.setLooping(true);
+			break;
+		case HAMMERFEST:
+			music.play();
+			music.setLooping(true);
+			break;
+		case HURRY_UP:
+			hurryUp.play();
+			hurryUp.setLooping(true);
+			break;
+		case LOST_TRACK:
+			lostTrack.play();
+			lostTrack.setLooping(true);
+			break;
+		}
 	}
 
 	/*******************
 	 * --- son ---
 	 *******************/
-	public void playSoundBlackBombe() {
-		soundBlackBombe.play();
-	}
 
-	public void playSoundBlueBombe() {
-		soundBlueBombe.play();
-	}
-
-	public void playSoundChangeType() {
-		soundChangeType.play();
-	}
-
-	public void playSoundCristal() {
-		soundCristal.play();
-	}
-
-	public void playSoundDead() {
-		soundDead.play();
-	}
-
-	public void playSoundGreenBombe() {
-		soundGreenBombe.play();
-	}
-
-	public void playSoundHurryUp() {
-		soundHurryUp.play();
-	}
-
-	public void playSoundIgorFall() {
-		soundIgorFall.play();
-	}
-
-	public void playSoundIgorJump() {
-		soundIgorJump.play();
-	}
-
-	public void playSoundKickBombe() {
-		soundKickBombe.play();
-	}
-
-	public void playSoundKillEnnemis() {
-		soundKillEnnemis.play();
-	}
-
-	public void playSoundLetterEffectObject() {
-		soundLetterEffectObject.play();
-	}
-
-	public void playSoundNextLevel() {
-		soundNextLevel.play();
-	}
-
-	public void playSoundNormalBombe() {
-		soundNormalBombe.play();
-	}
-
-	public void playSoundPop() {
-		soundPop.play();
-	}
-
-	public void playSoundPutBombe() {
-		soundPutBombe.play();
-	}
-
-	public void playSoundTake_object() {
-		soundTake_object.play();
-	}
-
-	public void playSoundTeleporter() {
-		soundTeleporter.play();
-	}
-
-	public void playSoundTuberculoz() {
-		soundTuberculoz.play();
+	public void playSound(SoundEnum soundEnum) {
+		switch (soundEnum) {
+		case BLACKBOMBE:
+			soundBlackBombe.play();
+			break;
+		case BLUEBOMBE:
+			soundBlueBombe.play();
+			break;
+		case CHANGETYPE:
+			soundChangeType.play();
+			break;
+		case CRISTAL:
+			soundCristal.play();
+			break;
+		case DEAD:
+			soundDead.play();
+			break;
+		case GREENBOMBE:
+			soundGreenBombe.play();
+			break;
+		case HURRYUP:
+			soundHurryUp.play();
+			break;
+		case IGORFALL:
+			soundIgorFall.play();
+			break;
+		case IGORJUMP:
+			soundIgorJump.play();
+			break;
+		case KICKBOMBE:
+			soundKickBombe.play();
+			break;
+		case KILLENNEMIS:
+			soundKillEnnemis.play();
+			break;
+		case LETTEREFFECTOBJECT:
+			soundLetterEffectObject.play();
+			break;
+		case NEXTLEVEL:
+			soundNextLevel.play();
+			break;
+		case NORMALBOMBE:
+			soundNormalBombe.play();
+			break;
+		case POP:
+			soundPop.play();
+			break;
+		case PUTBOMBE:
+			soundPutBombe.play();
+			break;
+		case TAKE_OBJECT:
+			soundTake_object.play();
+			break;
+		case TELEPORTER:
+			soundTeleporter.play();
+			break;
+		case TUBERCULOZ:
+			soundTuberculoz.play();
+			break;
+		}
 	}
 
 	@Override

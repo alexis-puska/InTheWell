@@ -12,7 +12,7 @@ public enum GameKeyEnum {
 	MONDE_ARDU(1),
 	PIQUANTE(1),
 	PASSE_TUBERULOZ(1),
-	CUAHCEMAR(1),
+	CAUCHEMAR(1),
 	PASS_PYRAMIDE(1);
 			
 	private int itemId;

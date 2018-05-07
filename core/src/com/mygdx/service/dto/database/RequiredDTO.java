@@ -15,6 +15,6 @@ public class RequiredDTO implements Serializable {
 
 	private static final long serialVersionUID = -3639705881705541803L;
 
-	private long id;
-	private long val;
+	private int id;
+	private int val;
 }

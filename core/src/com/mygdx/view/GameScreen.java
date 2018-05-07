@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.mygdx.constante.Constante;
+import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
@@ -31,7 +32,7 @@ public class GameScreen implements Screen {
 		this.shapeRenderer = new ShapeRenderer();
 		this.fb = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false); // test
 		this.game.getSoundService().stopMusic();
-		this.game.getSoundService().playMusic();
+		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
 		x = 210;
 		y = 210;
 	}

@@ -8,6 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -15,18 +20,60 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.constante.Constante;
+import com.mygdx.enumeration.GameKeyEnum;
+import com.mygdx.enumeration.GameModeEnum;
+import com.mygdx.enumeration.GameOptionEnum;
 import com.mygdx.service.dto.database.DatabaseDTO;
+import com.mygdx.service.dto.database.FamilyDTO;
+import com.mygdx.service.dto.database.ItemDTO;
+import com.mygdx.service.dto.database.QuestDTO;
+import com.mygdx.service.dto.database.RequiredDTO;
 
 public class AccountService {
 
 	private final ObjectMapper objectMapper;
 
+	/***********
+	 * account
+	 **********/
 	private int accountId;
 	private long nbGame;
 	private long score;
 	private long level;
-	private Long[] fridge;
-	private Long[] gameFridge;
+	private long[] fridge;
+	private long[] gameFridge;
+
+	private List<GameOptionEnum> availableOption;
+	private List<GameModeEnum> availableMode;
+	private List<GameKeyEnum> availableKey;
+	private int life;
+	private int light;
+
+	/***********
+	 * Database
+	 ***********/
+
+	DatabaseDTO database;
+
+	Map<Integer, QuestDTO> questStarted;
+	Map<Integer, QuestDTO> questCompleted;
+
+	List<Integer> availableItemEffect0;
+	List<Integer> availableItemEffect1;
+	List<Integer> availableItemEffect2;
+	List<Integer> availableItemEffect3;
+	List<Integer> availableItemEffect4;
+	List<Integer> availableItemEffect5;
+	List<Integer> availableItemEffect6;
+
+	List<Integer> availableItemPoint0;
+	List<Integer> availableItemPoint1;
+	List<Integer> availableItemPoint2;
+	List<Integer> availableItemPoint3;
+	List<Integer> availableItemPoint4;
+	List<Integer> availableItemPoint5;
+	List<Integer> availableItemPoint6;
+	List<Integer> availableItemPoint7;
 
 	/**
 	 * create a new empty account
@@ -36,19 +83,42 @@ public class AccountService {
 	 */
 	public AccountService() {
 		Gdx.app.log("AccountService", "Init");
+
+		questStarted = new HashMap<>();
+		questCompleted = new HashMap<>();
+		availableItemEffect0 = new ArrayList<>();
+		availableItemEffect1 = new ArrayList<>();
+		availableItemEffect2 = new ArrayList<>();
+		availableItemEffect3 = new ArrayList<>();
+		availableItemEffect4 = new ArrayList<>();
+		availableItemEffect5 = new ArrayList<>();
+		availableItemEffect6 = new ArrayList<>();
+		availableItemPoint0 = new ArrayList<>();
+		availableItemPoint1 = new ArrayList<>();
+		availableItemPoint2 = new ArrayList<>();
+		availableItemPoint3 = new ArrayList<>();
+		availableItemPoint4 = new ArrayList<>();
+		availableItemPoint5 = new ArrayList<>();
+		availableItemPoint6 = new ArrayList<>();
+		availableItemPoint7 = new ArrayList<>();
+
 		this.objectMapper = new ObjectMapper();
 		this.accountId = -1;
 		this.nbGame = 0;
 		this.score = 0;
 		this.level = 0;
-		this.fridge = new Long[Constante.NB_ITEM_FRIDGE];
+		this.fridge = new long[Constante.NB_ITEM_FRIDGE];
 		for (int i = 0; i < Constante.NB_ITEM_FRIDGE; i++) {
-			this.fridge[i] = 0l;
+			this.fridge[i] = 0;
 		}
+		this.life = 2;
+		this.light = 0;
 		loadDatabase();
 	}
 
-	/**
+	/*************************************************
+	 * ---------------- ACCOUNT PART ----------------
+	 *************************************************
 	 * return the String reprentation to write in save file
 	 * 
 	 * @return content to write
@@ -62,6 +132,26 @@ public class AccountService {
 		content += String.format("%08x", score);
 		content += String.format("%08x", level);
 		return content;
+	}
+
+	/**
+	 * Create a saving file if not exist one. Function must be called at the game
+	 * launch
+	 */
+	private void initSaveFile() {
+		Path path = Paths.get(Constante.SAVE_PATH);
+		if (!path.toFile().exists()) {
+			BufferedWriter writer;
+			try {
+				writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH));
+				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
+					writer.write(createEmptyAccountContent());
+				}
+				writer.close();
+			} catch (IOException e) {
+				Gdx.app.error("SaveService", "Init save file IOException !", e);
+			}
+		}
 	}
 
 	/**
@@ -96,14 +186,15 @@ public class AccountService {
 
 		// init value
 		this.accountId = accountId;
-		this.fridge = new Long[Constante.NB_ITEM_FRIDGE];
-		this.gameFridge = new Long[Constante.NB_ITEM_FRIDGE];
+		this.fridge = new long[Constante.NB_ITEM_FRIDGE];
+		this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
 		for (int i = offset; i < (accountId * Constante.NB_ITEM_FRIDGE); i++) {
 			fridge[i] = Long.parseLong(content.substring((i * 8), (i * 8) + 8), 16);
 		}
 		nbGame = Long.parseLong(content.substring(offset + (354 * 8), offset + (354 * 8) + 8), 16);
 		score = Long.parseLong(content.substring(offset + (355 * 8), offset + (355 * 8) + 8), 16);
 		level = Long.parseLong(content.substring(offset + (356 * 8), offset + (356 * 8) + 8), 16);
+		initAvailableItems();
 	}
 
 	/**
@@ -157,32 +248,11 @@ public class AccountService {
 		}
 	}
 
-	/**
-	 * Create a saving file if not exist one. Function must be called at the game
-	 * launch
-	 */
-	private void initSaveFile() {
-		Path path = Paths.get(Constante.SAVE_PATH);
-		if (!path.toFile().exists()) {
-			BufferedWriter writer;
-			try {
-				writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH));
-				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
-					writer.write(createEmptyAccountContent());
-				}
-				writer.close();
-			} catch (IOException e) {
-				Gdx.app.error("SaveService", "Init save file IOException !", e);
-			}
-		}
-	}
-
 	/*************************************************
 	 * ---------------- DATABASE PART ----------------
 	 *************************************************/
 	private void loadDatabase() {
 		FileHandle databaseJsonFile = Gdx.files.internal("json/database.json");
-		DatabaseDTO database = null;
 		try {
 			database = objectMapper.readValue(databaseJsonFile.read(), DatabaseDTO.class);
 		} catch (JsonParseException e) {
@@ -192,6 +262,297 @@ public class AccountService {
 		} catch (IOException e) {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
+	}
+
+	/**
+	 * Initialise les listes d'objet débloqué et récupérable en jeu pour un compte
+	 * chargé.
+	 */
+	private void initAvailableItems() {
+		List<Integer> familyAvailable = new ArrayList<>();
+		List<Integer> familyToRemove = new ArrayList<>();
+		resetAll();
+
+		familyAvailable.add(0);
+		familyAvailable.add(7);
+		familyAvailable.add(13);
+		familyAvailable.add(20);
+		familyAvailable.add(48);
+		// fridge[304]=1;
+		// fridge[308]=1;
+		// fridge[310]=1;
+		// fridge[312]=1;
+		// fridge[315]=1;
+		// diamant
+		// fridge[126]=30;
+		// fridge[118]=60;
+
+		/********************
+		 * validation quête
+		 ********************/
+
+		for (QuestDTO quest : database.getQuests()) {
+			Gdx.app.log("AccountService", "validation quete : " + quest.getId());
+
+			boolean valide = true;
+			boolean started = false;
+
+			for (RequiredDTO required : quest.getRequire()) {
+				if (fridge[required.getId()] > 0) {
+					started = true;
+				}
+				if (fridge[required.getId()] < required.getVal()) {
+					valide = false;
+					break;
+				}
+			}
+			if (valide) {
+
+				for (Integer family : quest.getFamily()) {
+					familyAvailable.add(family);
+				}
+				if (quest.getRemove() != -1) {
+					familyToRemove.add(quest.getRemove());
+				}
+				questCompleted.put(quest.getId(), quest);
+				unlockSomething(quest);
+			}
+			if (started && !valide) {
+				questStarted.put(quest.getId(), quest);
+			}
+
+		}
+		familyAvailable.removeAll(familyToRemove);
+		Gdx.app.log("AccountService", "FAMILLE DISPONIBLE");
+		for (Integer i : familyAvailable) {
+			Gdx.app.log("AccountService", database.getFamilys().get(i).getName().getFr());
+		}
+
+		/**************************
+		 * fill available object with unlocked familly
+		 **************************/
+
+		for (int familyId : familyAvailable) {
+			FamilyDTO family = database.getFamilys().get(familyId);
+			for (int itemId : family.getItems()) {
+				ItemDTO item = database.getItems().get(itemId);
+				if (item.getValue() == -1) {
+					switch (item.getRarity()) {
+					case 0:
+						availableItemEffect0.add(item.getId());
+						break;
+					case 1:
+						availableItemEffect1.add(item.getId());
+						break;
+					case 2:
+						availableItemEffect2.add(item.getId());
+						break;
+					case 3:
+						availableItemEffect3.add(item.getId());
+						break;
+					case 4:
+						availableItemEffect4.add(item.getId());
+						break;
+					case 5:
+						availableItemEffect5.add(item.getId());
+						break;
+					case 6:
+						availableItemEffect6.add(item.getId());
+						break;
+					}
+				} else {
+					switch (item.getRarity()) {
+					case 0:
+						availableItemPoint0.add(item.getId());
+						break;
+					case 1:
+						availableItemPoint1.add(item.getId());
+						break;
+					case 2:
+						availableItemPoint2.add(item.getId());
+						break;
+					case 3:
+						availableItemPoint3.add(item.getId());
+						break;
+					case 4:
+						availableItemPoint4.add(item.getId());
+						break;
+					case 5:
+						availableItemPoint5.add(item.getId());
+						break;
+					case 6:
+						availableItemPoint6.add(item.getId());
+						break;
+					case 7:
+						availableItemPoint7.add(item.getId());
+						break;
+					}
+				}
+			}
+		}
+
+		Gdx.app.log("AccountService", "base item load");
+		Gdx.app.log("AccountService", "base available point 7");
+		String tmp = "";
+		for (int i : availableItemPoint7) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 6");
+		tmp = "";
+		for (int i : availableItemPoint6) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 5");
+		tmp = "";
+		for (int i : availableItemPoint5) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 4");
+		tmp = "";
+		for (int i : availableItemPoint4) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 3");
+		tmp = "";
+		for (int i : availableItemPoint3) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 2");
+		tmp = "";
+		for (int i : availableItemPoint2) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 1");
+		tmp = "";
+		for (int i : availableItemPoint1) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available point 0");
+		tmp = "";
+		for (int i : availableItemPoint0) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 6");
+		tmp = "";
+		for (int i : availableItemEffect6) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 5");
+		tmp = "";
+
+		for (int i : availableItemEffect5) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 4");
+		tmp = "";
+
+		for (int i : availableItemEffect4) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 3");
+		tmp = "";
+
+		for (int i : availableItemEffect3) {
+			tmp += i + " ";
+		}
+
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 2");
+		tmp = "";
+
+		for (int i : availableItemEffect2) {
+			tmp += i + " ";
+		}
+
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 1");
+		tmp = "";
+
+		for (int i : availableItemEffect1) {
+			tmp += i + " ";
+		}
+
+		Gdx.app.log("AccountService", tmp);
+		Gdx.app.log("AccountService", "base available effect 0");
+		tmp = "";
+		for (int i : availableItemEffect0) {
+			tmp += i + " ";
+		}
+		Gdx.app.log("AccountService", tmp);
+	}
+
+	/**
+	 * Pour une quête déboqué et validé, débloque les option, mode, clé utilisable
+	 * dans les menus ou en jeu
+	 * 
+	 * @param quest
+	 *            une quete débloquée et validée
+	 */
+	private void unlockSomething(QuestDTO quest) {
+		if (quest.getMode() != null) {
+			this.availableMode.add(quest.getMode());
+		}
+		if (quest.getOption() != null) {
+			this.availableOption.add(quest.getOption());
+		}
+		if (quest.getKey() != null) {
+			this.availableKey.add(quest.getKey());
+		}
+		if (quest.isLife()) {
+			this.life++;
+		}
+		if (quest.isLight()) {
+			this.light++;
+		}
+	}
+
+	/********************
+@formatter:off
+void ItemFileSystem::simulateGame()
+{
+
+	for (int i = 0; i < 103; i++)
+	{
+		int point = getEffectItemId();
+		int effect = getPointItemId();
+
+		fridge[point] = fridge[point] + 1;
+		fridge[effect] = fridge[effect] + 1;
+		std::cout << "level " << i << " - effect " << effect << " - point " << point << "\n";
+	}
+}
+@formatter:on
+*/
+
+	private void resetAll() {
+		questStarted.clear();
+		questCompleted.clear();
+		availableItemEffect0.clear();
+		availableItemEffect1.clear();
+		availableItemEffect2.clear();
+		availableItemEffect3.clear();
+		availableItemEffect4.clear();
+		availableItemEffect5.clear();
+		availableItemEffect6.clear();
+		availableItemPoint0.clear();
+		availableItemPoint1.clear();
+		availableItemPoint2.clear();
+		availableItemPoint3.clear();
+		availableItemPoint4.clear();
+		availableItemPoint5.clear();
+		availableItemPoint6.clear();
+		availableItemPoint7.clear();
 	}
 
 	/*************************************************
@@ -230,6 +591,113 @@ public class AccountService {
 			this.fridge[i] += this.gameFridge[i];
 		}
 		this.saveAccount();
-		this.gameFridge = new Long[Constante.NB_ITEM_FRIDGE];
+		this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
+	}
+
+	/**
+	 * Fonction tirant un nombre aléatoire entre 0 et max
+	 * 
+	 * @param max
+	 *            nombre macimum pour le tirage
+	 * @return nombre aléatoire
+	 */
+	private int random(int max) {
+		return ThreadLocalRandom.current().nextInt(0, max + 1);
+	}
+
+	/**
+	 * Fonction de jeu Retourne l'id d'un objet à effet aléatoirement
+	 * 
+	 * @return Id de l'objet
+	 */
+	public int getEffectItemId() {
+		int itemId = -1;
+		int randCoef = 0;
+		while (itemId == -1) {
+			randCoef = random(Constante.PROBA_COEF7);
+			if (randCoef <= Constante.PROBA_COEF1) {
+				if (availableItemEffect1.size() > 0) {
+					return availableItemEffect1.get(random((int) availableItemEffect1.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF2) {
+				if (availableItemEffect2.size() > 0) {
+					return availableItemEffect2.get(random((int) availableItemEffect2.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF3) {
+				if (availableItemEffect3.size() > 0) {
+					return availableItemEffect3.get(random((int) availableItemEffect3.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF4) {
+				if (availableItemEffect4.size() > 0) {
+					return availableItemEffect4.get(random((int) availableItemEffect4.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF5) {
+				if (availableItemEffect5.size() > 0) {
+					return availableItemEffect5.get(random((int) availableItemEffect5.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF6) {
+				if (availableItemEffect6.size() > 0) {
+					return availableItemEffect6.get(random((int) availableItemEffect6.size()) - 1);
+				}
+			}
+		}
+		return itemId;
+	}
+
+	/**
+	 * Fonction de jeu Retourne l'id d'un objet à point aléatoirement
+	 * 
+	 * @return Id de l'objet
+	 */
+	public int getPointItemId() {
+		int itemId = -1;
+		int randCoef = 0;
+		while (itemId == -1) {
+			randCoef = random(Constante.PROBA_COEF7);
+			if (randCoef <= Constante.PROBA_COEF1) {
+				if (availableItemPoint1.size() > 0) {
+					return availableItemPoint1.get(random((int) availableItemPoint1.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF2) {
+				if (availableItemPoint2.size() > 0) {
+					return availableItemPoint2.get(random((int) availableItemPoint2.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF3) {
+				if (availableItemPoint3.size() > 0) {
+					return availableItemPoint3.get(random((int) availableItemPoint3.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF4) {
+				if (availableItemPoint4.size() > 0) {
+					return availableItemPoint4.get(random((int) availableItemPoint4.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF5) {
+				if (availableItemPoint5.size() > 0) {
+					return availableItemPoint5.get(random((int) availableItemPoint5.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF6) {
+				if (availableItemPoint6.size() > 0) {
+					return availableItemPoint6.get(random((int) availableItemPoint6.size()) - 1);
+				}
+			} else if (randCoef <= Constante.PROBA_COEF7) {
+				if (availableItemPoint7.size() > 0) {
+					return availableItemPoint7.get(random((int) availableItemPoint7.size()) - 1);
+				}
+			}
+		}
+		return itemId;
+	}
+	
+	/**
+	 * @return nombre de vie disponible pour une partie
+	 */
+	public int getLifeForGame() {
+		return this.life;
+	}
+	
+	/**
+	 * @return nombre de lumière débloqué pour ce compte
+	 */
+	public int getLightForGame() {
+		return this.light;
 	}
 }

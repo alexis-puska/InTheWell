@@ -9,13 +9,13 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mygdx.service.dto.level.LevelFileDTO;
 
-public class JsonService {
+public class LevelService {
 
-	private static JsonService INSTANCE;
+	private static LevelService INSTANCE;
 
 	private final ObjectMapper objectMapper;
 
-	public JsonService() {
+	public LevelService() {
 
 		/*******************************
 		 * --- LEVEL ---
@@ -35,9 +35,9 @@ public class JsonService {
 
 	}
 
-	public static JsonService getInstance() {
+	public static LevelService getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new JsonService();
+			INSTANCE = new LevelService();
 		}
 		return INSTANCE;
 	}
