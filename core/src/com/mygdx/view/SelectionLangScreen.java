@@ -67,7 +67,6 @@ public class SelectionLangScreen implements Screen {
 			game.getBatch().draw(flagTextureRegion, (420 - 120) / 2,
 					DrawUtils.invert(70 + (i * 150), flagTextureRegion));
 		}
-
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.title"));
 		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang1"));

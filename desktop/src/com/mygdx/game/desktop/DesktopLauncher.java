@@ -12,8 +12,9 @@ public class DesktopLauncher {
 		config.width = Constante.SCREEN_SIZE_X;
 		config.height = Constante.SCREEN_SIZE_Y;
 		config.foregroundFPS = 60;
-		config.vSyncEnabled = false;
+		config.vSyncEnabled = true;
 		config.fullscreen = false;
+		config.resizable = false;
 		new LwjglApplication(new InTheWellGame(), config);
 	}
 }
