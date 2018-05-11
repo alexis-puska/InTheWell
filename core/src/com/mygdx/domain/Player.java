@@ -1,37 +1,37 @@
-package com.mygdx.game;
+package com.mygdx.domain;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.constante.CollisionConstante;
+import com.mygdx.constante.Constante;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Player {
 
-	Body playerBody;
+	private Body playerBody;
 	private boolean igor;
 	private boolean multi;
 
-	private boolean walk;
-	private boolean left;
-	private boolean insidePlatform;
+	private Set<Long> insidePlatform;
 	private boolean touchPlatorm;
 
 	public Player(World world, boolean igor, boolean multi) {
 		BodyDef bodyDef = new BodyDef();
 		this.igor = igor;
 		this.multi = multi;
+		this.insidePlatform = new HashSet<>();
 
-		walk = false;
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(10, 10);
 		playerBody = world.createBody(bodyDef);
@@ -45,34 +45,32 @@ public class Player {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = bodyBox;
 		fixtureDef.density = 1;
-		fixtureDef.friction = 0f;
+		
 		fixtureDef.restitution = 0f;
-		playerBody.createFixture(fixtureDef);
+
+		Fixture fixture = playerBody.createFixture(fixtureDef);
+		Filter filter = new Filter();
+		filter.categoryBits = CollisionConstante.CATEGORY_PLAYER;
+		filter.maskBits = CollisionConstante.GROUP_PLAYER;
+		fixture.setFilterData(filter);
 		bodyBox.dispose();
 	}
 
 	public void update() {
-		// if (insidePlatform) {
-		// Gdx.app.log("Player", "Player inside platform");
-		// }
-		// if (playerBody.getLinearVelocity().y == 0 && walk) {
-		// if (left) {
-		// playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 18.5f);
-		// } else {
-		// playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 18.5f);
-		// }
-		// }
-
 		treatInput();
-
-		if (playerBody.getLinearVelocity().y < -13) {
-			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, -13);
+		Gdx.app.log("InsidePlatformSize", insidePlatform + " blocks");
+		if (playerBody.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
+			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, Constante.PLAYER_NORMAL_FALL_VELOCITY);
 		}
 	}
 
 	public void touchPlatorm(long idFrame) {
-		Gdx.app.log("touch platform : ", idFrame+"");
+		Gdx.app.log("touch platform : ", idFrame + "");
 		touchPlatorm = true;
+	}
+
+	public boolean isTouchPlatorm() {
+		return touchPlatorm;
 	}
 
 	public void leavePlatorm() {
@@ -137,6 +135,14 @@ public class Player {
 		}
 	}
 
+	public void enterPlatform(long platformId) {
+		insidePlatform.add(platformId);
+	}
+
+	public void goOutPlatform(long platformId) {
+		insidePlatform.remove(platformId);
+	}
+
 	private void walkLeft() {
 		playerBody.setLinearVelocity(-10f, playerBody.getLinearVelocity().y);
 	}
@@ -151,7 +157,7 @@ public class Player {
 
 	private void jump() {
 		if (touchPlatorm) {
-			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, 23f);
+			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
 		}
 	}
 

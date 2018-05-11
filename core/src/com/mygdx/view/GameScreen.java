@@ -21,14 +21,18 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
+import com.mygdx.domain.Ennemie;
 import com.mygdx.domain.Platform;
+import com.mygdx.domain.Player;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.InTheWellGame;
-import com.mygdx.game.Player;
 import com.mygdx.service.Context;
 import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
@@ -67,7 +71,7 @@ public class GameScreen implements Screen {
 		platform = new ArrayList<>();
 		remainingJumpSteps = 0;
 		gameCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
-		float camX = 9.5f;
+		float camX = 10f;
 		float camY = 11.5f;
 		Gdx.app.log("cam ", camX + " " + camY);
 		gameCamera.position.set(camX, camY, 0);
@@ -93,33 +97,61 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, -60), true);
 		world.step(1 / 60f, 6, 2);
 
-		createGroundBody(0, 4, 3, false);
-		createGroundBody(4, 4, 3, false);
-		createGroundBody(0, 0, 20, false);
-		createGroundBody(-1, 24, 25, true);
-		createGroundBody(20, 24, 25, true);
-		createGroundBody(0, 2, 3, false);
-		createGroundBody(0, 4, 3, false);
-		createGroundBody(0, 6, 3, false);
-		createGroundBody(0, 8, 3, false);
-		createGroundBody(0, 10, 3, false);
-		createGroundBody(0, 12, 3, false);
-		createGroundBody(0, 14, 3, false);
-		createGroundBody(0, 16, 3, false);
-		createGroundBody(0, 18, 3, false);
-		createGroundBody(0, 20, 3, false);
-		createGroundBody(0, 22, 3, false);
+		createGroundBody(1l, 0, 4, 3, false);
+		createGroundBody(2l, 4, 4, 3, false);
+		createGroundBody(3l, 0, 0, 20, false);
+		createGroundBody(4l, -1, 40, 41, true);
+		createGroundBody(5l, 20, 40, 41, true);
+		createGroundBody(6l, 0, 2, 3, false);
+		createGroundBody(7l, 0, 4, 3, false);
+		createGroundBody(8l, 0, 6, 3, false);
+		createGroundBody(9l, 0, 8, 3, false);
+		createGroundBody(10l, 0, 10, 3, false);
+		createGroundBody(11l, 0, 12, 3, false);
+		createGroundBody(12l, 0, 14, 3, false);
+		createGroundBody(13l, 0, 16, 3, false);
+		createGroundBody(14l, 0, 18, 3, false);
+		createGroundBody(15l, 0, 20, 3, false);
+		createGroundBody(16l, 0, 22, 3, false);
+		createEnnemieBody(5, 5, 0.2f, false);
 
 		debugRenderer = new Box2DDebugRenderer();
 
 		player = new Player(world, true, true);
-		player2 = new Player(world, false, true);
+		// player2 = new Player(world, false, true);
 
 		world.setContactListener(new CustomContactListener());
 
 	}
 
-	public void createGroundBody(float x, float y, float length, boolean vertical) {
+	public void createGroundBody(long id, float x, float y, float length, boolean vertical) {
+		BodyDef groundBodyDef = new BodyDef();
+		PolygonShape groundBox = new PolygonShape();
+		if (vertical) {
+			groundBodyDef.position.set(new Vector2(x + 0.5f, y - (length / 2) + 0.5f));
+			groundBox.setAsBox(0.5f, length / 2);
+		} else {
+			groundBodyDef.position.set(new Vector2(x + (length / 2), y));
+			groundBox.setAsBox(length / 2, 0.5f);
+		}
+		Body groundBody = world.createBody(groundBodyDef);
+		Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
+		if (vertical) {
+			groundBody.setUserData(
+					new Platform(id, vertical, groundBodyDef.position.x - 0.5f, groundBodyDef.position.x + 0.5f));
+		} else {
+			groundBody.setUserData(new Platform(id, vertical, groundBodyDef.position.x - (length / 2),
+					groundBodyDef.position.x + (length / 2)));
+		}
+		groundBox.dispose();
+		Filter filter = new Filter();
+		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
+		fixture.setFilterData(filter);
+		fixture.setFriction(0.1f);
+		platform.add(groundBody);
+	}
+
+	public void createEnnemieBody(float x, float y, float length, boolean vertical) {
 		BodyDef groundBodyDef = new BodyDef();
 		PolygonShape groundBox = new PolygonShape();
 		if (vertical) {
@@ -130,9 +162,13 @@ public class GameScreen implements Screen {
 			groundBox.setAsBox(length / 2, 0.5f);
 		}
 		Body groundBody = world.createBody(groundBodyDef);
-		groundBody.createFixture(groundBox, 0.0f);
-		groundBody.setUserData(new Platform(vertical));
+		Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
+		
+		groundBody.setUserData(new Ennemie());
 		groundBox.dispose();
+		Filter filter = new Filter();
+		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
+		fixture.setFilterData(filter);
 		platform.add(groundBody);
 	}
 
@@ -196,7 +232,7 @@ public class GameScreen implements Screen {
 
 		treatInput();
 		player.update();
-		player2.update();
+		// player2.update();
 		debugRenderer.render(world, gameCamera.combined);
 
 		// Gdx.app.log("GameScreen", "Body position : " + body1.getPosition().x + " " +

@@ -7,9 +7,15 @@ import lombok.Setter;
 @Setter
 public class Platform {
 
+	long id;
+	float min;
+	float max;
 	boolean vertical;
 
-	public Platform(boolean vertical) {
+	public Platform(long id, boolean vertical, float min, float max) {
+		this.id = id;
 		this.vertical = vertical;
+		this.min = min;
+		this.max = max;
 	}
 }

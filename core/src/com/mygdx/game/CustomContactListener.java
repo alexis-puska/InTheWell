@@ -1,12 +1,15 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.domain.Ennemie;
 import com.mygdx.domain.Platform;
+import com.mygdx.domain.Player;
 
 public class CustomContactListener implements ContactListener {
 
@@ -21,16 +24,16 @@ public class CustomContactListener implements ContactListener {
 		int playerInvolve = playerInvolved(contact);
 		Player player = null;
 		float playerVelocity = 0f;
-		Class<?> other = null;
+		Fixture other = null;
 
 		/***************************
 		 * --- Player each other ---
 		 ***************************/
-		if (playerInvolve == 3) {
-			// Gdx.app.log("CustomContactListener", "player each other !");
-			contact.setEnabled(false);
-			return;
-		}
+		// if (playerInvolve == 3) {
+		// // Gdx.app.log("CustomContactListener", "player each other !");
+		// contact.setEnabled(false);
+		// return;
+		// }
 
 		/*********************************
 		 * --- Player platform bottom ---
@@ -38,17 +41,20 @@ public class CustomContactListener implements ContactListener {
 		if (playerInvolve == 1) {
 			player = (Player) contact.getFixtureA().getBody().getUserData();
 			playerVelocity = contact.getFixtureA().getBody().getLinearVelocity().y;
-			other = getClassOfFixture(contact.getFixtureB());
+			other = contact.getFixtureB();
 		} else if (playerInvolve == 2) {
 			player = (Player) contact.getFixtureB().getBody().getUserData();
 			playerVelocity = contact.getFixtureB().getBody().getLinearVelocity().y;
-			other = getClassOfFixture(contact.getFixtureA());
+			other = contact.getFixtureA();
 		}
 		if (other != null) {
-			if (other == Platform.class) {
+			if (other.getBody().getUserData().getClass() == Platform.class) {
 				Gdx.app.log("player leave plaforme", "leave");
 				player.leavePlatorm();
+				Platform p = (Platform) other.getBody().getUserData();
+				player.goOutPlatform(p.getId());
 			}
+
 		}
 
 	}
@@ -58,36 +64,53 @@ public class CustomContactListener implements ContactListener {
 
 		int playerInvolve = playerInvolved(contact);
 		Player player = null;
+		Body playerBody = null;
 		float playerVelocity = 0f;
-		Class<?> other = null;
+		Fixture other = null;
 
 		/***************************
 		 * --- Player each other ---
 		 ***************************/
-		if (playerInvolve == 3) {
-			// Gdx.app.log("CustomContactListener", "player each other !");
-			contact.setEnabled(false);
-			return;
-		}
+		// if (playerInvolve == 3) {
+		// // Gdx.app.log("CustomContactListener", "player each other !");
+		// contact.setEnabled(false);
+		// return;
+		// }
 
 		/*********************************
 		 * --- Player platform bottom ---
 		 *********************************/
 		if (playerInvolve == 1) {
 			player = (Player) contact.getFixtureA().getBody().getUserData();
+			playerBody = contact.getFixtureA().getBody();
 			playerVelocity = contact.getFixtureA().getBody().getLinearVelocity().y;
-			other = getClassOfFixture(contact.getFixtureB());
+			other = contact.getFixtureB();
 		} else if (playerInvolve == 2) {
 			player = (Player) contact.getFixtureB().getBody().getUserData();
+			playerBody = contact.getFixtureB().getBody();
 			playerVelocity = contact.getFixtureB().getBody().getLinearVelocity().y;
-			other = getClassOfFixture(contact.getFixtureA());
+			other = contact.getFixtureA();
 		}
 		if (other != null) {
-			if (other == Platform.class) {
+			if (other.getBody().getUserData().getClass() == Platform.class) {
 				if (playerVelocity == 0f) {
 					long idFrame = Gdx.graphics.getFrameId();
 					player.touchPlatorm(idFrame);
+					Platform p = (Platform) other.getBody().getUserData();
+					player.enterPlatform(p.getId());
 				}
+				if (playerVelocity > 0) {
+					Platform p = (Platform) other.getBody().getUserData();
+					if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
+							&& playerVelocity > 0 && !player.isTouchPlatorm()) {
+						contact.setEnabled(false);
+					}
+
+				}
+			}
+			if (other.getBody().getUserData().getClass() == Ennemie.class) {
+				Gdx.app.log("player touch ennemie", "kill player");
+				contact.setEnabled(false);
 			}
 		}
 	}
@@ -122,18 +145,7 @@ public class CustomContactListener implements ContactListener {
 				&& b.getBody().getUserData().getClass() == Player.class) {
 			result += 2;
 		}
+		Gdx.app.log("player involved", "" + result);
 		return result;
-	}
-
-	/**
-	 * @param fixtureB
-	 *            the fixture
-	 * @return the class of fixture
-	 */
-	private Class<?> getClassOfFixture(Fixture fixtureB) {
-		if (fixtureB.getBody() != null && fixtureB.getBody().getUserData() != null) {
-			return fixtureB.getBody().getUserData().getClass();
-		}
-		return null;
 	}
 }

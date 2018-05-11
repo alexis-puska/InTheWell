@@ -22,4 +22,12 @@ public class Constante {
 	public static final int NB_QUEST = 75;
 	public static final int NB_LIFE_DEFAULT = 2;
 	public static final int NB_LIGHT_DEFAULT = 2;
+
+	public static final float PLAYER_JUMP_VELOCITY = 22.8f;
+	public static final float PLAYER_NORMAL_FALL_VELOCITY = -13f;
+	public static final float PLAYER_SLOW_FALL_VELOCITY = -8f;
+	public static final float PLAYER_WALK_LEFT_VELOCITY = -10f;
+	public static final float PLAYER_WALK_RIGHT_VELOCITY = 10f;
+	public static final float PLAYER_RUN_LEFT_VELOCITY = -14f;
+	public static final float PLAYER_RUN_RIGHT_VELOCITY = -14f;
 }
