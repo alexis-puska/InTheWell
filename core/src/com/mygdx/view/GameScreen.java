@@ -20,14 +20,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.Constante;
+import com.mygdx.domain.Platform;
 import com.mygdx.enumeration.MusicEnum;
+import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.game.Player;
 import com.mygdx.service.Context;
@@ -55,18 +54,20 @@ public class GameScreen implements Screen {
 	private int y;
 
 	private World world;
-//	private Body body1;
+	// private Body body1;
 	private List<Body> platform;
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera gameCamera;
 	int remainingJumpSteps;
 	Player player;
+	Player player2;
 
 	public GameScreen(final InTheWellGame game) {
+
 		platform = new ArrayList<>();
 		remainingJumpSteps = 0;
 		gameCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
-		float camX = 10f;
+		float camX = 9.5f;
 		float camY = 11.5f;
 		Gdx.app.log("cam ", camX + " " + camY);
 		gameCamera.position.set(camX, camY, 0);
@@ -84,6 +85,7 @@ public class GameScreen implements Screen {
 		this.finalLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
 		this.game.getSoundService().stopMusic();
 		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
+
 		x = 210;
 		y = 210;
 		this.initFont();
@@ -91,17 +93,29 @@ public class GameScreen implements Screen {
 		world = new World(new Vector2(0, -60), true);
 		world.step(1 / 60f, 6, 2);
 
-		
-
 		createGroundBody(0, 4, 3, false);
 		createGroundBody(4, 4, 3, false);
 		createGroundBody(0, 0, 20, false);
-		createGroundBody(0, 24, 25, true);
-		createGroundBody(21, 24, 25, true);
+		createGroundBody(-1, 24, 25, true);
+		createGroundBody(20, 24, 25, true);
+		createGroundBody(0, 2, 3, false);
+		createGroundBody(0, 4, 3, false);
+		createGroundBody(0, 6, 3, false);
+		createGroundBody(0, 8, 3, false);
+		createGroundBody(0, 10, 3, false);
+		createGroundBody(0, 12, 3, false);
+		createGroundBody(0, 14, 3, false);
+		createGroundBody(0, 16, 3, false);
+		createGroundBody(0, 18, 3, false);
+		createGroundBody(0, 20, 3, false);
+		createGroundBody(0, 22, 3, false);
 
 		debugRenderer = new Box2DDebugRenderer();
-		player = new Player(world);
-		Gdx.input.setInputProcessor(player);
+
+		player = new Player(world, true, true);
+		player2 = new Player(world, false, true);
+
+		world.setContactListener(new CustomContactListener());
 
 	}
 
@@ -109,14 +123,15 @@ public class GameScreen implements Screen {
 		BodyDef groundBodyDef = new BodyDef();
 		PolygonShape groundBox = new PolygonShape();
 		if (vertical) {
-			groundBodyDef.position.set(new Vector2(x - 0.5f, y - (length / 2) + 0.5f));
+			groundBodyDef.position.set(new Vector2(x, y - (length / 2) + 0.5f));
 			groundBox.setAsBox(0.5f, length / 2);
 		} else {
-			groundBodyDef.position.set(new Vector2(x + (length / 2), y));
+			groundBodyDef.position.set(new Vector2(x + (length / 2) - 0.5f, y));
 			groundBox.setAsBox(length / 2, 0.5f);
 		}
 		Body groundBody = world.createBody(groundBodyDef);
 		groundBody.createFixture(groundBox, 0.0f);
+		groundBody.setUserData(new Platform(vertical));
 		groundBox.dispose();
 		platform.add(groundBody);
 	}
@@ -160,8 +175,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 
-//		x = (int) ((body1.getPosition().x + 0.5f) * 20.0f);
-//		y = (int) ((body1.getPosition().y + 1.0f) * 20.0f);
+		// x = (int) ((body1.getPosition().x + 0.5f) * 20.0f);
+		// y = (int) ((body1.getPosition().y + 1.0f) * 20.0f);
 
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -178,10 +193,12 @@ public class GameScreen implements Screen {
 		game.getBatch().end();
 
 		world.step(1 / 60f, 6, 2);
+
 		treatInput();
-
-
+		player.update();
+		player2.update();
 		debugRenderer.render(world, gameCamera.combined);
+
 		// Gdx.app.log("GameScreen", "Body position : " + body1.getPosition().x + " " +
 		// body1.getPosition().y
 		// + " velocity y : " + body1.getLinearVelocity().y);
@@ -251,8 +268,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void treatInput() {
-//		
-		boolean pressed = false;
+
 		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 				&& Gdx.input.isKeyJustPressed(Keys.K)) {
 			game.getScreen().dispose();
@@ -266,25 +282,6 @@ public class GameScreen implements Screen {
 				Context.setShowFps(true);
 			}
 		}
-
-		// body1.setLinearVelocity(0, body1.getLinearVelocity().y);
-//		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-//			pressed = true;
-//			body1.setLinearVelocity(-10f, body1.getLinearVelocity().y);
-//		}
-//
-//		if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-//			pressed = true;
-//			body1.setLinearVelocity(10f, body1.getLinearVelocity().y);
-//		}
-//
-//		if (Gdx.input.isKeyJustPressed(Keys.SPACE)) {
-//			body1.setLinearVelocity(body1.getLinearVelocity().x, 17);
-//		}
-//
-//		if (!pressed) {
-//			body1.setLinearVelocity(0f, body1.getLinearVelocity().y);
-//		}
 	}
 
 	private void initFont() {
