@@ -163,7 +163,7 @@ public class GameScreen implements Screen {
 		}
 		Body groundBody = world.createBody(groundBodyDef);
 		Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
-		
+
 		groundBody.setUserData(new Ennemie());
 		groundBox.dispose();
 		Filter filter = new Filter();
@@ -210,35 +210,34 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-
-		// x = (int) ((body1.getPosition().x + 0.5f) * 20.0f);
-		// y = (int) ((body1.getPosition().y + 1.0f) * 20.0f);
-
+		// clear screen
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		drawBackground();
-		initPlatform();
-		initPlayer();
-		initFront();
-		initShadowMask(x, y);
+		drawPlatform();
+		drawPlayer();
+		drawFront();
+		drawShadowMask(x, y);
+
+		// merge 5 layers
 		mergeFinalTexture();
 
+		// draw finale image to screen
 		game.getBatch().begin();
 		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0);
 		showFPS();
 		game.getBatch().end();
 
 		world.step(1 / 60f, 6, 2);
-
 		treatInput();
+
 		player.update();
 		// player2.update();
-		debugRenderer.render(world, gameCamera.combined);
 
-		// Gdx.app.log("GameScreen", "Body position : " + body1.getPosition().x + " " +
-		// body1.getPosition().y
-		// + " velocity y : " + body1.getLinearVelocity().y);
-
+		if (Constante.DEBUG) {
+			debugRenderer.render(world, gameCamera.combined);
+		}
 	}
 
 	/**
@@ -269,28 +268,28 @@ public class GameScreen implements Screen {
 		backgroundLayer.end();
 	}
 
-	private void initPlatform() {
+	private void drawPlatform() {
 		platformLayer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		platformLayer.end();
 	}
 
-	private void initPlayer() {
+	private void drawPlayer() {
 		playerLayer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		playerLayer.end();
 	}
 
-	private void initFront() {
+	private void drawFront() {
 		frontLayer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		frontLayer.end();
 	}
 
-	private void initShadowMask(int x, int y) {
+	private void drawShadowMask(int x, int y) {
 		shadowLayer.begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0.7f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -304,13 +303,14 @@ public class GameScreen implements Screen {
 	}
 
 	private void treatInput() {
-
+		// CTRL + shift + Left -> exit game
 		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
 				&& Gdx.input.isKeyJustPressed(Keys.K)) {
 			game.getScreen().dispose();
 			this.game.getSoundService().playMusic(MusicEnum.BOSS2);
 			game.setScreen(new SelectOptionSoloScreen(game));
 		}
+		//display FPS
 		if (Gdx.input.isKeyJustPressed(Keys.F)) {
 			if (Context.isShowFps()) {
 				Context.setShowFps(false);
