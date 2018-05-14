@@ -83,28 +83,27 @@ public class QuestScreen implements Screen {
 
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.quests.titles"));
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(10));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 510);
 
 		// DRAW LIST QUESTS
 		int index = firstQuestView;
 		for (int i = 0; i < 10; i++) {
 			if (game.getAccountService().getQuestStarted().containsKey(index)) {
 				layout.setText(fontGold, index + " / 75 - " + game.getAccountService().getQuestName(index));
-				fontGold.draw(game.getBatch(), layout, 40, DrawUtils.invertText(i * 12 + 30));
+				fontGold.draw(game.getBatch(), layout, 40, 480 - (i * 12));
 			} else if (game.getAccountService().getQuestCompleted().containsKey(index)) {
 				layout.setText(fontGreen, index + " / 75 - " + game.getAccountService().getQuestName(index));
-				fontGreen.draw(game.getBatch(), layout, 40, DrawUtils.invertText(i * 12 + 30));
+				fontGreen.draw(game.getBatch(), layout, 40, 480 - (i * 12));
 			} else {
 				layout.setText(fontRed, index + " / 75 - ??????????");
-				fontRed.draw(game.getBatch(), layout, 40, DrawUtils.invertText(i * 12 + 30));
+				fontRed.draw(game.getBatch(), layout, 40, 480 - (i * 12));
 			}
 			index++;
 		}
 
 		// DRAW CURSOR
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 10,
-				DrawUtils.invert((12 * (questSelect - firstQuestView)) + 24, cursorTextureRegion));
+		game.getBatch().draw(cursorTextureRegion, 15, 468 - (12 * (questSelect - firstQuestView)));
 
 		// DRAW CONTENT
 
@@ -170,21 +169,21 @@ public class QuestScreen implements Screen {
 			for (RequiredDTO r : required) {
 				if (y == 0) {
 					TextureRegion object = SpriteService.getInstance().getTexture("objects", r.getId());
-					game.getBatch().draw(object, offsetX + (x * 63), DrawUtils.invert(200 + (61 * y), object));
+					game.getBatch().draw(object, offsetX + (x * 63), 260 - (61 * y));
 
 					layout.setText(fontWhite,
 							game.getAccountService().getFridgeQuantity(r.getId()) + " / " + r.getVal());
 					fontWhite.draw(game.getBatch(), layout, offsetX + 31 + (x * 63) - (layout.width / 2),
-							DrawUtils.invertText(263 + (61 * y)));
+							257 - (61 * y));
 
 				} else {
 					TextureRegion object = SpriteService.getInstance().getTexture("objects", r.getId());
-					game.getBatch().draw(object, offsetX2 + (x * 63), DrawUtils.invert(200 + (61 * y), object));
+					game.getBatch().draw(object, offsetX2 + (x * 63), 260 - (61 * y));
 
 					layout.setText(fontWhite,
 							game.getAccountService().getFridgeQuantity(r.getId()) + " / " + r.getVal());
 					fontWhite.draw(game.getBatch(), layout, offsetX2 + 31 + (x * 63) - (layout.width / 2),
-							DrawUtils.invertText(263 + (61 * y)));
+							257 - (61 * y));
 				}
 				x++;
 				if (x >= 6) {
@@ -194,13 +193,13 @@ public class QuestScreen implements Screen {
 			}
 		} else {
 			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
-			fontWhite.draw(game.getBatch(), layout, 210, DrawUtils.invertText(200));
+			fontWhite.draw(game.getBatch(), layout, 210, 310);
 		}
 
 		// DESCRIPTION
 		if (game.getAccountService().getQuestStarted().containsKey(questSelect)) {
 			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
-			fontWhite.draw(game.getBatch(), layout, 210, DrawUtils.invertText(352));
+			fontWhite.draw(game.getBatch(), layout, 210, 158);
 		} else if (game.getAccountService().getQuestCompleted().containsKey(questSelect)) {
 			int idx = 0;
 			offsetY = 0;
@@ -210,7 +209,7 @@ public class QuestScreen implements Screen {
 			String description = game.getAccountService().getQuestDescription(questSelect);
 			while (true) {
 				if (idx >= description.length() - 1) {
-					drawSplitDescription(description.substring(lastSplit,  description.length()));
+					drawSplitDescription(description.substring(lastSplit, description.length()));
 					break;
 				}
 				if (description.charAt(idx) == ' ') {
@@ -227,14 +226,14 @@ public class QuestScreen implements Screen {
 			}
 		} else {
 			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
-			fontWhite.draw(game.getBatch(), layout, 210, DrawUtils.invertText(352));
+			fontWhite.draw(game.getBatch(), layout, 210, 158);
 		}
 		game.getBatch().end();
 	}
 
 	private void drawSplitDescription(String split) {
 		layout.setText(fontWhite, split);
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(352 + (offsetY * 12)));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 158 - (offsetY * 12));
 	}
 
 	public void treatInput() {

@@ -31,7 +31,7 @@ public class DrawUtils {
 		int idy = 0;
 		while (idy < Constante.SCREEN_SIZE_Y) {
 			while (idx < Constante.SCREEN_SIZE_X) {
-				batch.draw(textureRegionBackground, idx, DrawUtils.invert(idy, textureRegionBackground));
+				batch.draw(textureRegionBackground, idx, idy);
 				idx += textureRegionBackground.getRegionWidth();
 			}
 			idy += textureRegionBackground.getRegionHeight();

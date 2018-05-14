@@ -35,7 +35,6 @@ import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
 import com.mygdx.service.SpriteService;
-import com.mygdx.utils.DrawUtils;
 
 public class GameScreen implements Screen {
 
@@ -261,7 +260,7 @@ public class GameScreen implements Screen {
 		game.getBatch().begin();
 		int idx = 0;
 		while (idx < Constante.SCREEN_SIZE_X) {
-			game.getBatch().draw(textureRegionBackground, idx, DrawUtils.invert(0, textureRegionBackground));
+			game.getBatch().draw(textureRegionBackground, idx, 0);
 			idx += textureRegionBackground.getRegionWidth();
 		}
 		game.getBatch().end();
@@ -310,7 +309,7 @@ public class GameScreen implements Screen {
 			this.game.getSoundService().playMusic(MusicEnum.BOSS2);
 			game.setScreen(new SelectOptionSoloScreen(game));
 		}
-		//display FPS
+		// display FPS
 		if (Gdx.input.isKeyJustPressed(Keys.F)) {
 			if (Context.isShowFps()) {
 				Context.setShowFps(false);
@@ -334,7 +333,7 @@ public class GameScreen implements Screen {
 	private void showFPS() {
 		if (Context.isShowFps()) {
 			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
-			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, DrawUtils.invertText(10));
+			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, 510);
 		}
 	}
 }

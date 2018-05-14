@@ -62,30 +62,30 @@ public class MainScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 480);
 
 		for (int i = 0; i < 3; i++) {
 			TextureRegion flagTextureRegion = SpriteService.getInstance().getTexture("menu_game", i);
-			game.getBatch().draw(flagTextureRegion, 127, DrawUtils.invert(147 + (90 * i), flagTextureRegion));
+			game.getBatch().draw(flagTextureRegion, 127, 328 - (90 * i));
 		}
 
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.play"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(167));
+		font.draw(game.getBatch(), layout, 210, 373);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.fridge"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(257));
+		font.draw(game.getBatch(), layout, 210, 283);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.quests"));
-		font.draw(game.getBatch(), layout, 210, DrawUtils.invertText(347));
+		font.draw(game.getBatch(), layout, 210, 193);
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
 		switch (cursorPosition) {
 		case 0:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(167, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 353);
 			break;
 		case 1:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(257, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 263);
 			break;
 		case 2:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(347, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 173);
 			break;
 		}
 		game.getBatch().end();
@@ -94,7 +94,7 @@ public class MainScreen implements Screen {
 	public void treatInput() {
 		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
 			game.getScreen().dispose();
-			
+
 			switch (cursorPosition) {
 			case 0:
 				game.setScreen(new SelectModeScreen(game));

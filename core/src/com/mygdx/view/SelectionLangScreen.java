@@ -64,28 +64,27 @@ public class SelectionLangScreen implements Screen {
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_1");
 		for (int i = 0; i < 3; i++) {
 			TextureRegion flagTextureRegion = SpriteService.getInstance().getTexture("flag", i);
-			game.getBatch().draw(flagTextureRegion, (420 - 120) / 2,
-					DrawUtils.invert(70 + (i * 150), flagTextureRegion));
+			game.getBatch().draw(flagTextureRegion, (420 - 120) / 2, 370 - (i * 150));
 		}
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(40));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 480);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang1"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(154));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 366);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang2"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(302));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 218);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.lang.lang3"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(454));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 66);
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
 		switch (Context.getLocale()) {
 		case FRENCH:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(100, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 400);
 			break;
 		case ENGLISH:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(250, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 250);
 			break;
 		case SPANISH:
-			game.getBatch().draw(cursorTextureRegion, 110, DrawUtils.invert(400, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, 110, 100);
 			break;
 		}
 		game.getBatch().end();

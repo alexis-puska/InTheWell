@@ -65,25 +65,24 @@ public class SelectAccountScreen implements Screen {
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		for (int i = 0; i < 4; i++) {
 			TextureRegion menuPlayerTextureRegion = SpriteService.getInstance().getTexture("menu_player", i);
-			game.getBatch().draw(menuPlayerTextureRegion, 67,
-					DrawUtils.invert(147 + (90 * i), menuPlayerTextureRegion));
+			game.getBatch().draw(menuPlayerTextureRegion, 67, 309 - (90 * i));
 			if (i != indexAccount) {
 				TextureRegion menuIceTextureRegion = SpriteService.getInstance().getTexture("menu_ice", 0);
-				game.getBatch().draw(menuIceTextureRegion, 60, DrawUtils.invert(140 + (90 * i), menuIceTextureRegion));
+				game.getBatch().draw(menuIceTextureRegion, 60, 302 - (90 * i));
 			}
 		}
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.title1"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.title2"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(60));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 460);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name1"));
-		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(167));
+		font.draw(game.getBatch(), layout, 150, 353);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name2"));
-		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(257));
+		font.draw(game.getBatch(), layout, 150, 263);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name3"));
-		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(347));
+		font.draw(game.getBatch(), layout, 150, 173);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.save.name4"));
-		font.draw(game.getBatch(), layout, 150, DrawUtils.invertText(437));
+		font.draw(game.getBatch(), layout, 150, 83);
 		game.getBatch().end();
 	}
 

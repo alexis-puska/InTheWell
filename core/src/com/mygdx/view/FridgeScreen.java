@@ -64,20 +64,20 @@ public class FridgeScreen implements Screen {
 	public void render(float delta) {
 		treatInput();
 		game.getBatch().begin();
-		
+
 		if (idItemSelected < idFirstItemDraw) {
 			idFirstItemDraw = idItemSelected - (idItemSelected % 6);
 		} else if (idItemSelected > (idFirstItemDraw + 41)) {
 			idFirstItemDraw = idItemSelected - (idItemSelected % 6) - 36;
 		}
 		int index = idFirstItemDraw;
-		
-		//DRAW TITLE
+
+		// DRAW TITLE
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.fridge.title"));
-		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(10));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), 510);
 
-		//DRAW ITEM
+		// DRAW ITEM
 		for (int y = 0; y < 7; y++) {
 			for (int x = 0; x < 6; x++) {
 				if (index > 352) {
@@ -86,35 +86,34 @@ public class FridgeScreen implements Screen {
 				long qty = game.getAccountService().getFridgeQuantity(index);
 				if (qty > 0) {
 					TextureRegion tmp = SpriteService.getInstance().getTexture("objects", index);
-					game.getBatch().draw(tmp, 10 + (x * 63), DrawUtils.invert(10 + (61 * y), tmp));
+					game.getBatch().draw(tmp, 10 + (x * 63), 429 - (61 * y));
 				} else {
 					TextureRegion tmp = SpriteService.getInstance().getTexture("objects", 353);
-					game.getBatch().draw(tmp, 10 + (x * 63), DrawUtils.invert(10 + (61 * y), tmp));
+					game.getBatch().draw(tmp, 10 + (x * 63), 429 - (61 * y));
 				}
 				layout.setText(fontWhite, "" + qty);
-				fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+				fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 				index++;
 			}
 		}
-		
-		//DRAW ITEM NAME
+
+		// DRAW ITEM NAME
 		if (game.getAccountService().getFridgeQuantity(idItemSelected) > 0) {
 			layout.setText(fontWhite, game.getAccountService().getItemName(idItemSelected));
-			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
+			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 20);
 		} else {
 			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
-			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(500));
+			fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 20);
 		}
 
 		// DRAW ITEM POSITON ex : X / 353
 		layout.setText(fontWhite, idItemSelected + 1 + " / 353");
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(480));
-		
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 40);
+
 		// DRAW CURSOR
 		int pos = idItemSelected - idFirstItemDraw;
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63,
-				DrawUtils.invert(50 + (int) (Math.floor(pos / 6)) * 61, cursorTextureRegion));
+		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63, 440 - (int) (Math.floor(pos / 6)) * 61);
 		game.getBatch().end();
 	}
 
