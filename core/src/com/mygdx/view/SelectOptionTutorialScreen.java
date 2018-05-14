@@ -62,9 +62,9 @@ public class SelectOptionTutorialScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.tutorial.title"));
-		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.tutorial.description"));
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(70));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 450);
 		game.getBatch().end();
 	}
 

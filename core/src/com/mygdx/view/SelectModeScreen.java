@@ -61,34 +61,34 @@ public class SelectModeScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(font, MessageService.getInstance().getMessage("menu.mode.title"));
-		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+		font.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 
 		// DRAW ICON
 		for (int i = 0; i < 5; i++) {
 			TextureRegion gameModeIcon = SpriteService.getInstance().getTexture("menu_game_option", i);
-			game.getBatch().draw(gameModeIcon, 107, DrawUtils.invert(147 + (60 * i), gameModeIcon));
+			game.getBatch().draw(gameModeIcon, 107, 350 - (60 * i));
 		}
 
 		// DRAW TEXT MODE
 		layout.setText(font, MessageService.getInstance().getMessage("menu.mode.solo"));
-		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(147));
+		font.draw(game.getBatch(), layout, 170, 368);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.tutorial"));
-		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(207));
+		font.draw(game.getBatch(), layout, 170, 308);
 		if (game.getAccountService().getAvailableMode().contains(GameModeEnum.TIME_ATTACK)) {
 			layout.setText(font, MessageService.getInstance().getMessage("menu.main.timeAttack"));
 		} else {
 			layout.setText(font, MessageService.getInstance().getMessage("noTranslation"));
 		}
-		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(267));
+		font.draw(game.getBatch(), layout, 170, 248);
 
 		if (game.getAccountService().getAvailableMode().contains(GameModeEnum.MULTI_COOPERATIF)) {
 			layout.setText(font, MessageService.getInstance().getMessage("menu.main.multi"));
 		} else {
 			layout.setText(font, MessageService.getInstance().getMessage("noTranslation"));
 		}
-		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(327));
+		font.draw(game.getBatch(), layout, 170, 188);
 		layout.setText(font, MessageService.getInstance().getMessage("menu.main.soccer"));
-		font.draw(game.getBatch(), layout, 170, DrawUtils.invertText(387));
+		font.draw(game.getBatch(), layout, 170, 128);
 
 		// DRAW CURSOE
 		int offset = 0;
@@ -104,7 +104,7 @@ public class SelectModeScreen implements Screen {
 			offset = 4;
 		}
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 75, DrawUtils.invert(147 + offset * 60, cursorTextureRegion));
+		game.getBatch().draw(cursorTextureRegion, 75, 354 - offset * 60);
 		game.getBatch().end();
 	}
 

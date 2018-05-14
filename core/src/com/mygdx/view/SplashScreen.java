@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.constante.Constante;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 import com.mygdx.utils.DrawUtils;
@@ -29,7 +30,7 @@ public class SplashScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_1");
 		game.getBatch().draw(textureRegionTitle, (420 / 2) - (textureRegionTitle.getRegionWidth() / 2),
-				DrawUtils.invert((520 / 2) - textureRegionTitle.getRegionHeight(), textureRegionTitle));
+				(Constante.SCREEN_SIZE_Y / 2));
 		game.getBatch().end();
 	}
 

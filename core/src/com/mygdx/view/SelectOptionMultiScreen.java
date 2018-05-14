@@ -65,23 +65,23 @@ public class SelectOptionMultiScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.multi.title"));
-		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.multi.description"));
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(60));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 460);
 
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.multi.mirror"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(147));
+		fontRed.draw(game.getBatch(), layout, 170, 368);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.multi.nightmare"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(207));
+		fontRed.draw(game.getBatch(), layout, 170, 308);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.multi.share"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(267));
-		drawOptionCheckBox(GameOptionEnum.MIROIR_MULTI, 107, 147);
-		drawOptionCheckBox(GameOptionEnum.CHAUCHEMAR_MULTI, 107, 207);
-		drawOptionCheckBox(GameOptionEnum.PARTAGE_VIE, 107, 267);
+		fontRed.draw(game.getBatch(), layout, 170, 248);
+		drawOptionCheckBox(GameOptionEnum.MIROIR_MULTI, 107, 348);
+		drawOptionCheckBox(GameOptionEnum.CHAUCHEMAR_MULTI, 107, 288);
+		drawOptionCheckBox(GameOptionEnum.PARTAGE_VIE, 107, 228);
 
 		// CURSOR
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 75, DrawUtils.invert(147 + cursorPosition * 60, cursorTextureRegion));
+		game.getBatch().draw(cursorTextureRegion, 75, 353- cursorPosition * 60);
 		game.getBatch().end();
 	}
 
@@ -89,14 +89,14 @@ public class SelectOptionMultiScreen implements Screen {
 		if (game.getAccountService().getAvailableOption().contains(gameOptionEnum)) {
 			if (game.getAccountService().getGameOptionSelected().contains(gameOptionEnum)) {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 1);
-				game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+				game.getBatch().draw(cursorTextureRegion, x,y );;
 			} else {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 0);
-				game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+				game.getBatch().draw(cursorTextureRegion, x, y);
 			}
 		} else {
 			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 2);
-			game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, x, y);
 
 		}
 	}

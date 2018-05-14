@@ -66,35 +66,35 @@ public class SelectOptionSoccerFestScreen implements Screen {
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_2");
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.title"));
-		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(30));
+		fontRed.draw(game.getBatch(), layout, 210 - (layout.width / 2), 490);
 		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.soccer.description1"));
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(70));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 450);
 		layout.setText(fontWhite, MessageService.getInstance().getMessage("menu.main.soccer.description2"));
-		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), DrawUtils.invertText(85));
+		fontWhite.draw(game.getBatch(), layout, 210 - (layout.width / 2), 435);
 
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.advanceControl"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(147));
+		fontRed.draw(game.getBatch(), layout, 170, 368);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.bombe"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(207));
+		fontRed.draw(game.getBatch(), layout, 170, 308);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.map1"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(267));
+		fontRed.draw(game.getBatch(), layout, 170, 248);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.map2"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(327));
+		fontRed.draw(game.getBatch(), layout, 170, 188);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.map3"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(387));
+		fontRed.draw(game.getBatch(), layout, 170, 128);
 		layout.setText(fontRed, MessageService.getInstance().getMessage("menu.main.soccer.map4"));
-		fontRed.draw(game.getBatch(), layout, 170, DrawUtils.invertText(447));
+		fontRed.draw(game.getBatch(), layout, 170, 68);
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 75, DrawUtils.invert(147 + cursorPosition * 60, cursorTextureRegion));
+		game.getBatch().draw(cursorTextureRegion, 75,353- cursorPosition * 60);
 
-		drawOptionCheckBox(GameOptionEnum.CONTROLE_BALLON, 107, 147);
-		drawOptionCheckBox(GameOptionEnum.BOMB_EXPERT, 107, 207);
+		drawOptionCheckBox(GameOptionEnum.CONTROLE_BALLON, 107, 348);
+		drawOptionCheckBox(GameOptionEnum.BOMB_EXPERT, 107, 288);
 
-		drawRadio(GameSoccerMapEnum.GAZON_MAUDIT, 107, 267);
-		drawRadio(GameSoccerMapEnum.TEMPLE_BALLON, 107, 327);
-		drawRadio(GameSoccerMapEnum.VOLLEY_FEST, 107, 387);
-		drawRadio(GameSoccerMapEnum.MAITRISE_AERIENNE, 107, 447);
+		drawRadio(GameSoccerMapEnum.GAZON_MAUDIT, 107, 228);
+		drawRadio(GameSoccerMapEnum.TEMPLE_BALLON, 107, 168);
+		drawRadio(GameSoccerMapEnum.VOLLEY_FEST, 107, 108);
+		drawRadio(GameSoccerMapEnum.MAITRISE_AERIENNE, 107, 48);
 		
 		game.getBatch().end();
 	}
@@ -103,14 +103,14 @@ public class SelectOptionSoccerFestScreen implements Screen {
 		if (game.getAccountService().getAvailableOption().contains(gameOptionEnum)) {
 			if (game.getAccountService().getGameOptionSelected().contains(gameOptionEnum)) {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 1);
-				game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+				game.getBatch().draw(cursorTextureRegion, x, y);
 			} else {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 0);
-				game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+				game.getBatch().draw(cursorTextureRegion, x, y);
 			}
 		} else {
 			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 2);
-			game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, x, y);
 
 		}
 	}
@@ -128,10 +128,10 @@ public class SelectOptionSoccerFestScreen implements Screen {
 	private void drawRadio(GameSoccerMapEnum map, int x, int y) {
 		if (game.getAccountService().getGameSoccerMapSelected() == map) {
 			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_radio", 0);
-			game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, x, y);
 		} else {
 			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_radio", 1);
-			game.getBatch().draw(cursorTextureRegion, x, DrawUtils.invert(y, cursorTextureRegion));
+			game.getBatch().draw(cursorTextureRegion, x, y);
 		}
 	}
 
