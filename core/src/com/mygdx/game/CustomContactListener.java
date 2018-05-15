@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.domain.Door;
-import com.mygdx.domain.Ennemie;
 import com.mygdx.domain.Item;
 import com.mygdx.domain.Pick;
 import com.mygdx.domain.Platform;
@@ -18,6 +17,7 @@ import com.mygdx.domain.Player;
 import com.mygdx.domain.Rayon;
 import com.mygdx.domain.Teleporter;
 import com.mygdx.domain.Vortex;
+import com.mygdx.domain.ennemie.Ennemie;
 
 public class CustomContactListener implements ContactListener {
 

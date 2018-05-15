@@ -1,5 +1,5 @@
 package com.mygdx.domain;
 
-public class Ennemie {
+public class StartPoint {
 
 }
