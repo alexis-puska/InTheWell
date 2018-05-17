@@ -255,7 +255,6 @@ public class GameScreen implements Screen {
 			currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 			currentLevel.init(world);
 		}
-
 	}
 
 	private void initFont() {
