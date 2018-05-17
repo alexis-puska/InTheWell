@@ -13,6 +13,11 @@ public class ItemMapper {
 			return null;
 		}
 		Item item = new Item();
+		item.setEnable(dto.isEnable());
+		item.setId(dto.getId());
+		item.setItemId(dto.getItemId());
+		item.setX(dto.getX());
+		item.setY(dto.getY());
 		return item;
 	}
 

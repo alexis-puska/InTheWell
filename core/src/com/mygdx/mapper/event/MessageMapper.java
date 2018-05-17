@@ -13,6 +13,10 @@ public class MessageMapper {
 			return null;
 		}
 		Message message = new Message();
+		message.setEn(dto.getEn());
+		message.setEs(dto.getEs());
+		message.setFr(dto.getFr());
+		message.setTimeout(dto.getTimeout());
 		return message;
 	}
 

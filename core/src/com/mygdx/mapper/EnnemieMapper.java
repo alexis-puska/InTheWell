@@ -82,9 +82,11 @@ public class EnnemieMapper {
 			ennemie = new Scie();
 			break;
 		}
+		ennemie.setId(dto.getId());
 		ennemie.setEnable(dto.isEnable());
 		ennemie.setX(dto.getX());
 		ennemie.setY(dto.getY());
+		ennemie.setType(dto.getType());
 		return ennemie;
 	}
 

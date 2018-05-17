@@ -13,6 +13,13 @@ public class PlatformMapper {
 			return null;
 		}
 		Platform platform = new Platform();
+		platform.setDisplayed(dto.isDisplayed());
+		platform.setEnable(dto.isEnable());
+		platform.setId(dto.getId());
+		platform.setLength(dto.getLength());
+		platform.setVertical(dto.isVertical());
+		platform.setX(dto.getX());
+		platform.setY(dto.getY());
 		return platform;
 	}
 

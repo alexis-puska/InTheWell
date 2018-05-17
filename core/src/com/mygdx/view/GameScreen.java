@@ -27,9 +27,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
+import com.mygdx.domain.Level;
 import com.mygdx.domain.Platform;
 import com.mygdx.domain.Player;
 import com.mygdx.domain.ennemie.Ennemie;
+import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.InTheWellGame;
@@ -88,7 +90,7 @@ public class GameScreen implements Screen {
 		this.finalLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
 		this.game.getSoundService().stopMusic();
 		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
-
+		
 		x = 210;
 		y = 210;
 		this.initFont();

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Teleporter {
+	private int id;
 	private boolean enable;
 	private int x;
 	private int y;

@@ -13,6 +13,13 @@ public class VortexMapper {
 			return null;
 		}
 		Vortex vortex = new Vortex();
+		vortex.setDestination(dto.getDestination());
+		vortex.setEnable(dto.isEnable());
+		vortex.setId(dto.getId());
+		vortex.setX(dto.getX());
+		vortex.setY(dto.getY());
+		vortex.setZoomX(dto.getZoomX());
+		vortex.setZoomY(dto.getZoomY());
 		return vortex;
 	}
 

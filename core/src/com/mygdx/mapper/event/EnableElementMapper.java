@@ -13,6 +13,9 @@ public class EnableElementMapper {
 			return null;
 		}
 		EnableElement enableElement = new EnableElement();
+		enableElement.setElementType(dto.getElementType());
+		enableElement.setId(dto.getId());
+		enableElement.setNewState(dto.isNewState());
 		return enableElement;
 	}
 

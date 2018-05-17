@@ -13,6 +13,13 @@ public class RayonMapper {
 			return null;
 		}
 		Rayon rayon = new Rayon();
+		rayon.setEnable(dto.isEnable());
+		rayon.setId(dto.getId());
+		rayon.setLength(dto.getLength());
+		rayon.setType(dto.getType());
+		rayon.setVertical(dto.isVertical());
+		rayon.setX(dto.getX());
+		rayon.setY(dto.getY());
 		return rayon;
 	}
 

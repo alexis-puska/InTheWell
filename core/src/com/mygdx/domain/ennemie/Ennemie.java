@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Ennemie {
+	private int id;
 	protected boolean enable;
 	protected int x;
 	protected int y;

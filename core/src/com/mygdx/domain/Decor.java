@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Decor {
+	private int id;
 	private int x;
 	private int y;
 	private boolean enable;

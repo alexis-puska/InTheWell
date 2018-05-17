@@ -13,6 +13,15 @@ public class DoorMapper {
 			return null;
 		}
 		Door door = new Door();
+		door.setEnable(dto.isEnable());
+		door.setId(dto.getId());
+		door.setLocked(dto.isLocked());
+		door.setLockId(dto.getLockId());
+		door.setKey(dto.getKey());
+		door.setToLevel(dto.getToLevel());
+		door.setType(dto.getType());
+		door.setX(dto.getX());
+		door.setY(dto.getY());
 		return door;
 	}
 

@@ -13,6 +13,9 @@ public class LevelNameMapper {
 			return null;
 		}
 		LevelName levelName = new LevelName();
+		levelName.setId(dto.getId());
+		levelName.setLang(dto.getLang());
+		levelName.setValue(dto.getValue());
 		return levelName;
 	}
 

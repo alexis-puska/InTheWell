@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LevelName {
+	private int id;
 	private String lang;
 	private String value;
 }

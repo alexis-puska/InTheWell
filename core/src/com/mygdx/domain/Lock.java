@@ -1,5 +1,7 @@
 package com.mygdx.domain;
 
+import com.mygdx.enumeration.GameKeyEnum;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,8 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Lock {
+	private int id;
 	private boolean enable;
 	private int x;
 	private int y;
-	private int requieredKeyId;
+	private GameKeyEnum key;
 }

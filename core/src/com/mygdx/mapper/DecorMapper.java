@@ -13,6 +13,12 @@ public class DecorMapper {
 			return null;
 		}
 		Decor decor = new Decor();
+		decor.setId(dto.getId());
+		decor.setBack(dto.isBack());
+		decor.setEnable(dto.isEnable());
+		decor.setIndexAnim(dto.getIndexAnim());
+		decor.setX(dto.getX());
+		decor.setY(dto.getY());
 		return decor;
 	}
 

@@ -2,9 +2,6 @@ package com.mygdx.domain.event;
 
 import java.util.List;
 
-import com.mygdx.service.dto.level.event.EnableElementDTO;
-import com.mygdx.service.dto.level.event.MessageDTO;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Event {
 
+	private int id;
 	private boolean onlyOnce;
 	private boolean triggered;
 
@@ -44,8 +42,8 @@ public class Event {
 	/***************************************
 	 * ACTION
 	 ***************************************/
-	private List<EnableElementDTO> enableElement;
-	private List<MessageDTO> message;
+	private List<EnableElement> enableElement;
+	private List<Message> message;
 	private String song;
 	private String sound;
 	private int darknessValue;

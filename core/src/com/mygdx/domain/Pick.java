@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pick {
+	private int id;
 	private int x;
 	private int y;
 	private boolean enable;

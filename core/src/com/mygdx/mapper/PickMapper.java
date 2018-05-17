@@ -13,6 +13,11 @@ public class PickMapper {
 			return null;
 		}
 		Pick pick = new Pick();
+		pick.setDirection(dto.getDirection());
+		pick.setEnable(dto.isEnable());
+		pick.setId(dto.getId());
+		pick.setX(dto.getX());
+		pick.setY(dto.getY());
 		return pick;
 	}
 

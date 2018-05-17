@@ -13,6 +13,11 @@ public class LockMapper {
 			return null;
 		}
 		Lock lock = new Lock();
+		lock.setEnable(dto.isEnable());
+		lock.setId(dto.getId());
+		lock.setKey(dto.getKey());
+		lock.setX(dto.getX());
+		lock.setY(dto.getY());
 		return lock;
 	}
 

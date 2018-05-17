@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Vortex {
+	private int id;
 	private int x;
 	private int y;
 	private double zoomX;

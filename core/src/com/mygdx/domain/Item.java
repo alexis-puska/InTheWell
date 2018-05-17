@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Item {
+	private int id;
 	private boolean enable;
 	private int x;
 	private int y;
