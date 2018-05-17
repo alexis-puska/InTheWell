@@ -2,8 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.domain.Level;
-import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.service.AccountService;
 import com.mygdx.service.LevelService;

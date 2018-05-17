@@ -16,15 +16,11 @@ import com.mygdx.service.dto.level.LevelFileDTO;
 public class LevelService {
 
 	private static LevelService INSTANCE;
-
 	private final ObjectMapper objectMapper;
-
 	private final LevelMapper levelMapper;
-
 	private LevelFileDTO levelFile;
 
 	public LevelService() {
-
 		/*******************************
 		 * --- LEVEL ---
 		 *******************************/
@@ -42,7 +38,6 @@ public class LevelService {
 			Gdx.app.error("LevelService", "IOException : ", e);
 		}
 		Gdx.app.log("LevelService", "Nb level loaded : " + levelFile.getType().get(0).getLevel().size());
-
 	}
 
 	public static LevelService getInstance() {
@@ -53,7 +48,22 @@ public class LevelService {
 	}
 
 	public Level getLevel(GameModeEnum mode, int id) {
-		LevelDTO dto = levelFile.getType().get(0).getLevel().get(id);
+		LevelDTO dto = null;
+		switch (mode) {
+		case MULTI_COOPERATIF:
+		case SOLO:
+			dto = levelFile.getType().get(0).getLevel().get(id);
+			break;
+		case TUTORIAL:
+			dto = levelFile.getType().get(1).getLevel().get(id);
+			break;
+		case SOCCERFEST:
+			dto = levelFile.getType().get(2).getLevel().get(id);
+			break;
+		case TIME_ATTACK:
+			dto = levelFile.getType().get(3).getLevel().get(id);
+			break;
+		}
 		return levelMapper.toEntity(dto);
 	}
 
