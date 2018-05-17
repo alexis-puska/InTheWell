@@ -2,6 +2,8 @@ package com.mygdx.service.dto.level;
 
 import java.io.Serializable;
 
+import com.mygdx.enumeration.GameKeyEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +19,14 @@ public class LockDTO extends IdentifiableDTO implements Serializable {
 	private boolean enable;
 	private int x;
 	private int y;
-	private int requieredKeyId;
+	private GameKeyEnum key;
 
-	public LockDTO(int id, boolean enable, int x, int y, int requieredKeyId) {
+	public LockDTO(int id, boolean enable, int x, int y, GameKeyEnum key) {
 		super(id);
 		this.enable = enable;
 		this.x = x;
 		this.y = y;
-		this.requieredKeyId = requieredKeyId;
+		this.key = key;
 	}
 
 }

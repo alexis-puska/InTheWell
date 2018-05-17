@@ -1,17 +1,27 @@
 package com.mygdx.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Platform {
 
-	long id;
+	private long id;
+	private boolean enable;
+	private int x;
+	private int y;
+	private boolean vertical;
+	private boolean displayed;
+	private int length;
+	
+	//player collision
 	float min;
 	float max;
-	boolean vertical;
-
+	
+	
 	public Platform(long id, boolean vertical, float min, float max) {
 		this.id = id;
 		this.vertical = vertical;

@@ -29,7 +29,8 @@ public class InTheWellGame extends Game {
 		accountService = new AccountService();
 		levelService = new LevelService();
 		soundService = new SoundService();
-		soundService.playMusic(MusicEnum.BOSS2);;
+		soundService.playMusic(MusicEnum.BOSS2);
+
 		this.setScreen(new SplashScreen(this));
 	}
 

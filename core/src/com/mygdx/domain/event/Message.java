@@ -1,5 +1,15 @@
 package com.mygdx.domain.event;
 
-public class Message {
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+public class Message {
+	int timeout;
+	String en;
+	String fr;
+	String es;
 }

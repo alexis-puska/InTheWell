@@ -2,6 +2,8 @@ package com.mygdx.service.dto.level;
 
 import java.io.Serializable;
 
+import com.mygdx.enumeration.EnnemieTypeEnum;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,9 +17,9 @@ public class EnnemieDTO extends IdentifiableDTO implements Serializable {
 	private boolean enable;
 	private int x;
 	private int y;
-	private int type;
+	private EnnemieTypeEnum type;
 
-	public EnnemieDTO(int id, boolean enable, int x, int y, int type) {
+	public EnnemieDTO(int id, boolean enable, int x, int y, EnnemieTypeEnum type) {
 		super(id);
 		this.enable = enable;
 		this.x = x;

@@ -1,5 +1,16 @@
 package com.mygdx.domain;
 
-public class Decor{
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+public class Decor {
+	private int x;
+	private int y;
+	private boolean enable;
+	private boolean back;
+	private int indexAnim;
 }

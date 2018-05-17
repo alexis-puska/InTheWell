@@ -7,6 +7,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mygdx.domain.Level;
+import com.mygdx.enumeration.GameModeEnum;
+import com.mygdx.mapper.LevelMapper;
+import com.mygdx.service.dto.level.LevelDTO;
 import com.mygdx.service.dto.level.LevelFileDTO;
 
 public class LevelService {
@@ -15,14 +19,19 @@ public class LevelService {
 
 	private final ObjectMapper objectMapper;
 
+	private final LevelMapper levelMapper;
+
+	private LevelFileDTO levelFile;
+
 	public LevelService() {
 
 		/*******************************
 		 * --- LEVEL ---
 		 *******************************/
 		this.objectMapper = new ObjectMapper();
+		levelFile = new LevelFileDTO();
+		levelMapper = new LevelMapper();
 		FileHandle levelJsonFile = Gdx.files.internal("json/level.json");
-		LevelFileDTO levelFile = null;
 		try {
 			levelFile = objectMapper.readValue(levelJsonFile.read(), LevelFileDTO.class);
 		} catch (JsonParseException e) {
@@ -41,6 +50,11 @@ public class LevelService {
 			INSTANCE = new LevelService();
 		}
 		return INSTANCE;
+	}
+
+	public Level getLevel(GameModeEnum mode, int id) {
+		LevelDTO dto = levelFile.getType().get(0).getLevel().get(id);
+		return levelMapper.toEntity(dto);
 	}
 
 }

@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StartEffectObjetsDTO implements Serializable {
+public class PositionDTO implements Serializable {
 
     private static final long serialVersionUID = -3148349064427411770L;
     private int x;

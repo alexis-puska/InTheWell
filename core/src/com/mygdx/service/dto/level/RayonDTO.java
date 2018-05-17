@@ -2,6 +2,8 @@ package com.mygdx.service.dto.level;
 
 import java.io.Serializable;
 
+import com.mygdx.enumeration.RayonTypeEnum;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,10 +18,10 @@ public class RayonDTO extends IdentifiableDTO implements Serializable {
 	private int x;
 	private int y;
 	private int length;
-	private int type;
+	private RayonTypeEnum type;
 	private boolean vertical;
 
-	public RayonDTO(int id, boolean enable, int x, int y, int length, int type, boolean vertical) {
+	public RayonDTO(int id, boolean enable, int x, int y, int length, RayonTypeEnum type, boolean vertical) {
 		super(id);
 		this.enable = enable;
 		this.x = x;

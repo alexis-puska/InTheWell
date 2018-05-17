@@ -38,7 +38,7 @@
         "type" : 4,
         "locked" : true,
         "toLevel" : 0,
-        "requieredKey" : null,
+        "key" : null,
         "lockId" : 0
       } ],
       "lock" : [ ],
@@ -431,7 +431,7 @@
         "enable" : true,
         "x" : 6,
         "y" : 10,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -543,7 +543,7 @@
         "enable" : true,
         "x" : 4,
         "y" : 10,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -663,7 +663,7 @@
         "enable" : true,
         "x" : 6,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -831,13 +831,13 @@
         "enable" : true,
         "x" : 4,
         "y" : 13,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 15,
         "y" : 10,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1053,13 +1053,13 @@
         "enable" : true,
         "x" : 9,
         "y" : 8,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 15,
         "y" : 5,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1171,13 +1171,13 @@
         "enable" : true,
         "x" : 10,
         "y" : 14,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 16,
         "y" : 8,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1449,19 +1449,19 @@
         "enable" : true,
         "x" : 2,
         "y" : 6,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 17,
         "y" : 18,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 5,
         "y" : 16,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1508,14 +1508,6 @@
         "vertical" : false,
         "displayed" : true,
         "length" : 2
-      }, {
-        "id" : 2,
-        "enable" : false,
-        "x" : 4,
-        "y" : 13,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 12
       }, {
         "id" : 3,
         "enable" : false,
@@ -1596,6 +1588,14 @@
         "vertical" : false,
         "displayed" : true,
         "length" : 12
+      }, {
+        "id" : 2,
+        "enable" : false,
+        "x" : 4,
+        "y" : 13,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 12
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
@@ -1605,25 +1605,19 @@
         "enable" : true,
         "x" : 9,
         "y" : 11,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 13,
         "y" : 8,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 17,
         "y" : 5,
-        "type" : 2
-      }, {
-        "id" : 3,
-        "enable" : true,
-        "x" : 11,
-        "y" : 13,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1735,25 +1729,25 @@
         "enable" : true,
         "x" : 5,
         "y" : 5,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 12,
         "y" : 5,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 9,
         "y" : 5,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 1,
         "y" : 5,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -1945,25 +1939,25 @@
         "enable" : true,
         "x" : 10,
         "y" : 15,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 11,
         "y" : 9,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 4,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 14,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -2267,19 +2261,19 @@
         "enable" : true,
         "x" : 16,
         "y" : 16,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 8,
         "y" : 11,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 12,
         "y" : 19,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -2463,25 +2457,25 @@
         "enable" : true,
         "x" : 10,
         "y" : 5,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 2,
         "y" : 21,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 16,
         "y" : 20,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 12,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -2769,25 +2763,25 @@
         "enable" : true,
         "x" : 7,
         "y" : 1,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 12,
         "y" : 1,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 9,
         "y" : 13,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 10,
         "y" : 13,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -2987,19 +2981,19 @@
         "enable" : true,
         "x" : 5,
         "y" : 7,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 0,
         "y" : 13,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 9,
         "y" : 16,
-        "type" : 3
+        "type" : "BANANE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -3191,37 +3185,37 @@
         "enable" : true,
         "x" : 5,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 9,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 10,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 14,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 15,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 10,
         "y" : 14,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -3429,25 +3423,25 @@
         "enable" : true,
         "x" : 11,
         "y" : 5,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 7,
         "y" : 14,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 13,
         "y" : 11,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 18,
         "y" : 11,
-        "type" : 3
+        "type" : "BANANE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -3607,25 +3601,25 @@
         "enable" : true,
         "x" : 18,
         "y" : 8,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 13,
         "y" : 11,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 4,
         "y" : 8,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 16,
         "y" : 11,
-        "type" : 3
+        "type" : "BANANE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -3841,25 +3835,25 @@
         "enable" : true,
         "x" : 18,
         "y" : 7,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 12,
         "y" : 19,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 15,
         "y" : 10,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 14,
         "y" : 16,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -4059,43 +4053,43 @@
         "enable" : true,
         "x" : 5,
         "y" : 10,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 14,
         "y" : 10,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 9,
         "y" : 13,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 2,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 8,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 11,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 6,
         "enable" : true,
         "x" : 17,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -4279,25 +4273,25 @@
         "enable" : true,
         "x" : 9,
         "y" : 10,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 7,
         "y" : 13,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 12,
         "y" : 13,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 9,
         "y" : 16,
-        "type" : 3
+        "type" : "BANANE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -4489,25 +4483,25 @@
         "enable" : true,
         "x" : 17,
         "y" : 11,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 13,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 1,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 7,
         "y" : 11,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -4859,37 +4853,37 @@
         "enable" : true,
         "x" : 13,
         "y" : 2,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 16,
         "y" : 2,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 13,
         "y" : 8,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 1,
         "y" : 2,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 9,
         "y" : 5,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 7,
         "y" : 16,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -5153,19 +5147,19 @@
         "enable" : true,
         "x" : 12,
         "y" : 11,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 14,
         "y" : 9,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 15,
         "y" : 3,
-        "type" : 0
+        "type" : "CERISE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -5341,25 +5335,25 @@
         "enable" : true,
         "x" : 12,
         "y" : 12,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 3,
         "y" : 9,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 3,
         "y" : 6,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 15,
         "y" : 9,
-        "type" : 3
+        "type" : "BANANE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -5751,19 +5745,19 @@
         "enable" : true,
         "x" : 7,
         "y" : 3,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 11,
         "y" : 14,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 14,
         "y" : 10,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -5915,25 +5909,25 @@
         "enable" : true,
         "x" : 9,
         "y" : 18,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 2,
         "y" : 15,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 7,
         "y" : 9,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 17,
         "y" : 9,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -6437,25 +6431,25 @@
         "enable" : true,
         "x" : 1,
         "y" : 10,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 14,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 10,
         "y" : 5,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 13,
         "y" : 17,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -6735,25 +6729,25 @@
         "enable" : true,
         "x" : 7,
         "y" : 9,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 1,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 14,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 15,
         "y" : 15,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -6919,21 +6913,21 @@
       "ennemies" : [ {
         "id" : 0,
         "enable" : true,
-        "x" : 1,
+        "x" : 2,
         "y" : 6,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 10,
         "y" : 3,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 13,
         "y" : 3,
-        "type" : 4
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -7157,19 +7151,19 @@
         "enable" : true,
         "x" : 8,
         "y" : 15,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 3,
         "y" : 6,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 15,
         "y" : 6,
-        "type" : 4
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -7329,31 +7323,31 @@
         "enable" : true,
         "x" : 15,
         "y" : 15,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 8,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 2,
         "y" : 9,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 14,
         "y" : 9,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 16,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -7637,25 +7631,25 @@
         "enable" : true,
         "x" : 18,
         "y" : 14,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 1,
         "y" : 14,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 3,
         "y" : 8,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 19,
         "y" : 8,
-        "type" : 2
+        "type" : "POMME"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -7895,55 +7889,55 @@
         "enable" : true,
         "x" : 12,
         "y" : 9,
-        "type" : 0
+        "type" : "CERISE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 2,
         "y" : 6,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 17,
         "y" : 12,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 12,
         "y" : 21,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 16,
         "y" : 15,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 8,
         "y" : 12,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 6,
         "enable" : true,
         "x" : 5,
         "y" : 3,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 7,
         "enable" : true,
         "x" : 18,
         "y" : 18,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 8,
         "enable" : true,
         "x" : 16,
         "y" : 3,
-        "type" : 1
+        "type" : "ORANGE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -8159,25 +8153,25 @@
         "enable" : true,
         "x" : 12,
         "y" : 3,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 7,
         "y" : 16,
-        "type" : 2
-      }, {
-        "id" : 2,
-        "enable" : true,
-        "x" : 8,
-        "y" : 19,
-        "type" : 4
+        "type" : "POMME"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 6,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
+      }, {
+        "id" : 2,
+        "enable" : true,
+        "x" : 8,
+        "y" : 19,
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -8413,35 +8407,35 @@
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 11,
-        "y" : 1,
-        "type" : 4
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 13,
         "y" : 4,
-        "type" : 3
-      }, {
-        "id" : 2,
-        "enable" : true,
-        "x" : 7,
-        "y" : 22,
-        "type" : 4
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 5,
         "y" : 10,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 6,
         "y" : 16,
-        "type" : 3
+        "type" : "BANANE"
+      }, {
+        "id" : 2,
+        "enable" : true,
+        "x" : 7,
+        "y" : 22,
+        "type" : "CITRON"
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 11,
+        "y" : 1,
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -8593,37 +8587,37 @@
         "enable" : true,
         "x" : 9,
         "y" : 8,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 5,
         "y" : 5,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 10,
         "y" : 2,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 14,
         "y" : 23,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 6,
         "y" : 18,
-        "type" : 4
+        "type" : "CITRON"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 4,
         "y" : 13,
-        "type" : 4
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -8815,37 +8809,37 @@
         "enable" : true,
         "x" : 12,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 1,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 15,
         "y" : 7,
-        "type" : 1
+        "type" : "ORANGE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 11,
         "y" : 10,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 4,
         "enable" : true,
         "x" : 18,
         "y" : 7,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 5,
         "enable" : true,
         "x" : 5,
         "y" : 22,
-        "type" : 4
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -9229,25 +9223,25 @@
         "enable" : true,
         "x" : 8,
         "y" : 14,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 3,
         "y" : 6,
-        "type" : 2
+        "type" : "POMME"
       }, {
         "id" : 2,
         "enable" : true,
         "x" : 2,
         "y" : 12,
-        "type" : 3
+        "type" : "BANANE"
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 5,
         "y" : 3,
-        "type" : 4
+        "type" : "CITRON"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,
@@ -9515,23 +9509,23 @@
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ {
-        "id" : 0,
+        "id" : 2,
         "enable" : true,
-        "x" : 8,
-        "y" : 9,
-        "type" : 5
+        "x" : 17,
+        "y" : 12,
+        "type" : "PRUNE"
       }, {
         "id" : 1,
         "enable" : true,
         "x" : 16,
         "y" : 9,
-        "type" : 5
+        "type" : "PRUNE"
       }, {
-        "id" : 2,
+        "id" : 0,
         "enable" : true,
-        "x" : 17,
-        "y" : 12,
-        "type" : 5
+        "x" : 8,
+        "y" : 9,
+        "type" : "PRUNE"
       } ],
       "startPlayers" : null,
       "startEffectObjets" : null,

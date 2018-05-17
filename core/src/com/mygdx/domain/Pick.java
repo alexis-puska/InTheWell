@@ -1,5 +1,17 @@
 package com.mygdx.domain;
 
-public class Pick{
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Pick {
+	private int x;
+	private int y;
+	private boolean enable;
+	private int direction;
 }
