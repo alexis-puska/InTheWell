@@ -1,5 +1,6 @@
 package com.mygdx.domain.ennemie;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.enumeration.EnnemieTypeEnum;
 
 import lombok.Getter;
@@ -15,5 +16,9 @@ public class Ennemie {
 	protected int x;
 	protected int y;
 	protected EnnemieTypeEnum type;
+	public void init(World world) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

@@ -1,5 +1,6 @@
 package com.mygdx.domain;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.enumeration.RayonTypeEnum;
 
 import lombok.Getter;
@@ -17,4 +18,8 @@ public class Rayon {
 	private int length;
 	private RayonTypeEnum type;
 	private boolean vertical;
+	public void init(World world) {
+		// TODO Auto-generated method stub
+		
+	}
 }

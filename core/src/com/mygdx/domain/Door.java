@@ -1,5 +1,6 @@
 package com.mygdx.domain;
 
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.enumeration.GameKeyEnum;
 
 import lombok.Getter;
@@ -19,4 +20,8 @@ public class Door {
 	private int toLevel;
 	private GameKeyEnum key;
 	private int lockId;
+	public void init(World world) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -1,8 +1,5 @@
 package com.mygdx.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
@@ -18,18 +15,12 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
-import com.mygdx.domain.Platform;
+import com.mygdx.domain.Level;
 import com.mygdx.domain.Player;
-import com.mygdx.domain.ennemie.Ennemie;
+import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.InTheWellGame;
@@ -55,23 +46,22 @@ public class GameScreen implements Screen {
 
 	private int x;
 	private int y;
+	private int levelIndex;
 
 	private World world;
-	// private Body body1;
-	private List<Body> platform;
+
 	private Box2DDebugRenderer debugRenderer;
 	private OrthographicCamera gameCamera;
-	int remainingJumpSteps;
-	Player player;
-	Player player2;
+
+	private Player player;
+	private Player player2;
+	private Level currentLevel;
 
 	public GameScreen(final InTheWellGame game) {
 
-		platform = new ArrayList<>();
-		remainingJumpSteps = 0;
 		gameCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
 		float camX = 10f;
-		float camY = 11.5f;
+		float camY = 12f;
 		Gdx.app.log("cam ", camX + " " + camY);
 		gameCamera.position.set(camX, camY, 0);
 		gameCamera.zoom = 0.05f;
@@ -89,86 +79,24 @@ public class GameScreen implements Screen {
 		this.game.getSoundService().stopMusic();
 		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
 
+		debugRenderer = new Box2DDebugRenderer();
 		x = 210;
 		y = 210;
 		this.initFont();
 
 		world = new World(new Vector2(0, -60), true);
+		world.setContactListener(new CustomContactListener());
 		world.step(1 / 60f, 6, 2);
 
-		createGroundBody(1l, 0, 4, 3, false);
-		createGroundBody(2l, 4, 4, 3, false);
-		createGroundBody(3l, 0, 0, 20, false);
-		createGroundBody(4l, -1, 40, 41, true);
-		createGroundBody(5l, 20, 40, 41, true);
-		createGroundBody(6l, 0, 2, 3, false);
-		createGroundBody(7l, 0, 4, 3, false);
-		createGroundBody(8l, 0, 6, 3, false);
-		createGroundBody(9l, 0, 8, 3, false);
-		createGroundBody(10l, 0, 10, 3, false);
-		createGroundBody(11l, 0, 12, 3, false);
-		createGroundBody(12l, 0, 14, 3, false);
-		createGroundBody(13l, 0, 16, 3, false);
-		createGroundBody(14l, 0, 18, 3, false);
-		createGroundBody(15l, 0, 20, 3, false);
-		createGroundBody(16l, 0, 22, 3, false);
-		createEnnemieBody(5, 5, 0.2f, false);
+		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+		currentLevel.init(world);
 
-		debugRenderer = new Box2DDebugRenderer();
-
-		player = new Player(world, true, true);
-		// player2 = new Player(world, false, true);
-
-		world.setContactListener(new CustomContactListener());
-
-	}
-
-	public void createGroundBody(long id, float x, float y, float length, boolean vertical) {
-		BodyDef groundBodyDef = new BodyDef();
-		PolygonShape groundBox = new PolygonShape();
-		if (vertical) {
-			groundBodyDef.position.set(new Vector2(x + 0.5f, y - (length / 2) + 0.5f));
-			groundBox.setAsBox(0.5f, length / 2);
-		} else {
-			groundBodyDef.position.set(new Vector2(x + (length / 2), y));
-			groundBox.setAsBox(length / 2, 0.5f);
+		if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
+			player = new Player(world, true, true);
+			player2 = new Player(world, false, true);
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+			player = new Player(world, true, true);
 		}
-		Body groundBody = world.createBody(groundBodyDef);
-		Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
-		if (vertical) {
-			groundBody.setUserData(
-					new Platform(id, vertical, groundBodyDef.position.x - 0.5f, groundBodyDef.position.x + 0.5f));
-		} else {
-			groundBody.setUserData(new Platform(id, vertical, groundBodyDef.position.x - (length / 2),
-					groundBodyDef.position.x + (length / 2)));
-		}
-		groundBox.dispose();
-		Filter filter = new Filter();
-		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
-		fixture.setFilterData(filter);
-		fixture.setFriction(0.1f);
-		platform.add(groundBody);
-	}
-
-	public void createEnnemieBody(float x, float y, float length, boolean vertical) {
-		BodyDef groundBodyDef = new BodyDef();
-		PolygonShape groundBox = new PolygonShape();
-		if (vertical) {
-			groundBodyDef.position.set(new Vector2(x, y - (length / 2) + 0.5f));
-			groundBox.setAsBox(0.5f, length / 2);
-		} else {
-			groundBodyDef.position.set(new Vector2(x + (length / 2) - 0.5f, y));
-			groundBox.setAsBox(length / 2, 0.5f);
-		}
-		Body groundBody = world.createBody(groundBodyDef);
-		Fixture fixture = groundBody.createFixture(groundBox, 0.0f);
-
-		groundBody.setUserData(new Ennemie());
-		groundBox.dispose();
-		Filter filter = new Filter();
-		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
-		fixture.setFilterData(filter);
-		platform.add(groundBody);
 	}
 
 	@Override
@@ -231,8 +159,12 @@ public class GameScreen implements Screen {
 		world.step(1 / 60f, 6, 2);
 		treatInput();
 
-		player.update();
-		// player2.update();
+		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+			player.update();
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+			player.update();
+			player2.update();
+		}
 
 		if (Constante.DEBUG) {
 			debugRenderer.render(world, gameCamera.combined);
@@ -317,6 +249,13 @@ public class GameScreen implements Screen {
 				Context.setShowFps(true);
 			}
 		}
+		if (Gdx.input.isKeyJustPressed(Keys.PLUS)) {
+			levelIndex++;
+			currentLevel.dispose(world);
+			currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+			currentLevel.init(world);
+		}
+
 	}
 
 	private void initFont() {

@@ -47,11 +47,13 @@ public class CustomContactListener implements ContactListener {
 				other = contact.getFixtureA();
 			}
 			if (other != null) {
-				if (other.getBody().getUserData().getClass() == Platform.class) {
-					Gdx.app.log("player leave plaforme", "leave");
-					player.leavePlatorm();
-					Platform p = (Platform) other.getBody().getUserData();
-					player.goOutPlatform(p.getId());
+				if (other.getBody().getUserData() != null) {
+					if (other.getBody().getUserData().getClass() == Platform.class) {
+						Gdx.app.log("player leave plaforme", "leave");
+						player.leavePlatorm();
+						Platform p = (Platform) other.getBody().getUserData();
+						player.goOutPlatform(p.getId());
+					}
 				}
 			}
 		}
@@ -82,30 +84,32 @@ public class CustomContactListener implements ContactListener {
 				other = contact.getFixtureA();
 			}
 			if (other != null) {
-				if (other.getBody().getUserData().getClass() == Platform.class) {
-					if (playerVelocity == 0f) {
-						long idFrame = Gdx.graphics.getFrameId();
-						player.touchPlatorm(idFrame);
-						Platform p = (Platform) other.getBody().getUserData();
-						player.enterPlatform(p.getId());
-					}
-					if (playerVelocity > 0) {
-						Platform p = (Platform) other.getBody().getUserData();
-						if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
-								&& playerVelocity > 0 && !player.isTouchPlatorm()) {
-							contact.setEnabled(false);
+				if (other.getBody().getUserData() != null) {
+					if (other.getBody().getUserData().getClass() == Platform.class) {
+						if (playerVelocity == 0f) {
+							long idFrame = Gdx.graphics.getFrameId();
+							player.touchPlatorm(idFrame);
+							Platform p = (Platform) other.getBody().getUserData();
+							player.enterPlatform(p.getId());
 						}
+						if (playerVelocity > 0) {
+							Platform p = (Platform) other.getBody().getUserData();
+							if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
+									&& playerVelocity > 0 && !player.isTouchPlatorm()) {
+								contact.setEnabled(false);
+							}
+						}
+					} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+						Gdx.app.log("player touch ennemie", "kill player");
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Door.class) {
+					} else if (other.getBody().getUserData().getClass() == Item.class) {
+					} else if (other.getBody().getUserData().getClass() == Lock.class) {
+					} else if (other.getBody().getUserData().getClass() == Pick.class) {
+					} else if (other.getBody().getUserData().getClass() == Rayon.class) {
+					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 					}
-				} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
-					Gdx.app.log("player touch ennemie", "kill player");
-					contact.setEnabled(false);
-				} else if (other.getBody().getUserData().getClass() == Door.class) {
-				} else if (other.getBody().getUserData().getClass() == Item.class) {
-				} else if (other.getBody().getUserData().getClass() == Lock.class) {
-				} else if (other.getBody().getUserData().getClass() == Pick.class) {
-				} else if (other.getBody().getUserData().getClass() == Rayon.class) {
-				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
-				} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 				}
 			}
 			return;

@@ -2,6 +2,8 @@ package com.mygdx.domain.event;
 
 import java.util.List;
 
+import com.badlogic.gdx.physics.box2d.World;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -48,4 +50,10 @@ public class Event {
 	private String sound;
 	private int darknessValue;
 	private int iceValue;
+	
+	
+	
+	public void init(World world) {
+		
+	}
 }

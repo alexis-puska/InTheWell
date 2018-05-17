@@ -1,5 +1,7 @@
 package com.mygdx.domain;
 
+import com.badlogic.gdx.physics.box2d.World;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,4 +17,8 @@ public class Vortex {
 	private double zoomY;
 	private boolean enable;
 	private int destination;
+	public void init(World world) {
+		// TODO Auto-generated method stub
+		
+	}
 }
