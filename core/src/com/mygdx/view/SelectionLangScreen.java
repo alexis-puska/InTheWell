@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -91,15 +90,15 @@ public class SelectionLangScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectAccountScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			game.getScreen().dispose();
 			game.setScreen(new SplashScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			switch (Context.getLocale()) {
 			case FRENCH:
 				break;
@@ -111,7 +110,7 @@ public class SelectionLangScreen implements Screen {
 				break;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			switch (Context.getLocale()) {
 			case FRENCH:
 				Context.setLocale(LocaleEnum.ENGLISH);

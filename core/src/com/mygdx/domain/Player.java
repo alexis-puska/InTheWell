@@ -40,7 +40,6 @@ public class Player {
 		this.igor = igor;
 		this.multi = multi;
 		this.insidePlatform = new HashSet<>();
-
 		bodyDef.type = BodyType.DynamicBody;
 		bodyDef.position.set(10, 10);
 		playerBody = world.createBody(bodyDef);
@@ -54,9 +53,7 @@ public class Player {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = bodyBox;
 		fixtureDef.density = 1;
-		
 		fixtureDef.restitution = 0f;
-
 		Fixture fixture = playerBody.createFixture(fixtureDef);
 		Filter filter = new Filter();
 		filter.categoryBits = CollisionConstante.CATEGORY_PLAYER;

@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -109,7 +108,7 @@ public class SelectModeScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 				game.getAccountService().resetGameOptionSelected();
@@ -128,11 +127,11 @@ public class SelectModeScreen implements Screen {
 				game.setScreen(new SelectOptionSoccerFestScreen(game));
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			game.getScreen().dispose();
 			game.setScreen(new MainScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {
 				game.getAccountService().setGameModeSelected(GameModeEnum.SOLO);
 			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TIME_ATTACK) {
@@ -153,7 +152,7 @@ public class SelectModeScreen implements Screen {
 				}
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 				game.getAccountService().setGameModeSelected(GameModeEnum.TUTORIAL);
 			} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.TUTORIAL) {

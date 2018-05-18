@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -92,7 +91,7 @@ public class MainScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 
 			switch (cursorPosition) {
@@ -107,16 +106,16 @@ public class MainScreen implements Screen {
 				break;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			game.getScreen().dispose();
-			game.setScreen(new SelectionLangScreen(game));
+			game.setScreen(new SelectAccountScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			if (cursorPosition > 0) {
 				cursorPosition--;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			if (cursorPosition < 2) {
 				cursorPosition++;
 			}

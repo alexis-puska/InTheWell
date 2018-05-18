@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -81,7 +80,7 @@ public class SelectOptionMultiScreen implements Screen {
 
 		// CURSOR
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 75, 353- cursorPosition * 60);
+		game.getBatch().draw(cursorTextureRegion, 75, 353 - cursorPosition * 60);
 		game.getBatch().end();
 	}
 
@@ -89,7 +88,8 @@ public class SelectOptionMultiScreen implements Screen {
 		if (game.getAccountService().getAvailableOption().contains(gameOptionEnum)) {
 			if (game.getAccountService().getGameOptionSelected().contains(gameOptionEnum)) {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 1);
-				game.getBatch().draw(cursorTextureRegion, x,y );;
+				game.getBatch().draw(cursorTextureRegion, x, y);
+				;
 			} else {
 				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 0);
 				game.getBatch().draw(cursorTextureRegion, x, y);
@@ -100,7 +100,7 @@ public class SelectOptionMultiScreen implements Screen {
 
 		}
 	}
-	
+
 	private void treatOption(GameOptionEnum option) {
 		if (game.getAccountService().getAvailableOption().contains(option)) {
 			if (game.getAccountService().getGameOptionSelected().contains(option)) {
@@ -112,15 +112,15 @@ public class SelectOptionMultiScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			game.setScreen(new GameScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectModeScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.X)) {
+		if (game.getMenuInputProcessor().pressValide()) {
 			switch (cursorPosition) {
 			case 0:
 				treatOption(GameOptionEnum.MIROIR_MULTI);
@@ -133,12 +133,12 @@ public class SelectOptionMultiScreen implements Screen {
 				break;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			if (cursorPosition > 0) {
 				cursorPosition--;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			if (cursorPosition < 2) {
 				cursorPosition++;
 			}

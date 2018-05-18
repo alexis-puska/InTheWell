@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.service.AccountService;
@@ -21,6 +22,7 @@ public class InTheWellGame extends Game {
 	private AccountService accountService;
 	private LevelService levelService;
 	private SoundService soundService;
+	private MenuInputProcessor menuInputProcessor;
 
 	public void create() {
 		MessageService.getInstance();
@@ -28,9 +30,10 @@ public class InTheWellGame extends Game {
 		batch = new SpriteBatch();
 		accountService = new AccountService();
 		levelService = new LevelService();
+		menuInputProcessor = new MenuInputProcessor();
 		soundService = new SoundService();
 		soundService.playMusic(MusicEnum.BOSS2);
-
+		Gdx.input.setInputProcessor(menuInputProcessor);
 		this.setScreen(new SplashScreen(this));
 	}
 

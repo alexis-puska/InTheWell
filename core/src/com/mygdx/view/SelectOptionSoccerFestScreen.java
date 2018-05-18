@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -86,7 +85,7 @@ public class SelectOptionSoccerFestScreen implements Screen {
 		fontRed.draw(game.getBatch(), layout, 170, 68);
 
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 75,353- cursorPosition * 60);
+		game.getBatch().draw(cursorTextureRegion, 75, 353 - cursorPosition * 60);
 
 		drawOptionCheckBox(GameOptionEnum.CONTROLE_BALLON, 107, 348);
 		drawOptionCheckBox(GameOptionEnum.BOMB_EXPERT, 107, 288);
@@ -95,7 +94,7 @@ public class SelectOptionSoccerFestScreen implements Screen {
 		drawRadio(GameSoccerMapEnum.TEMPLE_BALLON, 107, 168);
 		drawRadio(GameSoccerMapEnum.VOLLEY_FEST, 107, 108);
 		drawRadio(GameSoccerMapEnum.MAITRISE_AERIENNE, 107, 48);
-		
+
 		game.getBatch().end();
 	}
 
@@ -136,15 +135,15 @@ public class SelectOptionSoccerFestScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			game.setScreen(new GameScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectModeScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.X)) {
+		if (game.getMenuInputProcessor().pressValide()) {
 			switch (cursorPosition) {
 			case 0:
 				treatOption(GameOptionEnum.CONTROLE_BALLON);
@@ -166,12 +165,12 @@ public class SelectOptionSoccerFestScreen implements Screen {
 				break;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			if (cursorPosition > 0) {
 				cursorPosition--;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			if (cursorPosition < 5) {
 				cursorPosition++;
 			}

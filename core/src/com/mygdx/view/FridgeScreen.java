@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -118,29 +117,29 @@ public class FridgeScreen implements Screen {
 	}
 
 	public void treatInput() {
-		if (Gdx.input.isKeyJustPressed(Keys.SHIFT_RIGHT)) {
+		if (game.getMenuInputProcessor().pressPrevious()) {
 			this.game.setScreen(new MainScreen(game));
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.DOWN)) {
+		if (game.getMenuInputProcessor().pressDown()) {
 			idItemSelected += 6;
 			if (idItemSelected > 352) {
 				idItemSelected = 352;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.UP)) {
+		if (game.getMenuInputProcessor().pressUp()) {
 			idItemSelected -= 6;
 			if (idItemSelected < 0) {
 				idItemSelected = 0;
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.LEFT)) {
+		if (game.getMenuInputProcessor().pressLeft()) {
 			idItemSelected--;
 			if (idItemSelected < 0) {
 				idItemSelected = 0;
 
 			}
 		}
-		if (Gdx.input.isKeyJustPressed(Keys.RIGHT)) {
+		if (game.getMenuInputProcessor().pressRight()) {
 			idItemSelected++;
 			if (idItemSelected > 352) {
 				idItemSelected = 352;

@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -20,7 +19,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectionLangScreen(game));
 		}
