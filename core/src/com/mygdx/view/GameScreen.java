@@ -1,7 +1,6 @@
 package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -23,6 +22,7 @@ import com.mygdx.domain.Player;
 import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.game.CustomContactListener;
+import com.mygdx.game.GameInputProcessor;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
 import com.mygdx.service.SpriteService;
@@ -31,11 +31,16 @@ public class GameScreen implements Screen {
 
 	final InTheWellGame game;
 
-	// TEXT
+	/********************
+	 * --- TEXT ---
+	 ********************/
 	private GlyphLayout layout;
 	private BitmapFont fontGold;
 
-	// DRAW
+	/********************
+	 * --- DRAW ---
+	 ********************/
+	// layout
 	private FrameBuffer backgroundLayer;
 	private FrameBuffer platformLayer;
 	private FrameBuffer playerLayer;
@@ -43,32 +48,48 @@ public class GameScreen implements Screen {
 	private FrameBuffer shadowLayer;
 	private FrameBuffer finalLayer;
 	private ShapeRenderer shapeRenderer;
+	// camera
+	private OrthographicCamera layerCamera;
 
-	private int x;
-	private int y;
+	/********************
+	 * --- PHYSICS ---
+	 ********************/
+	private World world;
+	private Box2DDebugRenderer debugRenderer;
+	private OrthographicCamera debugCamera;
+
+	/********************
+	 * --- LEVEL ---
+	 ********************/
+	private Level currentLevel;
 	private int levelIndex;
 
-	private World world;
-
-	private Box2DDebugRenderer debugRenderer;
-	private OrthographicCamera gameCamera;
-
+	/********************
+	 * --- PLAYER ---
+	 ********************/
 	private Player player;
 	private Player player2;
-	private Level currentLevel;
+
+	/********************
+	 * --- INPUT ---
+	 ********************/
+	private GameInputProcessor gameInputProcessor;
 
 	public GameScreen(final InTheWellGame game) {
-
-		gameCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
-		float camX = 10f;
-		float camY = 12f;
-		Gdx.app.log("cam ", camX + " " + camY);
-		gameCamera.position.set(camX, camY, 0);
-		gameCamera.zoom = 0.05f;
-		gameCamera.update();
 		this.game = game;
-		this.shapeRenderer = new ShapeRenderer();
+		Context.setPause(false);
+		Context.setShowFps(false);
+		Context.setShowMap(false);
+
+		/********************
+		 * --- TEXT ---
+		 ********************/
 		this.layout = new GlyphLayout();
+		this.initFont();
+
+		/********************
+		 * --- DRAW ---
+		 ********************/
 		this.backgroundLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y,
 				false);
 		this.platformLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
@@ -76,27 +97,49 @@ public class GameScreen implements Screen {
 		this.frontLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
 		this.shadowLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
 		this.finalLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
-		this.game.getSoundService().stopMusic();
-		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
+		this.shapeRenderer = new ShapeRenderer();
+		this.layerCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
+		this.layerCamera.position.set(Constante.SCREEN_SIZE_X / 2, Constante.SCREEN_SIZE_Y / 2, 0);
+		this.layerCamera.update();
 
-		debugRenderer = new Box2DDebugRenderer();
-		x = 210;
-		y = 210;
-		this.initFont();
+		/********************
+		 * --- PHYSICS ---
+		 ********************/
+		this.debugRenderer = new Box2DDebugRenderer();
+		this.debugCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
+		float camX = 10f;
+		float camY = 12f;
+		this.debugCamera.position.set(camX, camY, 0);
+		this.debugCamera.zoom = 0.05f;
+		this.debugCamera.update();
+		this.world = new World(new Vector2(0, -60), true);
+		this.world.setContactListener(new CustomContactListener());
+		this.world.step(1 / 60f, 6, 2);
 
-		world = new World(new Vector2(0, -60), true);
-		world.setContactListener(new CustomContactListener());
-		world.step(1 / 60f, 6, 2);
-
+		/********************
+		 * --- LEVEL ---
+		 ********************/
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world);
 
+		/********************
+		 * --- PLAYER ---
+		 ********************/
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
 			player = new Player(world, true, true);
 			player2 = new Player(world, false, true);
 		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 			player = new Player(world, true, true);
 		}
+
+		gameInputProcessor = new GameInputProcessor(player, player2, this, game);
+		Gdx.input.setInputProcessor(gameInputProcessor);
+
+		/********************
+		 * --- INIT MUSIC ---
+		 ********************/
+		this.game.getSoundService().stopMusic();
+		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
 	}
 
 	@Override
@@ -108,6 +151,9 @@ public class GameScreen implements Screen {
 		shadowLayer.dispose();
 		finalLayer.dispose();
 		fontGold.dispose();
+		this.game.getSoundService().playMusic(MusicEnum.BOSS2);
+		Gdx.input.setInputProcessor(game.getMenuInputProcessor());
+		game.setScreen(new SelectOptionSoloScreen(game));
 	}
 
 	@Override
@@ -117,7 +163,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-
+		game.getViewport().update(width, height, true);
 	}
 
 	@Override
@@ -138,6 +184,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// clear screen
+		game.getGameCamera().update();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -145,19 +192,20 @@ public class GameScreen implements Screen {
 		drawPlatform();
 		drawPlayer();
 		drawFront();
-		drawShadowMask(x, y);
+		drawShadowMask(100, 100);
 
 		// merge 5 layers
 		mergeFinalTexture();
 
 		// draw finale image to screen
+
+		game.getViewport().apply();
 		game.getBatch().begin();
-		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0);
+		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0, 420, 520);
 		showFPS();
 		game.getBatch().end();
 
 		world.step(1 / 60f, 6, 2);
-		treatInput();
 
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 			player.update();
@@ -167,7 +215,7 @@ public class GameScreen implements Screen {
 		}
 
 		if (Constante.DEBUG) {
-			debugRenderer.render(world, gameCamera.combined);
+			debugRenderer.render(world, debugCamera.combined);
 		}
 	}
 
@@ -176,6 +224,9 @@ public class GameScreen implements Screen {
 	 */
 	private void mergeFinalTexture() {
 		finalLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, 0);
 		game.getBatch().draw(platformLayer.getColorBufferTexture(), 0, 0);
@@ -184,11 +235,16 @@ public class GameScreen implements Screen {
 		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, 0);
 		game.getBatch().end();
 		finalLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+
 	}
 
 	private void drawBackground() {
 		TextureRegion textureRegionBackground = SpriteService.getInstance().getTexture("menu_background_1", 0);
 		backgroundLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 		int idx = 0;
 		while (idx < Constante.SCREEN_SIZE_X) {
@@ -197,31 +253,39 @@ public class GameScreen implements Screen {
 		}
 		game.getBatch().end();
 		backgroundLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
 
 	private void drawPlatform() {
 		platformLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		platformLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
 
 	private void drawPlayer() {
 		playerLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		playerLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
 
 	private void drawFront() {
 		frontLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		frontLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
 
 	private void drawShadowMask(int x, int y) {
 		shadowLayer.begin();
+		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0.7f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glColorMask(false, false, false, true);
@@ -231,29 +295,27 @@ public class GameScreen implements Screen {
 		shapeRenderer.end();
 		Gdx.gl.glColorMask(true, true, true, true);
 		shadowLayer.end();
+		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
 
-	private void treatInput() {
-		// CTRL + shift + Left -> exit game
-		if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT) && Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)
-				&& Gdx.input.isKeyJustPressed(Keys.K)) {
-			game.getScreen().dispose();
-			this.game.getSoundService().playMusic(MusicEnum.BOSS2);
-			game.setScreen(new SelectOptionSoloScreen(game));
-		}
-		// display FPS
-		if (Gdx.input.isKeyJustPressed(Keys.F)) {
-			if (Context.isShowFps()) {
-				Context.setShowFps(false);
-			} else {
-				Context.setShowFps(true);
-			}
-		}
-		if (Gdx.input.isKeyJustPressed(Keys.PLUS)) {
-			levelIndex++;
-			currentLevel.dispose(world);
-			currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-			currentLevel.init(world);
+	public void incLevel() {
+		levelIndex++;
+		currentLevel.dispose(world);
+		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+		currentLevel.init(world);
+	}
+
+	public void decLevel() {
+		levelIndex++;
+		currentLevel.dispose(world);
+		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+		currentLevel.init(world);
+	}
+
+	private void showFPS() {
+		if (Context.isShowFps()) {
+			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
+			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, 510);
 		}
 	}
 
@@ -266,12 +328,5 @@ public class GameScreen implements Screen {
 		parameter.color = new Color(255, 255, 0, 255);
 		fontGold = generator.generateFont(parameter);
 		generator.dispose();
-	}
-
-	private void showFPS() {
-		if (Context.isShowFps()) {
-			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
-			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, 510);
-		}
 	}
 }

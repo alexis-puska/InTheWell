@@ -14,7 +14,7 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 		config.vSyncEnabled = false;
 		config.fullscreen = false;
-		config.resizable = false;
+		config.resizable = true;
 		new LwjglApplication(new InTheWellGame(), config);
 	}
 }

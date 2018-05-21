@@ -44,6 +44,8 @@ public class SoundService {
 	private Sound soundTake_object;
 	private Sound soundTeleporter;
 	private Sound soundTuberculoz;
+	
+	private MusicEnum lastMusicPlayed;
 
 	public SoundService() {
 		Gdx.app.log("SoundService", "Init");
@@ -120,6 +122,11 @@ public class SoundService {
 			lostTrack.setLooping(true);
 			break;
 		}
+		lastMusicPlayed = musicEnum;
+	}
+	
+	public void playLastMusic() {
+		playMusic(lastMusicPlayed);
 	}
 
 	/*******************
@@ -215,5 +222,7 @@ public class SoundService {
 		soundTeleporter.dispose();
 		soundTuberculoz.dispose();
 	}
+
+	
 
 }

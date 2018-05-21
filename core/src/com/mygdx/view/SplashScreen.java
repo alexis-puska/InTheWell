@@ -19,12 +19,15 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		game.getGameCamera().update();
+
 		if (game.getMenuInputProcessor().pressNext()) {
 			game.getScreen().dispose();
 			game.setScreen(new SelectionLangScreen(game));
 		}
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		TextureRegion textureRegionTitle = SpriteService.getInstance().getTexture("menu_title", 0);
 		game.getBatch().begin();
 		DrawUtils.fillBackground(game.getBatch(), "menu_background_1");
@@ -39,6 +42,7 @@ public class SplashScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
+		game.getViewport().update(width, height, true);
 	}
 
 	@Override

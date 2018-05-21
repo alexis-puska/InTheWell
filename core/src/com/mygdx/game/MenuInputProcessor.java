@@ -15,6 +15,9 @@ public class MenuInputProcessor implements InputProcessor {
 	private boolean previous;
 	private boolean next;
 
+	/***************************
+	 * --- KEYBOARD PART ---
+	 ***************************/
 	@Override
 	public boolean keyDown(int keycode) {
 		switch (keycode) {
@@ -77,6 +80,9 @@ public class MenuInputProcessor implements InputProcessor {
 		return false;
 	}
 
+	/***************************
+	 * --- TOUCHSCREEN PART ---
+	 ***************************/
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		return false;
@@ -102,6 +108,9 @@ public class MenuInputProcessor implements InputProcessor {
 		return false;
 	}
 
+	/***************************
+	 * --- COMMON PART ---
+	 ***************************/
 	public boolean isConsumeEvent() {
 		return consumeEvent;
 	}

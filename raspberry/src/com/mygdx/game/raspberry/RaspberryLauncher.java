@@ -11,7 +11,10 @@ public class RaspberryLauncher {
 		config.title = "In The Well";
 		config.width = Constante.SCREEN_SIZE_X;
 		config.height = Constante.SCREEN_SIZE_Y;
+		config.foregroundFPS = 60;
+		config.vSyncEnabled = false;
 		config.fullscreen = true;
+		config.resizable = false;
 		new JoglNewtApplication(new InTheWellGame(), config);
 	}
 }
