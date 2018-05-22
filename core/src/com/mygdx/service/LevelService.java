@@ -15,6 +15,8 @@ import com.mygdx.service.dto.level.LevelFileDTO;
 
 public class LevelService {
 
+	private static final String LEVEL_SERVICE = "Level Service";
+	
 	private static LevelService INSTANCE;
 	private final ObjectMapper objectMapper;
 	private final LevelMapper levelMapper;
@@ -31,13 +33,13 @@ public class LevelService {
 		try {
 			levelFile = objectMapper.readValue(levelJsonFile.read(), LevelFileDTO.class);
 		} catch (JsonParseException e) {
-			Gdx.app.error("LevelService", "JsonParseException : ", e);
+			Gdx.app.error(LEVEL_SERVICE, "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
-			Gdx.app.error("LevelService", "JsonMappingException : ", e);
+			Gdx.app.error(LEVEL_SERVICE, "JsonMappingException : ", e);
 		} catch (IOException e) {
-			Gdx.app.error("LevelService", "IOException : ", e);
+			Gdx.app.error(LEVEL_SERVICE, "IOException : ", e);
 		}
-		Gdx.app.log("LevelService", "Nb level loaded : " + levelFile.getType().get(0).getLevel().size());
+		Gdx.app.log(LEVEL_SERVICE, "Nb level loaded : " + levelFile.getType().get(0).getLevel().size());
 	}
 
 	public static LevelService getInstance() {

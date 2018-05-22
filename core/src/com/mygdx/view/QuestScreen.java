@@ -24,6 +24,9 @@ import com.mygdx.utils.DrawUtils;
  * @author alexispuskarczyk
  */
 public class QuestScreen implements Screen {
+	
+	private static final String NO_TRANSLATION = "noTranslation";
+	
 	final InTheWellGame game;
 	private BitmapFont fontRed;
 	private BitmapFont fontGold;
@@ -199,13 +202,13 @@ public class QuestScreen implements Screen {
 				}
 			}
 		} else {
-			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
+			layout.setText(fontWhite, MessageService.getInstance().getMessage(NO_TRANSLATION));
 			fontWhite.draw(game.getBatch(), layout, 210, 310);
 		}
 
 		// DESCRIPTION
 		if (game.getAccountService().getQuestStarted().containsKey(questSelect)) {
-			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
+			layout.setText(fontWhite, MessageService.getInstance().getMessage(NO_TRANSLATION));
 			fontWhite.draw(game.getBatch(), layout, 210, 158);
 		} else if (game.getAccountService().getQuestCompleted().containsKey(questSelect)) {
 			int idx = 0;
@@ -232,7 +235,7 @@ public class QuestScreen implements Screen {
 				idx++;
 			}
 		} else {
-			layout.setText(fontWhite, MessageService.getInstance().getMessage("noTranslation"));
+			layout.setText(fontWhite, MessageService.getInstance().getMessage(NO_TRANSLATION));
 			fontWhite.draw(game.getBatch(), layout, 210, 158);
 		}
 		game.getBatch().end();

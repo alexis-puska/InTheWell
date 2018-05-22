@@ -20,6 +20,9 @@ import com.mygdx.utils.DrawUtils;
  * @author alexispuskarczyk
  */
 public class SelectOptionMultiScreen implements Screen {
+	
+	private static final String CHECKBOX = "menu_game_checkbox";
+	
 	final InTheWellGame game;
 	private BitmapFont fontWhite;
 	private BitmapFont fontRed;
@@ -92,15 +95,15 @@ public class SelectOptionMultiScreen implements Screen {
 	private void drawOptionCheckBox(GameOptionEnum gameOptionEnum, int x, int y) {
 		if (game.getAccountService().getAvailableOption().contains(gameOptionEnum)) {
 			if (game.getAccountService().getGameOptionSelected().contains(gameOptionEnum)) {
-				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 1);
+				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture(CHECKBOX, 1);
 				game.getBatch().draw(cursorTextureRegion, x, y);
 				;
 			} else {
-				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 0);
+				TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture(CHECKBOX, 0);
 				game.getBatch().draw(cursorTextureRegion, x, y);
 			}
 		} else {
-			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_game_checkbox", 2);
+			TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture(CHECKBOX, 2);
 			game.getBatch().draw(cursorTextureRegion, x, y);
 
 		}

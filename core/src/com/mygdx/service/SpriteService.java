@@ -23,6 +23,8 @@ import com.mygdx.service.dto.sprite.SpriteFileContent;
  */
 public class SpriteService {
 
+	private static final String SPRITE_SERVICE = "Sprite Service";
+	
 	private static SpriteService INSTANCE = new SpriteService();
 
 	private Map<String, TextureRegion[]> sprites;
@@ -54,7 +56,7 @@ public class SpriteService {
 	}
 
 	public SpriteService() {
-		Gdx.app.log("SpriteService", "Init");
+		Gdx.app.log(SPRITE_SERVICE, "Init");
 
 		spriteAnimation = new Texture(Gdx.files.internal("sprite/sprite_animation.png"));
 		spriteArrow = new Texture(Gdx.files.internal("sprite/sprite_arrow.png"));
@@ -83,11 +85,11 @@ public class SpriteService {
 		try {
 			spriteFileContent = objectMapper.readValue(spriteJsonFile.read(), SpriteFileContent.class);
 		} catch (JsonParseException e) {
-			Gdx.app.error("LevelService", "JsonParseException : ", e);
+			Gdx.app.error(SPRITE_SERVICE, "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
-			Gdx.app.error("LevelService", "JsonMappingException : ", e);
+			Gdx.app.error(SPRITE_SERVICE, "JsonMappingException : ", e);
 		} catch (IOException e) {
-			Gdx.app.error("LevelService", "IOException : ", e);
+			Gdx.app.error(SPRITE_SERVICE, "IOException : ", e);
 		}
 		List<SpriteFile> spriteFileList = spriteFileContent.getSpriteFile();
 		for (SpriteFile spriteFile : spriteFileList) {
