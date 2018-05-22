@@ -55,6 +55,7 @@ public class QuestScreen implements Screen {
 
 	@Override
 	public void show() {
+		//unused method
 	}
 
 	@Override
@@ -64,14 +65,17 @@ public class QuestScreen implements Screen {
 
 	@Override
 	public void pause() {
+		//unused method
 	}
 
 	@Override
 	public void resume() {
+		//unused method
 	}
 
 	@Override
 	public void hide() {
+		//unused method
 	}
 
 	@Override
