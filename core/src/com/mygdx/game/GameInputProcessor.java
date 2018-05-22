@@ -73,6 +73,7 @@ public class GameInputProcessor implements InputProcessor {
 			case Keys.A:
 				p2.drop();
 				break;
+			default:
 			}
 		} else {
 			switch (keycode) {
@@ -91,6 +92,7 @@ public class GameInputProcessor implements InputProcessor {
 			case Keys.SPACE:
 				p1.drop();
 				break;
+			default:
 			}
 		}
 
@@ -132,6 +134,7 @@ public class GameInputProcessor implements InputProcessor {
 		case Keys.H:
 			gameScreen.incLevel();
 			break;
+		default:
 		}
 		return false;
 	}
@@ -168,6 +171,8 @@ public class GameInputProcessor implements InputProcessor {
 				break;
 			case Keys.A:
 				break;
+			default:
+
 			}
 
 		} else {
@@ -185,6 +190,7 @@ public class GameInputProcessor implements InputProcessor {
 				break;
 			case Keys.SPACE:
 				break;
+			default:
 			}
 		}
 
@@ -201,6 +207,7 @@ public class GameInputProcessor implements InputProcessor {
 		case Keys.K:
 			kPressed = false;
 			break;
+		default:
 		}
 
 		return false;

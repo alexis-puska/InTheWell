@@ -81,6 +81,8 @@ public class EnnemieMapper {
 		case SCIE:
 			ennemie = new Scie();
 			break;
+		default:
+			ennemie = new Cerise();
 		}
 		ennemie.setId(dto.getId());
 		ennemie.setEnable(dto.isEnable());

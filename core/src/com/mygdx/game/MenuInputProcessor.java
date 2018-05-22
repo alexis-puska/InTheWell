@@ -42,6 +42,7 @@ public class MenuInputProcessor implements InputProcessor {
 		case Keys.RIGHT:
 			right = true;
 			break;
+		default:
 		}
 		consumeEvent = false;
 		return false;
@@ -71,6 +72,7 @@ public class MenuInputProcessor implements InputProcessor {
 		case Keys.RIGHT:
 			right = false;
 			break;
+		default:
 		}
 		return false;
 	}

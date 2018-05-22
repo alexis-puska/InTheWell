@@ -371,6 +371,7 @@ public class AccountService {
 					case 6:
 						availableItemEffect6.add(item.getId());
 						break;
+					default:
 					}
 				} else {
 					switch (item.getRarity()) {
@@ -398,6 +399,7 @@ public class AccountService {
 					case 7:
 						availableItemPoint7.add(item.getId());
 						break;
+					default:
 					}
 				}
 			}
@@ -558,8 +560,9 @@ public class AccountService {
 			return this.database.getItems().get(id).getName().getFr();
 		case SPANISH:
 			return this.database.getItems().get(id).getName().getEs();
+		default:
+			return this.database.getItems().get(id).getName().getFr();
 		}
-		return "";
 	}
 
 	public String getQuestName(int id) {
@@ -570,8 +573,9 @@ public class AccountService {
 			return this.database.getQuests().get(id).getTitre().getFr();
 		case SPANISH:
 			return this.database.getQuests().get(id).getTitre().getEs();
+		default:
+			return this.database.getQuests().get(id).getTitre().getFr();
 		}
-		return "";
 	}
 
 	public String getQuestDescription(int id) {
@@ -582,8 +586,9 @@ public class AccountService {
 			return this.database.getQuests().get(id).getDescription().getFr();
 		case SPANISH:
 			return this.database.getQuests().get(id).getDescription().getEs();
+		default:
+			return this.database.getQuests().get(id).getDescription().getFr();
 		}
-		return "";
 	}
 
 	public Map<Integer, QuestDTO> getQuestStarted() {
