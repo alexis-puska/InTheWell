@@ -155,9 +155,7 @@ public class AccountService {
 	private void initSaveFile() {
 		Path path = Paths.get(Constante.SAVE_PATH);
 		if (!path.toFile().exists()) {
-			BufferedWriter writer;
-			try {
-				writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH));
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH))) {
 				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
 					writer.write(createEmptyAccountContent());
 				}
@@ -219,8 +217,7 @@ public class AccountService {
 	 */
 	private String readFile() {
 		String content = null;
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(Constante.SAVE_PATH));
+		try (BufferedReader reader = new BufferedReader(new FileReader(Constante.SAVE_PATH))) {
 			content = reader.readLine();
 			reader.close();
 		} catch (FileNotFoundException e) {
@@ -238,7 +235,7 @@ public class AccountService {
 	 *            account of player
 	 */
 	public void saveAccount() {
-		try {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH))) {
 			String accounts[] = new String[4];
 			String content = readFile();
 			for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
@@ -248,7 +245,6 @@ public class AccountService {
 					accounts[i] = content.substring(start, stop);
 				}
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH));
 			for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
 				if (i != accountId) {
 					writer.write(accounts[i]);
@@ -797,7 +793,7 @@ void ItemFileSystem::simulateGame()
 	public List<GameModeEnum> getAvailableMode() {
 		return availableMode;
 	}
-	
+
 	public GameModeEnum getGameModeSelected() {
 		return gameModeSelected;
 	}
@@ -821,7 +817,7 @@ void ItemFileSystem::simulateGame()
 	public void resetGameOptionSelected() {
 		this.gameOptionSelected.clear();
 	}
-	
+
 	public GameSoccerMapEnum getGameSoccerMapSelected() {
 		return gameSoccerMapSelected;
 	}

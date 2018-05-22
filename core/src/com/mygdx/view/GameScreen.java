@@ -322,7 +322,7 @@ public class GameScreen implements Screen {
 	}
 
 	public void incLevel() {
-		levelIndex = currentLevel.getNext();
+		levelIndex++;
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);

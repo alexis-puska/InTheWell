@@ -84,8 +84,8 @@ public class Platform implements Drawable, Activate {
 			max = groundBodyDef.position.x + 0.5f;
 			body.setUserData(this);
 		} else {
-			min = groundBodyDef.position.x - (length / 2);
-			max = groundBodyDef.position.x + (length / 2);
+			min = groundBodyDef.position.x - (length / 2.0f);
+			max = groundBodyDef.position.x + (length / 2.0f);
 			body.setUserData(this);
 		}
 		groundBox.dispose();

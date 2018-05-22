@@ -117,7 +117,7 @@ public class FridgeScreen implements Screen {
 		// DRAW CURSOR
 		int pos = idItemSelected - idFirstItemDraw;
 		TextureRegion cursorTextureRegion = SpriteService.getInstance().getTexture("menu_cursor", 0);
-		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63, 440 - (int) (Math.floor(pos / 6)) * 61);
+		game.getBatch().draw(cursorTextureRegion, 10 + (pos % 6) * 63, 440 - (int) (Math.floor(pos / 6.0f)) * 61);
 		game.getBatch().end();
 	}
 
