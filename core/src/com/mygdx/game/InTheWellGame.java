@@ -54,10 +54,6 @@ public class InTheWellGame extends Game {
 		this.setScreen(new SplashScreen(this));
 	}
 
-	public void render() {
-		super.render();
-	}
-
 	public void dispose() {
 		batch.dispose();
 	}

@@ -149,6 +149,7 @@ public class QuestScreen implements Screen {
 				offsetX2 = 21;
 				break;
 			case 6:
+			case 12:
 				offsetX = 21;
 				offsetX2 = 21;
 				break;
@@ -171,10 +172,6 @@ public class QuestScreen implements Screen {
 			case 11:
 				offsetX = 21;
 				offsetX2 = 52;
-				break;
-			case 12:
-				offsetX = 21;
-				offsetX2 = 21;
 				break;
 			default:
 				offsetX = 178;

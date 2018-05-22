@@ -112,7 +112,6 @@ public class CustomContactListener implements ContactListener {
 					}
 				}
 			}
-			return;
 		} else {
 			int ennemieInvolve = ennemiesInvolved(contact);
 			Ennemie ennemie = null;

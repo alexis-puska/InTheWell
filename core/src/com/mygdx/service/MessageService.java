@@ -12,7 +12,7 @@ import com.mygdx.enumeration.LocaleEnum;
  */
 public class MessageService {
 
-	private static MessageService INSTANCE;
+	private static MessageService instance;
 
 	private FileHandle baseFileHandle;
 	private LocaleEnum currentLocale;
@@ -39,10 +39,10 @@ public class MessageService {
 	}
 
 	public static MessageService getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new MessageService();
+		if (instance == null) {
+			instance = new MessageService();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
 	/**
