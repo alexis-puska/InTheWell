@@ -63,8 +63,8 @@ public class Platform implements Drawable, Activate {
 		PolygonShape groundBox = new PolygonShape();
 
 		float halfLength = (float) length / 2.0f;
-		float xb = 0f;
-		float yb = 0f;
+		float xb;
+		float yb;
 		if (vertical) {
 			xb = x + 0.5f;
 			yb = y + halfLength;

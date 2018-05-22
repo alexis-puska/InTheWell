@@ -22,10 +22,10 @@ public class ItemMapper {
 	}
 
 	public List<Item> toItems(List<ItemDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Item> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (ItemDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

@@ -19,10 +19,10 @@ public class PositionMapper {
 	}
 
 	public List<Position> toEntitys(List<PositionDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Position> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (PositionDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

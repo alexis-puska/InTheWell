@@ -168,6 +168,8 @@ public class SelectOptionSoccerFestScreen implements Screen {
 			case 5:
 				game.getAccountService().setGameSoccerMapSelected(GameSoccerMapEnum.MAITRISE_AERIENNE);
 				break;
+			default:
+				treatOption(GameOptionEnum.CONTROLE_BALLON);
 			}
 		}
 		if (game.getMenuInputProcessor().pressUp()) {

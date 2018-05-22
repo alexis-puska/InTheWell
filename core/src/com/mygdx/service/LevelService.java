@@ -50,10 +50,6 @@ public class LevelService {
 	public Level getLevel(GameModeEnum mode, int id) {
 		LevelDTO dto = null;
 		switch (mode) {
-		case MULTI_COOPERATIF:
-		case SOLO:
-			dto = levelFile.getType().get(0).getLevel().get(id);
-			break;
 		case TUTORIAL:
 			dto = levelFile.getType().get(1).getLevel().get(id);
 			break;
@@ -62,6 +58,11 @@ public class LevelService {
 			break;
 		case TIME_ATTACK:
 			dto = levelFile.getType().get(3).getLevel().get(id);
+			break;
+		case MULTI_COOPERATIF:
+		case SOLO:
+		default:
+			dto = levelFile.getType().get(0).getLevel().get(id);
 			break;
 		}
 		return levelMapper.toEntity(dto);

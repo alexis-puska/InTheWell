@@ -21,10 +21,10 @@ public class MessageMapper {
 	}
 
 	public List<Message> toMessages(List<MessageDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Message> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (MessageDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

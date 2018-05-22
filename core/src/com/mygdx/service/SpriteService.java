@@ -179,8 +179,9 @@ public class SpriteService {
 			return spriteShadow;
 		case "sprite_message":
 			return spriteMessage;
+		default:
+			return spriteAnimation;
 		}
-		return spriteAnimation;
 	}
 
 	@Override

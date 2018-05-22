@@ -28,4 +28,8 @@ public class CollisionConstante {
 											| CATEGORY_ITEM   | CATEGORY_BULLET | CATEGORY_EVENT;
 	public static final short GROUP_ENNEMIE = CATEGORY_PLAYER | CATEGORY_PICK | CATEGORY_PLATFORM | CATEGORY_BOMBE | CATEGORY_EXPLOSION | CATEGORY_ENNEMIE;
 	//@formatter:on
+
+	private CollisionConstante() {
+		//empty private constructor
+	}
 }

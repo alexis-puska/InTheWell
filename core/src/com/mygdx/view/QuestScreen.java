@@ -169,6 +169,9 @@ public class QuestScreen implements Screen {
 				offsetX = 21;
 				offsetX2 = 21;
 				break;
+			default:
+				offsetX = 178;
+				offsetX2 = 21;
 			}
 			for (RequiredDTO r : required) {
 				if (y == 0) {

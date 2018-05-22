@@ -24,10 +24,10 @@ public class TeleporterMapper {
 	}
 
 	public List<Teleporter> toTeleporters(List<TeleporterDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Teleporter> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (TeleporterDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

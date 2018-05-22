@@ -20,10 +20,10 @@ public class LevelNameMapper {
 	}
 
 	public List<LevelName> toLevelNames(List<LevelNameDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<LevelName> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (LevelNameDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

@@ -136,6 +136,8 @@ public class SelectOptionMultiScreen implements Screen {
 			case 2:
 				treatOption(GameOptionEnum.PARTAGE_VIE);
 				break;
+			default:
+				treatOption(GameOptionEnum.MIROIR_MULTI);
 			}
 		}
 		if (game.getMenuInputProcessor().pressUp()) {

@@ -108,6 +108,8 @@ public class SelectOptionSoloScreen implements Screen {
 		case 4:
 			game.getBatch().draw(cursorTextureRegion, 70, 113);
 			break;
+		default:
+			game.getBatch().draw(cursorTextureRegion, 70, 353);
 		}
 
 		game.getBatch().end();
@@ -165,6 +167,8 @@ public class SelectOptionSoloScreen implements Screen {
 			case 4:
 				treatOption(GameOptionEnum.TORNADE);
 				break;
+			default:
+				treatOption(GameOptionEnum.MIROIR);
 			}
 		}
 		if (game.getMenuInputProcessor().pressUp()) {

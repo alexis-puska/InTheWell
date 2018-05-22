@@ -24,10 +24,10 @@ public class RayonMapper {
 	}
 
 	public List<Rayon> toRayons(List<RayonDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Rayon> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (RayonDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

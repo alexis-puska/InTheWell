@@ -91,6 +91,8 @@ public class MainScreen implements Screen {
 		case 2:
 			game.getBatch().draw(cursorTextureRegion, 110, 173);
 			break;
+		default:
+			game.getBatch().draw(cursorTextureRegion, 110, 353);
 		}
 		game.getBatch().end();
 	}
@@ -109,6 +111,8 @@ public class MainScreen implements Screen {
 			case 2:
 				game.setScreen(new QuestScreen(game));
 				break;
+			default:
+				game.setScreen(new SelectModeScreen(game));
 			}
 		}
 		if (game.getMenuInputProcessor().pressPrevious()) {

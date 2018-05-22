@@ -34,7 +34,7 @@ public class Event {
 	private boolean onDeath; // mort du joueur
 	private boolean onLevelEnter;
 
-	// option;
+	// option
 	private boolean mirror;
 	private boolean nightmare;
 	private boolean timeAttackeOption;
@@ -50,14 +50,12 @@ public class Event {
 	private String sound;
 	private int darknessValue;
 	private int iceValue;
-	
-	
-	
+
 	public void init(World world) {
-		
+
 	}
 
 	public void dispose() {
-		
+
 	}
 }

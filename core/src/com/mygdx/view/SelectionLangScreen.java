@@ -90,6 +90,8 @@ public class SelectionLangScreen implements Screen {
 		case SPANISH:
 			game.getBatch().draw(cursorTextureRegion, 110, 100);
 			break;
+		default:
+			game.getBatch().draw(cursorTextureRegion, 110, 400);
 		}
 		game.getBatch().end();
 	}
@@ -113,6 +115,7 @@ public class SelectionLangScreen implements Screen {
 			case SPANISH:
 				Context.setLocale(LocaleEnum.ENGLISH);
 				break;
+			default:
 			}
 		}
 		if (game.getMenuInputProcessor().pressDown()) {
@@ -126,6 +129,7 @@ public class SelectionLangScreen implements Screen {
 			case SPANISH:
 
 				break;
+			default:
 			}
 		}
 	}

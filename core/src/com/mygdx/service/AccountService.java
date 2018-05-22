@@ -32,7 +32,7 @@ import com.mygdx.service.dto.database.RequiredDTO;
 
 public class AccountService {
 
-	private final String logName = "AccountService";
+	private static final String LOG_NAME = "AccountService";
 
 	private final ObjectMapper objectMapper;
 
@@ -92,7 +92,7 @@ public class AccountService {
 	 *            id of account
 	 */
 	public AccountService() {
-		Gdx.app.log(logName, "Init");
+		Gdx.app.log(LOG_NAME, "Init");
 
 		questStarted = new HashMap<>();
 		questCompleted = new HashMap<>();
@@ -161,9 +161,9 @@ public class AccountService {
 				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
 					writer.write(createEmptyAccountContent());
 				}
-				writer.close();
+
 			} catch (IOException e) {
-				Gdx.app.error(logName, "Init save file IOException !", e);
+				Gdx.app.error(LOG_NAME, "Init save file IOException !", e);
 			}
 		}
 	}
@@ -223,11 +223,11 @@ public class AccountService {
 		String content = null;
 		try (BufferedReader reader = new BufferedReader(new FileReader(Constante.SAVE_PATH))) {
 			content = reader.readLine();
-			reader.close();
+
 		} catch (FileNotFoundException e) {
-			Gdx.app.error(logName, "loadAccount FileNotFoundException ! ", e);
+			Gdx.app.error(LOG_NAME, "loadAccount FileNotFoundException ! ", e);
 		} catch (IOException e) {
-			Gdx.app.error(logName, "loadAccount IOException !", e);
+			Gdx.app.error(LOG_NAME, "loadAccount IOException !", e);
 		}
 		return content;
 	}
@@ -258,9 +258,8 @@ public class AccountService {
 					}
 				}
 			}
-			writer.close();
 		} catch (IOException e) {
-			Gdx.app.error(logName, "saveAccount IOException !", e);
+			Gdx.app.error(LOG_NAME, "saveAccount IOException !", e);
 		}
 	}
 
@@ -272,11 +271,11 @@ public class AccountService {
 		try {
 			database = objectMapper.readValue(databaseJsonFile.read(), DatabaseDTO.class);
 		} catch (JsonParseException e) {
-			Gdx.app.error(logName, "JsonParseException : ", e);
+			Gdx.app.error(LOG_NAME, "JsonParseException : ", e);
 		} catch (JsonMappingException e) {
-			Gdx.app.error(logName, "JsonMappingException : ", e);
+			Gdx.app.error(LOG_NAME, "JsonMappingException : ", e);
 		} catch (IOException e) {
-			Gdx.app.error(logName, "IOException : ", e);
+			Gdx.app.error(LOG_NAME, "IOException : ", e);
 		}
 	}
 
@@ -309,7 +308,7 @@ public class AccountService {
 
 		for (QuestDTO quest : database.getQuests()) {
 			if (Constante.DEBUG) {
-				Gdx.app.log(logName, "validation quete : " + quest.getId());
+				Gdx.app.log(LOG_NAME, "validation quete : " + quest.getId());
 			}
 
 			boolean valide = true;
@@ -408,120 +407,120 @@ public class AccountService {
 		}
 
 		if (Constante.DEBUG) {
-			Gdx.app.log(logName, "FAMILLE DISPONIBLE");
+			Gdx.app.log(LOG_NAME, "FAMILLE DISPONIBLE");
 			for (Integer i : familyAvailable) {
-				Gdx.app.log(logName, database.getFamilys().get(i).getName().getFr());
+				Gdx.app.log(LOG_NAME, database.getFamilys().get(i).getName().getFr());
 			}
 
-			Gdx.app.log(logName, "QUEST STARTED DISPONIBLE");
+			Gdx.app.log(LOG_NAME, "QUEST STARTED DISPONIBLE");
 			for (QuestDTO q : questStarted.values()) {
-				Gdx.app.log(logName, q.getTitre().getFr() + " " + q.getId());
+				Gdx.app.log(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
 			}
 
-			Gdx.app.log(logName, "QUEST COMPLETE DISPONIBLE");
+			Gdx.app.log(LOG_NAME, "QUEST COMPLETE DISPONIBLE");
 			for (QuestDTO q : questCompleted.values()) {
-				Gdx.app.log(logName, q.getTitre().getFr() + " " + q.getId());
+				Gdx.app.log(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
 			}
 
-			Gdx.app.log(logName, "base item load");
-			Gdx.app.log(logName, "base available point 7");
+			Gdx.app.log(LOG_NAME, "base item load");
+			Gdx.app.log(LOG_NAME, "base available point 7");
 			String tmp = "";
 			for (int i : availableItemPoint7) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 6");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 6");
 			tmp = "";
 			for (int i : availableItemPoint6) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 5");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 5");
 			tmp = "";
 			for (int i : availableItemPoint5) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 4");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 4");
 			tmp = "";
 			for (int i : availableItemPoint4) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 3");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 3");
 			tmp = "";
 			for (int i : availableItemPoint3) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 2");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 2");
 			tmp = "";
 			for (int i : availableItemPoint2) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 1");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 1");
 			tmp = "";
 			for (int i : availableItemPoint1) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available point 0");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available point 0");
 			tmp = "";
 			for (int i : availableItemPoint0) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 6");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 6");
 			tmp = "";
 			for (int i : availableItemEffect6) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 5");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 5");
 			tmp = "";
 
 			for (int i : availableItemEffect5) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 4");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 4");
 			tmp = "";
 
 			for (int i : availableItemEffect4) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 3");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 3");
 			tmp = "";
 
 			for (int i : availableItemEffect3) {
 				tmp += i + " ";
 			}
 
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 2");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 2");
 			tmp = "";
 
 			for (int i : availableItemEffect2) {
 				tmp += i + " ";
 			}
 
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 1");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 1");
 			tmp = "";
 
 			for (int i : availableItemEffect1) {
 				tmp += i + " ";
 			}
 
-			Gdx.app.log(logName, tmp);
-			Gdx.app.log(logName, "base available effect 0");
+			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, "base available effect 0");
 			tmp = "";
 			for (int i : availableItemEffect0) {
 				tmp += i + " ";
 			}
-			Gdx.app.log(logName, tmp);
+			Gdx.app.log(LOG_NAME, tmp);
 		}
 	}
 

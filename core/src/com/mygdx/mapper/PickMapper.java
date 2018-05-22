@@ -22,10 +22,10 @@ public class PickMapper {
 	}
 
 	public List<Pick> toPicks(List<PickDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Pick> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (PickDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

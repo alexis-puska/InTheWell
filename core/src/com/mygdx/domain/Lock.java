@@ -32,8 +32,7 @@ public class Lock implements Drawable {
 
 	@Override
 	public void drawIt() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

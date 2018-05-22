@@ -69,10 +69,10 @@ public class LevelMapper {
 	}
 
 	public List<Level> toLevels(List<LevelDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Level> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (LevelDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

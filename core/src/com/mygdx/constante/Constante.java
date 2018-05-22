@@ -39,4 +39,8 @@ public class Constante {
 	public static final float PLAYER_WALK_RIGHT_VELOCITY = 8f;
 	public static final float PLAYER_RUN_LEFT_VELOCITY = -14f;
 	public static final float PLAYER_RUN_RIGHT_VELOCITY = -14f;
+	
+	private Constante() {
+		//empty private constructor
+	}
 }

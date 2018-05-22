@@ -93,10 +93,10 @@ public class EnnemieMapper {
 	}
 
 	public List<Ennemie> toEnnemies(List<EnnemieDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Ennemie> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (EnnemieDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

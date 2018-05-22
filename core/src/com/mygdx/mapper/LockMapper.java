@@ -22,10 +22,10 @@ public class LockMapper {
 	}
 
 	public List<Lock> toLocks(List<LockDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Lock> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (LockDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

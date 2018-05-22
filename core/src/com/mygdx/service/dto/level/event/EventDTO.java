@@ -42,7 +42,7 @@ public class EventDTO extends IdentifiableDTO implements Serializable {
 	private boolean onDeath; //mort du joueur
 	private boolean onLevelEnter;
 	
-	//option;
+	//option
 	private boolean mirror;
 	private boolean nightmare;
 	private boolean timeAttackeOption;

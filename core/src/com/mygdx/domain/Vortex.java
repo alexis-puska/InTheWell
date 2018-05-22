@@ -33,7 +33,6 @@ public class Vortex implements Drawable {
 
 	@Override
 	public void drawIt() {
-		// TODO Auto-generated method stub
 		
 	}
 }

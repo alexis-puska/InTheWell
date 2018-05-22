@@ -26,10 +26,10 @@ public class DoorMapper {
 	}
 
 	public List<Door> toDoors(List<DoorDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Door> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (DoorDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

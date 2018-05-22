@@ -23,10 +23,10 @@ public class DecorMapper {
 	}
 
 	public List<Decor> toDecors(List<DecorDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Decor> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (DecorDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

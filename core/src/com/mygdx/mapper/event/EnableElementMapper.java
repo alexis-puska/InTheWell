@@ -20,10 +20,10 @@ public class EnableElementMapper {
 	}
 
 	public List<EnableElement> toEnableElements(List<EnableElementDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<EnableElement> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (EnableElementDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

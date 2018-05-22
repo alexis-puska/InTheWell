@@ -50,10 +50,10 @@ public class EventMapper {
 	}
 
 	public List<Event> toEvents(List<EventDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Event> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (EventDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

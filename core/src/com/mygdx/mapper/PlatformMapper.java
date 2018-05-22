@@ -24,10 +24,10 @@ public class PlatformMapper {
 	}
 
 	public List<Platform> toPlatforms(List<PlatformDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Platform> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (PlatformDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

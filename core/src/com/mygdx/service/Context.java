@@ -9,6 +9,10 @@ public class Context {
 	private static boolean pause = false;
 	private static boolean showMap = false;
 
+	private Context() {
+		// empty private constructor
+	}
+
 	public static LocaleEnum getLocale() {
 		return locale;
 	}

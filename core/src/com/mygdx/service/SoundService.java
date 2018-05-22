@@ -44,7 +44,7 @@ public class SoundService {
 	private Sound soundTake_object;
 	private Sound soundTeleporter;
 	private Sound soundTuberculoz;
-	
+
 	private MusicEnum lastMusicPlayed;
 
 	public SoundService() {
@@ -101,10 +101,6 @@ public class SoundService {
 	public void playMusic(MusicEnum musicEnum) {
 		stopMusic();
 		switch (musicEnum) {
-		case BOSS2:
-			boss2.play();
-			boss2.setLooping(true);
-			break;
 		case BOSS:
 			boss.play();
 			boss.setLooping(true);
@@ -121,10 +117,15 @@ public class SoundService {
 			lostTrack.play();
 			lostTrack.setLooping(true);
 			break;
+		case BOSS2:
+		default:
+			boss2.play();
+			boss2.setLooping(true);
+			break;
 		}
 		lastMusicPlayed = musicEnum;
 	}
-	
+
 	public void playLastMusic() {
 		playMusic(lastMusicPlayed);
 	}
@@ -192,6 +193,8 @@ public class SoundService {
 		case TUBERCULOZ:
 			soundTuberculoz.play();
 			break;
+		default:
+			soundBlackBombe.play();
 		}
 	}
 
@@ -222,7 +225,5 @@ public class SoundService {
 		soundTeleporter.dispose();
 		soundTuberculoz.dispose();
 	}
-
-	
 
 }

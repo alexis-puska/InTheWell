@@ -24,10 +24,10 @@ public class VortexMapper {
 	}
 
 	public List<Vortex> toVortexs(List<VortexDTO> dtos) {
-		if (dtos == null) {
-			return null;
-		}
 		List<Vortex> list = new ArrayList<>();
+		if (dtos == null) {
+			return list;
+		}
 		for (VortexDTO dto : dtos) {
 			list.add(toEntity(dto));
 		}

@@ -20,4 +20,8 @@ public class DrawUtils {
 			idx = 0;
 		}
 	}
+
+	private DrawUtils() {
+		//empty private constructor
+	}
 }
