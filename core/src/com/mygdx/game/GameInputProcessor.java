@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.domain.Player;
 import com.mygdx.service.Context;
@@ -43,40 +43,54 @@ public class GameInputProcessor implements InputProcessor {
 			switch (keycode) {
 			// P1
 			case Keys.LEFT:
+				p1.walkLeft();
 				break;
 			case Keys.RIGHT:
+				p1.walkRight();
 				break;
 			case Keys.UP:
+				p1.jump();
 				break;
 			case Keys.DOWN:
+				p1.push();
 				break;
 			case Keys.ENTER:
+				p1.drop();
 				break;
 			// P2
 			case Keys.Q:
+				p2.walkLeft();
 				break;
 			case Keys.S:
+				p2.walkRight();
 				break;
 			case Keys.D:
+				p2.jump();
 				break;
 			case Keys.Z:
+				p2.push();
 				break;
 			case Keys.A:
+				p2.drop();
 				break;
 			}
 		} else {
 			switch (keycode) {
 			case Keys.LEFT:
+				p1.walkLeft();
 				break;
 			case Keys.RIGHT:
+				p1.walkRight();
 				break;
 			case Keys.UP:
+				p1.jump();
 				break;
 			case Keys.DOWN:
+				p1.push();
 				break;
 			case Keys.SPACE:
+				p1.drop();
 				break;
-
 			}
 		}
 
@@ -128,10 +142,13 @@ public class GameInputProcessor implements InputProcessor {
 			switch (keycode) {
 			// P1
 			case Keys.LEFT:
+				p1.stop();
 				break;
 			case Keys.RIGHT:
+				p1.stop();
 				break;
 			case Keys.UP:
+				p1.jumpStop();
 				break;
 			case Keys.DOWN:
 				break;
@@ -139,10 +156,13 @@ public class GameInputProcessor implements InputProcessor {
 				break;
 			// P2
 			case Keys.Q:
+				p2.stop();
 				break;
 			case Keys.S:
+				p2.jumpStop();
 				break;
 			case Keys.D:
+				p2.stop();
 				break;
 			case Keys.Z:
 				break;
@@ -153,10 +173,13 @@ public class GameInputProcessor implements InputProcessor {
 		} else {
 			switch (keycode) {
 			case Keys.LEFT:
+				p1.stop();
 				break;
 			case Keys.RIGHT:
+				p1.stop();
 				break;
 			case Keys.UP:
+				p1.jumpStop();
 				break;
 			case Keys.DOWN:
 				break;

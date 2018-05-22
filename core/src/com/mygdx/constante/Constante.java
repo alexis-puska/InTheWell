@@ -6,6 +6,15 @@ public class Constante {
 
 	public static final int SCREEN_SIZE_X = 420;
 	public static final int SCREEN_SIZE_Y = 520;
+	
+	public static final int GAME_SCREEN_SIZE_X = 420;
+	public static final int GAME_SCREEN_SIZE_Y = 500;
+	
+	public static final int GRID_SCREEN_SIZE_X = 400;
+	public static final int GRID_SCREEN_SIZE_Y = 500;
+	
+	public static final int GRID_BLOC_SIZE = 20;
+	
 	public static final int NB_ITEM_FRIDGE = 354;
 	public static final int NB_ITEM_PER_SAVE = 357;
 	public static final int NB_SAVE_PER_FILE = 4;

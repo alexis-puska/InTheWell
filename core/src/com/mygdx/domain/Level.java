@@ -71,7 +71,7 @@ public class Level {
 			p.init(world, game);
 		}
 		for (Platform pl : platform) {
-			pl.init(world, game, verticalPlateform, horizontalPlateform);
+			pl.init(world, game, verticalPlateform, horizontalPlateform, showPlatform);
 		}
 		for (Rayon r : rayon) {
 			r.init(world, game);

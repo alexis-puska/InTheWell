@@ -23,7 +23,7 @@ import lombok.Setter;
 public class InTheWellGame extends Game {
 
 	private SpriteBatch batch;
-	private OrthographicCamera gameCamera;
+	private OrthographicCamera screenCamera;
 	private Viewport viewport;
 	private AccountService accountService;
 	private LevelService levelService;
@@ -37,14 +37,14 @@ public class InTheWellGame extends Game {
 		/****************************************
 		 * Camera and viewport to draw fit image
 		 ****************************************/
-		gameCamera = new OrthographicCamera();
-		gameCamera.position.set(Constante.SCREEN_SIZE_X / 2, Constante.SCREEN_SIZE_Y / 2, 0);
-		gameCamera.update();
-		viewport = new FitViewport(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, gameCamera);
+		screenCamera = new OrthographicCamera();
+		screenCamera.position.set(Constante.SCREEN_SIZE_X / 2, Constante.SCREEN_SIZE_Y / 2, 0);
+		screenCamera.update();
+		viewport = new FitViewport(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, screenCamera);
 		viewport.apply();
 
 		batch = new SpriteBatch();
-		batch.setProjectionMatrix(gameCamera.combined);
+		batch.setProjectionMatrix(screenCamera.combined);
 		accountService = new AccountService();
 		levelService = new LevelService();
 		menuInputProcessor = new MenuInputProcessor();

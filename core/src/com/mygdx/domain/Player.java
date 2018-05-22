@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -31,6 +31,9 @@ public class Player {
 	private Body playerBody;
 	private boolean igor;
 	private boolean multi;
+
+	
+	private boolean jumpPressed;
 
 	private Set<Long> insidePlatform;
 	private boolean touchPlatorm;
@@ -63,11 +66,20 @@ public class Player {
 	}
 
 	public void update() {
-		treatInput();
 		Gdx.app.log("InsidePlatformSize", insidePlatform + " blocks");
 		if (playerBody.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
 			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, Constante.PLAYER_NORMAL_FALL_VELOCITY);
 		}
+		if (touchPlatorm && jumpPressed) {
+			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
+		}
+
+		if (playerBody.getPosition().y < -10) {
+			Vector2 pos = new Vector2(playerBody.getPosition().x, 35.0f);
+			playerBody.setTransform(pos, playerBody.getAngle());
+		}
+		
+		
 	}
 
 	public void touchPlatorm(long idFrame) {
@@ -83,64 +95,6 @@ public class Player {
 		touchPlatorm = false;
 	}
 
-	private void treatInput() {
-		if (multi) {
-			if (igor) {
-				if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-					walkLeft();
-				}
-				if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-					walkRight();
-				}
-				if (!Gdx.input.isKeyPressed(Keys.LEFT) && !Gdx.input.isKeyPressed(Keys.RIGHT)) {
-					stop();
-				}
-				if (Gdx.input.isKeyPressed(Keys.UP)) {
-					jump();
-				}
-				if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-					push();
-				}
-				if (Gdx.input.isKeyPressed(Keys.ENTER)) {
-					drop();
-				}
-			} else {
-				if (Gdx.input.isKeyPressed(Keys.A)) {
-					walkLeft();
-				}
-				if (Gdx.input.isKeyPressed(Keys.D)) {
-					walkRight();
-				}
-				if (Gdx.input.isKeyPressed(Keys.W)) {
-					jump();
-				}
-				if (Gdx.input.isKeyPressed(Keys.S)) {
-					push();
-				}
-				if (Gdx.input.isKeyPressed(Keys.Q)) {
-					drop();
-				}
-			}
-		} else {
-			if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-				walkLeft();
-			}
-			if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-				walkRight();
-			}
-			if (Gdx.input.isKeyPressed(Keys.UP)) {
-				jump();
-			}
-			if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-				push();
-			}
-			if (Gdx.input.isKeyPressed(Keys.SPACE) || Gdx.input.isKeyPressed(Keys.SHIFT_RIGHT)
-					|| Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)) {
-				drop();
-			}
-		}
-	}
-
 	public void enterPlatform(long platformId) {
 		insidePlatform.add(platformId);
 	}
@@ -149,29 +103,42 @@ public class Player {
 		insidePlatform.remove(platformId);
 	}
 
-	private void walkLeft() {
+	public void walkLeft() {
 		playerBody.setLinearVelocity(-10f, playerBody.getLinearVelocity().y);
 	}
 
-	private void walkRight() {
+	public void walkRight() {
 		playerBody.setLinearVelocity(10f, playerBody.getLinearVelocity().y);
 	}
 
-	private void stop() {
+	public void stop() {
 		playerBody.setLinearVelocity(0f, playerBody.getLinearVelocity().y);
 	}
 
-	private void jump() {
+	public void jump() {
+		jumpPressed = true;
 		if (touchPlatorm) {
 			playerBody.setLinearVelocity(playerBody.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
 		}
 	}
 
-	private void drop() {
+	public void jumpStop() {
+		jumpPressed = false;
+	}
+
+	public void drop() {
 
 	}
 
-	private void push() {
+	public void push() {
 
+	}
+
+	public int getX() {
+		return (int) (playerBody.getPosition().x * 20.0f);
+	}
+
+	public int getY() {
+		return (int) (playerBody.getPosition().y * 20.0f);
 	}
 }

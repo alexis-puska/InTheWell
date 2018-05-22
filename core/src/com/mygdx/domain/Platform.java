@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
+import com.mygdx.constante.Constante;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Platform implements Drawable {
+public class Platform implements Drawable, Activate {
 
 	private long id;
 	private boolean enable;
@@ -34,17 +35,30 @@ public class Platform implements Drawable {
 	private float max;
 	private Body body;
 
+	// commons
 	private World world;
 	private InTheWellGame game;
 	private int verticalIndex;
 	private int horizontalIndex;
+	private boolean showPlatfomLevel;
 
-	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex) {
-		this.verticalIndex = verticalIndex;
+	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex,
+			boolean showPlatfomLevel) {
+		this.showPlatfomLevel = showPlatfomLevel;
 		this.world = world;
 		this.game = game;
 		this.verticalIndex = verticalIndex;
 		this.horizontalIndex = horizontalIndex;
+		if (enable) {
+			createBody();
+		}
+	}
+
+	public void dispose() {
+		world.destroyBody(body);
+	}
+
+	private void createBody() {
 		BodyDef groundBodyDef = new BodyDef();
 		PolygonShape groundBox = new PolygonShape();
 
@@ -81,21 +95,43 @@ public class Platform implements Drawable {
 		fixture.setFriction(0.1f);
 	}
 
-	public void dispose() {
-		world.destroyBody(body);
-	}
-
 	@Override
 	public void drawIt() {
-
-		if (vertical) {
-			// game.getBatch().draw(SpriteService.getInstance().getTexture("platform",
-			// verticalIndex), x * 20, y * 20, 0,
-			// 0, 20, length * 20, 1, 1, 90, true);
-		} else {
-			TextureRegion tmp = SpriteService.getInstance().getTexture("platform", horizontalIndex);
-			game.getBatch().draw(tmp.getTexture(), x * 20, y * 20, tmp.getRegionX(), tmp.getRegionY(), length * 20, 20);
+		if (showPlatfomLevel && displayed && enable) {
+			if (vertical) {
+				TextureRegion platformRegion = SpriteService.getInstance().getTexture("platform", verticalIndex);
+				TextureRegion endPlatformRegion = SpriteService.getInstance().getTexture("end_platform", verticalIndex);
+				game.getBatch().draw(platformRegion.getTexture(), x * Constante.GRID_BLOC_SIZE,
+						y * Constante.GRID_BLOC_SIZE, 10, 10, length * Constante.GRID_BLOC_SIZE,
+						Constante.GRID_BLOC_SIZE, 1, 1, 90, platformRegion.getRegionX(), platformRegion.getRegionY(),
+						length * 20, 20, true, false);
+				game.getBatch().draw(endPlatformRegion.getTexture(), (x + 1) * Constante.GRID_BLOC_SIZE,
+						y * Constante.GRID_BLOC_SIZE, 0, 0, 6, Constante.GRID_BLOC_SIZE, 1, 1, 90,
+						endPlatformRegion.getRegionX(), endPlatformRegion.getRegionY(), 6, Constante.GRID_BLOC_SIZE,
+						true, false);
+			} else {
+				TextureRegion platformRegion = SpriteService.getInstance().getTexture("platform", horizontalIndex);
+				TextureRegion endPlatformRegion = SpriteService.getInstance().getTexture("end_platform",
+						horizontalIndex);
+				game.getBatch().draw(platformRegion.getTexture(), x * Constante.GRID_BLOC_SIZE,
+						y * Constante.GRID_BLOC_SIZE, platformRegion.getRegionX(), platformRegion.getRegionY(),
+						(length * Constante.GRID_BLOC_SIZE) - 6, 20);
+				game.getBatch().draw(endPlatformRegion.getTexture(), ((x + length - 1) * Constante.GRID_BLOC_SIZE) + 14,
+						y * Constante.GRID_BLOC_SIZE, endPlatformRegion.getRegionX(), endPlatformRegion.getRegionY(), 6,
+						Constante.GRID_BLOC_SIZE);
+			}
 		}
 	}
 
+	@Override
+	public void enable() {
+		this.enable = true;
+		this.createBody();
+	}
+
+	@Override
+	public void disable() {
+		this.enable = false;
+		this.dispose();
+	}
 }

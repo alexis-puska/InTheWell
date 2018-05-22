@@ -65,7 +65,7 @@ public class FridgeScreen implements Screen {
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.getGameCamera().update();
+		game.getScreenCamera().update();
 		treatInput();
 		game.getBatch().begin();
 

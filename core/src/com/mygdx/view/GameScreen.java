@@ -48,7 +48,8 @@ public class GameScreen implements Screen {
 	private FrameBuffer finalLayer;
 	private ShapeRenderer shapeRenderer;
 	// camera
-	private OrthographicCamera layerCamera;
+	private OrthographicCamera gridCamera;
+	private OrthographicCamera gameCamera;
 
 	/********************
 	 * --- PHYSICS ---
@@ -89,17 +90,26 @@ public class GameScreen implements Screen {
 		/********************
 		 * --- DRAW ---
 		 ********************/
-		this.backgroundLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y,
+		this.backgroundLayer = new FrameBuffer(Format.RGBA8888, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y, false);
+		this.platformLayer = new FrameBuffer(Format.RGBA8888, Constante.GRID_SCREEN_SIZE_X,
+				Constante.GRID_SCREEN_SIZE_Y, false);
+		this.playerLayer = new FrameBuffer(Format.RGBA8888, Constante.GRID_SCREEN_SIZE_X, Constante.GRID_SCREEN_SIZE_Y,
 				false);
-		this.platformLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
-		this.playerLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
-		this.frontLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
-		this.shadowLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
+		this.frontLayer = new FrameBuffer(Format.RGBA8888, Constante.GAME_SCREEN_SIZE_X, Constante.GAME_SCREEN_SIZE_Y,
+				false);
+		this.shadowLayer = new FrameBuffer(Format.RGBA8888, Constante.GAME_SCREEN_SIZE_X, Constante.GAME_SCREEN_SIZE_Y,
+				false);
 		this.finalLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
 		this.shapeRenderer = new ShapeRenderer();
-		this.layerCamera = new OrthographicCamera(Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y);
-		this.layerCamera.position.set(Constante.SCREEN_SIZE_X / 2, Constante.SCREEN_SIZE_Y / 2, 0);
-		this.layerCamera.update();
+
+		this.gridCamera = new OrthographicCamera(Constante.GRID_SCREEN_SIZE_X, Constante.GRID_SCREEN_SIZE_Y);
+		this.gridCamera.position.set(Constante.GRID_SCREEN_SIZE_X / 2, Constante.GRID_SCREEN_SIZE_Y / 2, 0);
+		this.gridCamera.update();
+
+		this.gameCamera = new OrthographicCamera(Constante.GAME_SCREEN_SIZE_X, Constante.GAME_SCREEN_SIZE_Y);
+		this.gameCamera.position.set(Constante.GAME_SCREEN_SIZE_X / 2, Constante.GAME_SCREEN_SIZE_Y / 2, 0);
+		this.gameCamera.update();
 
 		/********************
 		 * --- PHYSICS ---
@@ -184,7 +194,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		// clear screen
-		game.getGameCamera().update();
+		game.getScreenCamera().update();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -192,7 +202,12 @@ public class GameScreen implements Screen {
 		drawPlatform();
 		drawPlayer();
 		drawFront();
-		drawShadowMask(100, 100);
+
+		drawShadowMask(player.getX(), player.getY());
+
+		if (player2 != null) {
+			drawShadowMask(player2.getX(), player2.getY());
+		}
 
 		// merge 5 layers
 		mergeFinalTexture();
@@ -225,85 +240,89 @@ public class GameScreen implements Screen {
 	 */
 	private void mergeFinalTexture() {
 		finalLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
-		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, -20);
-		game.getBatch().draw(platformLayer.getColorBufferTexture(), 0, -20);
-		game.getBatch().draw(playerLayer.getColorBufferTexture(), 0, -20);
-		game.getBatch().draw(frontLayer.getColorBufferTexture(), 0, -20);
-		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, -20);
+		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y);
+		game.getBatch().draw(platformLayer.getColorBufferTexture(), 10, 0, Constante.GRID_SCREEN_SIZE_X,
+				Constante.GRID_SCREEN_SIZE_Y);
+		game.getBatch().draw(playerLayer.getColorBufferTexture(), 10, 0, Constante.GRID_SCREEN_SIZE_X,
+				Constante.GRID_SCREEN_SIZE_Y);
+		game.getBatch().draw(frontLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y);
+		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y);
 		game.getBatch().end();
 		finalLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 
 	}
 
 	private void drawBackground() {
 		backgroundLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(gameCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 		currentLevel.drawBackground();
 		game.getBatch().end();
 		backgroundLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
 	private void drawPlatform() {
 		platformLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(gridCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
 		currentLevel.drawOnPlatformLayer();
 		game.getBatch().end();
 		platformLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
 	private void drawPlayer() {
 		playerLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(gridCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		playerLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
 	private void drawFront() {
 		frontLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(gameCamera.combined);
 		game.getBatch().begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.getBatch().draw(SpriteService.getInstance().getTexture("border_left", 0), 0, 20);
-		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 20);
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_left", 0), 0, 0);
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 0);
 		game.getBatch().end();
 		frontLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
 	private void drawShadowMask(int x, int y) {
 		shadowLayer.begin();
-		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().setProjectionMatrix(gameCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0.3f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glColorMask(false, false, false, true);
-		shapeRenderer.setProjectionMatrix(layerCamera.combined);
+		shapeRenderer.setProjectionMatrix(gameCamera.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(new Color(0f, 0f, 0f, 0f));
 		shapeRenderer.circle(x, y, 100);
 		shapeRenderer.end();
 		Gdx.gl.glColorMask(true, true, true, true);
 		shadowLayer.end();
-		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
 	public void incLevel() {
-		levelIndex++;
+		levelIndex = currentLevel.getNext();
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);
