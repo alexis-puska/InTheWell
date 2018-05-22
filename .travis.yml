@@ -3,7 +3,7 @@ sudo: false
 
 addons:
   sonarcloud:
-    organization: "alexis-puska-github"
+    organization: alexis-puska-github
     token:
       secure: ${SONAR_TOKEN}
 
