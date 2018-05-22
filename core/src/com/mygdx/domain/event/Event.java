@@ -56,4 +56,8 @@ public class Event {
 	public void init(World world) {
 		
 	}
+
+	public void dispose() {
+		
+	}
 }

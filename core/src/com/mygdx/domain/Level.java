@@ -3,6 +3,7 @@ package com.mygdx.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -11,8 +12,11 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
+import com.mygdx.constante.Constante;
 import com.mygdx.domain.ennemie.Ennemie;
 import com.mygdx.domain.event.Event;
+import com.mygdx.game.InTheWellGame;
+import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +24,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Level {
+
+	private World world;
+	private InTheWellGame game;
 
 	private int id;
 	private int next;
@@ -45,7 +52,9 @@ public class Level {
 
 	private List<Body> borderWall;
 
-	public void init(World world) {
+	public void init(World world, InTheWellGame game) {
+		this.game = game;
+		this.world = world;
 		borderWall = new ArrayList<>();
 		borderWall.add(createBorderWall(world, -1));
 		borderWall.add(createBorderWall(world, 20));
@@ -53,67 +62,68 @@ public class Level {
 			ev.init(world);
 		}
 		for (Door d : door) {
-			d.init(world);
+			d.init(world, game);
 		}
 		for (Lock l : lock) {
-			l.init(world);
+			l.init(world, game);
 		}
 		for (Pick p : pick) {
-			p.init(world);
+			p.init(world, game);
 		}
 		for (Platform pl : platform) {
-			pl.init(world);
+			pl.init(world, game, verticalPlateform, horizontalPlateform);
 		}
 		for (Rayon r : rayon) {
-			r.init(world);
+			r.init(world, game);
 		}
 		for (Teleporter t : teleporter) {
-			t.init(world);
+			t.init(world, game);
 		}
 		for (Vortex v : vortex) {
-			v.init(world);
+			v.init(world, game);
 		}
 		for (Ennemie e : ennemies) {
-			e.init(world);
+			e.init(world, game);
 		}
 		for (Item i : items) {
-			i.init(world);
+			i.init(world, game);
 		}
 	}
 
-	public void dispose(World world) {
+	public void dispose() {
 		for (Event ev : event) {
-			ev.init(world);
+			ev.dispose();
 		}
 		for (Door d : door) {
-			d.init(world);
+			d.dispose();
 		}
 		for (Lock l : lock) {
-			l.init(world);
+			l.dispose();
 		}
 		for (Pick p : pick) {
-			p.init(world);
+			p.dispose();
 		}
 		for (Platform pl : platform) {
-			pl.dispose(world);
+			pl.dispose();
 		}
 		for (Rayon r : rayon) {
-			r.init(world);
+			r.dispose();
 		}
 		for (Teleporter t : teleporter) {
-			t.init(world);
+			t.dispose();
 		}
 		for (Vortex v : vortex) {
-			v.init(world);
+			v.dispose();
 		}
 		for (Ennemie e : ennemies) {
-			e.init(world);
+			e.dispose();
 		}
 		for (Item i : items) {
-			i.init(world);
+			i.dispose();
 		}
+		// destroy lateral walls
 		for (Body b : borderWall) {
-			world.destroyBody(b);
+			this.world.destroyBody(b);
 		}
 	}
 
@@ -130,6 +140,67 @@ public class Level {
 		fixture.setFilterData(filter);
 		fixture.setFriction(0.1f);
 		return body;
+	}
+
+	public void tick() {
+
+	}
+
+	public void drawOnPlayerLayer() {
+
+		for (Ennemie e : ennemies) {
+			e.init(world, game);
+		}
+		for (Item i : items) {
+			i.init(world, game);
+		}
+
+		game.getBatch().draw(SpriteService.getInstance().getTexture("igor_right_walk", 0), 80, 77);
+	}
+
+	public void drawOnFrontLayer() {
+		for (Decor d : decor) {
+			d.drawIt();
+		}
+	}
+
+	public void drawOnPlatformLayer() {
+		for (Door d : door) {
+			d.drawIt();
+		}
+		for (Lock l : lock) {
+			l.drawIt();
+		}
+		for (Pick p : pick) {
+			p.drawIt();
+		}
+		for (Platform pl : platform) {
+			pl.drawIt();
+		}
+		for (Rayon r : rayon) {
+			r.drawIt();
+		}
+		for (Teleporter t : teleporter) {
+			t.drawIt();
+		}
+		for (Vortex v : vortex) {
+			v.drawIt();
+		}
+	}
+
+	public void drawBackground() {
+		TextureRegion textureRegionBackground = SpriteService.getInstance().getTexture("level_background",
+				this.getBackground());
+		int idx = 0;
+		int idy = 0;
+		while (idy < Constante.SCREEN_SIZE_Y) {
+			while (idx < Constante.SCREEN_SIZE_X) {
+				game.getBatch().draw(textureRegionBackground, idx, idy);
+				idx += textureRegionBackground.getRegionWidth();
+			}
+			idy += textureRegionBackground.getRegionHeight();
+			idx = 0;
+		}
 	}
 
 }

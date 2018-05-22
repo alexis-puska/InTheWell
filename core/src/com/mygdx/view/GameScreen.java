@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -120,7 +119,7 @@ public class GameScreen implements Screen {
 		 * --- LEVEL ---
 		 ********************/
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world);
+		currentLevel.init(world, game);
 
 		/********************
 		 * --- PLAYER ---
@@ -152,6 +151,7 @@ public class GameScreen implements Screen {
 		finalLayer.dispose();
 		fontGold.dispose();
 		this.game.getSoundService().playMusic(MusicEnum.BOSS2);
+		game.getMenuInputProcessor().reset();
 		Gdx.input.setInputProcessor(game.getMenuInputProcessor());
 		game.setScreen(new SelectOptionSoloScreen(game));
 	}
@@ -202,6 +202,7 @@ public class GameScreen implements Screen {
 		game.getViewport().apply();
 		game.getBatch().begin();
 		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0, 420, 520);
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_score", 0), 0, 0);
 		showFPS();
 		game.getBatch().end();
 
@@ -228,11 +229,11 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
-		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, 0);
-		game.getBatch().draw(platformLayer.getColorBufferTexture(), 0, 0);
-		game.getBatch().draw(playerLayer.getColorBufferTexture(), 0, 0);
-		game.getBatch().draw(frontLayer.getColorBufferTexture(), 0, 0);
-		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, 0);
+		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, -20);
+		game.getBatch().draw(platformLayer.getColorBufferTexture(), 0, -20);
+		game.getBatch().draw(playerLayer.getColorBufferTexture(), 0, -20);
+		game.getBatch().draw(frontLayer.getColorBufferTexture(), 0, -20);
+		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, -20);
 		game.getBatch().end();
 		finalLayer.end();
 		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
@@ -240,17 +241,12 @@ public class GameScreen implements Screen {
 	}
 
 	private void drawBackground() {
-		TextureRegion textureRegionBackground = SpriteService.getInstance().getTexture("menu_background_1", 0);
 		backgroundLayer.begin();
 		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
-		int idx = 0;
-		while (idx < Constante.SCREEN_SIZE_X) {
-			game.getBatch().draw(textureRegionBackground, idx, 0);
-			idx += textureRegionBackground.getRegionWidth();
-		}
+		currentLevel.drawBackground();
 		game.getBatch().end();
 		backgroundLayer.end();
 		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
@@ -261,6 +257,9 @@ public class GameScreen implements Screen {
 		game.getBatch().setProjectionMatrix(layerCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		game.getBatch().begin();
+		currentLevel.drawOnPlatformLayer();
+		game.getBatch().end();
 		platformLayer.end();
 		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
@@ -277,8 +276,12 @@ public class GameScreen implements Screen {
 	private void drawFront() {
 		frontLayer.begin();
 		game.getBatch().setProjectionMatrix(layerCamera.combined);
+		game.getBatch().begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_left", 0), 0, 20);
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 20);
+		game.getBatch().end();
 		frontLayer.end();
 		game.getBatch().setProjectionMatrix(game.getGameCamera().combined);
 	}
@@ -286,9 +289,10 @@ public class GameScreen implements Screen {
 	private void drawShadowMask(int x, int y) {
 		shadowLayer.begin();
 		game.getBatch().setProjectionMatrix(layerCamera.combined);
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0.7f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0.3f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glColorMask(false, false, false, true);
+		shapeRenderer.setProjectionMatrix(layerCamera.combined);
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(new Color(0f, 0f, 0f, 0f));
 		shapeRenderer.circle(x, y, 100);
@@ -300,16 +304,16 @@ public class GameScreen implements Screen {
 
 	public void incLevel() {
 		levelIndex++;
-		currentLevel.dispose(world);
+		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world);
+		currentLevel.init(world, game);
 	}
 
 	public void decLevel() {
-		levelIndex++;
-		currentLevel.dispose(world);
+		levelIndex--;
+		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world);
+		currentLevel.init(world, game);
 	}
 
 	private void showFPS() {

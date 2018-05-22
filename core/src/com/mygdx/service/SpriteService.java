@@ -24,11 +24,11 @@ import com.mygdx.service.dto.sprite.SpriteFileContent;
 public class SpriteService {
 
 	private static SpriteService INSTANCE = new SpriteService();
-	
+
 	private Map<String, TextureRegion[]> sprites;
 	private FileHandle spriteJsonFile;
 	private final ObjectMapper objectMapper;
-	
+
 	/************************
 	 * --- Texture ---
 	 ************************/
@@ -55,7 +55,7 @@ public class SpriteService {
 
 	public SpriteService() {
 		Gdx.app.log("SpriteService", "Init");
-		
+
 		spriteAnimation = new Texture(Gdx.files.internal("sprite/sprite_animation.png"));
 		spriteArrow = new Texture(Gdx.files.internal("sprite/sprite_arrow.png"));
 		spriteBackgroundEffect = new Texture(Gdx.files.internal("sprite/sprite_background_effect.png"));
@@ -72,14 +72,14 @@ public class SpriteService {
 		spritePlayer = new Texture(Gdx.files.internal("sprite/sprite_player.png"));
 		spriteRayonTeleporter = new Texture(Gdx.files.internal("sprite/sprite_rayon_teleporter.png"));
 		spriteShadow = new Texture(Gdx.files.internal("sprite/sprite_shadow.png"));
-		
+
 		spriteJsonFile = Gdx.files.internal("json/sprite.json");
 		sprites = new HashMap<>();
 		this.objectMapper = new ObjectMapper();
-		
+
 		int nbSprite = 0;
 		SpriteFileContent spriteFileContent = null;
-		
+
 		try {
 			spriteFileContent = objectMapper.readValue(spriteJsonFile.read(), SpriteFileContent.class);
 		} catch (JsonParseException e) {
@@ -96,6 +96,7 @@ public class SpriteService {
 			for (Sprite sprite : area) {
 				int idx = 0;
 				String animation = sprite.getAnimation();
+
 				TextureRegion[] regions = new TextureRegion[sprite.getN()];
 				for (int l = 0; l < sprite.getNy(); l++) {
 					for (int k = 0; k < sprite.getNx(); k++) {
@@ -109,10 +110,30 @@ public class SpriteService {
 
 					}
 				}
-				sprites.put(animation, regions);
+
+				if (sprites.containsKey(animation)) {
+					sprites.put(animation, mergeTextureRegion(sprites.get(animation), regions));
+				} else {
+					sprites.put(animation, regions);
+				}
 			}
 		}
 		Gdx.app.log("SpriteService", "Nb sprites loaded : " + nbSprite);
+	}
+
+	private TextureRegion[] mergeTextureRegion(TextureRegion[] textureRegions, TextureRegion[] regions) {
+		int size = textureRegions.length + regions.length;
+		TextureRegion[] merged = new TextureRegion[size];
+		int idx = 0;
+		for (int i = 0; i < textureRegions.length; i++) {
+			merged[idx] = textureRegions[i];
+			idx++;
+		}
+		for (int i = 0; i < regions.length; i++) {
+			merged[idx] = regions[i];
+			idx++;
+		}
+		return merged;
 	}
 
 	public TextureRegion getTexture(String name, int idx) {

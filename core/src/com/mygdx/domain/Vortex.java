@@ -1,6 +1,7 @@
 package com.mygdx.domain;
 
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.game.InTheWellGame;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Vortex {
+public class Vortex implements Drawable {
 	private int id;
 	private int x;
 	private int y;
@@ -17,7 +18,21 @@ public class Vortex {
 	private double zoomY;
 	private boolean enable;
 	private int destination;
-	public void init(World world) {
+
+	private World world;
+	private InTheWellGame game;
+
+	public void init(World world, InTheWellGame game) {
+		this.world = world;
+		this.game = game;
+	}
+
+	public void dispose() {
+		
+	}
+
+	@Override
+	public void drawIt() {
 		// TODO Auto-generated method stub
 		
 	}

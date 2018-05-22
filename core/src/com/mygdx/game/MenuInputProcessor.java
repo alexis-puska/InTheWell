@@ -181,4 +181,15 @@ public class MenuInputProcessor implements InputProcessor {
 		}
 		return next;
 	}
+
+	public void reset() {
+		consumeEvent = false;
+		up = false;
+		down = false;
+		left = false;
+		right = false;
+		valide = false;
+		previous = false;
+		next = false;
+	}
 }
