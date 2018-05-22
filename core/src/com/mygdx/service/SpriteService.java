@@ -184,23 +184,4 @@ public class SpriteService {
 		}
 	}
 
-	@Override
-	public void finalize() {
-		spriteAnimation.dispose();
-		spriteArrow.dispose();
-		spriteBackgroundEffect.dispose();
-		spriteBigCrystal.dispose();
-		spriteBombe.dispose();
-		spriteEnnemies.dispose();
-		spriteFlag.dispose();
-		spriteLevel.dispose();
-		spriteLight.dispose();
-		spriteMap.dispose();
-		spriteMenu.dispose();
-		spriteMessage.dispose();
-		spriteObjets.dispose();
-		spritePlayer.dispose();
-		spriteRayonTeleporter.dispose();
-		spriteShadow.dispose();
-	}
 }
