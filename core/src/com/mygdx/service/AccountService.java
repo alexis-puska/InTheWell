@@ -140,14 +140,14 @@ public class AccountService {
 	 * @return content to write
 	 */
 	private String getContent() {
-		String content = "";
+		StringBuilder content = new StringBuilder();
 		for (int i = 0; i < Constante.NB_ITEM_FRIDGE; i++) {
-			content += String.format("%08x", fridge[i]);
+			content.append(String.format("%08x", fridge[i]));
 		}
-		content += String.format("%08x", nbGame);
-		content += String.format("%08x", score);
-		content += String.format("%08x", level);
-		return content;
+		content.append(String.format("%08x", nbGame));
+		content.append(String.format("%08x", score));
+		content.append(String.format("%08x", level));
+		return content.toString();
 	}
 
 	/**
@@ -174,14 +174,14 @@ public class AccountService {
 	 * @return content to write
 	 */
 	private String createEmptyAccountContent() {
-		String content = "";
+		StringBuilder content = new StringBuilder();
 		for (int i = 0; i < Constante.NB_ITEM_FRIDGE; i++) {
-			content += String.format("%08x", 0);
+			content.append(String.format("%08x", 0));
 		}
-		content += String.format("%08x", 0);
-		content += String.format("%08x", 0);
-		content += String.format("%08x", 0);
-		return content;
+		content.append(String.format("%08x", 0));
+		content.append(String.format("%08x", 0));
+		content.append(String.format("%08x", 0));
+		return content.toString();
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class AccountService {
 	 */
 	public void saveAccount() {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH))) {
-			String accounts[] = new String[4];
+			String[] accounts = new String[4];
 			String content = readFile();
 			if (content != null && !content.isEmpty()) {
 				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
@@ -424,103 +424,95 @@ public class AccountService {
 
 			Gdx.app.log(LOG_NAME, "base item load");
 			Gdx.app.log(LOG_NAME, "base available point 7");
-			String tmp = "";
+			StringBuilder tmp = new StringBuilder();
 			for (int i : availableItemPoint7) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 6");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint6) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 5");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint5) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 4");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint4) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 3");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint3) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 2");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint2) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 1");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint1) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available point 0");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemPoint0) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 6");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect6) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 5");
-			tmp = "";
-
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect5) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 4");
-			tmp = "";
-
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect4) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 3");
-			tmp = "";
-
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect3) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 2");
-			tmp = "";
-
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect2) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 1");
-			tmp = "";
-
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect1) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 			Gdx.app.log(LOG_NAME, "base available effect 0");
-			tmp = "";
+			tmp = new StringBuilder();
 			for (int i : availableItemEffect0) {
-				tmp += i + " ";
+				tmp.append(i + " ");
 			}
-			Gdx.app.log(LOG_NAME, tmp);
+			Gdx.app.log(LOG_NAME, tmp.toString());
 		}
 	}
 

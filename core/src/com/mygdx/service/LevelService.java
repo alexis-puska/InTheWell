@@ -17,7 +17,7 @@ public class LevelService {
 
 	private static final String LEVEL_SERVICE = "Level Service";
 	
-	private static LevelService INSTANCE;
+	private static LevelService instance;
 	private final ObjectMapper objectMapper;
 	private final LevelMapper levelMapper;
 	private LevelFileDTO levelFile;
@@ -43,10 +43,10 @@ public class LevelService {
 	}
 
 	public static LevelService getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new LevelService();
+		if (instance == null) {
+			instance = new LevelService();
 		}
-		return INSTANCE;
+		return instance;
 	}
 
 	public Level getLevel(GameModeEnum mode, int id) {

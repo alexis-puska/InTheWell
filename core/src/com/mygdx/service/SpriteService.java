@@ -25,7 +25,7 @@ public class SpriteService {
 
 	private static final String SPRITE_SERVICE = "Sprite Service";
 	
-	private static SpriteService INSTANCE = new SpriteService();
+	private static SpriteService instance = new SpriteService();
 
 	private Map<String, TextureRegion[]> sprites;
 	private FileHandle spriteJsonFile;
@@ -52,7 +52,7 @@ public class SpriteService {
 	private Texture spriteShadow;
 
 	public static SpriteService getInstance() {
-		return INSTANCE;
+		return instance;
 	}
 
 	public SpriteService() {
@@ -139,7 +139,7 @@ public class SpriteService {
 	}
 
 	public TextureRegion getTexture(String name, int idx) {
-		TextureRegion t[] = sprites.get(name);
+		TextureRegion[] t = sprites.get(name);
 		return t[idx];
 	}
 

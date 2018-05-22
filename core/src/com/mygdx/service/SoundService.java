@@ -41,7 +41,7 @@ public class SoundService {
 	private Sound soundNormalBombe;
 	private Sound soundPop;
 	private Sound soundPutBombe;
-	private Sound soundTake_object;
+	private Sound soundTakeObject;
 	private Sound soundTeleporter;
 	private Sound soundTuberculoz;
 
@@ -76,7 +76,7 @@ public class SoundService {
 		soundNormalBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_normal_bombe.wav"));
 		soundPop = Gdx.audio.newSound(Gdx.files.internal("sound/sound_pop.wav"));
 		soundPutBombe = Gdx.audio.newSound(Gdx.files.internal("sound/sound_put_bombe.wav"));
-		soundTake_object = Gdx.audio.newSound(Gdx.files.internal("sound/sound_take_object.wav"));
+		soundTakeObject = Gdx.audio.newSound(Gdx.files.internal("sound/sound_take_object.wav"));
 		soundTeleporter = Gdx.audio.newSound(Gdx.files.internal("sound/sound_teleporter.wav"));
 		soundTuberculoz = Gdx.audio.newSound(Gdx.files.internal("sound/sound_tuberculoz.wav"));
 	}
@@ -185,7 +185,7 @@ public class SoundService {
 			soundPutBombe.play();
 			break;
 		case TAKE_OBJECT:
-			soundTake_object.play();
+			soundTakeObject.play();
 			break;
 		case TELEPORTER:
 			soundTeleporter.play();

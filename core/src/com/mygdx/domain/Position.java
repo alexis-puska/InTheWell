@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class Position {
 	private int x;
-	private int Y;
+	private int y;
 }
