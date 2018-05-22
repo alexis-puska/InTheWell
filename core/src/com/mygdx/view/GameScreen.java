@@ -225,7 +225,7 @@ public class GameScreen implements Screen {
 
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 			player.update();
-		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
+		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
 			player.update();
 			player2.update();
 		}

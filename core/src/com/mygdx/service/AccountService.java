@@ -194,19 +194,21 @@ public class AccountService {
 			initSaveFile();
 		}
 		String content = readFile();
-		int offset = accountId * Constante.NB_ITEM_PER_SAVE * 8;
+		if (content != null && !content.isEmpty()) {
+			int offset = accountId * Constante.NB_ITEM_PER_SAVE * 8;
 
-		// init value
-		this.accountId = accountId;
-		this.fridge = new long[Constante.NB_ITEM_FRIDGE];
-		this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
-		for (int i = offset; i < (accountId + 1 * Constante.NB_ITEM_FRIDGE); i++) {
-			fridge[i] = Long.parseLong(content.substring((i * 8), (i * 8) + 8), 16);
+			// init value
+			this.accountId = accountId;
+			this.fridge = new long[Constante.NB_ITEM_FRIDGE];
+			this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
+			for (int i = offset; i < (accountId + 1 * Constante.NB_ITEM_FRIDGE); i++) {
+				fridge[i] = Long.parseLong(content.substring((i * 8), (i * 8) + 8), 16);
+			}
+			nbGame = Long.parseLong(content.substring(offset + (354 * 8), offset + (354 * 8) + 8), 16);
+			score = Long.parseLong(content.substring(offset + (355 * 8), offset + (355 * 8) + 8), 16);
+			level = Long.parseLong(content.substring(offset + (356 * 8), offset + (356 * 8) + 8), 16);
+			initAvailableItems();
 		}
-		nbGame = Long.parseLong(content.substring(offset + (354 * 8), offset + (354 * 8) + 8), 16);
-		score = Long.parseLong(content.substring(offset + (355 * 8), offset + (355 * 8) + 8), 16);
-		level = Long.parseLong(content.substring(offset + (356 * 8), offset + (356 * 8) + 8), 16);
-		initAvailableItems();
 	}
 
 	/**
@@ -238,18 +240,20 @@ public class AccountService {
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(Constante.SAVE_PATH))) {
 			String accounts[] = new String[4];
 			String content = readFile();
-			for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
-				if (i != this.accountId) {
-					int start = i * Constante.NB_ITEM_PER_SAVE;
-					int stop = start + Constante.NB_ITEM_PER_SAVE;
-					accounts[i] = content.substring(start, stop);
+			if (content != null && !content.isEmpty()) {
+				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
+					if (i != this.accountId) {
+						int start = i * Constante.NB_ITEM_PER_SAVE;
+						int stop = start + Constante.NB_ITEM_PER_SAVE;
+						accounts[i] = content.substring(start, stop);
+					}
 				}
-			}
-			for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
-				if (i != accountId) {
-					writer.write(accounts[i]);
-				} else {
-					writer.write(getContent());
+				for (int i = 0; i < Constante.NB_SAVE_PER_FILE; i++) {
+					if (i != accountId) {
+						writer.write(accounts[i]);
+					} else {
+						writer.write(getContent());
+					}
 				}
 			}
 			writer.close();
