@@ -21,14 +21,14 @@ public abstract class BodyAble extends Drawable {
 		}
 	}
 
-	abstract public void createBody();
+	public abstract void createBody();
 
 	@Override
-	abstract public void enable();
+	public abstract void enable();
 
 	@Override
-	abstract public void disable();
+	public abstract void disable();
 
 	@Override
-	abstract public void drawIt();
+	public abstract void drawIt();
 }

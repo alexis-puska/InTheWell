@@ -10,9 +10,9 @@ public abstract class Drawable {
 		this.game = game;
 	}
 
-	abstract public void enable();
+	public abstract void enable();
 
-	abstract public void disable();
+	public abstract void disable();
 
-	abstract public void drawIt();
+	public abstract void drawIt();
 }
