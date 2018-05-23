@@ -1,6 +1,9 @@
 package com.mygdx.domain;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -41,9 +44,12 @@ public class Platform extends BodyAble {
 	private int verticalIndex;
 	private int horizontalIndex;
 	private boolean showPlatfomLevel;
+	private ShapeRenderer shapeRenderer;
 
 	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex,
 			boolean showPlatfomLevel) {
+		this.shapeRenderer = new ShapeRenderer();
+
 		this.showPlatfomLevel = showPlatfomLevel;
 		this.world = world;
 		this.game = game;
@@ -123,6 +129,24 @@ public class Platform extends BodyAble {
 						y * Constante.GRID_BLOC_SIZE, endPlatformRegion.getRegionX(), endPlatformRegion.getRegionY(), 6,
 						Constante.GRID_BLOC_SIZE);
 			}
+		}
+	}
+
+	public void drawShadow() {
+		if (showPlatfomLevel && displayed && enable) {
+			game.getBatch().end();
+			shapeRenderer.setProjectionMatrix(game.getBatch().getProjectionMatrix());
+			shapeRenderer.begin(ShapeType.Filled);
+			shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.4f));
+			if (vertical) {
+				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 3, y * Constante.GRID_BLOC_SIZE - 2, 20,
+						(length * Constante.GRID_BLOC_SIZE) - 1);
+			} else {
+				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 3, y * Constante.GRID_BLOC_SIZE - 2,
+						(length * Constante.GRID_BLOC_SIZE), 19);
+			}
+			shapeRenderer.end();
+			game.getBatch().begin();
 		}
 	}
 

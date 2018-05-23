@@ -170,6 +170,12 @@ public class Level {
 	}
 
 	public void drawOnPlatformLayer() {
+		for (Platform pl : platform) {
+			pl.drawShadow();
+		}
+		for (Platform pl : platform) {
+			pl.drawIt();
+		}
 		for (Door d : door) {
 			d.drawIt();
 		}
@@ -178,9 +184,6 @@ public class Level {
 		}
 		for (Pick p : pick) {
 			p.drawIt();
-		}
-		for (Platform pl : platform) {
-			pl.drawIt();
 		}
 		for (Rayon r : rayon) {
 			r.drawIt();

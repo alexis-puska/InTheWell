@@ -22,7 +22,7 @@ public class Lock extends BodyAble {
 
 	@Override
 	public void enable() {
-		
+
 	}
 
 	@Override
@@ -32,13 +32,15 @@ public class Lock extends BodyAble {
 
 	@Override
 	public void drawIt() {
+		TextureRegion tmp = null;
 		if (enable) {
-			TextureRegion platformRegion = SpriteService.getInstance().getTexture("serrure", 1);
-			game.getBatch().draw(platformRegion, x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
-		}else {
-			TextureRegion platformRegion = SpriteService.getInstance().getTexture("serrure", 0);
-			game.getBatch().draw(platformRegion, x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
+			tmp = SpriteService.getInstance().getTexture("serrure", 1);
+		} else {
+			tmp = SpriteService.getInstance().getTexture("serrure", 0);
 		}
+		game.getBatch().draw(tmp,
+				(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
+				y * Constante.GRID_BLOC_SIZE);
 	}
 
 	@Override
