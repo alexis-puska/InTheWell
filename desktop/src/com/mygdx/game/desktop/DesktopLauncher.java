@@ -1,5 +1,6 @@
 package com.mygdx.game.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mygdx.constante.Constante;
@@ -15,6 +16,9 @@ public class DesktopLauncher {
 		config.vSyncEnabled = false;
 		config.fullscreen = false;
 		config.resizable = false;
+		config.addIcon("icon_128.png", FileType.Internal);
+		config.addIcon("icon_32.png", FileType.Internal);
+		config.addIcon("icon_16.png", FileType.Internal);
 		new LwjglApplication(new InTheWellGame(), config);
 	}
 }
