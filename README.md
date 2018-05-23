@@ -31,6 +31,11 @@ reset ssh token : ssh-keygen -R "ip";
 reset smb password : smbpasswd -a pi
 ```
 
+*Installation of the java jdk*
+```sh
+sudo apt-get install oracle-java8-jdk
+```
+
 *Installation on retropie :*
 
 add this xml fragment to es_systems.cfg file in /etc/emulationstation/es_systems.cfg
