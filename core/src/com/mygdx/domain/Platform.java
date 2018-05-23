@@ -137,13 +137,13 @@ public class Platform extends BodyAble {
 			game.getBatch().end();
 			shapeRenderer.setProjectionMatrix(game.getBatch().getProjectionMatrix());
 			shapeRenderer.begin(ShapeType.Filled);
-			shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.4f));
+			shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.2f));
 			if (vertical) {
-				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 3, y * Constante.GRID_BLOC_SIZE - 2, 20,
+				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 6, y * Constante.GRID_BLOC_SIZE - 4, 18,
 						(length * Constante.GRID_BLOC_SIZE) - 1);
 			} else {
-				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 3, y * Constante.GRID_BLOC_SIZE - 2,
-						(length * Constante.GRID_BLOC_SIZE), 19);
+				shapeRenderer.rect((x * Constante.GRID_BLOC_SIZE) + 6, y * Constante.GRID_BLOC_SIZE - 4,
+						(length * Constante.GRID_BLOC_SIZE) - 2, 19);
 			}
 			shapeRenderer.end();
 			game.getBatch().begin();
