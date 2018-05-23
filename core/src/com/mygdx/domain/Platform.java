@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
+import com.mygdx.domain.common.BodyAble;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Platform implements Drawable, Activate {
+public class Platform extends BodyAble {
 
 	private long id;
 	private boolean enable;
@@ -36,8 +37,7 @@ public class Platform implements Drawable, Activate {
 	private Body body;
 
 	// commons
-	private World world;
-	private InTheWellGame game;
+	
 	private int verticalIndex;
 	private int horizontalIndex;
 	private boolean showPlatfomLevel;
@@ -58,7 +58,8 @@ public class Platform implements Drawable, Activate {
 		world.destroyBody(body);
 	}
 
-	private void createBody() {
+	@Override
+	public void createBody() {
 		BodyDef groundBodyDef = new BodyDef();
 		PolygonShape groundBox = new PolygonShape();
 

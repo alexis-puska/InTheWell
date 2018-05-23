@@ -1,7 +1,6 @@
 package com.mygdx.domain;
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.InTheWellGame;
+import com.mygdx.domain.common.BodyAble;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,27 +11,30 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pick implements Drawable{
+public class Pick extends BodyAble {
 	private int id;
 	private int x;
 	private int y;
 	private boolean enable;
 	private int direction;
 
-	private World world;
-	private InTheWellGame game;
+	@Override
+	public void enable() {
 
-	public void init(World world, InTheWellGame game) {
-		this.world = world;
-		this.game = game;
 	}
 
-	public void dispose() {
-		
+	@Override
+	public void disable() {
+
 	}
 
 	@Override
 	public void drawIt() {
+
+	}
+	
+	@Override
+	public void createBody() {
 		
-	}	
+	}
 }

@@ -1,7 +1,6 @@
 package com.mygdx.domain;
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.InTheWellGame;
+import com.mygdx.domain.common.BodyAble;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Vortex implements Drawable {
+public class Vortex extends BodyAble {
 	private int id;
 	private int x;
 	private int y;
@@ -19,20 +18,23 @@ public class Vortex implements Drawable {
 	private boolean enable;
 	private int destination;
 
-	private World world;
-	private InTheWellGame game;
+	@Override
+	public void enable() {
 
-	public void init(World world, InTheWellGame game) {
-		this.world = world;
-		this.game = game;
 	}
 
-	public void dispose() {
-		
+	@Override
+	public void disable() {
+
 	}
 
 	@Override
 	public void drawIt() {
+
+	}
+	
+	@Override
+	public void createBody() {
 		
 	}
 }

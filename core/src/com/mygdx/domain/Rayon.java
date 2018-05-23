@@ -1,8 +1,7 @@
 package com.mygdx.domain;
 
-import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.domain.common.BodyAble;
 import com.mygdx.enumeration.RayonTypeEnum;
-import com.mygdx.game.InTheWellGame;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Rayon implements Drawable {
+public class Rayon extends BodyAble {
 	private int id;
 	private boolean enable;
 	private int x;
@@ -20,20 +19,23 @@ public class Rayon implements Drawable {
 	private RayonTypeEnum type;
 	private boolean vertical;
 
-	private World world;
-	private InTheWellGame game;
+	@Override
+	public void enable() {
 
-	public void init(World world, InTheWellGame game) {
-		this.world = world;
-		this.game = game;
+	}
+
+	@Override
+	public void disable() {
+
 	}
 
 	@Override
 	public void drawIt() {
 
 	}
-
-	public void dispose() {
-
+	
+	@Override
+	public void createBody() {
+		
 	}
 }

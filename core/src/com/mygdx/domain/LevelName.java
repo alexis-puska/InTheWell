@@ -1,6 +1,6 @@
 package com.mygdx.domain;
 
-import com.mygdx.game.InTheWellGame;
+import com.mygdx.domain.common.Drawable;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,23 +11,23 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LevelName implements Drawable {
+public class LevelName extends Drawable {
 	private int id;
 	private String lang;
 	private String value;
 
-	private InTheWellGame game;
+	@Override
+	public void enable() {
 
-	public void init(InTheWellGame game) {
-		this.game = game;
 	}
 
-	public void dispose() {
-		
+	@Override
+	public void disable() {
+
 	}
 
 	@Override
 	public void drawIt() {
-		
+
 	}
 }

@@ -1,7 +1,6 @@
 package com.mygdx.domain;
 
-import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.InTheWellGame;
+import com.mygdx.domain.common.Drawable;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Decor implements Drawable {
+public class Decor extends Drawable {
 	private int id;
 	private int x;
 	private int y;
@@ -18,16 +17,14 @@ public class Decor implements Drawable {
 	private boolean back;
 	private int indexAnim;
 
-	private World world;
-	private InTheWellGame game;
+	@Override
+	public void enable() {
 
-	public void init(World world, InTheWellGame game) {
-		this.world = world;
-		this.game = game;
 	}
-	
-	public void dispose() {
-		
+
+	@Override
+	public void disable() {
+
 	}
 
 	@Override
