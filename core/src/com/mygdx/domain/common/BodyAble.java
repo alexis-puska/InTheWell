@@ -12,6 +12,7 @@ public abstract class BodyAble extends Drawable {
 	public void init(World world, InTheWellGame game) {
 		this.init(game);
 		this.world = world;
+		createBody();
 	}
 
 	public void dispose() {
