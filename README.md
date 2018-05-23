@@ -61,4 +61,4 @@ sudo cp -avr hammerfest /etc/emulationstation/themes/carbon
 sudo reboot
 ```
 
-After this step In The Well is installed, compile, and integrated in emulation station on retropie distribution. If an update of code is made, you can just launch the UPDATE line in emulation station, COMPILE PI and launch the game with HAMMERFEST :) Enjoy !
+After this step "In The Well" is installed, compile, and integrated in emulation station on retropie distribution. If an update of code is made, you can just launch the "Update" line in emulation station, "Generate pi" and launch the game with "Enter In The Well" :) Enjoy !
