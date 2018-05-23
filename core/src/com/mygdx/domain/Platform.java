@@ -37,7 +37,7 @@ public class Platform extends BodyAble {
 	private Body body;
 
 	// commons
-	
+
 	private int verticalIndex;
 	private int horizontalIndex;
 	private boolean showPlatfomLevel;
@@ -55,7 +55,9 @@ public class Platform extends BodyAble {
 	}
 
 	public void dispose() {
-		world.destroyBody(body);
+		if (body != null) {
+			world.destroyBody(body);
+		}
 	}
 
 	@Override

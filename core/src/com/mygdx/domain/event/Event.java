@@ -22,6 +22,7 @@ public class Event {
 	private int x;
 	private int y;
 	private int d;
+	private int itemId;
 
 	// declanchement par decompte
 	private boolean time;

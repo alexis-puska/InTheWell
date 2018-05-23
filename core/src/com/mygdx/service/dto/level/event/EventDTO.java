@@ -30,6 +30,7 @@ public class EventDTO extends IdentifiableDTO implements Serializable {
 	private int x;
 	private int y;
 	private int d;
+	private int itemId;
 	
 	//declanchement par decompte
 	private boolean time;

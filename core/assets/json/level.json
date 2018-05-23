@@ -76,14 +76,6 @@
         "displayed" : true,
         "length" : 3
       }, {
-        "id" : 4,
-        "enable" : true,
-        "x" : 9,
-        "y" : 4,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 5
-      }, {
         "id" : 5,
         "enable" : true,
         "x" : 7,
@@ -259,12 +251,31 @@
         "vertical" : true,
         "displayed" : true,
         "length" : 1
+      }, {
+        "id" : 4,
+        "enable" : true,
+        "x" : 9,
+        "y" : 4,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 5
+      }, {
+        "id" : 27,
+        "enable" : true,
+        "x" : 9,
+        "y" : 11,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 5
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ ],
-      "startPlayers" : null,
+      "startPlayers" : {
+        "x" : 2,
+        "y" : 5
+      },
       "startEffectObjets" : null,
       "startPointObjets" : null,
       "items" : [ ]
@@ -296,50 +307,81 @@
         "back" : false,
         "indexAnim" : 6
       } ],
-      "event" : [ ],
+      "event" : [ {
+        "id" : 0,
+        "onlyOnce" : false,
+        "triggered" : false,
+        "near" : true,
+        "x" : 1,
+        "y" : 22,
+        "d" : 2,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 4,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      } ],
       "door" : [ ],
       "lock" : [ ],
       "pick" : [ ],
       "platform" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 0,
-        "y" : 20,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 5
-      }, {
-        "id" : 1,
-        "enable" : true,
-        "x" : 3,
-        "y" : 20,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 5
-      }, {
-        "id" : 2,
-        "enable" : true,
-        "x" : 9,
-        "y" : 21,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 4
+        "id" : 4,
+        "enable" : false,
+        "x" : 8,
+        "y" : 5,
+        "vertical" : false,
+        "displayed" : false,
+        "length" : 1
       }, {
         "id" : 3,
         "enable" : true,
         "x" : 13,
         "y" : 21,
         "vertical" : true,
-        "displayed" : true,
+        "displayed" : false,
         "length" : 4
       }, {
-        "id" : 4,
+        "id" : 2,
         "enable" : true,
-        "x" : 8,
-        "y" : 5,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 1
+        "x" : 9,
+        "y" : 21,
+        "vertical" : true,
+        "displayed" : false,
+        "length" : 4
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 3,
+        "y" : 20,
+        "vertical" : true,
+        "displayed" : false,
+        "length" : 5
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 0,
+        "y" : 20,
+        "vertical" : true,
+        "displayed" : false,
+        "length" : 5
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
@@ -371,8 +413,24 @@
       } ],
       "decor" : [ ],
       "event" : [ ],
-      "door" : [ ],
-      "lock" : [ ],
+      "door" : [ {
+        "id" : 0,
+        "enable" : true,
+        "x" : 15,
+        "y" : 16,
+        "type" : 3,
+        "locked" : true,
+        "toLevel" : 0,
+        "key" : null,
+        "lockId" : 0
+      } ],
+      "lock" : [ {
+        "id" : 0,
+        "enable" : true,
+        "x" : 5,
+        "y" : 16,
+        "key" : null
+      } ],
       "pick" : [ ],
       "platform" : [ {
         "id" : 0,
@@ -433,9 +491,18 @@
         "y" : 10,
         "type" : "CERISE"
       } ],
-      "startPlayers" : null,
-      "startEffectObjets" : null,
-      "startPointObjets" : null,
+      "startPlayers" : {
+        "x" : 7,
+        "y" : 16
+      },
+      "startEffectObjets" : {
+        "x" : 18,
+        "y" : 13
+      },
+      "startPointObjets" : {
+        "x" : 1,
+        "y" : 13
+      },
       "items" : [ ]
     }, {
       "id" : 3,
@@ -459,7 +526,17 @@
       } ],
       "decor" : [ ],
       "event" : [ ],
-      "door" : [ ],
+      "door" : [ {
+        "id" : 0,
+        "enable" : true,
+        "x" : 2,
+        "y" : 16,
+        "type" : 3,
+        "locked" : true,
+        "toLevel" : 0,
+        "key" : null,
+        "lockId" : 0
+      } ],
       "lock" : [ ],
       "pick" : [ ],
       "platform" : [ {
@@ -545,9 +622,18 @@
         "y" : 10,
         "type" : "CERISE"
       } ],
-      "startPlayers" : null,
-      "startEffectObjets" : null,
-      "startPointObjets" : null,
+      "startPlayers" : {
+        "x" : 9,
+        "y" : 16
+      },
+      "startEffectObjets" : {
+        "x" : 9,
+        "y" : 13
+      },
+      "startPointObjets" : {
+        "x" : 10,
+        "y" : 16
+      },
       "items" : [ ]
     }, {
       "id" : 4,
@@ -575,39 +661,7 @@
       "lock" : [ ],
       "pick" : [ ],
       "platform" : [ {
-        "id" : 1,
-        "enable" : true,
-        "x" : 17,
-        "y" : 10,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 3
-      }, {
-        "id" : 2,
-        "enable" : true,
-        "x" : 17,
-        "y" : 7,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 3
-      }, {
-        "id" : 0,
-        "enable" : true,
-        "x" : 11,
-        "y" : 6,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 7
-      }, {
         "id" : 3,
-        "enable" : true,
-        "x" : 2,
-        "y" : 6,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 7
-      }, {
-        "id" : 4,
         "enable" : true,
         "x" : 0,
         "y" : 10,
@@ -615,7 +669,23 @@
         "displayed" : true,
         "length" : 3
       }, {
-        "id" : 5,
+        "id" : 1,
+        "enable" : true,
+        "x" : 2,
+        "y" : 8,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 2,
+        "y" : 7,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 7
+      }, {
+        "id" : 6,
         "enable" : true,
         "x" : 5,
         "y" : 10,
@@ -623,15 +693,7 @@
         "displayed" : true,
         "length" : 2
       }, {
-        "id" : 6,
-        "enable" : true,
-        "x" : 13,
-        "y" : 10,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 7,
+        "id" : 9,
         "enable" : true,
         "x" : 4,
         "y" : 13,
@@ -639,21 +701,45 @@
         "displayed" : true,
         "length" : 12
       }, {
+        "id" : 7,
+        "enable" : true,
+        "x" : 13,
+        "y" : 10,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 5,
+        "enable" : true,
+        "x" : 11,
+        "y" : 7,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 7
+      }, {
+        "id" : 2,
+        "enable" : true,
+        "x" : 17,
+        "y" : 8,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 2
+      }, {
         "id" : 8,
         "enable" : true,
+        "x" : 17,
+        "y" : 10,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 3
+      }, {
+        "id" : 4,
+        "enable" : true,
         "x" : 4,
-        "y" : 3,
+        "y" : 4,
         "vertical" : false,
         "displayed" : true,
         "length" : 12
-      }, {
-        "id" : 9,
-        "enable" : true,
-        "x" : 2,
-        "y" : 7,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 3
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
@@ -661,13 +747,22 @@
       "ennemies" : [ {
         "id" : 0,
         "enable" : true,
-        "x" : 6,
-        "y" : 7,
+        "x" : 7,
+        "y" : 8,
         "type" : "ORANGE"
       } ],
-      "startPlayers" : null,
-      "startEffectObjets" : null,
-      "startPointObjets" : null,
+      "startPlayers" : {
+        "x" : 6,
+        "y" : 14
+      },
+      "startEffectObjets" : {
+        "x" : 5,
+        "y" : 11
+      },
+      "startPointObjets" : {
+        "x" : 14,
+        "y" : 11
+      },
       "items" : [ ]
     }, {
       "id" : 5,

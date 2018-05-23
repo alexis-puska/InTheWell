@@ -299,6 +299,7 @@ public class GameScreen implements Screen {
 		game.getBatch().begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		currentLevel.drawOnFrontLayer();
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_left", 0), 0, 0);
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 0);
 		game.getBatch().end();

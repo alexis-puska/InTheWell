@@ -24,10 +24,11 @@ import com.mygdx.service.dto.sprite.SpriteFileContent;
 public class SpriteService {
 
 	private static final String SPRITE_SERVICE = "Sprite Service";
-	
+
 	private static SpriteService instance = new SpriteService();
 
 	private Map<String, TextureRegion[]> sprites;
+	private Map<Integer, TextureRegion[]> spritesDecor;
 	private FileHandle spriteJsonFile;
 	private final ObjectMapper objectMapper;
 
@@ -77,6 +78,7 @@ public class SpriteService {
 
 		spriteJsonFile = Gdx.files.internal("json/sprite.json");
 		sprites = new HashMap<>();
+		spritesDecor = new HashMap<>();
 		this.objectMapper = new ObjectMapper();
 
 		int nbSprite = 0;
@@ -112,11 +114,14 @@ public class SpriteService {
 
 					}
 				}
-
-				if (sprites.containsKey(animation)) {
-					sprites.put(animation, mergeTextureRegion(sprites.get(animation), regions));
-				} else {
-					sprites.put(animation, regions);
+				if (sprite.getGrp().equals("")) {
+					if (sprites.containsKey(animation)) {
+						sprites.put(animation, mergeTextureRegion(sprites.get(animation), regions));
+					} else {
+						sprites.put(animation, regions);
+					}
+				} else if(sprite.getGrp().equals("decor")){
+					spritesDecor.put(spritesDecor.size(), regions);
 				}
 			}
 		}
@@ -145,6 +150,10 @@ public class SpriteService {
 
 	public TextureRegion[] getTexture(String name) {
 		return sprites.get(name);
+	}
+	
+	public TextureRegion getDecor(int index) {
+		return spritesDecor.get(index)[0];
 	}
 
 	private Texture textureFromName(String name) {

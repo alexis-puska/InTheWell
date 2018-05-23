@@ -124,8 +124,8 @@ public class QuestScreen implements Screen {
 			List<RequiredDTO> required = quest.getRequire();
 			int x = 0;
 			int y = 0;
-			int offsetX = 21;
-			int offsetX2 = 52;
+			int offsetX;
+			int offsetX2;
 
 			switch (required.size()) {
 			case 1:

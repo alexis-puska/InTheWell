@@ -58,6 +58,9 @@ public class Level {
 		borderWall = new ArrayList<>();
 		borderWall.add(createBorderWall(world, -1));
 		borderWall.add(createBorderWall(world, 20));
+		for (Decor d : decor) {
+			d.init(game);
+		}
 		for (Event ev : event) {
 			ev.init(world);
 		}
@@ -160,7 +163,9 @@ public class Level {
 
 	public void drawOnFrontLayer() {
 		for (Decor d : decor) {
-			d.drawIt();
+			if (!d.isBack()) {
+				d.drawIt();
+			}
 		}
 	}
 
@@ -200,6 +205,11 @@ public class Level {
 			}
 			idy += textureRegionBackground.getRegionHeight();
 			idx = 0;
+		}
+		for (Decor d : decor) {
+			if (d.isBack()) {
+				d.drawIt();
+			}
 		}
 	}
 

@@ -44,6 +44,7 @@ public class Pick extends BodyAble {
 			TextureRegion platformRegion = SpriteService.getInstance().getTexture("pick", 1);
 			switch (direction) {
 			case 0:
+			default:
 				game.getBatch().draw(platformRegion, x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
 				break;
 			case 1:
@@ -65,7 +66,6 @@ public class Pick extends BodyAble {
 						Constante.GRID_BLOC_SIZE, false, false);
 				break;
 			}
-
 		}
 	}
 

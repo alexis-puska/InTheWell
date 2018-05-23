@@ -1,6 +1,7 @@
 package com.mygdx.domain;
 
 import com.mygdx.domain.common.Drawable;
+import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +30,6 @@ public class Decor extends Drawable {
 
 	@Override
 	public void drawIt() {
-
+		game.getBatch().draw(SpriteService.getInstance().getDecor(indexAnim), x, y);
 	}
 }

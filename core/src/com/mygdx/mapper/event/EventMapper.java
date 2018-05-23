@@ -22,6 +22,7 @@ public class EventMapper {
 		}
 		Event event = new Event();
 		event.setD(dto.getD());
+		event.setItemId(dto.getItemId());
 		event.setDarknessValue(dto.getDarknessValue());
 		event.setExplosion(dto.isExplosion());
 		event.setIceValue(dto.getIceValue());
