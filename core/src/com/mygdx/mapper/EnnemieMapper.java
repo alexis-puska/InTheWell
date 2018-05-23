@@ -3,13 +3,13 @@ package com.mygdx.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.ennemie.AbricotNain;
 import com.mygdx.domain.ennemie.Annanas;
 import com.mygdx.domain.ennemie.Banane;
 import com.mygdx.domain.ennemie.Blob;
 import com.mygdx.domain.ennemie.Cerise;
 import com.mygdx.domain.ennemie.Citron;
-import com.mygdx.domain.ennemie.Ennemie;
 import com.mygdx.domain.ennemie.Fraise;
 import com.mygdx.domain.ennemie.Framboise;
 import com.mygdx.domain.ennemie.Kiwi;

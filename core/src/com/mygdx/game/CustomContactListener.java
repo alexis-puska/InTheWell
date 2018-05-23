@@ -17,7 +17,7 @@ import com.mygdx.domain.Player;
 import com.mygdx.domain.Rayon;
 import com.mygdx.domain.Teleporter;
 import com.mygdx.domain.Vortex;
-import com.mygdx.domain.ennemie.Ennemie;
+import com.mygdx.domain.common.Ennemie;
 
 public class CustomContactListener implements ContactListener {
 

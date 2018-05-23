@@ -13,7 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
-import com.mygdx.domain.ennemie.Ennemie;
+import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
