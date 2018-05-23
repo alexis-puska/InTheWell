@@ -694,30 +694,23 @@ void ItemFileSystem::simulateGame()
 		int randCoef = 0;
 		while (itemId == -1) {
 			randCoef = random(Constante.PROBA_COEF7);
-			if (randCoef <= Constante.PROBA_COEF1) {
-				if (!availableItemEffect1.isEmpty()) {
-					return availableItemEffect1.get(random((int) availableItemEffect1.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF2) {
-				if (availableItemEffect2.isEmpty()) {
-					return availableItemEffect2.get(random((int) availableItemEffect2.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF3) {
-				if (!availableItemEffect3.isEmpty()) {
-					return availableItemEffect3.get(random((int) availableItemEffect3.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF4) {
-				if (!availableItemEffect4.isEmpty()) {
-					return availableItemEffect4.get(random((int) availableItemEffect4.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF5) {
-				if (!availableItemEffect5.isEmpty()) {
-					return availableItemEffect5.get(random((int) availableItemEffect5.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF6) {
-				if (!availableItemEffect6.isEmpty()) {
-					return availableItemEffect6.get(random((int) availableItemEffect6.size()) - 1);
-				}
+			if (randCoef <= Constante.PROBA_COEF1 && !availableItemEffect1.isEmpty()) {
+				return availableItemEffect1.get(random((int) availableItemEffect1.size()) - 1);
+			}
+			if (randCoef <= Constante.PROBA_COEF2 && availableItemEffect2.isEmpty()) {
+				return availableItemEffect2.get(random((int) availableItemEffect2.size()) - 1);
+			}
+			if (randCoef <= Constante.PROBA_COEF3 && !availableItemEffect3.isEmpty()) {
+				return availableItemEffect3.get(random((int) availableItemEffect3.size()) - 1);
+			}
+			if (randCoef <= Constante.PROBA_COEF4 && !availableItemEffect4.isEmpty()) {
+				return availableItemEffect4.get(random((int) availableItemEffect4.size()) - 1);
+			}
+			if (randCoef <= Constante.PROBA_COEF5 && !availableItemEffect5.isEmpty()) {
+				return availableItemEffect5.get(random((int) availableItemEffect5.size()) - 1);
+			}
+			if (randCoef <= Constante.PROBA_COEF6 && !availableItemEffect6.isEmpty()) {
+				return availableItemEffect6.get(random((int) availableItemEffect6.size()) - 1);
 			}
 		}
 		return itemId;
@@ -733,34 +726,20 @@ void ItemFileSystem::simulateGame()
 		int randCoef = 0;
 		while (itemId == -1) {
 			randCoef = random(Constante.PROBA_COEF7);
-			if (randCoef <= Constante.PROBA_COEF1) {
-				if (!availableItemPoint1.isEmpty()) {
-					return availableItemPoint1.get(random((int) availableItemPoint1.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF2) {
-				if (!availableItemPoint2.isEmpty()) {
-					return availableItemPoint2.get(random((int) availableItemPoint2.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF3) {
-				if (!availableItemPoint3.isEmpty()) {
-					return availableItemPoint3.get(random((int) availableItemPoint3.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF4) {
-				if (!availableItemPoint4.isEmpty()) {
-					return availableItemPoint4.get(random((int) availableItemPoint4.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF5) {
-				if (!availableItemPoint5.isEmpty()) {
-					return availableItemPoint5.get(random((int) availableItemPoint5.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF6) {
-				if (!availableItemPoint6.isEmpty()) {
-					return availableItemPoint6.get(random((int) availableItemPoint6.size()) - 1);
-				}
-			} else if (randCoef <= Constante.PROBA_COEF7) {
-				if (!availableItemPoint7.isEmpty()) {
-					return availableItemPoint7.get(random((int) availableItemPoint7.size()) - 1);
-				}
+			if (randCoef <= Constante.PROBA_COEF1 && !availableItemPoint1.isEmpty()) {
+				return availableItemPoint1.get(random((int) availableItemPoint1.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF2 && !availableItemPoint2.isEmpty()) {
+				return availableItemPoint2.get(random((int) availableItemPoint2.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF3 && !availableItemPoint3.isEmpty()) {
+				return availableItemPoint3.get(random((int) availableItemPoint3.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF4 && !availableItemPoint4.isEmpty()) {
+				return availableItemPoint4.get(random((int) availableItemPoint4.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF5 && !availableItemPoint5.isEmpty()) {
+				return availableItemPoint5.get(random((int) availableItemPoint5.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF6 && !availableItemPoint6.isEmpty()) {
+				return availableItemPoint6.get(random((int) availableItemPoint6.size()) - 1);
+			} else if (randCoef <= Constante.PROBA_COEF7 && !availableItemPoint7.isEmpty()) {
+				return availableItemPoint7.get(random((int) availableItemPoint7.size()) - 1);
 			}
 		}
 		return itemId;
