@@ -44,17 +44,17 @@ public class Lock extends BodyAble {
 
 	@Override
 	public void drawIt() {
-		TextureRegion tmp = null;
 		if (enable) {
+			TextureRegion tmp = null;
 			if (unlocked) {
 				tmp = SpriteService.getInstance().getTexture("serrure", 0);
 			} else {
 				tmp = SpriteService.getInstance().getTexture("serrure", 1);
 			}
+			game.getBatch().draw(tmp,
+					(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
+					y * Constante.GRID_BLOC_SIZE);
 		}
-		game.getBatch().draw(tmp,
-				(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
-				y * Constante.GRID_BLOC_SIZE);
 	}
 
 	@Override
