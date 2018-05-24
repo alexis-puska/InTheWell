@@ -15,7 +15,7 @@ public class DesktopLauncher {
 		config.foregroundFPS = 60;
 		config.vSyncEnabled = false;
 		config.fullscreen = false;
-		config.resizable = false;
+		config.resizable = true;
 		config.addIcon("icon_128.png", FileType.Internal);
 		config.addIcon("icon_32.png", FileType.Internal);
 		config.addIcon("icon_16.png", FileType.Internal);

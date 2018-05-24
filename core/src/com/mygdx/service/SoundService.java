@@ -13,6 +13,8 @@ import com.mygdx.enumeration.SoundEnum;
  */
 public class SoundService {
 
+	private static SoundService instance = new SoundService();
+	
 	/*******************
 	 * --- musique ---
 	 *******************/
@@ -79,6 +81,10 @@ public class SoundService {
 		soundTakeObject = Gdx.audio.newSound(Gdx.files.internal("sound/sound_take_object.wav"));
 		soundTeleporter = Gdx.audio.newSound(Gdx.files.internal("sound/sound_teleporter.wav"));
 		soundTuberculoz = Gdx.audio.newSound(Gdx.files.internal("sound/sound_tuberculoz.wav"));
+	}
+	
+	public static SoundService getInstance() {
+		return instance;
 	}
 
 	/*******************

@@ -52,8 +52,8 @@ public class LevelMapper {
 		level.setName(levelNameMapper.toLevelNames(dto.getName()));
 		level.setDecor(decorMapper.toDecors(dto.getDecor()));
 		level.setEvent(eventMapper.toEvents(dto.getEvent()));
-		level.setDoor(doorMapper.toDoors(dto.getDoor()));
 		level.setLock(lockMapper.toLocks(dto.getLock()));
+		level.setDoor(doorMapper.toDoors(dto.getDoor(), level));
 		level.setPick(pickMapper.toPicks(dto.getPick()));
 		level.setPlatform(platformMapper.toPlatforms(dto.getPlatform()));
 		level.setRayon(rayonMapper.toRayons(dto.getRayon()));

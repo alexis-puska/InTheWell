@@ -1,7 +1,5 @@
 package com.mygdx.game;
 
-import java.util.concurrent.locks.Lock;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -11,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.domain.Door;
 import com.mygdx.domain.Item;
+import com.mygdx.domain.Lock;
 import com.mygdx.domain.Pick;
 import com.mygdx.domain.Platform;
 import com.mygdx.domain.Player;
@@ -103,10 +102,21 @@ public class CustomContactListener implements ContactListener {
 						Gdx.app.log("player touch ennemie", "kill player");
 						contact.setEnabled(false);
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
+						contact.setEnabled(false);
+						Door door = (Door) other.getBody().getUserData();
+						player.unlockDoor(door);
 					} else if (other.getBody().getUserData().getClass() == Item.class) {
 					} else if (other.getBody().getUserData().getClass() == Lock.class) {
+						contact.setEnabled(false);
+						Lock lock = (Lock) other.getBody().getUserData();
+						player.unlockLock(lock);
 					} else if (other.getBody().getUserData().getClass() == Pick.class) {
+						contact.setEnabled(false);
+						player.kill();
 					} else if (other.getBody().getUserData().getClass() == Rayon.class) {
+						contact.setEnabled(false);
+						Rayon rayon = (Rayon) other.getBody().getUserData();
+						player.changeBombeType(rayon.getType());
 					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 					}

@@ -27,7 +27,7 @@ public class InTheWellGame extends Game {
 	private Viewport viewport;
 	private AccountService accountService;
 	private LevelService levelService;
-	private SoundService soundService;
+	
 	private MenuInputProcessor menuInputProcessor;
 
 	public void create() {
@@ -48,8 +48,7 @@ public class InTheWellGame extends Game {
 		accountService = new AccountService();
 		levelService = new LevelService();
 		menuInputProcessor = new MenuInputProcessor();
-		soundService = new SoundService();
-		soundService.playMusic(MusicEnum.BOSS2);
+		SoundService.getInstance().playMusic(MusicEnum.BOSS2);
 		Gdx.input.setInputProcessor(menuInputProcessor);
 		this.setScreen(new SplashScreen(this));
 	}

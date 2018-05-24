@@ -16,6 +16,11 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
+import com.mygdx.enumeration.BombeTypeEnum;
+import com.mygdx.enumeration.RayonTypeEnum;
+import com.mygdx.enumeration.SoundEnum;
+import com.mygdx.game.InTheWellGame;
+import com.mygdx.service.SoundService;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,17 +33,19 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Player {
 
+	private InTheWellGame game;
 	private Body playerBody;
 	private boolean igor;
 	private boolean multi;
 
-	
 	private boolean jumpPressed;
 
 	private Set<Long> insidePlatform;
+	private BombeTypeEnum bombeType;
 	private boolean touchPlatorm;
 
-	public Player(World world, boolean igor, boolean multi) {
+	public Player(World world, InTheWellGame game, boolean igor, boolean multi) {
+		this.game = game;
 		BodyDef bodyDef = new BodyDef();
 		this.igor = igor;
 		this.multi = multi;
@@ -78,8 +85,7 @@ public class Player {
 			Vector2 pos = new Vector2(playerBody.getPosition().x, 35.0f);
 			playerBody.setTransform(pos, playerBody.getAngle());
 		}
-		
-		
+
 	}
 
 	public void touchPlatorm(long idFrame) {
@@ -140,5 +146,32 @@ public class Player {
 
 	public int getY() {
 		return (int) (playerBody.getPosition().y * 20.0f);
+	}
+
+	public void changeBombeType(RayonTypeEnum rayonType) {
+		if (rayonType.getBombeType() != null && rayonType.getBombeType() != bombeType) {
+			bombeType = rayonType.getBombeType();
+			SoundService.getInstance().playSound(SoundEnum.CHANGETYPE);
+		}
+	}
+
+	public void kill() {
+
+	}
+
+	public void unlockLock(final Lock lock) {
+		long quantity = game.getAccountService().getFridgeQuantity(lock.getKey().getItemId());
+		if (quantity > 0l) {
+			lock.unlock();
+		}
+	}
+
+	public void unlockDoor(final Door door) {
+		if(door.getKey() != null) {
+			long quantity = game.getAccountService().getFridgeQuantity(door.getKey().getItemId());
+			if (quantity > 0l) {
+				door.unlock();
+			}
+		}
 	}
 }

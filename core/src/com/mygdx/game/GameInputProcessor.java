@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.domain.Player;
 import com.mygdx.service.Context;
+import com.mygdx.service.SoundService;
 import com.mygdx.view.GameScreen;
 
 public class GameInputProcessor implements InputProcessor {
@@ -12,7 +13,6 @@ public class GameInputProcessor implements InputProcessor {
 	private Player p1;
 	private Player p2;
 	private final GameScreen gameScreen;
-	private final InTheWellGame game;
 	private boolean multi;
 
 	private boolean playMusic;
@@ -20,11 +20,10 @@ public class GameInputProcessor implements InputProcessor {
 	private boolean shiftPressed;
 	private boolean kPressed;
 
-	public GameInputProcessor(Player p1, Player p2, GameScreen gameScreen, InTheWellGame game) {
+	public GameInputProcessor(Player p1, Player p2, GameScreen gameScreen) {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.gameScreen = gameScreen;
-		this.game = game;
 		this.playMusic = true;
 		if (p2 != null) {
 			multi = true;
@@ -256,10 +255,10 @@ public class GameInputProcessor implements InputProcessor {
 	private void toogleMusic() {
 		Gdx.app.log("input processor game", "toogle music");
 		if (playMusic) {
-			game.getSoundService().stopMusic();
+			SoundService.getInstance().stopMusic();
 			playMusic = false;
 		} else {
-			game.getSoundService().playLastMusic();
+			SoundService.getInstance().playLastMusic();
 			playMusic = true;
 		}
 	}

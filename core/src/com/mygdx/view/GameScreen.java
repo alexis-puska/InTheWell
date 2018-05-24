@@ -24,6 +24,7 @@ import com.mygdx.game.CustomContactListener;
 import com.mygdx.game.GameInputProcessor;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
+import com.mygdx.service.SoundService;
 import com.mygdx.service.SpriteService;
 
 public class GameScreen implements Screen {
@@ -135,20 +136,20 @@ public class GameScreen implements Screen {
 		 * --- PLAYER ---
 		 ********************/
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
-			player = new Player(world, true, true);
-			player2 = new Player(world, false, true);
+			player = new Player(world, game, true, true);
+			player2 = new Player(world, game, false, true);
 		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
-			player = new Player(world, true, true);
+			player = new Player(world, game, true, true);
 		}
 
-		gameInputProcessor = new GameInputProcessor(player, player2, this, game);
+		gameInputProcessor = new GameInputProcessor(player, player2, this);
 		Gdx.input.setInputProcessor(gameInputProcessor);
 
 		/********************
 		 * --- INIT MUSIC ---
 		 ********************/
-		this.game.getSoundService().stopMusic();
-		this.game.getSoundService().playMusic(MusicEnum.HAMMERFEST);
+		SoundService.getInstance().stopMusic();
+		SoundService.getInstance().playMusic(MusicEnum.HAMMERFEST);
 	}
 
 	@Override
@@ -160,7 +161,7 @@ public class GameScreen implements Screen {
 		shadowLayer.dispose();
 		finalLayer.dispose();
 		fontGold.dispose();
-		this.game.getSoundService().playMusic(MusicEnum.BOSS2);
+		SoundService.getInstance().playMusic(MusicEnum.BOSS2);
 		game.getMenuInputProcessor().reset();
 		Gdx.input.setInputProcessor(game.getMenuInputProcessor());
 		game.setScreen(new SelectOptionSoloScreen(game));
@@ -168,7 +169,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		//unused method
+		// unused method
 
 	}
 
@@ -179,17 +180,17 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void pause() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void resume() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void hide() {
-		//unused method
+		// unused method
 	}
 
 	@Override

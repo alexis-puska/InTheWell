@@ -429,7 +429,7 @@
         "enable" : true,
         "x" : 5,
         "y" : 16,
-        "key" : null
+        "key" : "CAUCHEMAR"
       } ],
       "pick" : [ ],
       "platform" : [ {

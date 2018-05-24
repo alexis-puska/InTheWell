@@ -637,7 +637,7 @@ void ItemFileSystem::simulateGame()
 	/*************************************************
 	 * ---------------- GAME LIFEPART ----------------
 	 *************************************************
-	 * increment one object for this accoune
+	 * increment one object for this account
 	 * 
 	 * @param index
 	 *            id of object to increment
