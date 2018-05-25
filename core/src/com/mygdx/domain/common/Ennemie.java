@@ -15,4 +15,8 @@ public abstract class Ennemie extends BodyAble {
 	protected int x;
 	protected int y;
 	protected EnnemieTypeEnum type;
+
+	public boolean isDead() {
+		return false;
+	}
 }

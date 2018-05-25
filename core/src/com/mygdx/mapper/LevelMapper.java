@@ -78,5 +78,4 @@ public class LevelMapper {
 		}
 		return list;
 	}
-
 }

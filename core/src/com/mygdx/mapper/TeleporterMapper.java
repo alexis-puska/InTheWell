@@ -16,10 +16,10 @@ public class TeleporterMapper {
 		teleporter.setEnable(dto.isEnable());
 		teleporter.setId(dto.getId());
 		teleporter.setLength(dto.getLength());
-		teleporter.setToId(dto.getToId());
 		teleporter.setVertical(dto.isVertical());
 		teleporter.setX(dto.getX());
 		teleporter.setY(dto.getY());
+		teleporter.setToId(dto.getToId());
 		return teleporter;
 	}
 

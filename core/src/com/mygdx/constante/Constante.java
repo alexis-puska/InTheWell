@@ -2,7 +2,7 @@ package com.mygdx.constante;
 
 public class Constante {
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	public static final int SCREEN_SIZE_X = 420;
 	public static final int SCREEN_SIZE_Y = 520;
@@ -39,6 +39,9 @@ public class Constante {
 	public static final float PLAYER_WALK_RIGHT_VELOCITY = 8f;
 	public static final float PLAYER_RUN_LEFT_VELOCITY = -14f;
 	public static final float PLAYER_RUN_RIGHT_VELOCITY = -14f;
+	
+	public static final int TELEPORTER_PIXEL_LOW_SPEED = 10;
+	public static final int TELEPORTER_PIXEL_HIGH_SPEED = 16;
 	
 	private Constante() {
 		//empty private constructor

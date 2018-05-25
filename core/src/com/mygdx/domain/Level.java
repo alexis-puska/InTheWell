@@ -215,5 +215,14 @@ public class Level {
 			}
 		}
 	}
+	
+	public boolean allEnnemiesOutOrDead() {
+		for(Ennemie e : ennemies) {
+			if(!e.isDead()) {
+				return false;
+			}
+		}
+		return true;
+	}
 
 }

@@ -48,8 +48,10 @@ public class SpriteService {
 	private Texture spriteMenu;
 	private Texture spriteMessage;
 	private Texture spriteObjets;
-	private Texture spritePlayer;
+	private Texture spriteIgor;
+	private Texture spriteSandy;
 	private Texture spriteRayonTeleporter;
+	private Texture spriteTeleporter;
 	private Texture spriteShadow;
 
 	public static SpriteService getInstance() {
@@ -72,10 +74,11 @@ public class SpriteService {
 		spriteMenu = new Texture(Gdx.files.internal("sprite/sprite_menu.png"));
 		spriteMessage = new Texture(Gdx.files.internal("sprite/sprite_message.png"));
 		spriteObjets = new Texture(Gdx.files.internal("sprite/sprite_objets.png"));
-		spritePlayer = new Texture(Gdx.files.internal("sprite/sprite_player.png"));
+		spriteIgor = new Texture(Gdx.files.internal("sprite/sprite_igor.png"));
+		spriteSandy = new Texture(Gdx.files.internal("sprite/sprite_sandy.png"));
 		spriteRayonTeleporter = new Texture(Gdx.files.internal("sprite/sprite_rayon_teleporter.png"));
 		spriteShadow = new Texture(Gdx.files.internal("sprite/sprite_shadow.png"));
-
+		spriteTeleporter = new  Texture(Gdx.files.internal("sprite/sprite_teleporter.png"));
 		spriteJsonFile = Gdx.files.internal("json/sprite.json");
 		sprites = new HashMap<>();
 		spritesDecor = new HashMap<>();
@@ -178,10 +181,14 @@ public class SpriteService {
 			return spriteMap;
 		case "sprite_objets":
 			return spriteObjets;
-		case "sprite_player":
-			return spritePlayer;
+		case "sprite_igor":
+			return spriteIgor;
+		case "sprite_sandy":
+			return spriteSandy;
 		case "sprite_rayon_teleporter":
 			return spriteRayonTeleporter;
+		case "sprite_teleporter":
+			return spriteTeleporter;
 		case "image_menu":
 			return spriteMenu;
 		case "sprite_flag":

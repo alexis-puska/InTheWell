@@ -136,10 +136,10 @@ public class GameScreen implements Screen {
 		 * --- PLAYER ---
 		 ********************/
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
-			player = new Player(world, game, true, true);
-			player2 = new Player(world, game, false, true);
+			player = new Player(world, game, currentLevel, true);
+			player2 = new Player(world, game, currentLevel, false);
 		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
-			player = new Player(world, game, true, true);
+			player = new Player(world, game, currentLevel, true);
 		}
 
 		gameInputProcessor = new GameInputProcessor(player, player2, this);
@@ -205,7 +205,7 @@ public class GameScreen implements Screen {
 		drawPlayer();
 		drawFront();
 
-		drawShadowMask(player.getX(), player.getY());
+		drawShadowMask(player.getX() + 5, player.getY());
 
 		if (player2 != null) {
 			drawShadowMask(player2.getX(), player2.getY());
@@ -290,6 +290,12 @@ public class GameScreen implements Screen {
 		game.getBatch().setProjectionMatrix(gridCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		game.getBatch().begin();
+		player.drawIt();
+		if (player2 != null) {
+			player2.drawIt();
+		}
+		game.getBatch().end();
 		playerLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
@@ -329,6 +335,7 @@ public class GameScreen implements Screen {
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);
+		player.changeLevel(currentLevel);
 	}
 
 	public void decLevel() {
@@ -336,6 +343,7 @@ public class GameScreen implements Screen {
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);
+		player.changeLevel(currentLevel);
 	}
 
 	private void showFPS() {

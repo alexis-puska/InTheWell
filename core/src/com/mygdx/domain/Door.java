@@ -57,7 +57,7 @@ public class Door extends BodyAble {
 			if (key == null && lock == null) {
 				locked = false;
 			}
-			if (lock != null && lock.isUnlocked()) {
+			if (lock != null && lock.isEnable()) {
 				locked = false;
 			}
 		}

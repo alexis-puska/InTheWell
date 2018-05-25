@@ -426,7 +426,7 @@
       } ],
       "lock" : [ {
         "id" : 0,
-        "enable" : true,
+        "enable" : false,
         "x" : 5,
         "y" : 16,
         "key" : "CAUCHEMAR"
@@ -2340,7 +2340,7 @@
         "y" : 6,
         "length" : 2,
         "vertical" : true,
-        "toId" : 0
+        "toId" : 1
       }, {
         "id" : 1,
         "enable" : true,
@@ -2842,7 +2842,7 @@
         "y" : 19,
         "length" : 4,
         "vertical" : false,
-        "toId" : 0
+        "toId" : 1
       }, {
         "id" : 1,
         "enable" : true,

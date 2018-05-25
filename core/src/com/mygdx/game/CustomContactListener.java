@@ -53,6 +53,10 @@ public class CustomContactListener implements ContactListener {
 						Platform p = (Platform) other.getBody().getUserData();
 						player.goOutPlatform(p.getId());
 					}
+//				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+//					contact.setEnabled(false);
+//					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
+//					player.teleporteOut(teleporter);
 				}
 			}
 		}
@@ -118,6 +122,9 @@ public class CustomContactListener implements ContactListener {
 						Rayon rayon = (Rayon) other.getBody().getUserData();
 						player.changeBombeType(rayon.getType());
 					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+						contact.setEnabled(false);
+						Teleporter teleporter = (Teleporter) other.getBody().getUserData();
+						player.teleporte(teleporter);
 					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 					}
 				}

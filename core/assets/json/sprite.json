@@ -39,12 +39,15 @@
 		},{
 			"file": "sprite_rayon_teleporter",
 			"area": [
-				{"x": 0, "y": 0, "nx": 1, "ny": 1, "n": 1, "sx": 20, "sy": 94, "r": false, "animation": "teleporter","grp":""},
-				{"x": 60, "y": 0, "nx": 1, "ny": 1, "n": 1, "sx": 20, "sy": 94, "r": false, "animation": "teleporter","grp":""},
 				{"x": 20, "y": 0, "nx": 2, "ny": 9, "n": 18, "sx": 20, "sy": 20, "r": false, "animation": "rayon","grp":""},
 				{"x": 60, "y": 100, "nx": 1, "ny": 4, "n": 4, "sx": 20, "sy": 20, "r": false, "animation": "base_teleporter","grp":""},
 				{"x": 0, "y": 126, "nx": 1, "ny": 1, "n": 1, "sx": 24, "sy": 20, "r": false, "animation": "pick","grp":""},
 				{"x": 0, "y": 160, "nx": 1, "ny": 1, "n": 1, "sx": 20, "sy": 20, "r": false, "animation": "pick","grp":""}
+			]
+		},{
+			"file": "sprite_teleporter",
+			"area": [
+				{"x": 0, "y": 0, "nx": 2, "ny": 1, "n": 2, "sx": 20, "sy": 658, "r": false, "animation": "teleporter","grp":""}
 			]
 		},{
 			"file": "sprite_arrow",
@@ -84,7 +87,7 @@
 				{"x": 0, "y": 0, "nx": 10, "ny": 36, "n": 354, "sx": 61, "sy": 63, "r": false, "animation": "objects","grp":""}
 			]
 		},{
-			"file": "sprite_player",
+			"file": "sprite_igor",
 			"area": [
 				{"x": 0,    "y": 0,     "nx": 10, "ny": 3,  "n": 28,  "sx": 41,  "sy": 46,    "r": true, "animation": "igor_right_wait","grp":""},
 				{"x": 0,    "y": 138,   "nx": 10, "ny": 2,  "n": 14,  "sx": 42,  "sy": 49,    "r": true, "animation": "igor_right_walk","grp":""},
@@ -109,32 +112,35 @@
 				{"x": 0,    "y": 3976,  "nx": 10, "ny": 2 , "n": 16,  "sx": 54,  "sy": 63,    "r": true, "animation": "igor_right_victory","grp":""},
 				{"x": 0,    "y": 4102,  "nx": 10, "ny": 2 , "n": 13,  "sx": 52,  "sy": 56,    "r": true, "animation": "igor_right_carrybombe","grp":""},
 				{"x": 0,    "y": 4214,  "nx": 7,  "ny": 1,  "n": 7,   "sx": 56,  "sy": 57,    "r": true, "animation": "igor_right_cry","grp":""},
-				{"x": 0,    "y": 4271,  "nx": 10, "ny": 3,  "n": 30,  "sx": 52,  "sy": 58,    "r": true, "animation": "igor_right_sadness","grp":""},
-				
-				{"x": 0,    "y": 4445,  "nx": 10, "ny": 3,  "n": 28,  "sx": 41,  "sy": 46,    "r": true, "animation": "sandy_right_wait","grp":""},
-				{"x": 0,    "y": 4583,  "nx": 10, "ny": 2,  "n": 14,  "sx": 42,  "sy": 49,    "r": true, "animation": "sandy_right_walk","grp":""},
-				{"x": 0,    "y": 4681,  "nx": 10, "ny": 1,  "n": 10,  "sx": 55,  "sy": 67,    "r": true, "animation": "sandy_right_jump","grp":""},
-				{"x": 0,    "y": 4815,  "nx": 8,  "ny": 1,  "n": 8,   "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_startFall","grp":""},
-				{"x": 480,  "y": 4815,  "nx": 2,  "ny": 1,  "n": 2,   "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_fall","grp":""},
-				{"x": 0,    "y": 4874,  "nx": 10, "ny": 1,  "n": 10,  "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_fall","grp":""},
-				{"x": 0,    "y": 4933,  "nx": 9,  "ny": 1,  "n": 9,   "sx": 53,  "sy": 58,    "r": true, "animation": "sandy_right_landing","grp":""},
-				{"x": 0,    "y": 4991,  "nx": 10, "ny": 2,  "n": 17,  "sx": 68,  "sy": 66,    "r": true, "animation": "sandy_right_kill","grp":""},
-				{"x": 0,    "y": 5123,  "nx": 10, "ny": 1,  "n": 10,  "sx": 82,  "sy": 72,    "r": true, "animation": "sandy_right_shotbombe","grp":""},
-				{"x": 0,    "y": 5195,  "nx": 10, "ny": 1,  "n": 10,  "sx": 55,  "sy": 55,    "r": true, "animation": "sandy_right_dropbombe","grp":""},
-				{"x": 0,    "y": 5250,  "nx": 10, "ny": 4,  "n": 35,  "sx": 61,  "sy": 63,    "r": true, "animation": "sandy_right_bordplateform","grp":""},
-				{"x": 0,    "y": 5502,  "nx": 10, "ny": 11, "n": 104, "sx": 112, "sy": 68,    "r": true, "animation": "sandy_right_boring","grp":""},
-				{"x": 0,    "y": 6250,  "nx": 10, "ny": 17, "n": 169, "sx": 73,  "sy": 72,    "r": true, "animation": "sandy_right_chewinggum","grp":""},
-				{"x": 0,    "y": 7474,  "nx": 10, "ny": 2,  "n": 14,  "sx": 64,  "sy": 86,    "r": true, "animation": "sandy_right_knockout","grp":""},
-				{"x": 0,    "y": 7646,  "nx": 10, "ny": 2,  "n": 11,  "sx": 56,  "sy": 69,    "r": true, "animation": "sandy_right_raise_up","grp":""},
-				{"x": 0,    "y": 7784,  "nx": 10, "ny": 3,  "n": 28,  "sx": 87,  "sy": 115,   "r": true, "animation": "sandy_right_respawn","grp":""},
-				{"x": 0,    "y": 8129,  "nx": 3,  "ny": 1,  "n": 3,   "sx": 55,  "sy": 54,    "r": true, "animation": "sandy_right_arm_up","grp":""},
-				{"x": 0,    "y": 8183,  "nx": 6,  "ny": 1,  "n": 6,   "sx": 49,  "sy": 55,    "r": true, "animation": "sandy_right_run","grp":""},
-				{"x": 0,    "y": 8238,  "nx": 10, "ny": 2,  "n": 13,  "sx": 51,  "sy": 56,    "r": true, "animation": "sandy_right_soccerrun","grp":""},
-				{"x": 0,    "y": 8350,  "nx": 9,  "ny": 1,  "n": 9,   "sx": 62,  "sy": 71,    "r": true, "animation": "sandy_right_soccerroll","grp":""},
-				{"x": 0,    "y": 8421,  "nx": 10, "ny": 2 , "n": 16,  "sx": 54,  "sy": 63,    "r": true, "animation": "sandy_right_victory","grp":""},
-				{"x": 0,    "y": 8547,  "nx": 10, "ny": 2 , "n": 13,  "sx": 52,  "sy": 56,    "r": true, "animation": "sandy_right_carrybombe","grp":""},
-				{"x": 0,    "y": 8659,  "nx": 7,  "ny": 1,  "n": 7,   "sx": 56,  "sy": 57,    "r": true, "animation": "sandy_right_cry","grp":""},
-				{"x": 0,    "y": 8716,  "nx": 10, "ny": 3,  "n": 30,  "sx": 52,  "sy": 58,    "r": true, "animation": "sandy_right_sadness","grp":""}
+				{"x": 0,    "y": 4271,  "nx": 10, "ny": 3,  "n": 30,  "sx": 52,  "sy": 58,    "r": true, "animation": "igor_right_sadness","grp":""}
+			]      
+		},{
+			"file": "sprite_sandy",
+			"area": [
+				{"x": 0,    "y": 0,     "nx": 10, "ny": 3,  "n": 28,  "sx": 41,  "sy": 46,    "r": true, "animation": "sandy_right_wait","grp":""},
+				{"x": 0,    "y": 138,   "nx": 10, "ny": 2,  "n": 14,  "sx": 42,  "sy": 49,    "r": true, "animation": "sandy_right_walk","grp":""},
+				{"x": 0,    "y": 236,   "nx": 10, "ny": 1,  "n": 10,  "sx": 55,  "sy": 67,    "r": true, "animation": "sandy_right_jump","grp":""},
+				{"x": 0,    "y": 370,   "nx": 8,  "ny": 1,  "n": 8,   "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_startFall","grp":""},
+				{"x": 480,  "y": 370,   "nx": 2,  "ny": 1,  "n": 2,   "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_fall","grp":""},
+				{"x": 0,    "y": 429,   "nx": 10, "ny": 1,  "n": 10,  "sx": 60,  "sy": 59,    "r": true, "animation": "sandy_right_fall","grp":""},
+				{"x": 0,    "y": 488,   "nx": 9,  "ny": 1,  "n": 9,   "sx": 53,  "sy": 58,    "r": true, "animation": "sandy_right_landing","grp":""},
+				{"x": 0,    "y": 546,   "nx": 10, "ny": 2,  "n": 17,  "sx": 68,  "sy": 66,    "r": true, "animation": "sandy_right_kill","grp":""},
+				{"x": 0,    "y": 678,   "nx": 10, "ny": 1,  "n": 10,  "sx": 82,  "sy": 72,    "r": true, "animation": "sandy_right_shotbombe","grp":""},
+				{"x": 0,    "y": 750,   "nx": 10, "ny": 1,  "n": 10,  "sx": 55,  "sy": 55,    "r": true, "animation": "sandy_right_dropbombe","grp":""},
+				{"x": 0,    "y": 805,   "nx": 10, "ny": 4,  "n": 35,  "sx": 61,  "sy": 63,    "r": true, "animation": "sandy_right_bordplateform","grp":""},
+				{"x": 0,    "y": 1057,  "nx": 10, "ny": 11, "n": 104, "sx": 112, "sy": 68,    "r": true, "animation": "sandy_right_boring","grp":""},
+				{"x": 0,    "y": 1805,  "nx": 10, "ny": 17, "n": 169, "sx": 73,  "sy": 72,    "r": true, "animation": "sandy_right_chewinggum","grp":""},
+				{"x": 0,    "y": 3029,  "nx": 10, "ny": 2,  "n": 14,  "sx": 64,  "sy": 86,    "r": true, "animation": "sandy_right_knockout","grp":""},
+				{"x": 0,    "y": 3201,  "nx": 10, "ny": 2,  "n": 11,  "sx": 56,  "sy": 69,    "r": true, "animation": "sandy_right_raise_up","grp":""},
+				{"x": 0,    "y": 3339,  "nx": 10, "ny": 3,  "n": 28,  "sx": 87,  "sy": 115,   "r": true, "animation": "sandy_right_respawn","grp":""},
+				{"x": 0,    "y": 3684,  "nx": 3,  "ny": 1,  "n": 3,   "sx": 55,  "sy": 54,    "r": true, "animation": "sandy_right_arm_up","grp":""},
+				{"x": 0,    "y": 3738,  "nx": 6,  "ny": 1,  "n": 6,   "sx": 49,  "sy": 55,    "r": true, "animation": "sandy_right_run","grp":""},
+				{"x": 0,    "y": 3793,  "nx": 10, "ny": 2,  "n": 13,  "sx": 51,  "sy": 56,    "r": true, "animation": "sandy_right_soccerrun","grp":""},
+				{"x": 0,    "y": 3905,  "nx": 9,  "ny": 1,  "n": 9,   "sx": 62,  "sy": 71,    "r": true, "animation": "sandy_right_soccerroll","grp":""},
+				{"x": 0,    "y": 3976,  "nx": 10, "ny": 2 , "n": 16,  "sx": 54,  "sy": 63,    "r": true, "animation": "sandy_right_victory","grp":""},
+				{"x": 0,    "y": 4102,  "nx": 10, "ny": 2 , "n": 13,  "sx": 52,  "sy": 56,    "r": true, "animation": "sandy_right_carrybombe","grp":""},
+				{"x": 0,    "y": 4214,  "nx": 7,  "ny": 1,  "n": 7,   "sx": 56,  "sy": 57,    "r": true, "animation": "sandy_right_cry","grp":""},
+				{"x": 0,    "y": 4271,  "nx": 10, "ny": 3,  "n": 30,  "sx": 52,  "sy": 58,    "r": true, "animation": "sandy_right_sadness","grp":""}
 			]      
 		},{
 			"file": "sprite_bombe",

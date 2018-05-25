@@ -26,11 +26,9 @@ public class Lock extends BodyAble {
 	private int y;
 	private GameKeyEnum key;
 
-	private boolean unlocked = false;
-
 	@Override
 	public void enable() {
-
+		this.enable = true;
 	}
 
 	@Override
@@ -38,43 +36,35 @@ public class Lock extends BodyAble {
 
 	}
 
-	public void unlock() {
-		unlocked = true;
-	}
-
 	@Override
 	public void drawIt() {
+		TextureRegion tmp = null;
 		if (enable) {
-			TextureRegion tmp = null;
-			if (unlocked) {
-				tmp = SpriteService.getInstance().getTexture("serrure", 0);
-			} else {
-				tmp = SpriteService.getInstance().getTexture("serrure", 1);
-			}
-			game.getBatch().draw(tmp,
-					(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
-					y * Constante.GRID_BLOC_SIZE);
+			tmp = SpriteService.getInstance().getTexture("serrure", 0);
+		} else {
+			tmp = SpriteService.getInstance().getTexture("serrure", 1);
 		}
+		game.getBatch().draw(tmp,
+				(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
+				(y * Constante.GRID_BLOC_SIZE)+8);
 	}
 
 	@Override
 	public void createBody() {
-		if (enable) {
-			BodyDef groundBodyDef = new BodyDef();
-			PolygonShape groundBox = new PolygonShape();
-			float xb = x + 0.5f;
-			float yb = y + 0.5f;
-			groundBodyDef.position.set(new Vector2(xb, yb));
-			groundBox.setAsBox(0.5f, 0.5f);
-			groundBodyDef.position.set(new Vector2(xb, yb));
-			body = world.createBody(groundBodyDef);
-			Fixture fixture = body.createFixture(groundBox, 0.0f);
-			body.setUserData(this);
-			groundBox.dispose();
-			Filter filter = new Filter();
-			filter.categoryBits = CollisionConstante.CATEGORY_LOCK;
-			fixture.setFilterData(filter);
-			fixture.setFriction(0.1f);
-		}
+		BodyDef groundBodyDef = new BodyDef();
+		PolygonShape groundBox = new PolygonShape();
+		float xb = x + 0.5f;
+		float yb = y + 0.5f;
+		groundBodyDef.position.set(new Vector2(xb, yb));
+		groundBox.setAsBox(0.5f, 0.5f);
+		groundBodyDef.position.set(new Vector2(xb, yb));
+		body = world.createBody(groundBodyDef);
+		Fixture fixture = body.createFixture(groundBox, 0.0f);
+		body.setUserData(this);
+		groundBox.dispose();
+		Filter filter = new Filter();
+		filter.categoryBits = CollisionConstante.CATEGORY_LOCK;
+		fixture.setFilterData(filter);
+		fixture.setFriction(0.1f);
 	}
 }
