@@ -324,7 +324,7 @@ public class Player extends BodyAble {
 	 */
 	public void releaseRight() {
 		walkRightPressed = false;
-		if (walkRightPressed) {
+		if (walkLeftPressed) {
 			body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
 		} else {
 			body.setLinearVelocity(0, body.getLinearVelocity().y);
