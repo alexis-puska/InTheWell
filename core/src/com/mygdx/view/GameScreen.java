@@ -206,12 +206,16 @@ public class GameScreen implements Screen {
 		drawPlatform();
 		drawPlayer();
 		drawFront();
-
-		drawShadowMask(player.getX() + 5, player.getY());
-
+		int x1 = player.getX();
+		int y1 = player.getY();
+		int x2 = -1;
+		int y2 = -1;
 		if (player2 != null) {
-			drawShadowMask(player2.getX(), player2.getY());
+			x2 = player2.getX();
+			y2 = player2.getY();
 		}
+		drawShadowMask(x1, y1, x2, y2);
+
 		drawText();
 
 		// merge 5 layers
@@ -309,15 +313,15 @@ public class GameScreen implements Screen {
 		game.getBatch().begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		currentLevel.drawOnFrontLayer();
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_left", 0), 0, 0);
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 0);
+		currentLevel.drawOnFrontLayer();
 		game.getBatch().end();
 		frontLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
-	private void drawShadowMask(int x, int y) {
+	private void drawShadowMask(int x, int y, int x2, int y2) {
 		shadowLayer.begin();
 		game.getBatch().setProjectionMatrix(gameCamera.combined);
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0.3f);
@@ -327,6 +331,9 @@ public class GameScreen implements Screen {
 		shapeRenderer.begin(ShapeType.Filled);
 		shapeRenderer.setColor(new Color(0f, 0f, 0f, 0f));
 		shapeRenderer.circle(x, y, 100);
+		if (player2 != null) {
+			shapeRenderer.circle(x2, y2, 100);
+		}
 		shapeRenderer.end();
 		Gdx.gl.glColorMask(true, true, true, true);
 		shadowLayer.end();

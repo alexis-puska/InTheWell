@@ -163,10 +163,10 @@ public class GameInputProcessor implements InputProcessor {
 				p2.releaseLeft();
 				break;
 			case Keys.S:
-				p2.releaseJump();
+				p2.releaseRight();
 				break;
 			case Keys.D:
-				p2.releaseRight();
+				p2.releaseJump();
 				break;
 			case Keys.Z:
 				p2.releasePush();
