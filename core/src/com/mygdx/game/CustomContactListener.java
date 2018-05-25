@@ -22,49 +22,6 @@ public class CustomContactListener implements ContactListener {
 
 	@Override
 	public void beginContact(Contact contact) {
-
-	}
-
-	@Override
-	public void endContact(Contact contact) {
-
-		int playerInvolve = playerInvolved(contact);
-		Player player = null;
-		Fixture other = null;
-
-		/*********************************
-		 * --- Player platform bottom ---
-		 *********************************/
-		if (playerInvolve != -1) {
-			if (playerInvolve == 0) {
-				player = (Player) contact.getFixtureA().getBody().getUserData();
-				// float playerVelocity = contact.getFixtureA().getBody().getLinearVelocity().y;
-				other = contact.getFixtureB();
-			} else if (playerInvolve == 1) {
-				player = (Player) contact.getFixtureB().getBody().getUserData();
-				// float playerVelocity = contact.getFixtureB().getBody().getLinearVelocity().y;
-				other = contact.getFixtureA();
-			}
-			if (other != null) {
-				if (other.getBody().getUserData() != null) {
-					if (other.getBody().getUserData().getClass() == Platform.class) {
-						Gdx.app.log("player leave plaforme", "leave");
-						player.leavePlatorm();
-						Platform p = (Platform) other.getBody().getUserData();
-						player.goOutPlatform(p.getId());
-					}
-//				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
-//					contact.setEnabled(false);
-//					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
-//					player.teleporteOut(teleporter);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void preSolve(Contact contact, Manifold oldManifold) {
-
 		int playerInvolve = playerInvolved(contact);
 		Player player = null;
 		Body playerBody = null;
@@ -103,26 +60,23 @@ public class CustomContactListener implements ContactListener {
 							}
 						}
 					} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
-						Gdx.app.log("player touch ennemie", "kill player");
-						contact.setEnabled(false);
+						player.kill();
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
-						contact.setEnabled(false);
 						Door door = (Door) other.getBody().getUserData();
 						player.unlockDoor(door);
 					} else if (other.getBody().getUserData().getClass() == Item.class) {
+						Item item = (Item) other.getBody().getUserData();
+						player.pickItem(item);
 					} else if (other.getBody().getUserData().getClass() == Lock.class) {
-						contact.setEnabled(false);
 						Lock lock = (Lock) other.getBody().getUserData();
 						player.unlockLock(lock);
 					} else if (other.getBody().getUserData().getClass() == Pick.class) {
-						contact.setEnabled(false);
 						player.kill();
 					} else if (other.getBody().getUserData().getClass() == Rayon.class) {
-						contact.setEnabled(false);
 						Rayon rayon = (Rayon) other.getBody().getUserData();
 						player.changeBombeType(rayon.getType());
 					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
-						contact.setEnabled(false);
+
 						Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 						player.teleporte(teleporter);
 					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
@@ -131,17 +85,137 @@ public class CustomContactListener implements ContactListener {
 			}
 		} else {
 			int ennemieInvolve = ennemiesInvolved(contact);
-			Ennemie ennemie = null;
-			Body ennemieBody = null;
 			if (ennemieInvolve != -1) {
+				Ennemie ennemie = null;
 				if (ennemieInvolve == 0) {
 					ennemie = (Ennemie) contact.getFixtureA().getBody().getUserData();
-					ennemieBody = contact.getFixtureA().getBody();
 					other = contact.getFixtureB();
 				} else if (ennemieInvolve == 1) {
 					ennemie = (Ennemie) contact.getFixtureB().getBody().getUserData();
-					ennemieBody = contact.getFixtureB().getBody();
 					other = contact.getFixtureA();
+				}
+				if (other.getBody().getUserData().getClass() == Platform.class) {
+
+				} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+					Ennemie o = (Ennemie) other.getBody().getUserData();
+					ennemie.touchEnnemie(o);
+				} else if (other.getBody().getUserData().getClass() == Pick.class) {
+					ennemie.kill();
+				}
+			}
+
+		}
+	}
+
+	@Override
+	public void endContact(Contact contact) {
+
+		int playerInvolve = playerInvolved(contact);
+		Player player = null;
+		Fixture other = null;
+
+		/*********************************
+		 * --- Player platform bottom ---
+		 *********************************/
+		if (playerInvolve != -1) {
+			if (playerInvolve == 0) {
+				player = (Player) contact.getFixtureA().getBody().getUserData();
+				// float playerVelocity = contact.getFixtureA().getBody().getLinearVelocity().y;
+				other = contact.getFixtureB();
+			} else if (playerInvolve == 1) {
+				player = (Player) contact.getFixtureB().getBody().getUserData();
+				// float playerVelocity = contact.getFixtureB().getBody().getLinearVelocity().y;
+				other = contact.getFixtureA();
+			}
+			if (other != null) {
+				if (other.getBody().getUserData() != null) {
+					if (other.getBody().getUserData().getClass() == Platform.class) {
+						Gdx.app.log("player leave plaforme", "leave");
+						player.leavePlatorm();
+						Platform p = (Platform) other.getBody().getUserData();
+						player.goOutPlatform(p.getId());
+					}
+					// } else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+					// contact.setEnabled(false);
+					// Teleporter teleporter = (Teleporter) other.getBody().getUserData();
+					// player.teleporteOut(teleporter);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void preSolve(Contact contact, Manifold oldManifold) {
+		int playerInvolve = playerInvolved(contact);
+		Player player = null;
+		Body playerBody = null;
+		float playerVelocity = 0f;
+		Fixture other = null;
+
+		/*********************************
+		 * --- Player platform bottom ---
+		 *********************************/
+		if (playerInvolve != -1) {
+			if (playerInvolve == 0) {
+				player = (Player) contact.getFixtureA().getBody().getUserData();
+				playerBody = contact.getFixtureA().getBody();
+				playerVelocity = contact.getFixtureA().getBody().getLinearVelocity().y;
+				other = contact.getFixtureB();
+			} else if (playerInvolve == 1) {
+				player = (Player) contact.getFixtureB().getBody().getUserData();
+				playerBody = contact.getFixtureB().getBody();
+				playerVelocity = contact.getFixtureB().getBody().getLinearVelocity().y;
+				other = contact.getFixtureA();
+			}
+			if (other != null) {
+				if (other.getBody().getUserData() != null) {
+					if (other.getBody().getUserData().getClass() == Platform.class) {
+						if (playerVelocity == 0f) {
+							long idFrame = Gdx.graphics.getFrameId();
+							player.touchPlatorm(idFrame);
+							Platform p = (Platform) other.getBody().getUserData();
+							player.enterPlatform(p.getId());
+						}
+						if (playerVelocity > 0) {
+							Platform p = (Platform) other.getBody().getUserData();
+							if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
+									&& playerVelocity > 0 && !player.isTouchPlatorm()) {
+								contact.setEnabled(false);
+							}
+						}
+					} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Door.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Item.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Lock.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Pick.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Rayon.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
+						contact.setEnabled(false);
+					}
+				}
+			}
+		} else {
+			int ennemieInvolve = ennemiesInvolved(contact);
+			if (ennemieInvolve != -1) {
+				if (ennemieInvolve == 0) {
+					other = contact.getFixtureB();
+				} else if (ennemieInvolve == 1) {
+					other = contact.getFixtureA();
+				}
+				if (other.getBody().getUserData().getClass() == Platform.class) {
+
+				} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+					contact.setEnabled(false);
+				} else if (other.getBody().getUserData().getClass() == Pick.class) {
+					contact.setEnabled(false);
 				}
 			}
 		}

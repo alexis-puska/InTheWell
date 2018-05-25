@@ -48,7 +48,8 @@ public class Player extends BodyAble {
 	private boolean pushPressed;
 	private boolean dropPressed;
 
-	private Teleporter takeTeleporter;
+	private boolean insideTeleporter;
+	private Teleporter origine;
 
 	private Set<Long> insidePlatform;
 	private BombeTypeEnum bombeType;
@@ -109,7 +110,7 @@ public class Player extends BodyAble {
 	}
 
 	public void update() {
-		Gdx.app.log("InsidePlatformSize", insidePlatform + " blocks");
+		// Gdx.app.log("InsidePlatformSize", insidePlatform + " blocks");
 		if (body.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
 			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_NORMAL_FALL_VELOCITY);
 		}
@@ -130,7 +131,7 @@ public class Player extends BodyAble {
 	}
 
 	public void touchPlatorm(long idFrame) {
-		Gdx.app.log("touch platform : ", idFrame + "");
+		// Gdx.app.log("touch platform : ", idFrame + "");
 		touchPlatorm = true;
 	}
 
@@ -197,7 +198,7 @@ public class Player extends BodyAble {
 	}
 
 	public void kill() {
-
+		Gdx.app.log("player", "kill");
 	}
 
 	public void unlockLock(final Lock lock) {
@@ -217,12 +218,14 @@ public class Player extends BodyAble {
 	}
 
 	public void teleporte(Teleporter teleporter) {
-		if (takeTeleporter == null) {
-			takeTeleporter = teleporter;
+		if (origine == null && !insideTeleporter) {
+			origine = teleporter;
 			teleporter.getToId();
 			for (Teleporter tel : level.getTeleporter()) {
-				if (tel.getId() == takeTeleporter.getToId()) {
+				if (tel.getId() == origine.getToId()) {
 					teleportPos = new Vector2(tel.getX(), tel.getY());
+					insideTeleporter = true;
+					Gdx.app.log("TELEPORTER", "IN");
 				}
 			}
 			SoundService.getInstance().playSound(SoundEnum.TELEPORTER);
@@ -230,12 +233,15 @@ public class Player extends BodyAble {
 	}
 
 	public void teleporteOut(Teleporter teleporter) {
-		if (takeTeleporter.getToId() == teleporter.getId()) {
-			takeTeleporter = null;
-		}
+		insideTeleporter = false;
+		Gdx.app.log("TELEPORTER", "OUT");
 	}
 
-	public void changeLevel(Level level) {
+	public void enterLevel(Level level) {
 		this.level = level;
+	}
+
+	public void pickItem(Item item) {
+		game.getAccountService().addItemInGameFridge(item.getItemId());
 	}
 }

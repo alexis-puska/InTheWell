@@ -36,6 +36,8 @@ public class GameScreen implements Screen {
 	 ********************/
 	private GlyphLayout layout;
 	private BitmapFont fontGold;
+	private BitmapFont fontWhite;
+	private BitmapFont fontWhiteStrong;
 
 	/********************
 	 * --- DRAW ---
@@ -335,7 +337,7 @@ public class GameScreen implements Screen {
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);
-		player.changeLevel(currentLevel);
+		player.enterLevel(currentLevel);
 	}
 
 	public void decLevel() {
@@ -343,7 +345,7 @@ public class GameScreen implements Screen {
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
 		currentLevel.init(world, game);
-		player.changeLevel(currentLevel);
+		player.enterLevel(currentLevel);
 	}
 
 	private void showFPS() {
@@ -361,6 +363,19 @@ public class GameScreen implements Screen {
 		parameter.borderColor = new Color(255, 255, 0, 255);
 		parameter.color = new Color(255, 255, 0, 255);
 		fontGold = generator.generateFont(parameter);
+
+		parameter.size = 10;
+		parameter.borderWidth = 0.1f;
+		parameter.borderColor = new Color(255, 255, 0, 255);
+		parameter.color = new Color(255, 255, 0, 255);
+		fontWhite = generator.generateFont(parameter);
+
+		parameter.size = 10;
+		parameter.borderWidth = 0.1f;
+		parameter.borderColor = new Color(255, 255, 0, 255);
+		parameter.color = new Color(255, 255, 0, 255);
+		fontWhiteStrong = generator.generateFont(parameter);
+
 		generator.dispose();
 	}
 }
