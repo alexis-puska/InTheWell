@@ -42,54 +42,54 @@ public class GameInputProcessor implements InputProcessor {
 			switch (keycode) {
 			// P1
 			case Keys.LEFT:
-				p1.walkLeft();
+				p1.pressLeft();
 				break;
 			case Keys.RIGHT:
-				p1.walkRight();
+				p1.pressRight();
 				break;
 			case Keys.UP:
-				p1.jump();
+				p1.pressJump();
 				break;
 			case Keys.DOWN:
-				p1.push();
+				p1.pressPush();
 				break;
 			case Keys.ENTER:
-				p1.drop();
+				p1.pressDrop();
 				break;
 			// P2
 			case Keys.Q:
-				p2.walkLeft();
+				p2.pressLeft();
 				break;
 			case Keys.S:
-				p2.walkRight();
+				p2.pressRight();
 				break;
 			case Keys.D:
-				p2.jump();
+				p2.pressJump();
 				break;
 			case Keys.Z:
-				p2.push();
+				p2.pressPush();
 				break;
 			case Keys.A:
-				p2.drop();
+				p2.pressDrop();
 				break;
 			default:
 			}
 		} else {
 			switch (keycode) {
 			case Keys.LEFT:
-				p1.walkLeft();
+				p1.pressLeft();
 				break;
 			case Keys.RIGHT:
-				p1.walkRight();
+				p1.pressRight();
 				break;
 			case Keys.UP:
-				p1.jump();
+				p1.pressJump();
 				break;
 			case Keys.DOWN:
-				p1.push();
+				p1.pressPush();
 				break;
 			case Keys.SPACE:
-				p1.drop();
+				p1.pressDrop();
 				break;
 			default:
 			}
@@ -144,31 +144,35 @@ public class GameInputProcessor implements InputProcessor {
 			switch (keycode) {
 			// P1
 			case Keys.LEFT:
-				p1.stop();
+				p1.releaseLeft();
 				break;
 			case Keys.RIGHT:
-				p1.stop();
+				p1.releaseRight();
 				break;
 			case Keys.UP:
-				p1.jumpStop();
+				p1.releaseJump();
 				break;
 			case Keys.DOWN:
+				p1.releasePush();
 				break;
 			case Keys.ENTER:
+				p1.releaseDrop();
 				break;
 			// P2
 			case Keys.Q:
-				p2.stop();
+				p2.releaseLeft();
 				break;
 			case Keys.S:
-				p2.jumpStop();
+				p2.releaseJump();
 				break;
 			case Keys.D:
-				p2.stop();
+				p2.releaseRight();
 				break;
 			case Keys.Z:
+				p2.releasePush();
 				break;
 			case Keys.A:
+				p2.releaseDrop();
 				break;
 			default:
 
@@ -177,17 +181,19 @@ public class GameInputProcessor implements InputProcessor {
 		} else {
 			switch (keycode) {
 			case Keys.LEFT:
-				p1.stop();
+				p1.releaseLeft();
 				break;
 			case Keys.RIGHT:
-				p1.stop();
+				p1.releaseRight();
 				break;
 			case Keys.UP:
-				p1.jumpStop();
+				p1.releaseJump();
 				break;
 			case Keys.DOWN:
+				p1.releasePush();
 				break;
 			case Keys.SPACE:
+				p1.releaseDrop();
 				break;
 			default:
 			}

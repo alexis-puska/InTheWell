@@ -3,6 +3,8 @@ package com.mygdx.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -16,6 +18,8 @@ import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
 import com.mygdx.game.InTheWellGame;
+import com.mygdx.service.Context;
+import com.mygdx.service.MessageService;
 import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
@@ -150,14 +154,12 @@ public class Level {
 	}
 
 	public void drawOnPlayerLayer() {
-
 		for (Ennemie e : ennemies) {
 			e.init(world, game);
 		}
 		for (Item i : items) {
 			i.init(world, game);
 		}
-
 		game.getBatch().draw(SpriteService.getInstance().getTexture("igor_right_walk", 0), 80, 77);
 	}
 
@@ -166,6 +168,23 @@ public class Level {
 			if (!d.isBack()) {
 				d.drawIt();
 			}
+		}
+	}
+
+	public void drawTextMessage(GlyphLayout layout, BitmapFont fontWhite, BitmapFont smallFontWhite) {
+		List<LevelName> names = this.getName();
+		for (LevelName name : names) {
+			if (name.getPositionNewCountry() > 0 && !name.getValue().equals("")) {
+				if (name.getLang().equals(Context.getLocale().getCode())) {
+					layout.setText(smallFontWhite, MessageService.getInstance().getMessage("game.main.country.new"));
+					smallFontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width,
+							name.getPositionNewCountry());
+					layout.setText(fontWhite, name.getValue());
+					fontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width,
+							name.getPositionName());
+				}
+			}
+			name.update();
 		}
 	}
 
@@ -215,10 +234,10 @@ public class Level {
 			}
 		}
 	}
-	
+
 	public boolean allEnnemiesOutOrDead() {
-		for(Ennemie e : ennemies) {
-			if(!e.isDead()) {
+		for (Ennemie e : ennemies) {
+			if (!e.isDead()) {
 				return false;
 			}
 		}

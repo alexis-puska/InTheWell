@@ -16,6 +16,10 @@ public class LevelName extends Drawable {
 	private String lang;
 	private String value;
 
+	private int timeout = 200;
+	private int positionNewCountry = 36;
+	private int positionName = 20;
+
 	@Override
 	public void enable() {
 
@@ -29,5 +33,14 @@ public class LevelName extends Drawable {
 	@Override
 	public void drawIt() {
 
+	}
+
+	public void update() {
+		if (timeout > 0) {
+			timeout--;
+		} else {
+			positionNewCountry--;
+			positionName--;
+		}
 	}
 }

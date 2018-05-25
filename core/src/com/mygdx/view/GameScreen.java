@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
 	private GlyphLayout layout;
 	private BitmapFont fontGold;
 	private BitmapFont fontWhite;
-	private BitmapFont fontWhiteStrong;
+	private BitmapFont smallFontWhite;
 
 	/********************
 	 * --- DRAW ---
@@ -212,6 +212,7 @@ public class GameScreen implements Screen {
 		if (player2 != null) {
 			drawShadowMask(player2.getX(), player2.getY());
 		}
+		drawText();
 
 		// merge 5 layers
 		mergeFinalTexture();
@@ -332,6 +333,16 @@ public class GameScreen implements Screen {
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
+	private void drawText() {
+		shadowLayer.begin();
+		game.getBatch().setProjectionMatrix(gameCamera.combined);
+		game.getBatch().begin();
+		currentLevel.drawTextMessage(layout, fontWhite, smallFontWhite);
+		game.getBatch().end();
+		shadowLayer.end();
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
+	}
+
 	public void incLevel() {
 		levelIndex++;
 		currentLevel.dispose();
@@ -363,19 +374,22 @@ public class GameScreen implements Screen {
 		parameter.borderColor = new Color(255, 255, 0, 255);
 		parameter.color = new Color(255, 255, 0, 255);
 		fontGold = generator.generateFont(parameter);
+		generator.dispose();
 
-		parameter.size = 10;
-		parameter.borderWidth = 0.1f;
-		parameter.borderColor = new Color(255, 255, 0, 255);
-		parameter.color = new Color(255, 255, 0, 255);
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_impact.ttf"));
+		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+		parameter.size = 14;
+		parameter.borderWidth = 2f;
+		parameter.borderColor = new Color(0, 0, 0, 255);
+		parameter.color = new Color(255, 255, 255, 255);
 		fontWhite = generator.generateFont(parameter);
 
 		parameter.size = 10;
-		parameter.borderWidth = 0.1f;
-		parameter.borderColor = new Color(255, 255, 0, 255);
-		parameter.color = new Color(255, 255, 0, 255);
-		fontWhiteStrong = generator.generateFont(parameter);
-
+		parameter.borderWidth = 1f;
+		parameter.borderColor = new Color(0, 0, 0, 255);
+		parameter.color = new Color(255, 255, 255, 255);
+		smallFontWhite = generator.generateFont(parameter);
 		generator.dispose();
 	}
 }

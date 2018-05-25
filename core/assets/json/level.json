@@ -11,15 +11,15 @@
       "name" : [ {
         "id" : 0,
         "lang" : "es",
-        "value" : ""
-      }, {
-        "id" : 1,
-        "lang" : "fr",
-        "value" : ""
+        "value" : "the villaga"
       }, {
         "id" : 2,
         "lang" : "en",
-        "value" : ""
+        "value" : "The town"
+      }, {
+        "id" : 1,
+        "lang" : "fr",
+        "value" : "Le village"
       } ],
       "decor" : [ {
         "id" : 0,
@@ -291,12 +291,12 @@
         "lang" : "es",
         "value" : ""
       }, {
-        "id" : 1,
-        "lang" : "fr",
-        "value" : ""
-      }, {
         "id" : 2,
         "lang" : "en",
+        "value" : ""
+      }, {
+        "id" : 1,
+        "lang" : "fr",
         "value" : ""
       } ],
       "decor" : [ {
@@ -3054,14 +3054,6 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 14,
-        "y" : 7,
-        "length" : 2,
-        "vertical" : true,
-        "toId" : 0
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 17,
@@ -3069,6 +3061,14 @@
         "length" : 2,
         "vertical" : true,
         "toId" : 0
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 14,
+        "y" : 7,
+        "length" : 2,
+        "vertical" : true,
+        "toId" : 1
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -3496,14 +3496,6 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 0,
-        "y" : 20,
-        "length" : 2,
-        "vertical" : true,
-        "toId" : 0
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 19,
@@ -3511,6 +3503,14 @@
         "length" : 2,
         "vertical" : true,
         "toId" : 0
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 0,
+        "y" : 20,
+        "length" : 2,
+        "vertical" : true,
+        "toId" : 1
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -5220,14 +5220,6 @@
         "vertical" : false
       } ],
       "teleporter" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 14,
-        "y" : 22,
-        "length" : 3,
-        "vertical" : false,
-        "toId" : 0
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 3,
@@ -5235,6 +5227,14 @@
         "length" : 3,
         "vertical" : false,
         "toId" : 0
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 14,
+        "y" : 22,
+        "length" : 3,
+        "vertical" : false,
+        "toId" : 1
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -5810,14 +5810,6 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 0,
-        "y" : 18,
-        "length" : 4,
-        "vertical" : true,
-        "toId" : 0
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 19,
@@ -5825,6 +5817,14 @@
         "length" : 4,
         "vertical" : true,
         "toId" : 0
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 0,
+        "y" : 18,
+        "length" : 4,
+        "vertical" : true,
+        "toId" : 1
       } ],
       "vortex" : [ {
         "id" : 0,
@@ -7704,14 +7704,6 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 11,
-        "y" : 13,
-        "length" : 2,
-        "vertical" : false,
-        "toId" : 0
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 11,
@@ -7719,6 +7711,14 @@
         "length" : 2,
         "vertical" : false,
         "toId" : 0
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 11,
+        "y" : 13,
+        "length" : 2,
+        "vertical" : false,
+        "toId" : 1
       } ],
       "vortex" : [ ],
       "ennemies" : [ {

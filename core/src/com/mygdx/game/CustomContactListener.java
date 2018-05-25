@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -76,9 +77,9 @@ public class CustomContactListener implements ContactListener {
 						Rayon rayon = (Rayon) other.getBody().getUserData();
 						player.changeBombeType(rayon.getType());
 					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
-
 						Teleporter teleporter = (Teleporter) other.getBody().getUserData();
-						player.teleporte(teleporter);
+						Vector2[] points = contact.getWorldManifold().getPoints();
+						player.teleporte(teleporter, points);
 					} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 					}
 				}
@@ -94,13 +95,17 @@ public class CustomContactListener implements ContactListener {
 					ennemie = (Ennemie) contact.getFixtureB().getBody().getUserData();
 					other = contact.getFixtureA();
 				}
-				if (other.getBody().getUserData().getClass() == Platform.class) {
+				if (other != null) {
+					if (other.getBody().getUserData() != null) {
+						if (other.getBody().getUserData().getClass() == Platform.class) {
 
-				} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
-					Ennemie o = (Ennemie) other.getBody().getUserData();
-					ennemie.touchEnnemie(o);
-				} else if (other.getBody().getUserData().getClass() == Pick.class) {
-					ennemie.kill();
+						} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+							Ennemie o = (Ennemie) other.getBody().getUserData();
+							ennemie.touchEnnemie(o);
+						} else if (other.getBody().getUserData().getClass() == Pick.class) {
+							ennemie.kill();
+						}
+					}
 				}
 			}
 
@@ -130,15 +135,13 @@ public class CustomContactListener implements ContactListener {
 			if (other != null) {
 				if (other.getBody().getUserData() != null) {
 					if (other.getBody().getUserData().getClass() == Platform.class) {
-						Gdx.app.log("player leave plaforme", "leave");
 						player.leavePlatorm();
 						Platform p = (Platform) other.getBody().getUserData();
 						player.goOutPlatform(p.getId());
+					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
+						Teleporter teleporter = (Teleporter) other.getBody().getUserData();
+						player.teleporteOut(teleporter);
 					}
-					// } else if (other.getBody().getUserData().getClass() == Teleporter.class) {
-					// contact.setEnabled(false);
-					// Teleporter teleporter = (Teleporter) other.getBody().getUserData();
-					// player.teleporteOut(teleporter);
 				}
 			}
 		}
@@ -210,12 +213,16 @@ public class CustomContactListener implements ContactListener {
 				} else if (ennemieInvolve == 1) {
 					other = contact.getFixtureA();
 				}
-				if (other.getBody().getUserData().getClass() == Platform.class) {
+				if (other != null) {
+					if (other.getBody().getUserData() != null) {
+						if (other.getBody().getUserData().getClass() == Platform.class) {
 
-				} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
-					contact.setEnabled(false);
-				} else if (other.getBody().getUserData().getClass() == Pick.class) {
-					contact.setEnabled(false);
+						} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+							contact.setEnabled(false);
+						} else if (other.getBody().getUserData().getClass() == Pick.class) {
+							contact.setEnabled(false);
+						}
+					}
 				}
 			}
 		}
@@ -247,7 +254,6 @@ public class CustomContactListener implements ContactListener {
 				&& b.getBody().getUserData().getClass() == Player.class) {
 			result += 2;
 		}
-		Gdx.app.log("player involved", "" + result);
 		return result;
 	}
 
@@ -272,7 +278,6 @@ public class CustomContactListener implements ContactListener {
 				&& b.getBody().getUserData().getClass() == Ennemie.class) {
 			result += 2;
 		}
-		Gdx.app.log("ennemie involved", "" + result);
 		return result;
 	}
 }

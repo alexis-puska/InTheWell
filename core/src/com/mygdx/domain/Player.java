@@ -29,6 +29,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * @author alexispuskarczyk
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -48,20 +52,20 @@ public class Player extends BodyAble {
 	private boolean pushPressed;
 	private boolean dropPressed;
 
-	private boolean insideTeleporter;
-	private Teleporter origine;
+	private int destinationId;
+	private Vector2 teleport;
 
 	private Set<Long> insidePlatform;
 	private BombeTypeEnum bombeType;
 	private boolean touchPlatorm;
 	private Level level;
-	private Vector2 teleportPos;
 
 	public Player(World world, InTheWellGame game, Level level, boolean igor) {
 		init(world, game);
 		this.level = level;
 		this.igor = igor;
 		this.insidePlatform = new HashSet<>();
+		this.destinationId = -1;
 	}
 
 	@Override
@@ -110,7 +114,17 @@ public class Player extends BodyAble {
 	}
 
 	public void update() {
-		// Gdx.app.log("InsidePlatformSize", insidePlatform + " blocks");
+		if (teleport != null) {
+			body.setTransform(teleport, body.getAngle());
+			teleport = null;
+		}
+
+		if (walkRightPressed) {
+			body.setLinearVelocity(Constante.PLAYER_WALK_RIGHT_VELOCITY, body.getLinearVelocity().y);
+		} else if (walkLeftPressed) {
+			body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
+		}
+
 		if (body.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
 			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_NORMAL_FALL_VELOCITY);
 		}
@@ -123,13 +137,11 @@ public class Player extends BodyAble {
 			body.setTransform(pos, body.getAngle());
 		}
 
-		if (teleportPos != null) {
-			body.setTransform(teleportPos, body.getAngle());
-			teleportPos = null;
-		}
-
 	}
 
+	/********************************
+	 * --- FUNCTION FOR PLATFORM ---
+	 ********************************/
 	public void touchPlatorm(long idFrame) {
 		// Gdx.app.log("touch platform : ", idFrame + "");
 		touchPlatorm = true;
@@ -151,37 +163,9 @@ public class Player extends BodyAble {
 		insidePlatform.remove(platformId);
 	}
 
-	public void walkLeft() {
-		body.setLinearVelocity(-10f, body.getLinearVelocity().y);
-	}
-
-	public void walkRight() {
-		body.setLinearVelocity(10f, body.getLinearVelocity().y);
-	}
-
-	public void stop() {
-		body.setLinearVelocity(0f, body.getLinearVelocity().y);
-	}
-
-	public void jump() {
-		jumpPressed = true;
-		if (touchPlatorm) {
-			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
-		}
-	}
-
-	public void jumpStop() {
-		jumpPressed = false;
-	}
-
-	public void drop() {
-
-	}
-
-	public void push() {
-
-	}
-
+	/****************************
+	 * --- FUNCTION FOR LIGHT ---
+	 ****************************/
 	public int getX() {
 		return (int) (body.getPosition().x * 20.0f);
 	}
@@ -190,6 +174,12 @@ public class Player extends BodyAble {
 		return (int) (body.getPosition().y * 20.0f);
 	}
 
+	/**
+	 * Change type of bombe when player touch a ray
+	 * 
+	 * @param rayonType
+	 *            the ray type
+	 */
 	public void changeBombeType(RayonTypeEnum rayonType) {
 		if (rayonType.getBombeType() != null && rayonType.getBombeType() != bombeType) {
 			bombeType = rayonType.getBombeType();
@@ -197,10 +187,19 @@ public class Player extends BodyAble {
 		}
 	}
 
+	/**
+	 * Kill the player
+	 */
 	public void kill() {
 		Gdx.app.log("player", "kill");
 	}
 
+	/**
+	 * Unlock a lock with the correct key
+	 * 
+	 * @param lock
+	 *            the lock to unlock
+	 */
 	public void unlockLock(final Lock lock) {
 		long quantity = game.getAccountService().getFridgeQuantity(lock.getKey().getItemId());
 		if (quantity > 0l) {
@@ -208,6 +207,12 @@ public class Player extends BodyAble {
 		}
 	}
 
+	/**
+	 * Player unlock the door if he have the key
+	 * 
+	 * @param door
+	 *            the door to unlock
+	 */
 	public void unlockDoor(final Door door) {
 		if (door.getKey() != null) {
 			long quantity = game.getAccountService().getFridgeQuantity(door.getKey().getItemId());
@@ -217,31 +222,158 @@ public class Player extends BodyAble {
 		}
 	}
 
-	public void teleporte(Teleporter teleporter) {
-		if (origine == null && !insideTeleporter) {
-			origine = teleporter;
-			teleporter.getToId();
+	/**
+	 * The teleporter the teleporter in the collision with the player
+	 * 
+	 * @param teleporter
+	 *            the teleporter
+	 * @param points
+	 *            all points generate by the collision
+	 */
+	public void teleporte(Teleporter teleporter, Vector2[] points) {
+		if (teleport == null && destinationId == -1) {
 			for (Teleporter tel : level.getTeleporter()) {
-				if (tel.getId() == origine.getToId()) {
-					teleportPos = new Vector2(tel.getX(), tel.getY());
-					insideTeleporter = true;
+				if (tel.getId() == teleporter.getToId()) {
+					float moyX = 0;
+					float moyY = 0;
+					for (int i = 0; i < points.length; i++) {
+						moyX += points[i].x;
+						moyY += points[i].y;
+					}
+					moyX = moyX / (float) points.length;
+					moyY = moyY / (float) points.length;
+					float diffX = moyX - (teleporter.getX());
+					float diffY = moyY - (teleporter.getY());
+					float posX = (tel.getX()) + diffX;
+					float posY = (tel.getY()) + diffY;
+					teleport = new Vector2(posX, posY);
+					destinationId = teleporter.getToId();
 					Gdx.app.log("TELEPORTER", "IN");
+					break;
 				}
 			}
 			SoundService.getInstance().playSound(SoundEnum.TELEPORTER);
 		}
 	}
 
+	/**
+	 * Player go out of the destination teleporter
+	 * 
+	 * @param teleporter
+	 *            the teleporter of the collision
+	 */
 	public void teleporteOut(Teleporter teleporter) {
-		insideTeleporter = false;
-		Gdx.app.log("TELEPORTER", "OUT");
+		if (destinationId != -1 && teleporter.getToId() != destinationId) {
+			destinationId = -1;
+			Gdx.app.log("TELEPORTER", "OUT");
+		}
 	}
 
+	/**
+	 * Player notify change Level
+	 * 
+	 * @param level
+	 *            the new Level
+	 */
 	public void enterLevel(Level level) {
 		this.level = level;
 	}
 
+	/**
+	 * Pick an item in level. Add this in temporary fridge for game
+	 * 
+	 * @param item
+	 *            the Item
+	 */
 	public void pickItem(Item item) {
 		game.getAccountService().addItemInGameFridge(item.getItemId());
 	}
+
+	/********************************************************
+	 * --------------------- DIRECTION ---------------------
+	 ********************************************************/
+
+	/**
+	 * Press left Button
+	 */
+	public void pressLeft() {
+		walkLeftPressed = true;
+	}
+
+	/**
+	 * Release left Button
+	 */
+	public void releaseLeft() {
+		walkLeftPressed = false;
+		if (walkRightPressed) {
+			body.setLinearVelocity(Constante.PLAYER_WALK_RIGHT_VELOCITY, body.getLinearVelocity().y);
+		} else {
+			body.setLinearVelocity(0, body.getLinearVelocity().y);
+		}
+	}
+
+	/**
+	 * Press right Button
+	 */
+	public void pressRight() {
+		walkRightPressed = true;
+	}
+
+	/**
+	 * Relea se right Button
+	 */
+	public void releaseRight() {
+		walkRightPressed = false;
+		if (walkRightPressed) {
+			body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
+		} else {
+			body.setLinearVelocity(0, body.getLinearVelocity().y);
+		}
+	}
+
+	/**
+	 * Press Jump Button
+	 */
+	public void pressJump() {
+		jumpPressed = true;
+		if (touchPlatorm) {
+			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
+		}
+	}
+
+	/**
+	 * Release jump Button
+	 */
+	public void releaseJump() {
+		jumpPressed = false;
+	}
+
+	/**
+	 * Press drop Button
+	 */
+	public void pressDrop() {
+
+	}
+
+	/**
+	 * Release drop Button
+	 */
+	public void releaseDrop() {
+
+	}
+
+	/**
+	 * Press Push Button (down)
+	 */
+	public void pressPush() {
+
+	}
+
+	/**
+	 * release Push Button (down)
+	 */
+	public void releasePush() {
+
+	}
+
 }
