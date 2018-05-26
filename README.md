@@ -44,7 +44,7 @@ add this xml fragment to es_systems.cfg file in /etc/emulationstation/es_systems
     <name>inTheWell</name>
     <fullname>inTheWell</fullname>
     <plateform>inTheWell</plateform>
-    <path>/home/pi/RetroPie/roms/inTheWell</path>
+    <path>/home/pi/RetroPie/roms/InTheWell</path>
     <command>sudo %ROM%</command>
     <extension>.sh</extension>
     <theme>hammerfest</theme>
