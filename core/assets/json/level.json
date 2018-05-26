@@ -532,7 +532,7 @@
         "x" : 2,
         "y" : 16,
         "type" : 3,
-        "locked" : true,
+        "locked" : false,
         "toLevel" : 0,
         "key" : null,
         "lockId" : 0

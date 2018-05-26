@@ -18,6 +18,8 @@ public class ItemMapper {
 		item.setItemId(dto.getItemId());
 		item.setX(dto.getX());
 		item.setY(dto.getY());
+		item.setTimeout(-1);
+		item.setDraw(true);
 		return item;
 	}
 

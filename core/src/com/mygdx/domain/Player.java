@@ -39,9 +39,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Player extends BodyAble {
 
-	private final float PLAYER_BOX_WIDTH = 0.2f;
-	private final float PLAYER_BOX_HEIGHT = 0.4f;
-
+	
 	// PlayerType
 	private boolean igor;
 
@@ -80,7 +78,7 @@ public class Player extends BodyAble {
 		body.setMassData(data);
 		body.setUserData(this);
 		PolygonShape bodyBox = new PolygonShape();
-		bodyBox.setAsBox(PLAYER_BOX_WIDTH, PLAYER_BOX_HEIGHT);
+		bodyBox.setAsBox(Constante.PLAYER_BOX_WIDTH, Constante.PLAYER_BOX_HEIGHT);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = bodyBox;
 		fixtureDef.density = 1;
@@ -110,7 +108,7 @@ public class Player extends BodyAble {
 			tmp = SpriteService.getInstance().getTexture("sandy_right_wait", 0);
 		}
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
-				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (PLAYER_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
+				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (Constante.PLAYER_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
 	}
 
 	public void update() {
@@ -289,6 +287,7 @@ public class Player extends BodyAble {
 	 */
 	public void pickItem(Item item) {
 		game.getAccountService().addItemInGameFridge(item.getItemId());
+		item.setPicked(true);
 	}
 
 	/********************************************************

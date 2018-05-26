@@ -54,9 +54,6 @@ public class Door extends BodyAble {
 					y * Constante.GRID_BLOC_SIZE);
 		}
 		if (locked) {
-			if (key == null && lock == null) {
-				locked = false;
-			}
 			if (lock != null && lock.isEnable()) {
 				locked = false;
 			}

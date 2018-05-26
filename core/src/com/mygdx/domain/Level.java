@@ -2,6 +2,7 @@ package com.mygdx.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -53,14 +54,26 @@ public class Level {
 	private List<Item> items;
 
 	private List<Body> borderWall;
+	private Timer timeObjetEffet;
+	private CustomTimerTask objectPointTask;
+	private Timer timeObjetPoint;
+	private CustomTimerTask objectEffetTask;
 
-	public void init(World world, InTheWellGame game, GlyphLayout layout, BitmapFont fontWhite, BitmapFont smallFontWhite) {
+	public void init(World world, InTheWellGame game, GlyphLayout layout, BitmapFont fontWhite,
+			BitmapFont smallFontWhite) {
 		this.game = game;
 		this.world = world;
 		borderWall = new ArrayList<>();
 		borderWall.add(createBorderWall(world, -1));
 		borderWall.add(createBorderWall(world, 20));
-		for(LevelName na : name) {
+		timeObjetEffet = new Timer();
+		timeObjetPoint = new Timer();
+		objectPointTask = new CustomTimerTask(false, this, 0);
+		objectEffetTask = new CustomTimerTask(false, this, 1);
+		timeObjetEffet.schedule(objectPointTask, 5000);
+		timeObjetPoint.schedule(objectEffetTask, 10000);
+
+		for (LevelName na : name) {
 			na.init(game, layout, fontWhite, smallFontWhite);
 		}
 		for (Decor d : decor) {
@@ -102,6 +115,7 @@ public class Level {
 	}
 
 	public void dispose() {
+
 		for (Event ev : event) {
 			ev.dispose();
 		}
@@ -132,6 +146,12 @@ public class Level {
 		for (Item i : items) {
 			i.dispose();
 		}
+		if (!objectPointTask.isRun()) {
+			timeObjetPoint.cancel();
+		}
+		if (!objectPointTask.isRun()) {
+			timeObjetEffet.cancel();
+		}
 		// destroy lateral walls
 		for (Body b : borderWall) {
 			this.world.destroyBody(b);
@@ -161,6 +181,14 @@ public class Level {
 		for (Ennemie e : ennemies) {
 			e.drawIt();
 		}
+		// List<Item> toRemove = new ArrayList<>();
+		// for (Item i : items) {
+		// if (i.isPicked()) {
+		// toRemove.add(i);
+		// i.dispose();
+		// }
+		// }
+		// items.removeAll(toRemove);
 		for (Item i : items) {
 			i.drawIt();
 		}
@@ -234,6 +262,36 @@ public class Level {
 			}
 		}
 		return true;
+	}
+
+	public void addObjectPoint() {
+		if (this.startPointObjets != null) {
+			Item item = new Item();
+			item.setItemId(game.getAccountService().getPointItemId());
+			item.setEnable(true);
+			item.setPicked(false);
+			item.setX(startPointObjets.getX());
+			item.setY(startPointObjets.getY());
+			item.init(world, game);
+			item.setTimeout(600);
+			item.setDraw(true);
+			items.add(item);
+		}
+	}
+
+	public void addObjectEffet() {
+		if (this.startEffectObjets != null) {
+			Item item = new Item();
+			item.setItemId(game.getAccountService().getEffectItemId());
+			item.setEnable(true);
+			item.setPicked(false);
+			item.setX(startEffectObjets.getX());
+			item.setY(startEffectObjets.getY());
+			item.init(world, game);
+			item.setTimeout(600);
+			item.setDraw(true);
+			items.add(item);
+		}
 	}
 
 }

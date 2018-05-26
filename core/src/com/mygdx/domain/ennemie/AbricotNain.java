@@ -30,7 +30,7 @@ public class AbricotNain extends Ennemie {
 	public void drawIt() {
 		TextureRegion tmp = SpriteService.getInstance().getTexture("nainbricot_walk", 0);
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
-				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
+				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (Constante.ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
 	}
 
 }

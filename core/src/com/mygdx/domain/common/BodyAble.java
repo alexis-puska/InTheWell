@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.InTheWellGame;
 
 public abstract class BodyAble extends Drawable {
-	
+
 	protected World world;
 	protected Body body;
 
@@ -18,7 +18,9 @@ public abstract class BodyAble extends Drawable {
 	public void dispose() {
 		if (body != null) {
 			this.world.destroyBody(body);
+			body = null;
 		}
+
 	}
 
 	public abstract void createBody();

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.constante.CollisionConstante;
+import com.mygdx.constante.Constante;
 import com.mygdx.enumeration.EnnemieStateEnum;
 import com.mygdx.enumeration.EnnemieTypeEnum;
 
@@ -27,8 +28,7 @@ public abstract class Ennemie extends BodyAble {
 
 	protected EnnemieStateEnum state;
 
-	protected static final float ENNEMIE_BOX_HEIGHT = 0.4f;
-	protected static final float ENNEMIE_BOX_WIDTH = 0.4f;
+	
 
 	public boolean isDead() {
 		return false;
@@ -62,7 +62,7 @@ public abstract class Ennemie extends BodyAble {
 		body.setMassData(data);
 		body.setUserData(this);
 		PolygonShape bodyBox = new PolygonShape();
-		bodyBox.setAsBox(ENNEMIE_BOX_WIDTH, ENNEMIE_BOX_HEIGHT);
+		bodyBox.setAsBox(Constante.ENNEMIE_BOX_WIDTH, Constante.ENNEMIE_BOX_HEIGHT);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = bodyBox;
 		fixtureDef.density = 1;

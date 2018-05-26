@@ -6,15 +6,15 @@ public class Constante {
 
 	public static final int SCREEN_SIZE_X = 420;
 	public static final int SCREEN_SIZE_Y = 520;
-	
+
 	public static final int GAME_SCREEN_SIZE_X = 420;
 	public static final int GAME_SCREEN_SIZE_Y = 500;
-	
+
 	public static final int GRID_SCREEN_SIZE_X = 400;
 	public static final int GRID_SCREEN_SIZE_Y = 500;
-	
+
 	public static final int GRID_BLOC_SIZE = 20;
-	
+
 	public static final int NB_ITEM_FRIDGE = 354;
 	public static final int NB_ITEM_PER_SAVE = 357;
 	public static final int NB_SAVE_PER_FILE = 4;
@@ -39,11 +39,19 @@ public class Constante {
 	public static final float PLAYER_WALK_RIGHT_VELOCITY = 8f;
 	public static final float PLAYER_RUN_LEFT_VELOCITY = -14f;
 	public static final float PLAYER_RUN_RIGHT_VELOCITY = -14f;
-	
+
 	public static final int TELEPORTER_PIXEL_LOW_SPEED = 10;
 	public static final int TELEPORTER_PIXEL_HIGH_SPEED = 16;
-	
+
+	public static final float ENNEMIE_BOX_HEIGHT = 0.4f;
+	public static final float ENNEMIE_BOX_WIDTH = 0.4f;
+
+	public static final float PLAYER_BOX_WIDTH = 0.2f;
+	public static final float PLAYER_BOX_HEIGHT = 0.4f;
+
+	public static final float ITEM_BOX_SIZE = 0.4f;
+
 	private Constante() {
-		//empty private constructor
+		// empty private constructor
 	}
 }
