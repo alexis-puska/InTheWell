@@ -132,7 +132,7 @@ public class GameScreen implements Screen {
 		 * --- LEVEL ---
 		 ********************/
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game);
+		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
 
 		/********************
 		 * --- PLAYER ---
@@ -298,6 +298,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
+		currentLevel.drawOnPlayerLayer();
 		player.drawIt();
 		if (player2 != null) {
 			player2.drawIt();
@@ -344,7 +345,7 @@ public class GameScreen implements Screen {
 		shadowLayer.begin();
 		game.getBatch().setProjectionMatrix(gameCamera.combined);
 		game.getBatch().begin();
-		currentLevel.drawTextMessage(layout, fontWhite, smallFontWhite);
+		currentLevel.drawTextMessage();
 		game.getBatch().end();
 		shadowLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
@@ -354,7 +355,7 @@ public class GameScreen implements Screen {
 		levelIndex++;
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game);
+		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
 		player.enterLevel(currentLevel);
 	}
 
@@ -362,7 +363,7 @@ public class GameScreen implements Screen {
 		levelIndex--;
 		currentLevel.dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game);
+		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
 		player.enterLevel(currentLevel);
 	}
 

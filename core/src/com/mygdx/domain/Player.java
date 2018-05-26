@@ -191,6 +191,7 @@ public class Player extends BodyAble {
 	 * Kill the player
 	 */
 	public void kill() {
+		SoundService.getInstance().playSound(SoundEnum.DEAD);
 		Gdx.app.log("player", "kill");
 	}
 
@@ -277,6 +278,7 @@ public class Player extends BodyAble {
 	 */
 	public void enterLevel(Level level) {
 		this.level = level;
+		this.bombeType = BombeTypeEnum.WHITE;
 	}
 
 	/**

@@ -60,8 +60,9 @@ public class CustomContactListener implements ContactListener {
 								contact.setEnabled(false);
 							}
 						}
-					} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+					} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 						player.kill();
+						Gdx.app.log("CUSTOM CONTACT LISTENER", "KILL PLAYER !");
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
 						Door door = (Door) other.getBody().getUserData();
 						player.unlockDoor(door);
@@ -99,7 +100,7 @@ public class CustomContactListener implements ContactListener {
 					if (other.getBody().getUserData() != null) {
 						if (other.getBody().getUserData().getClass() == Platform.class) {
 
-						} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+						} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 							Ennemie o = (Ennemie) other.getBody().getUserData();
 							ennemie.touchEnnemie(o);
 						} else if (other.getBody().getUserData().getClass() == Pick.class) {
@@ -186,7 +187,7 @@ public class CustomContactListener implements ContactListener {
 								contact.setEnabled(false);
 							}
 						}
-					} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+					} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 						contact.setEnabled(false);
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
 						contact.setEnabled(false);
@@ -217,9 +218,11 @@ public class CustomContactListener implements ContactListener {
 					if (other.getBody().getUserData() != null) {
 						if (other.getBody().getUserData().getClass() == Platform.class) {
 
-						} else if (other.getBody().getUserData().getClass() == Ennemie.class) {
+						} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 							contact.setEnabled(false);
 						} else if (other.getBody().getUserData().getClass() == Pick.class) {
+							contact.setEnabled(false);
+						} else if (other.getBody().getUserData().getClass() == Player.class) {
 							contact.setEnabled(false);
 						}
 					}
@@ -271,11 +274,11 @@ public class CustomContactListener implements ContactListener {
 		Fixture a = contact.getFixtureA();
 		Fixture b = contact.getFixtureB();
 		if (a.getBody() != null && a.getBody().getUserData() != null
-				&& a.getBody().getUserData().getClass() == Ennemie.class) {
+				&& Ennemie.class.isAssignableFrom(a.getBody().getUserData().getClass())) {
 			result += 1;
 		}
 		if (b.getBody() != null && b.getBody().getUserData() != null
-				&& b.getBody().getUserData().getClass() == Ennemie.class) {
+				&& Ennemie.class.isAssignableFrom(b.getBody().getUserData().getClass())) {
 			result += 2;
 		}
 		return result;

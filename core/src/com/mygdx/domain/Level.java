@@ -18,8 +18,6 @@ import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
 import com.mygdx.game.InTheWellGame;
-import com.mygdx.service.Context;
-import com.mygdx.service.MessageService;
 import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
@@ -56,17 +54,23 @@ public class Level {
 
 	private List<Body> borderWall;
 
-	public void init(World world, InTheWellGame game) {
+	public void init(World world, InTheWellGame game, GlyphLayout layout, BitmapFont fontWhite, BitmapFont smallFontWhite) {
 		this.game = game;
 		this.world = world;
 		borderWall = new ArrayList<>();
 		borderWall.add(createBorderWall(world, -1));
 		borderWall.add(createBorderWall(world, 20));
+		for(LevelName na : name) {
+			na.init(game, layout, fontWhite, smallFontWhite);
+		}
 		for (Decor d : decor) {
 			d.init(game);
 		}
 		for (Event ev : event) {
 			ev.init(world);
+		}
+		for (LevelName na : name) {
+			na.init(game);
 		}
 		for (Door d : door) {
 			d.init(world, game);
@@ -155,12 +159,11 @@ public class Level {
 
 	public void drawOnPlayerLayer() {
 		for (Ennemie e : ennemies) {
-			e.init(world, game);
+			e.drawIt();
 		}
 		for (Item i : items) {
-			i.init(world, game);
+			i.drawIt();
 		}
-		game.getBatch().draw(SpriteService.getInstance().getTexture("igor_right_walk", 0), 80, 77);
 	}
 
 	public void drawOnFrontLayer() {
@@ -168,23 +171,6 @@ public class Level {
 			if (!d.isBack()) {
 				d.drawIt();
 			}
-		}
-	}
-
-	public void drawTextMessage(GlyphLayout layout, BitmapFont fontWhite, BitmapFont smallFontWhite) {
-		List<LevelName> names = this.getName();
-		for (LevelName name : names) {
-			if (name.getPositionNewCountry() > 0 && !name.getValue().equals("")) {
-				if (name.getLang().equals(Context.getLocale().getCode())) {
-					layout.setText(smallFontWhite, MessageService.getInstance().getMessage("game.main.country.new"));
-					smallFontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width,
-							name.getPositionNewCountry());
-					layout.setText(fontWhite, name.getValue());
-					fontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width,
-							name.getPositionName());
-				}
-			}
-			name.update();
 		}
 	}
 
@@ -212,6 +198,12 @@ public class Level {
 		}
 		for (Vortex v : vortex) {
 			v.drawIt();
+		}
+	}
+
+	public void drawTextMessage() {
+		for (LevelName na : name) {
+			na.writeIt();
 		}
 	}
 

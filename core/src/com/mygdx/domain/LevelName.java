@@ -1,6 +1,9 @@
 package com.mygdx.domain;
 
-import com.mygdx.domain.common.Drawable;
+import com.mygdx.constante.Constante;
+import com.mygdx.domain.common.Writable;
+import com.mygdx.service.Context;
+import com.mygdx.service.MessageService;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +14,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LevelName extends Drawable {
+public class LevelName extends Writable {
 	private int id;
 	private String lang;
 	private String value;
@@ -21,20 +24,20 @@ public class LevelName extends Drawable {
 	private int positionName = 20;
 
 	@Override
-	public void enable() {
-
+	public void writeIt() {
+		if (positionNewCountry > 0 && !value.equals("")) {
+			if (lang.equals(Context.getLocale().getCode())) {
+				layout.setText(smallFontWhite, MessageService.getInstance().getMessage("game.main.country.new"));
+				smallFontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width,
+						positionNewCountry);
+				layout.setText(fontWhite, value);
+				fontWhite.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, positionName);
+			}
+		}
+		this.update();
 	}
 
 	@Override
-	public void disable() {
-
-	}
-
-	@Override
-	public void drawIt() {
-
-	}
-
 	public void update() {
 		if (timeout > 0) {
 			timeout--;
@@ -42,5 +45,17 @@ public class LevelName extends Drawable {
 			positionNewCountry--;
 			positionName--;
 		}
+	}
+
+	@Override
+	public void enable() {
+	}
+
+	@Override
+	public void disable() {
+	}
+
+	@Override
+	public void drawIt() {
 	}
 }
