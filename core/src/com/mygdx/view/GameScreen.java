@@ -295,9 +295,9 @@ public class GameScreen implements Screen {
 	private void drawPlayer() {
 		playerLayer.begin();
 		game.getBatch().setProjectionMatrix(gridCamera.combined);
+		game.getBatch().begin();
 		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.getBatch().begin();
 		currentLevel.drawOnPlayerLayer();
 		player.drawIt();
 		if (player2 != null) {
