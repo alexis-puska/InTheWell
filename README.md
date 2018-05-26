@@ -56,13 +56,13 @@ in a folder clone the project :
 ```
 cd /home/pi/RetroPie/roms
 git clone https://github.com/alexis-puska/InTheWell.git
-cd inthewell
+cd InTheWell
 chmod +x Update.sh
 chmod +x Generate\ pi.sh
 chmod +x Enter\ In\ The\ Well.sh
 ./Generate\ pi.sh
 cd emulationStationTheme
-sudo cp -avr hammerfest /etc/emulationstation/themes/carbon
+sudo cp -avr InTheWell /etc/emulationstation/themes/carbon
 sudo reboot
 ```
 

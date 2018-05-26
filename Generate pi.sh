@@ -1,2 +1,2 @@
-cd /home/pi/RetroPie/roms/inthewell
+cd /home/pi/RetroPie/roms/InTheWell
 ./gradlew raspberry:dist
