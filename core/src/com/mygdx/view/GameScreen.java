@@ -36,8 +36,7 @@ public class GameScreen implements Screen {
 	 ********************/
 	private GlyphLayout layout;
 	private BitmapFont fontGold;
-	private BitmapFont fontWhite;
-	private BitmapFont smallFontWhite;
+	private BitmapFont fontScore;
 
 	/********************
 	 * --- DRAW ---
@@ -132,7 +131,7 @@ public class GameScreen implements Screen {
 		 * --- LEVEL ---
 		 ********************/
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
+		currentLevel.init(world, game);
 
 		/********************
 		 * --- PLAYER ---
@@ -216,8 +215,6 @@ public class GameScreen implements Screen {
 		}
 		drawShadowMask(x1, y1, x2, y2);
 
-		drawText();
-
 		// merge 5 layers
 		mergeFinalTexture();
 
@@ -226,8 +223,7 @@ public class GameScreen implements Screen {
 		game.getViewport().apply();
 		game.getBatch().begin();
 		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0, 420, 520);
-		game.getBatch().draw(SpriteService.getInstance().getTexture("border_score", 0), 0, 0);
-		showFPS();
+		drawInformation();
 		game.getBatch().end();
 
 		world.step(1 / 60f, 6, 2);
@@ -241,6 +237,24 @@ public class GameScreen implements Screen {
 
 		if (Constante.DEBUG) {
 			debugRenderer.render(world, debugCamera.combined);
+		}
+	}
+
+	/**
+	 * Draw information (FPS, Message, score and border)
+	 */
+	private void drawInformation() {
+		// message
+		this.game.getNotificationService().update();
+		// bottom border
+		game.getBatch().draw(SpriteService.getInstance().getTexture("border_score", 0), 0, 0);
+		// SCORE
+		layout.setText(fontScore, Long.toString(game.getAccountService().getGameScore()));
+		fontScore.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, layout.height + 3);
+		// FPS
+		if (Context.isShowFps()) {
+			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
+			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, 510);
 		}
 	}
 
@@ -341,37 +355,22 @@ public class GameScreen implements Screen {
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
 
-	private void drawText() {
-		shadowLayer.begin();
-		game.getBatch().setProjectionMatrix(gameCamera.combined);
-		game.getBatch().begin();
-		currentLevel.drawTextMessage();
-		game.getBatch().end();
-		shadowLayer.end();
-		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
-	}
-
 	public void incLevel() {
 		levelIndex++;
 		currentLevel.dispose();
+		game.getNotificationService().dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
+		currentLevel.init(world, game);
 		player.enterLevel(currentLevel);
 	}
 
 	public void decLevel() {
 		levelIndex--;
 		currentLevel.dispose();
+		game.getNotificationService().dispose();
 		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game, layout, fontWhite, smallFontWhite);
+		currentLevel.init(world, game);
 		player.enterLevel(currentLevel);
-	}
-
-	private void showFPS() {
-		if (Context.isShowFps()) {
-			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
-			fontGold.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, 510);
-		}
 	}
 
 	private void initFont() {
@@ -391,13 +390,8 @@ public class GameScreen implements Screen {
 		parameter.borderWidth = 2f;
 		parameter.borderColor = new Color(0, 0, 0, 255);
 		parameter.color = new Color(255, 255, 255, 255);
-		fontWhite = generator.generateFont(parameter);
+		fontScore = generator.generateFont(parameter);
 
-		parameter.size = 10;
-		parameter.borderWidth = 1f;
-		parameter.borderColor = new Color(0, 0, 0, 255);
-		parameter.color = new Color(255, 255, 255, 255);
-		smallFontWhite = generator.generateFont(parameter);
 		generator.dispose();
 	}
 }

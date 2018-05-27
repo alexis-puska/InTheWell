@@ -45,6 +45,7 @@ public class AccountService {
 	private long level;
 	private long[] fridge;
 	private long[] gameFridge;
+	private int gameScore;
 
 	private List<GameOptionEnum> availableOption;
 	private List<GameModeEnum> availableMode;
@@ -63,27 +64,28 @@ public class AccountService {
 	 * DATABASE
 	 ***********/
 
-	DatabaseDTO database;
+	private DatabaseDTO database;
+	private Map<Integer, Integer> mapItemPoint;
 
-	Map<Integer, QuestDTO> questStarted;
-	Map<Integer, QuestDTO> questCompleted;
+	private Map<Integer, QuestDTO> questStarted;
+	private Map<Integer, QuestDTO> questCompleted;
 
-	List<Integer> availableItemEffect0;
-	List<Integer> availableItemEffect1;
-	List<Integer> availableItemEffect2;
-	List<Integer> availableItemEffect3;
-	List<Integer> availableItemEffect4;
-	List<Integer> availableItemEffect5;
-	List<Integer> availableItemEffect6;
+	private List<Integer> availableItemEffect0;
+	private List<Integer> availableItemEffect1;
+	private List<Integer> availableItemEffect2;
+	private List<Integer> availableItemEffect3;
+	private List<Integer> availableItemEffect4;
+	private List<Integer> availableItemEffect5;
+	private List<Integer> availableItemEffect6;
 
-	List<Integer> availableItemPoint0;
-	List<Integer> availableItemPoint1;
-	List<Integer> availableItemPoint2;
-	List<Integer> availableItemPoint3;
-	List<Integer> availableItemPoint4;
-	List<Integer> availableItemPoint5;
-	List<Integer> availableItemPoint6;
-	List<Integer> availableItemPoint7;
+	private List<Integer> availableItemPoint0;
+	private List<Integer> availableItemPoint1;
+	private List<Integer> availableItemPoint2;
+	private List<Integer> availableItemPoint3;
+	private List<Integer> availableItemPoint4;
+	private List<Integer> availableItemPoint5;
+	private List<Integer> availableItemPoint6;
+	private List<Integer> availableItemPoint7;
 
 	/**
 	 * create a new empty account
@@ -114,6 +116,7 @@ public class AccountService {
 		availableItemPoint5 = new ArrayList<>();
 		availableItemPoint6 = new ArrayList<>();
 		availableItemPoint7 = new ArrayList<>();
+		mapItemPoint = new HashMap<>();
 
 		this.objectMapper = new ObjectMapper();
 		this.accountId = -1;
@@ -276,6 +279,11 @@ public class AccountService {
 			Gdx.app.error(LOG_NAME, "JsonMappingException : ", e);
 		} catch (IOException e) {
 			Gdx.app.error(LOG_NAME, "IOException : ", e);
+		}
+
+		// build mapItemPoint
+		for (ItemDTO dto : database.getItems()) {
+			mapItemPoint.put(dto.getId(), dto.getValue());
 		}
 	}
 
@@ -642,8 +650,28 @@ void ItemFileSystem::simulateGame()
 	 * @param index
 	 *            id of object to increment
 	 */
-	public void addItemInGameFridge(int index) {
+	public boolean addItemInGameFridge(int index) {
+		boolean pointObject = false;
+		int point = this.mapItemPoint.get(index);
+		if (point > 0) {
+			pointObject = true;
+			gameScore += point;
+		}
 		this.gameFridge[index]++;
+		Gdx.app.log("AccountService", "score : " + gameScore);
+		return pointObject;
+	}
+
+	/**
+	 * 
+	 */
+	public void newGame() {
+		this.gameScore = 0;
+		this.gameFridge = new long[Constante.NB_ITEM_FRIDGE];
+	}
+
+	public long getGameScore() {
+		return this.gameScore;
 	}
 
 	/**
@@ -659,12 +687,12 @@ void ItemFileSystem::simulateGame()
 	 * @param level the last level reached
 	 * @formatter:on
 	 */
-	public void endGame(long score, long level) {
-		if (this.score < score) {
-			this.score = score;
+	public void endGame(int lastGameLevel) {
+		if (this.score < gameScore) {
+			this.score = gameScore;
 		}
-		if (this.level < level) {
-			this.level = level;
+		if (this.level < lastGameLevel) {
+			this.level = lastGameLevel;
 		}
 		for (int i = 0; i < Constante.NB_ITEM_FRIDGE; i++) {
 			this.fridge[i] += this.gameFridge[i];

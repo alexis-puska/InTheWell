@@ -11,6 +11,7 @@ import com.mygdx.enumeration.MusicEnum;
 import com.mygdx.service.AccountService;
 import com.mygdx.service.LevelService;
 import com.mygdx.service.MessageService;
+import com.mygdx.service.NotificationService;
 import com.mygdx.service.SoundService;
 import com.mygdx.service.SpriteService;
 import com.mygdx.view.SplashScreen;
@@ -27,7 +28,7 @@ public class InTheWellGame extends Game {
 	private Viewport viewport;
 	private AccountService accountService;
 	private LevelService levelService;
-	
+	private NotificationService notificationService;
 	private MenuInputProcessor menuInputProcessor;
 
 	public void create() {
@@ -47,10 +48,12 @@ public class InTheWellGame extends Game {
 		batch.setProjectionMatrix(screenCamera.combined);
 		accountService = new AccountService();
 		levelService = new LevelService();
+		notificationService = new NotificationService(this);
 		menuInputProcessor = new MenuInputProcessor();
 		SoundService.getInstance().playMusic(MusicEnum.BOSS2);
 		Gdx.input.setInputProcessor(menuInputProcessor);
 		this.setScreen(new SplashScreen(this));
+
 	}
 
 	public void dispose() {

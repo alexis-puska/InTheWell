@@ -39,7 +39,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Player extends BodyAble {
 
-	
 	// PlayerType
 	private boolean igor;
 
@@ -108,7 +107,8 @@ public class Player extends BodyAble {
 			tmp = SpriteService.getInstance().getTexture("sandy_right_wait", 0);
 		}
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
-				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (Constante.PLAYER_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
+				(body.getPosition().y * Constante.GRID_BLOC_SIZE)
+						- (Constante.PLAYER_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
 	}
 
 	public void update() {
@@ -286,7 +286,11 @@ public class Player extends BodyAble {
 	 *            the Item
 	 */
 	public void pickItem(Item item) {
-		game.getAccountService().addItemInGameFridge(item.getItemId());
+		if (game.getAccountService().addItemInGameFridge(item.getItemId())) {
+			SoundService.getInstance().playSound(SoundEnum.TAKE_OBJECT);
+		} else {
+			SoundService.getInstance().playSound(SoundEnum.LETTEREFFECTOBJECT);
+		}
 		item.setPicked(true);
 	}
 

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -59,8 +57,7 @@ public class Level {
 	private Timer timeObjetPoint;
 	private CustomTimerTask objectEffetTask;
 
-	public void init(World world, InTheWellGame game, GlyphLayout layout, BitmapFont fontWhite,
-			BitmapFont smallFontWhite) {
+	public void init(World world, InTheWellGame game) {
 		this.game = game;
 		this.world = world;
 		borderWall = new ArrayList<>();
@@ -73,9 +70,6 @@ public class Level {
 		timeObjetEffet.schedule(objectPointTask, 5000);
 		timeObjetPoint.schedule(objectEffetTask, 10000);
 
-		for (LevelName na : name) {
-			na.init(game, layout, fontWhite, smallFontWhite);
-		}
 		for (Decor d : decor) {
 			d.init(game);
 		}
@@ -181,6 +175,9 @@ public class Level {
 		for (Ennemie e : ennemies) {
 			e.drawIt();
 		}
+		for (LevelName na : name) {
+			na.drawIt();
+		}
 		// List<Item> toRemove = new ArrayList<>();
 		// for (Item i : items) {
 		// if (i.isPicked()) {
@@ -226,12 +223,6 @@ public class Level {
 		}
 		for (Vortex v : vortex) {
 			v.drawIt();
-		}
-	}
-
-	public void drawTextMessage() {
-		for (LevelName na : name) {
-			na.writeIt();
 		}
 	}
 
