@@ -142,7 +142,11 @@ public class CustomContactListener implements ContactListener {
 					} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 						Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 						player.teleporteOut(teleporter);
+					} else if (other.getBody().getUserData().getClass() == Item.class) {
+						Gdx.app.log("END ITEM", "END ITEM");
 					}
+					
+					
 				}
 			}
 		}

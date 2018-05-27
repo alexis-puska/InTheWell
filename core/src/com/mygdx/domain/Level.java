@@ -146,10 +146,10 @@ public class Level {
 		for (Item i : items) {
 			i.dispose();
 		}
-		if (!objectPointTask.isRun()) {
+		if (!objectPointTask.isRunned()) {
 			timeObjetPoint.cancel();
 		}
-		if (!objectPointTask.isRun()) {
+		if (!objectPointTask.isRunned()) {
 			timeObjetEffet.cancel();
 		}
 		// destroy lateral walls
