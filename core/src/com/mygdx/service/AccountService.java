@@ -65,7 +65,7 @@ public class AccountService {
 	 ***********/
 
 	private DatabaseDTO database;
-	private Map<Integer, Integer> mapItemPoint;
+	private Map<Integer, ItemDTO> mapItemPoint;
 
 	private Map<Integer, QuestDTO> questStarted;
 	private Map<Integer, QuestDTO> questCompleted;
@@ -283,7 +283,7 @@ public class AccountService {
 
 		// build mapItemPoint
 		for (ItemDTO dto : database.getItems()) {
-			mapItemPoint.put(dto.getId(), dto.getValue());
+			mapItemPoint.put(dto.getId(), dto);
 		}
 	}
 
@@ -652,7 +652,7 @@ void ItemFileSystem::simulateGame()
 	 */
 	public boolean addItemInGameFridge(int index) {
 		boolean pointObject = false;
-		int point = this.mapItemPoint.get(index);
+		int point = this.mapItemPoint.get(index).getValue();
 		if (point > 0) {
 			pointObject = true;
 			gameScore += point;

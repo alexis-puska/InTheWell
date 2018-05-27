@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.notification.CountryNotification;
+import com.mygdx.service.notification.ItemPickedNotification;
+import com.mygdx.service.notification.Notification;
 
 public class NotificationService {
 
@@ -19,11 +21,12 @@ public class NotificationService {
 	private GlyphLayout layout;
 	private BitmapFont fontWhite;
 	private BitmapFont smallFontWhite;
+	private BitmapFont itemFont;
 
-	private List<CountryNotification> country;
+	private List<Notification> notification;
 
 	public NotificationService(InTheWellGame game) {
-		this.country = new ArrayList<>();
+		this.notification = new ArrayList<>();
 		this.game = game;
 		this.layout = new GlyphLayout();
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_impact.ttf"));
@@ -40,34 +43,49 @@ public class NotificationService {
 		parameter.borderColor = new Color(0, 0, 0, 255);
 		parameter.color = new Color(255, 255, 255, 255);
 		smallFontWhite = generator.generateFont(parameter);
+		
+		generator.dispose();
+		
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana_10pt.ttf"));
+		parameter.size = 10;
+		parameter.borderWidth = 0.1f;
+		parameter.borderColor = new Color(255, 255, 255, 255);
+		parameter.color = new Color(255, 255, 255, 255);
+		itemFont = generator.generateFont(parameter);
 		generator.dispose();
 	}
 
 	public void addCountryNotification(String country, int timeout) {
-		this.country.add(new CountryNotification(game, country, timeout));
+		this.notification.add(new CountryNotification(game, country, timeout));
 	}
 
 	public void addMessageNotification(String message, int timeout) {
 
 	}
 
-	public void addItemPickedNotification(String itemName, int timeout) {
-
+	public void addItemPickedNotification(int itemId, String itemName, int timeout) {
+		this.notification.add(new ItemPickedNotification(game, itemId, itemName, timeout));
 	}
 
 	public void update() {
-		List<CountryNotification> del = new ArrayList<>();
-		for (CountryNotification country : country) {
-			if (country.draw(layout, fontWhite, smallFontWhite)) {
+		List<Notification> del = new ArrayList<>();
+		boolean delete = false;
+		for (Notification notification : notification) {
+			if(notification.getClass() == CountryNotification.class) {
+				delete = notification.draw(layout, fontWhite, smallFontWhite);
+			}else if(notification.getClass() == ItemPickedNotification.class) {
+				delete = notification.draw(layout, itemFont, smallFontWhite);
+			}
+			if (delete) {
 				Gdx.app.log(NOTIFICATION_SERVICE, "endNotification");
-				del.add(country);
+				del.add(notification);
 			}
 		}
-		country.removeAll(del);
+		notification.removeAll(del);
 	}
-	
+
 	public void dispose() {
 		Gdx.app.log(NOTIFICATION_SERVICE, "dispose");
-		country.clear();
+		notification.clear();
 	}
 }

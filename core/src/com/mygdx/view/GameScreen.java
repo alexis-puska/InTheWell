@@ -250,7 +250,7 @@ public class GameScreen implements Screen {
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_score", 0), 0, 0);
 		// SCORE
 		layout.setText(fontScore, Long.toString(game.getAccountService().getGameScore()));
-		fontScore.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, layout.height + 3);
+		fontScore.draw(game.getBatch(), layout, Constante.SCREEN_SIZE_X - layout.width, layout.height + 5);
 		// FPS
 		if (Context.isShowFps()) {
 			layout.setText(fontGold, Gdx.graphics.getFramesPerSecond() + " fps");
@@ -388,8 +388,8 @@ public class GameScreen implements Screen {
 
 		parameter.size = 14;
 		parameter.borderWidth = 2f;
-		parameter.borderColor = new Color(0, 0, 0, 255);
-		parameter.color = new Color(255, 255, 255, 255);
+		parameter.borderColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+		parameter.color = new Color(1f, 1f, 1f, 1f);
 		fontScore = generator.generateFont(parameter);
 
 		generator.dispose();
