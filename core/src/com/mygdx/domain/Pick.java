@@ -21,10 +21,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Pick extends BodyAble {
-	private int id;
 	private int x;
 	private int y;
-	private boolean enable;
 	private int direction;
 
 	@Override

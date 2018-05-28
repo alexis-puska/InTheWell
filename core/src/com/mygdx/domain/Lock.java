@@ -20,8 +20,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Lock extends BodyAble {
-	private int id;
-	private boolean enable;
 	private int x;
 	private int y;
 	private GameKeyEnum key;

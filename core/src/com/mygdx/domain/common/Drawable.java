@@ -2,7 +2,7 @@ package com.mygdx.domain.common;
 
 import com.mygdx.game.InTheWellGame;
 
-public abstract class Drawable {
+public abstract class Drawable extends Enableable {
 
 	protected InTheWellGame game;
 

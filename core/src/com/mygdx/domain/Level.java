@@ -29,7 +29,6 @@ public class Level {
 	private World world;
 	private InTheWellGame game;
 
-	private int id;
 	private int next;
 	private boolean showPlatform;
 	private int background;

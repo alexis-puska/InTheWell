@@ -20,8 +20,6 @@ public class Teleporter extends BodyAble {
 
 	private static final String BASE_TELEPORTER = "base_teleporter";
 
-	private int id;
-	private boolean enable;
 	private int x;
 	private int y;
 	private int length;

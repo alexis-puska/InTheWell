@@ -20,8 +20,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Door extends BodyAble {
-	private int id;
-	private boolean enable;
 	private int x;
 	private int y;
 	private int type;

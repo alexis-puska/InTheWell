@@ -13,7 +13,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LevelName extends Drawable {
-	private int id;
 	private String lang;
 	private String value;
 

@@ -1,12 +1,12 @@
 package com.mygdx.domain.common;
 
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
 import com.mygdx.enumeration.EnnemieStateEnum;
@@ -20,15 +20,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public abstract class Ennemie extends BodyAble {
-	private int id;
-	protected boolean enable;
 	protected int x;
 	protected int y;
 	protected EnnemieTypeEnum type;
 
 	protected EnnemieStateEnum state;
-
-	
 
 	public boolean isDead() {
 		return false;
@@ -49,7 +45,7 @@ public abstract class Ennemie extends BodyAble {
 		float vy = this.body.getLinearVelocity().y;
 		return (float) Math.sqrt((double) ((vx * vx) + (vy * vy)));
 	}
-	
+
 	@Override
 	public void createBody() {
 		BodyDef bodyDef = new BodyDef();

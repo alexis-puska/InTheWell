@@ -25,6 +25,15 @@ public abstract class BodyAble extends Drawable {
 
 	public abstract void createBody();
 
+	public void update() {
+		if (enable && body == null) {
+			createBody();
+		}
+		if (!enable && body != null) {
+			dispose();
+		}
+	}
+
 	@Override
 	public abstract void enable();
 
@@ -33,4 +42,5 @@ public abstract class BodyAble extends Drawable {
 
 	@Override
 	public abstract void drawIt();
+
 }

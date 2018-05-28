@@ -11,10 +11,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Decor extends Drawable {
-	private int id;
 	private int x;
 	private int y;
-	private boolean enable;
 	private boolean back;
 	private int indexAnim;
 

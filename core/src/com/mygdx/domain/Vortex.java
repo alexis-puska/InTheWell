@@ -10,12 +10,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Vortex extends BodyAble {
-	private int id;
 	private int x;
 	private int y;
 	private double zoomX;
 	private double zoomY;
-	private boolean enable;
 	private int destination;
 
 	@Override
@@ -32,9 +30,9 @@ public class Vortex extends BodyAble {
 	public void drawIt() {
 
 	}
-	
+
 	@Override
 	public void createBody() {
-		
+
 	}
 }

@@ -25,9 +25,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Platform extends BodyAble {
-
-	private long id;
-	private boolean enable;
 	private int x;
 	private int y;
 	private boolean vertical;
