@@ -14,7 +14,7 @@ public enum RayonTypeEnum {
 	private int index;
 	private BombeTypeEnum bombeType;
 	
-	private RayonTypeEnum(int index, BombeTypeEnum bombeType) {
+	RayonTypeEnum(int index, BombeTypeEnum bombeType) {
 		this.index = index;
 		this.bombeType = bombeType;
 	}
