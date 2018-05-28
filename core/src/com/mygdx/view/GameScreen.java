@@ -228,6 +228,8 @@ public class GameScreen implements Screen {
 
 		world.step(1 / 60f, 6, 2);
 
+		currentLevel.update();
+
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 			player.update();
 		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {

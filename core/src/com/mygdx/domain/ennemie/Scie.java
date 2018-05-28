@@ -14,17 +14,6 @@ public class Scie extends Ennemie {
 
 	public Scie() {
 		super();
-		createBody();
-	}
-
-	@Override
-	public void enable() {
-
-	}
-
-	@Override
-	public void disable() {
-
 	}
 
 	@Override

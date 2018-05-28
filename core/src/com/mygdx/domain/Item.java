@@ -25,26 +25,12 @@ public class Item extends BodyAble {
 	private int y;
 	private int itemId;
 
-	private boolean picked;
 	private boolean draw;
 	private int timeout;
 
 	@Override
-	public void enable() {
-		this.enable = true;
-	}
-
-	@Override
-	public void disable() {
-		this.enable = false;
-		this.dispose();
-	}
-
-	@Override
 	public void drawIt() {
-		if (picked) {
-			this.dispose();
-		} else if (enable) {
+		if (enable) {
 			if (draw) {
 				TextureRegion tmp = SpriteService.getInstance().getTexture("objects", itemId);
 				game.getBatch().draw(tmp,
@@ -65,7 +51,6 @@ public class Item extends BodyAble {
 			}
 		} else if (timeout == 0) {
 			this.enable = false;
-			this.dispose();
 		}
 	}
 

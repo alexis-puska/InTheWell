@@ -17,17 +17,9 @@ public class Decor extends Drawable {
 	private int indexAnim;
 
 	@Override
-	public void enable() {
-
-	}
-
-	@Override
-	public void disable() {
-
-	}
-
-	@Override
 	public void drawIt() {
-		game.getBatch().draw(SpriteService.getInstance().getDecor(indexAnim), x, y);
+		if (enable) {
+			game.getBatch().draw(SpriteService.getInstance().getDecor(indexAnim), x, y);
+		}
 	}
 }

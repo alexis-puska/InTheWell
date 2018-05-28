@@ -17,16 +17,6 @@ public class Citron extends Ennemie {
 	}
 
 	@Override
-	public void enable() {
-		
-	}
-
-	@Override
-	public void disable() {
-		
-	}
-
-	@Override
 	public void drawIt() {
 		TextureRegion tmp = SpriteService.getInstance().getTexture("citron_walk", 0);
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),

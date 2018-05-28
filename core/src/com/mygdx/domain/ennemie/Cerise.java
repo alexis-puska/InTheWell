@@ -13,17 +13,7 @@ import lombok.Setter;
 public class Cerise extends Ennemie {
 
 	public Cerise() {
-		
-	}
-
-	@Override
-	public void enable() {
-		
-	}
-
-	@Override
-	public void disable() {
-		
+		super();
 	}
 
 	@Override

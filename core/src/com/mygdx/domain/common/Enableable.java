@@ -7,4 +7,12 @@ import lombok.Setter;
 @Setter
 public class Enableable extends Identifiable {
 	protected boolean enable;
+	
+	public void enable() {
+		this.enable = true;
+	}
+
+	public void disable() {
+		this.enable = false;
+	}
 }

@@ -29,17 +29,6 @@ public class Rayon extends BodyAble {
 	private boolean f;
 
 	@Override
-	public void enable() {
-		this.enable = true;
-		createBody();
-	}
-
-	@Override
-	public void disable() {
-		dispose();
-	}
-
-	@Override
 	public void drawIt() {
 		if (enable) {
 			TextureRegion rayon = null;

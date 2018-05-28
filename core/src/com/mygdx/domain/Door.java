@@ -29,16 +29,6 @@ public class Door extends BodyAble {
 	private Lock lock;
 
 	@Override
-	public void enable() {
-
-	}
-
-	@Override
-	public void disable() {
-
-	}
-
-	@Override
 	public void drawIt() {
 		if (enable) {
 			TextureRegion tmp = null;

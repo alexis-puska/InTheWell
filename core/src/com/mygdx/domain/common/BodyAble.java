@@ -20,7 +20,6 @@ public abstract class BodyAble extends Drawable {
 			this.world.destroyBody(body);
 			body = null;
 		}
-
 	}
 
 	public abstract void createBody();
@@ -33,12 +32,6 @@ public abstract class BodyAble extends Drawable {
 			dispose();
 		}
 	}
-
-	@Override
-	public abstract void enable();
-
-	@Override
-	public abstract void disable();
 
 	@Override
 	public abstract void drawIt();

@@ -29,14 +29,6 @@ public class Teleporter extends BodyAble {
 	private int lastDrawPixel;
 
 	@Override
-	public void enable() {
-	}
-
-	@Override
-	public void disable() {
-	}
-
-	@Override
 	public void drawIt() {
 		TextureRegion tmp = SpriteService.getInstance().getTexture("teleporter", 0);
 		int realSize = (length * Constante.GRID_BLOC_SIZE) - 10;

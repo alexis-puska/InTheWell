@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -34,7 +33,6 @@ public class Platform extends BodyAble {
 	// player collision
 	private float min;
 	private float max;
-	private Body body;
 
 	// commons
 
@@ -46,59 +44,52 @@ public class Platform extends BodyAble {
 	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex,
 			boolean showPlatfomLevel) {
 		this.shapeRenderer = new ShapeRenderer();
-
 		this.showPlatfomLevel = showPlatfomLevel;
 		this.world = world;
 		this.game = game;
 		this.verticalIndex = verticalIndex;
 		this.horizontalIndex = horizontalIndex;
-		if (enable) {
-			createBody();
-		}
-	}
-
-	public void dispose() {
-		if (body != null) {
-			world.destroyBody(body);
-		}
+		super.init(world, game);
 	}
 
 	@Override
 	public void createBody() {
-		BodyDef groundBodyDef = new BodyDef();
-		PolygonShape groundBox = new PolygonShape();
+		if (enable) {
+			BodyDef groundBodyDef = new BodyDef();
+			PolygonShape groundBox = new PolygonShape();
 
-		float halfLength = (float) length / 2.0f;
-		float xb;
-		float yb;
-		if (vertical) {
-			xb = x + 0.5f;
-			yb = y + halfLength;
-			groundBox.setAsBox(0.5f, halfLength);
-		} else {
-			xb = x + halfLength;
-			yb = y + 0.5f;
+			float halfLength = (float) length / 2.0f;
+			float xb;
+			float yb;
+			if (vertical) {
+				xb = x + 0.5f;
+				yb = y + halfLength;
+				groundBox.setAsBox(0.5f, halfLength);
+			} else {
+				xb = x + halfLength;
+				yb = y + 0.5f;
+				groundBodyDef.position.set(new Vector2(xb, yb));
+				groundBox.setAsBox(halfLength, 0.5f);
+			}
 			groundBodyDef.position.set(new Vector2(xb, yb));
-			groundBox.setAsBox(halfLength, 0.5f);
-		}
-		groundBodyDef.position.set(new Vector2(xb, yb));
 
-		body = world.createBody(groundBodyDef);
-		Fixture fixture = body.createFixture(groundBox, 0.0f);
-		if (vertical) {
-			min = groundBodyDef.position.x - 0.5f;
-			max = groundBodyDef.position.x + 0.5f;
-			body.setUserData(this);
-		} else {
-			min = groundBodyDef.position.x - (length / 2.0f);
-			max = groundBodyDef.position.x + (length / 2.0f);
-			body.setUserData(this);
+			body = world.createBody(groundBodyDef);
+			Fixture fixture = body.createFixture(groundBox, 0.0f);
+			if (vertical) {
+				min = groundBodyDef.position.x - 0.5f;
+				max = groundBodyDef.position.x + 0.5f;
+				body.setUserData(this);
+			} else {
+				min = groundBodyDef.position.x - (length / 2.0f);
+				max = groundBodyDef.position.x + (length / 2.0f);
+				body.setUserData(this);
+			}
+			groundBox.dispose();
+			Filter filter = new Filter();
+			filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
+			fixture.setFilterData(filter);
+			fixture.setFriction(0.1f);
 		}
-		groundBox.dispose();
-		Filter filter = new Filter();
-		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
-		fixture.setFilterData(filter);
-		fixture.setFriction(0.1f);
 	}
 
 	@Override
@@ -145,17 +136,5 @@ public class Platform extends BodyAble {
 			shapeRenderer.end();
 			game.getBatch().begin();
 		}
-	}
-
-	@Override
-	public void enable() {
-		this.enable = true;
-		this.createBody();
-	}
-
-	@Override
-	public void disable() {
-		this.enable = false;
-		this.dispose();
 	}
 }

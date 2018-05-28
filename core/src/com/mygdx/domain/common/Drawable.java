@@ -10,9 +10,5 @@ public abstract class Drawable extends Enableable {
 		this.game = game;
 	}
 
-	public abstract void enable();
-
-	public abstract void disable();
-
 	public abstract void drawIt();
 }

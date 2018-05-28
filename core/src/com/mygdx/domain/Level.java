@@ -166,8 +166,35 @@ public class Level {
 		return body;
 	}
 
-	public void tick() {
+	public void update() {
 
+		for (Door d : door) {
+			d.update();
+		}
+		for (Lock l : lock) {
+			l.update();
+		}
+		for (Pick p : pick) {
+			p.update();
+		}
+		for (Platform pl : platform) {
+			pl.update();
+		}
+		for (Rayon r : rayon) {
+			r.update();
+		}
+		for (Teleporter t : teleporter) {
+			t.update();
+		}
+		for (Vortex v : vortex) {
+			v.update();
+		}
+		for (Ennemie e : ennemies) {
+			e.update();
+		}
+		for (Item i : items) {
+			i.update();
+		}
 	}
 
 	public void drawOnPlayerLayer() {
@@ -251,7 +278,6 @@ public class Level {
 			Item item = new Item();
 			item.setItemId(game.getAccountService().getPointItemId());
 			item.setEnable(true);
-			item.setPicked(false);
 			item.setX(startPointObjets.getX());
 			item.setY(startPointObjets.getY());
 			item.init(world, game);
@@ -266,7 +292,6 @@ public class Level {
 			Item item = new Item();
 			item.setItemId(game.getAccountService().getEffectItemId());
 			item.setEnable(true);
-			item.setPicked(false);
 			item.setX(startEffectObjets.getX());
 			item.setY(startEffectObjets.getY());
 			item.init(world, game);

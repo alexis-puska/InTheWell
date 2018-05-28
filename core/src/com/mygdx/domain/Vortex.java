@@ -17,16 +17,6 @@ public class Vortex extends BodyAble {
 	private int destination;
 
 	@Override
-	public void enable() {
-
-	}
-
-	@Override
-	public void disable() {
-
-	}
-
-	@Override
 	public void drawIt() {
 
 	}

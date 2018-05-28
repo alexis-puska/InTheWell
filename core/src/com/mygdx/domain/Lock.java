@@ -25,16 +25,6 @@ public class Lock extends BodyAble {
 	private GameKeyEnum key;
 
 	@Override
-	public void enable() {
-		this.enable = true;
-	}
-
-	@Override
-	public void disable() {
-
-	}
-
-	@Override
 	public void drawIt() {
 		TextureRegion tmp = null;
 		if (enable) {
@@ -44,7 +34,7 @@ public class Lock extends BodyAble {
 		}
 		game.getBatch().draw(tmp,
 				(x * Constante.GRID_BLOC_SIZE) + Constante.GRID_BLOC_SIZE / 2 - (tmp.getRegionWidth() / 2.0f),
-				(y * Constante.GRID_BLOC_SIZE)+8);
+				(y * Constante.GRID_BLOC_SIZE) + 8);
 	}
 
 	@Override
@@ -64,5 +54,9 @@ public class Lock extends BodyAble {
 		filter.categoryBits = CollisionConstante.CATEGORY_LOCK;
 		fixture.setFilterData(filter);
 		fixture.setFriction(0.1f);
+	}
+
+	@Override
+	public void update() {
 	}
 }

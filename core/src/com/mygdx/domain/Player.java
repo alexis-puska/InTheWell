@@ -293,7 +293,7 @@ public class Player extends BodyAble {
 		}
 		game.getNotificationService().addItemPickedNotification(item.getItemId(),
 				game.getAccountService().getItemName(item.getItemId()), 200);
-		item.setPicked(true);
+		item.disable();
 	}
 
 	/********************************************************

@@ -19,16 +19,6 @@ public class LevelName extends Drawable {
 	private boolean runned;
 
 	@Override
-	public void enable() {
-		
-	}
-
-	@Override
-	public void disable() {
-		
-	}
-
-	@Override
 	public void drawIt() {
 		if(!runned) {
 			if (lang.equals(Context.getLocale().getCode()) && !value.equals("")) {

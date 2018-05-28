@@ -26,17 +26,6 @@ public class Pick extends BodyAble {
 	private int direction;
 
 	@Override
-	public void enable() {
-		this.enable = true;
-		createBody();
-	}
-
-	@Override
-	public void disable() {
-		dispose();
-	}
-
-	@Override
 	public void drawIt() {
 		if (enable) {
 			TextureRegion platformRegion = SpriteService.getInstance().getTexture("pick", 1);
