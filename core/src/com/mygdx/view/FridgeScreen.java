@@ -145,7 +145,6 @@ public class FridgeScreen implements Screen {
 			idItemSelected--;
 			if (idItemSelected < 0) {
 				idItemSelected = 0;
-
 			}
 		}
 		if (game.getMenuInputProcessor().pressRight()) {
