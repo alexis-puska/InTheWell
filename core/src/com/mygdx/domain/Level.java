@@ -143,7 +143,7 @@ public class Level {
 		if (!objectPointTask.isRunned()) {
 			timeObjetPoint.cancel();
 		}
-		if (!objectPointTask.isRunned()) {
+		if (!objectEffetTask.isRunned()) {
 			timeObjetEffet.cancel();
 		}
 		// destroy lateral walls
@@ -178,14 +178,6 @@ public class Level {
 		for (LevelName na : name) {
 			na.drawIt();
 		}
-		// List<Item> toRemove = new ArrayList<>();
-		// for (Item i : items) {
-		// if (i.isPicked()) {
-		// toRemove.add(i);
-		// i.dispose();
-		// }
-		// }
-		// items.removeAll(toRemove);
 		for (Item i : items) {
 			i.drawIt();
 		}

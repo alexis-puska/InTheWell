@@ -658,7 +658,7 @@ void ItemFileSystem::simulateGame()
 			gameScore += point;
 		}
 		this.gameFridge[index]++;
-		Gdx.app.log("AccountService", "score : " + gameScore);
+		Gdx.app.log(LOG_NAME, "score : " + gameScore);
 		return pointObject;
 	}
 

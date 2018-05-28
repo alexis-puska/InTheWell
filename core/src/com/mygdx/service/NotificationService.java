@@ -84,19 +84,19 @@ public class NotificationService {
 	public void update() {
 		List<Notification> del = new ArrayList<>();
 		boolean delete = false;
-		for (Notification notification : notification) {
-			if (notification.getClass() == CountryNotification.class) {
-				delete = notification.draw(layout, fontWhite, smallFontWhite);
-			} else if (notification.getClass() == ItemPickedNotification.class) {
-				delete = notification.draw(layout, itemFont, smallFontWhite);
-			} else if (notification.getClass() == MessageNotification.class) {
-				delete = notification.draw(layout, itemFont, smallFontWhite);
-			} else if (notification.getClass() == NeedItemNotification.class) {
-				delete = notification.draw(layout, fontGrey, fontWhite);
+		for (Notification notif : notification) {
+			if (notif.getClass() == CountryNotification.class) {
+				delete = notif.draw(layout, fontWhite, smallFontWhite);
+			} else if (notif.getClass() == ItemPickedNotification.class) {
+				delete = notif.draw(layout, itemFont, smallFontWhite);
+			} else if (notif.getClass() == MessageNotification.class) {
+				delete = notif.draw(layout, itemFont, smallFontWhite);
+			} else if (notif.getClass() == NeedItemNotification.class) {
+				delete = notif.draw(layout, fontGrey, fontWhite);
 			}
 			if (delete) {
 				Gdx.app.log(NOTIFICATION_SERVICE, "endNotification");
-				del.add(notification);
+				del.add(notif);
 			}
 		}
 		notification.removeAll(del);

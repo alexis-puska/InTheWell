@@ -17,6 +17,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Teleporter extends BodyAble {
+
+	private static final String BASE_TELEPORTER = "base_teleporter";
+
 	private int id;
 	private boolean enable;
 	private int x;
@@ -40,18 +43,18 @@ public class Teleporter extends BodyAble {
 		TextureRegion tmp = SpriteService.getInstance().getTexture("teleporter", 0);
 		int realSize = (length * Constante.GRID_BLOC_SIZE) - 10;
 		if (vertical) {
-			game.getBatch().draw(SpriteService.getInstance().getTexture("base_teleporter", 2),
+			game.getBatch().draw(SpriteService.getInstance().getTexture(BASE_TELEPORTER, 2),
 					x * Constante.GRID_BLOC_SIZE, (y + length - 1) * Constante.GRID_BLOC_SIZE);
-			game.getBatch().draw(SpriteService.getInstance().getTexture("base_teleporter", 3),
+			game.getBatch().draw(SpriteService.getInstance().getTexture(BASE_TELEPORTER, 3),
 					x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
 			game.getBatch().draw(tmp.getTexture(), x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE + 5,
 					tmp.getRegionWidth(), realSize, tmp.getRegionX(), lastDrawPixel, tmp.getRegionWidth(), realSize,
 					false, false);
 
 		} else {
-			game.getBatch().draw(SpriteService.getInstance().getTexture("base_teleporter", 0),
+			game.getBatch().draw(SpriteService.getInstance().getTexture(BASE_TELEPORTER, 0),
 					x * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
-			game.getBatch().draw(SpriteService.getInstance().getTexture("base_teleporter", 1),
+			game.getBatch().draw(SpriteService.getInstance().getTexture(BASE_TELEPORTER, 1),
 					(x + length - 1) * Constante.GRID_BLOC_SIZE, y * Constante.GRID_BLOC_SIZE);
 			game.getBatch().draw(tmp.getTexture(), x * Constante.GRID_BLOC_SIZE + 5, y * Constante.GRID_BLOC_SIZE, 10,
 					10, tmp.getRegionWidth(), realSize, 1, 1, 270, tmp.getRegionX(), tmp.getRegionY() + lastDrawPixel,
