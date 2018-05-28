@@ -40,7 +40,7 @@ public class SelectAccountScreen implements Screen {
 
 	@Override
 	public void show() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -50,17 +50,17 @@ public class SelectAccountScreen implements Screen {
 
 	@Override
 	public void pause() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void resume() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void hide() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -104,15 +104,11 @@ public class SelectAccountScreen implements Screen {
 			game.getScreen().dispose();
 			game.setScreen(new SelectionLangScreen(game));
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (indexAccount > 0) {
-				indexAccount--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && indexAccount > 0) {
+			indexAccount--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (indexAccount < Constante.NB_SAVE_PER_FILE - 1) {
-				indexAccount++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && indexAccount < Constante.NB_SAVE_PER_FILE - 1) {
+			indexAccount++;
 		}
 	}
 

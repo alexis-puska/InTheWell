@@ -179,15 +179,11 @@ public class SelectOptionSoccerFestScreen implements Screen {
 				treatOption(GameOptionEnum.CONTROLE_BALLON);
 			}
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && cursorPosition > 0) {
+			cursorPosition--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (cursorPosition < 5) {
-				cursorPosition++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && cursorPosition < 5) {
+			cursorPosition++;
 		}
 	}
 

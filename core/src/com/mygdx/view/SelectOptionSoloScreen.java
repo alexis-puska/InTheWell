@@ -20,9 +20,9 @@ import com.mygdx.utils.DrawUtils;
  * @author alexispuskarczyk
  */
 public class SelectOptionSoloScreen implements Screen {
-	
+
 	private static final String CHECKBOX = "menu_game_checkbox";
-	
+
 	final InTheWellGame game;
 	private BitmapFont fontWhite;
 	private BitmapFont fontRed;
@@ -44,7 +44,7 @@ public class SelectOptionSoloScreen implements Screen {
 
 	@Override
 	public void show() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -54,17 +54,17 @@ public class SelectOptionSoloScreen implements Screen {
 
 	@Override
 	public void pause() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void resume() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void hide() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -178,15 +178,11 @@ public class SelectOptionSoloScreen implements Screen {
 				treatOption(GameOptionEnum.MIROIR);
 			}
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && cursorPosition > 0) {
+			cursorPosition--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (cursorPosition < 4) {
-				cursorPosition++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && cursorPosition < 4) {
+			cursorPosition++;
 		}
 	}
 

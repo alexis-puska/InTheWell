@@ -24,9 +24,9 @@ import com.mygdx.utils.DrawUtils;
  * @author alexispuskarczyk
  */
 public class QuestScreen implements Screen {
-	
+
 	private static final String NO_TRANSLATION = "noTranslation";
-	
+
 	final InTheWellGame game;
 	private BitmapFont fontRed;
 	private BitmapFont fontGold;
@@ -55,7 +55,7 @@ public class QuestScreen implements Screen {
 
 	@Override
 	public void show() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -65,17 +65,17 @@ public class QuestScreen implements Screen {
 
 	@Override
 	public void pause() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void resume() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void hide() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -252,15 +252,11 @@ public class QuestScreen implements Screen {
 			game.getScreen().dispose();
 			game.setScreen(new MainScreen(game));
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (questSelect > 0) {
-				questSelect--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && questSelect > 0) {
+			questSelect--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (questSelect < Constante.NB_QUEST) {
-				questSelect++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && questSelect < Constante.NB_QUEST) {
+			questSelect++;
 		}
 	}
 

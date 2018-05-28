@@ -38,7 +38,7 @@ public class SelectOptionTutorialScreen implements Screen {
 
 	@Override
 	public void show() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -48,17 +48,17 @@ public class SelectOptionTutorialScreen implements Screen {
 
 	@Override
 	public void pause() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void resume() {
-		//unused method
+		// unused method
 	}
 
 	@Override
 	public void hide() {
-		//unused method
+		// unused method
 	}
 
 	@Override
@@ -85,15 +85,11 @@ public class SelectOptionTutorialScreen implements Screen {
 			game.getScreen().dispose();
 			game.setScreen(new SelectModeScreen(game));
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && cursorPosition > 0) {
+			cursorPosition--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (cursorPosition < 2) {
-				cursorPosition++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && cursorPosition < 2) {
+			cursorPosition++;
 		}
 	}
 

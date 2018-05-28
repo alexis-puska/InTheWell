@@ -91,15 +91,11 @@ public class SelectOptionTimeAttackScreen implements Screen {
 			game.getScreen().dispose();
 			game.setScreen(new SelectModeScreen(game));
 		}
-		if (game.getMenuInputProcessor().pressUp()) {
-			if (cursorPosition > 0) {
-				cursorPosition--;
-			}
+		if (game.getMenuInputProcessor().pressUp() && cursorPosition > 0) {
+			cursorPosition--;
 		}
-		if (game.getMenuInputProcessor().pressDown()) {
-			if (cursorPosition < 2) {
-				cursorPosition++;
-			}
+		if (game.getMenuInputProcessor().pressDown() && cursorPosition < 2) {
+			cursorPosition++;
 		}
 	}
 
