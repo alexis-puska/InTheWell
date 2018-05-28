@@ -13,7 +13,7 @@ public class NeedItemNotification extends Notification {
 	@Override
 	public boolean draw(GlyphLayout layout, BitmapFont font1, BitmapFont font2) {
 		font1.getData().markupEnabled = true;
-		layout.setText(font1, "[RED]My test string[] requise");
+		layout.setText(font1, "[RED]My test string[]\n requise");
 		font1.draw(game.getBatch(), layout, 10, 518);
 		layout.setText(font2, "Passe partout de tuberculoz");
 		font2.draw(game.getBatch(), layout, 10, 502);
