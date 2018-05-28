@@ -58,5 +58,6 @@ public class Lock extends BodyAble {
 
 	@Override
 	public void update() {
+		//Unused for lock, lock always enable
 	}
 }

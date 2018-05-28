@@ -18,6 +18,7 @@ import com.mygdx.domain.Rayon;
 import com.mygdx.domain.Teleporter;
 import com.mygdx.domain.Vortex;
 import com.mygdx.domain.common.Ennemie;
+import com.mygdx.domain.event.Event;
 
 public class CustomContactListener implements ContactListener {
 
@@ -66,6 +67,11 @@ public class CustomContactListener implements ContactListener {
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
 						Door door = (Door) other.getBody().getUserData();
 						player.unlockDoor(door);
+					} else if (other.getBody().getUserData().getClass() == Event.class) {
+						Event event = (Event) other.getBody().getUserData();
+						if(event.isNear()) {
+							event.enable(player);
+						}
 					} else if (other.getBody().getUserData().getClass() == Item.class) {
 						Item item = (Item) other.getBody().getUserData();
 						player.pickItem(item);
@@ -194,6 +200,8 @@ public class CustomContactListener implements ContactListener {
 					} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 						contact.setEnabled(false);
 					} else if (other.getBody().getUserData().getClass() == Door.class) {
+						contact.setEnabled(false);
+					} else if (other.getBody().getUserData().getClass() == Event.class) {
 						contact.setEnabled(false);
 					} else if (other.getBody().getUserData().getClass() == Item.class) {
 						contact.setEnabled(false);

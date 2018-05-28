@@ -91,14 +91,6 @@ public class Player extends BodyAble {
 	}
 
 	@Override
-	public void enable() {
-	}
-
-	@Override
-	public void disable() {
-	}
-
-	@Override
 	public void drawIt() {
 		TextureRegion tmp;
 		if (igor) {
@@ -359,28 +351,28 @@ public class Player extends BodyAble {
 	 * Press drop Button
 	 */
 	public void pressDrop() {
-
+		dropPressed = true;
 	}
 
 	/**
 	 * Release drop Button
 	 */
 	public void releaseDrop() {
-
+		dropPressed = false;
 	}
 
 	/**
 	 * Press Push Button (down)
 	 */
 	public void pressPush() {
-
+		pushPressed = true;
 	}
 
 	/**
 	 * release Push Button (down)
 	 */
 	public void releasePush() {
-
+		pushPressed = false;
 	}
 
 }

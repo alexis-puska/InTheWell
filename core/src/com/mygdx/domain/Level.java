@@ -72,9 +72,6 @@ public class Level {
 		for (Decor d : decor) {
 			d.init(game);
 		}
-		for (Event ev : event) {
-			ev.init(world);
-		}
 		for (LevelName na : name) {
 			na.init(game);
 		}
@@ -104,6 +101,9 @@ public class Level {
 		}
 		for (Item i : items) {
 			i.init(world, game);
+		}
+		for (Event ev : event) {
+			ev.init(world, game, this);
 		}
 	}
 
@@ -194,6 +194,9 @@ public class Level {
 		}
 		for (Item i : items) {
 			i.update();
+		}
+		for (Event e : event) {
+			e.update();
 		}
 	}
 
