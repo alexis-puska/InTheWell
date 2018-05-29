@@ -181,9 +181,9 @@ public class Event extends BodyAble {
 
 	@Override
 	public void update() {
-		if (itemId != -1 && game.getAccountService().getFridgeQuantity(itemId) > 0) {
+		if (itemId >= 0 && game.getAccountService().getFridgeQuantity(itemId) > 0) {
 			trigger();
-		} else {
+		} else if (itemId < 0) {
 			trigger();
 		}
 		if (!onlyOnce && triggered) {
