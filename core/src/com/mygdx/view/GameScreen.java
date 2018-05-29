@@ -20,12 +20,12 @@ import com.mygdx.domain.Level;
 import com.mygdx.domain.Player;
 import com.mygdx.enumeration.GameModeEnum;
 import com.mygdx.enumeration.MusicEnum;
-import com.mygdx.game.CustomContactListener;
-import com.mygdx.game.GameInputProcessor;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
 import com.mygdx.service.SoundService;
 import com.mygdx.service.SpriteService;
+import com.mygdx.service.collision.CustomContactListener;
+import com.mygdx.service.input_processor.GameInputProcessor;
 
 public class GameScreen implements Screen {
 

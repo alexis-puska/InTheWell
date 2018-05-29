@@ -14,6 +14,7 @@ import com.mygdx.service.MessageService;
 import com.mygdx.service.NotificationService;
 import com.mygdx.service.SoundService;
 import com.mygdx.service.SpriteService;
+import com.mygdx.service.input_processor.MenuInputProcessor;
 import com.mygdx.view.SplashScreen;
 
 import lombok.Getter;

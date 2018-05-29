@@ -28,6 +28,7 @@ import com.mygdx.enumeration.SoundEnum;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
 import com.mygdx.service.SoundService;
+import com.mygdx.service.timer.EventTimerTask;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

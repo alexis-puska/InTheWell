@@ -1,6 +1,9 @@
-package com.mygdx.domain;
+package com.mygdx.service.timer;
+
+import java.util.TimerTask;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.domain.Level;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CustomTimerTask extends java.util.TimerTask {
+public class LevelObjectTimerTask extends TimerTask {
 
 	private boolean runned;
 	private Level level;

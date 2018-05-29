@@ -1,5 +1,8 @@
-package com.mygdx.domain.event;
+package com.mygdx.service.timer;
 
+import java.util.TimerTask;
+
+import com.mygdx.domain.event.Event;
 import com.mygdx.enumeration.EventNotificationType;
 
 import lombok.AllArgsConstructor;
@@ -9,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EventTimerTask extends java.util.TimerTask {
+public class EventTimerTask extends TimerTask {
 
 	private boolean runned;
 	private Event event;

@@ -19,6 +19,7 @@ import com.mygdx.domain.event.Event;
 import com.mygdx.enumeration.EventNotificationType;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
+import com.mygdx.service.timer.LevelObjectTimerTask;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -53,9 +54,9 @@ public class Level {
 
 	private List<Body> borderWall;
 	private Timer timeObjetEffet;
-	private CustomTimerTask objectPointTask;
+	private LevelObjectTimerTask objectPointTask;
 	private Timer timeObjetPoint;
-	private CustomTimerTask objectEffetTask;
+	private LevelObjectTimerTask objectEffetTask;
 
 	public void init(World world, InTheWellGame game) {
 		this.game = game;
@@ -65,8 +66,8 @@ public class Level {
 		borderWall.add(createBorderWall(world, 20));
 		timeObjetEffet = new Timer();
 		timeObjetPoint = new Timer();
-		objectPointTask = new CustomTimerTask(false, this, 0);
-		objectEffetTask = new CustomTimerTask(false, this, 1);
+		objectPointTask = new LevelObjectTimerTask(false, this, 0);
+		objectEffetTask = new LevelObjectTimerTask(false, this, 1);
 		timeObjetEffet.schedule(objectPointTask, 5000);
 		timeObjetPoint.schedule(objectEffetTask, 10000);
 
