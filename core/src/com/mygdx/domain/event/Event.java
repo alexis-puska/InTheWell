@@ -291,11 +291,13 @@ public class Event extends BodyAble {
 				}
 			}
 			if (darknessValue != -1) {
-				// TODO gestion obscurité pour un niveau
+				float value = (1f / 255f) * (float) this.darknessValue;
+				Context.setDarknessValue(value);
 			}
 			if (iceValue != -1) {
-				// TODO gestion friction pour les platforme d'un niveau -> changement valeur
-				// body platform
+				for (Platform platform : level.getPlatform()) {
+					platform.setFrixion(iceValue);
+				}
 			}
 			triggered = true;
 		}

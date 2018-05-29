@@ -103,7 +103,6 @@ public class NotificationService {
 	}
 
 	public void dispose() {
-		Gdx.app.log(NOTIFICATION_SERVICE, "dispose");
 		notification.clear();
 	}
 }

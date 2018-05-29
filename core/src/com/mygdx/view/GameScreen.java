@@ -342,7 +342,7 @@ public class GameScreen implements Screen {
 	private void drawShadowMask(int x, int y, int x2, int y2) {
 		shadowLayer.begin();
 		game.getBatch().setProjectionMatrix(gameCamera.combined);
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0.3f);
+		Gdx.gl.glClearColor(0f, 0f, 0f, Context.getDarknessValue());
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.gl.glColorMask(false, false, false, true);
 		shapeRenderer.setProjectionMatrix(gameCamera.combined);

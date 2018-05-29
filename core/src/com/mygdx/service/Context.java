@@ -8,9 +8,10 @@ public class Context {
 	private static boolean showFps = false;
 	private static boolean pause = false;
 	private static boolean showMap = false;
+	private static float darknessValue;
 
 	private Context() {
-		// empty private constructor
+		darknessValue = 0;
 	}
 
 	public static LocaleEnum getLocale() {
@@ -45,4 +46,12 @@ public class Context {
 		Context.showMap = showMap;
 	}
 
+	public static float getDarknessValue() {
+		return darknessValue;
+	}
+
+	public static void setDarknessValue(float darknessValue) {
+		Context.darknessValue = darknessValue;
+	}
+	
 }

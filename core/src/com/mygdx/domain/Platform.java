@@ -41,6 +41,8 @@ public class Platform extends BodyAble {
 	private boolean showPlatfomLevel;
 	private ShapeRenderer shapeRenderer;
 
+	private Fixture fixture;
+	
 	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex,
 			boolean showPlatfomLevel) {
 		this.shapeRenderer = new ShapeRenderer();
@@ -74,7 +76,7 @@ public class Platform extends BodyAble {
 			groundBodyDef.position.set(new Vector2(xb, yb));
 
 			body = world.createBody(groundBodyDef);
-			Fixture fixture = body.createFixture(groundBox, 0.0f);
+			fixture = body.createFixture(groundBox, 0.0f);
 			if (vertical) {
 				min = groundBodyDef.position.x - 0.5f;
 				max = groundBodyDef.position.x + 0.5f;
@@ -136,5 +138,10 @@ public class Platform extends BodyAble {
 			shapeRenderer.end();
 			game.getBatch().begin();
 		}
+	}
+
+	public void setFrixion(int iceValue) {
+		float value = (1f/255f) * iceValue;
+		fixture.setFriction(value);
 	}
 }
