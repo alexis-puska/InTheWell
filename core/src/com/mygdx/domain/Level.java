@@ -16,6 +16,7 @@ import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
+import com.mygdx.enumeration.EventNotificationType;
 import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 
@@ -105,10 +106,10 @@ public class Level {
 		for (Event ev : event) {
 			ev.init(world, game, this);
 		}
+		this.notifyEvent(EventNotificationType.ENTER_LEVEL);
 	}
 
 	public void dispose() {
-
 		for (Event ev : event) {
 			ev.dispose();
 		}
@@ -166,8 +167,13 @@ public class Level {
 		return body;
 	}
 
+	/**********************************************************************************
+	 * Update all element of level Requiered because change properties of body box2d
+	 * element when a collision be throw cause crash of box2d library. need to play
+	 * with enable/disable attribute and update the state after (create body/
+	 * dispose body)
+	 **********************************************************************************/
 	public void update() {
-
 		for (Door d : door) {
 			d.update();
 		}
@@ -197,6 +203,9 @@ public class Level {
 		}
 		for (Event e : event) {
 			e.update();
+		}
+		if (this.allEnnemiesOutOrDead()) {
+			this.notifyEvent(EventNotificationType.NO_MORE_ENNEMIE);
 		}
 	}
 
@@ -304,4 +313,9 @@ public class Level {
 		}
 	}
 
+	public void notifyEvent(EventNotificationType type) {
+		for (Event e : event) {
+			e.enable(type);
+		}
+	}
 }

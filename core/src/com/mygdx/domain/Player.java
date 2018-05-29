@@ -18,6 +18,7 @@ import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.BodyAble;
 import com.mygdx.enumeration.BombeTypeEnum;
+import com.mygdx.enumeration.EventNotificationType;
 import com.mygdx.enumeration.RayonTypeEnum;
 import com.mygdx.enumeration.SoundEnum;
 import com.mygdx.game.InTheWellGame;
@@ -182,7 +183,17 @@ public class Player extends BodyAble {
 	 */
 	public void kill() {
 		SoundService.getInstance().playSound(SoundEnum.DEAD);
+		level.notifyEvent(EventNotificationType.DEATH_PLAYER);
 		Gdx.app.log("player", "kill");
+	}
+
+	/**
+	 * Apparition du joueur
+	 */
+	public void birth() {
+		SoundService.getInstance().playSound(SoundEnum.DEAD);
+		level.notifyEvent(EventNotificationType.BIRTH_PLAYER);
+		Gdx.app.log("player", "birth");
 	}
 
 	/**

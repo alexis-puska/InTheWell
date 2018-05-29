@@ -79,6 +79,7 @@ public class GameScreen implements Screen {
 
 	public GameScreen(final InTheWellGame game) {
 		this.game = game;
+		this.levelIndex = Constante.START_LEVEL;
 		Context.setPause(false);
 		Context.setShowFps(false);
 		Context.setShowMap(false);
@@ -125,7 +126,7 @@ public class GameScreen implements Screen {
 		this.debugCamera.update();
 		this.world = new World(new Vector2(0, -60), true);
 		this.world.setContactListener(new CustomContactListener());
-		this.world.step(1 / 60f, 6, 2);
+		this.world.step(1 / 40f, 6, 2);
 
 		/********************
 		 * --- LEVEL ---
@@ -226,7 +227,7 @@ public class GameScreen implements Screen {
 		drawInformation();
 		game.getBatch().end();
 
-		world.step(1 / 60f, 6, 2);
+		world.step(1 / 40f, 6, 2);
 
 		currentLevel.update();
 

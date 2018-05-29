@@ -1,6 +1,7 @@
 package com.mygdx.domain.event;
 
 import java.util.List;
+import java.util.Timer;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -9,11 +10,24 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
+import com.mygdx.domain.Decor;
+import com.mygdx.domain.Door;
+import com.mygdx.domain.Item;
 import com.mygdx.domain.Level;
+import com.mygdx.domain.Lock;
+import com.mygdx.domain.Pick;
 import com.mygdx.domain.Platform;
-import com.mygdx.domain.Player;
+import com.mygdx.domain.Rayon;
+import com.mygdx.domain.Teleporter;
+import com.mygdx.domain.Vortex;
 import com.mygdx.domain.common.BodyAble;
+import com.mygdx.domain.common.Ennemie;
+import com.mygdx.enumeration.EventNotificationType;
+import com.mygdx.enumeration.MusicEnum;
+import com.mygdx.enumeration.SoundEnum;
 import com.mygdx.game.InTheWellGame;
+import com.mygdx.service.Context;
+import com.mygdx.service.SoundService;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -58,16 +72,35 @@ public class Event extends BodyAble {
 	 ***************************************/
 	private List<EnableElement> enableElement;
 	private List<Message> message;
-	private String song;
-	private String sound;
+	private MusicEnum song;
+	private SoundEnum sound;
 	private int darknessValue;
 	private int iceValue;
 
 	private Level level;
+	private EventTimerTask timerTask;
+	private Timer timer;
 
 	public void init(World world, InTheWellGame game, Level level) {
 		this.level = level;
 		super.init(world, game);
+		if (time) {
+			timerTask = new EventTimerTask(this);
+			timer = new Timer();
+			float val = (1000f / 40f) * timeout;
+			timer.schedule(timerTask, (int) val);
+		}
+	}
+
+	@Override
+	public void dispose() {
+		if (time && !timerTask.isRunned()) {
+			timer.cancel();
+		}
+		if (body != null) {
+			this.world.destroyBody(body);
+			body = null;
+		}
 	}
 
 	@Override
@@ -105,28 +138,105 @@ public class Event extends BodyAble {
 		// enable event is only with explosion or player.
 	}
 
-	public void enable(Player player) {
-		if (near) {
+	public void enable(EventNotificationType type) {
+		switch (type) {
+		case BIRTH_PLAYER:
+			if (onBirth) {
+				enable = true;
+			}
+			break;
+		case DEATH_PLAYER:
+			if (onDeath) {
+				enable = true;
+			}
+			break;
+		case ENTER_LEVEL:
+			if (onLevelEnter) {
+				enable = true;
+			}
+			break;
+		case EXPLOSION:
+			if (explosion) {
+				enable = true;
+			}
+			break;
+		case NEAR:
+			if (near) {
+				enable = true;
+			}
+			break;
+		case NO_MORE_ENNEMIE:
+			if (noMoreEnnemie) {
+				enable = true;
+			}
+			break;
+		case TIMEOUT:
 			enable = true;
+			break;
+		default:
+			break;
 		}
+
 	}
 
 	@Override
 	public void update() {
-		if (enable) {
+		if (itemId != -1 && game.getAccountService().getFridgeQuantity(itemId) > 0) {
+			trigger();
+		} else {
+			trigger();
+		}
+		if (!onlyOnce && triggered) {
+			triggered = false;
+			enable = false;
+		}
+	}
+
+	private void trigger() {
+		if ((enable && !onlyOnce) || (enable && onlyOnce && !triggered)) {
 			for (EnableElement e : this.enableElement) {
 				switch (e.getElementType()) {
 				case DECOR:
+					for (Decor d : level.getDecor()) {
+						if (d.getId() == e.getId()) {
+							d.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case DOOR:
+					for (Door door : level.getDoor()) {
+						if (door.getId() == e.getId()) {
+							door.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case ENNEMIE:
+					for (Ennemie en : level.getEnnemies()) {
+						if (en.getId() == e.getId()) {
+							en.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case ITEM:
+					for (Item i : level.getItems()) {
+						if (i.getId() == e.getId()) {
+							i.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case LOCK:
+					for (Lock l : level.getLock()) {
+						if (l.getId() == e.getId()) {
+							l.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case PICK:
+					for (Pick pi : level.getPick()) {
+						if (pi.getId() == e.getId()) {
+							pi.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case PLATFORM:
 					for (Platform p : level.getPlatform()) {
@@ -136,17 +246,58 @@ public class Event extends BodyAble {
 					}
 					break;
 				case RAYON:
+					for (Rayon r : level.getRayon()) {
+						if (r.getId() == e.getId()) {
+							r.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case TELEPORTER:
+					for (Teleporter t : level.getTeleporter()) {
+						if (t.getId() == e.getId()) {
+							t.setEnable(e.isNewState());
+						}
+					}
 					break;
 				case VORTEX:
+					for (Vortex v : level.getVortex()) {
+						if (v.getId() == e.getId()) {
+							v.setEnable(e.isNewState());
+						}
+					}
 					break;
 				default:
 					break;
-
 				}
 			}
+			if (song != null) {
+				SoundService.getInstance().playMusic(song);
+			}
+			if (sound != null) {
+				SoundService.getInstance().playSound(sound);
+			}
+			for (Message m : message) {
+				switch (Context.getLocale()) {
+				case ENGLISH:
+					game.getNotificationService().addMessageNotification(m.getEn(), m.getTimeout());
+					break;
+				case SPANISH:
+					game.getNotificationService().addMessageNotification(m.getEs(), m.getTimeout());
+					break;
+				default:
+				case FRENCH:
+					game.getNotificationService().addMessageNotification(m.getFr(), m.getTimeout());
+					break;
+				}
+			}
+			if (darknessValue != -1) {
+				// TODO gestion obscurité pour un niveau
+			}
+			if (iceValue != -1) {
+				// TODO gestion friction pour les platforme d'un niveau -> changement valeur
+				// body platform
+			}
+			triggered = true;
 		}
 	}
-
 }

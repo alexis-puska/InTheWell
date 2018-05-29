@@ -19,6 +19,7 @@ import com.mygdx.domain.Teleporter;
 import com.mygdx.domain.Vortex;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
+import com.mygdx.enumeration.EventNotificationType;
 
 public class CustomContactListener implements ContactListener {
 
@@ -70,7 +71,7 @@ public class CustomContactListener implements ContactListener {
 					} else if (other.getBody().getUserData().getClass() == Event.class) {
 						Event event = (Event) other.getBody().getUserData();
 						if(event.isNear()) {
-							event.enable(player);
+							event.enable(EventNotificationType.NEAR);
 						}
 					} else if (other.getBody().getUserData().getClass() == Item.class) {
 						Item item = (Item) other.getBody().getUserData();
