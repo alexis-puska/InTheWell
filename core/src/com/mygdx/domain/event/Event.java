@@ -197,9 +197,9 @@ public class Event extends BodyAble {
 			for (EnableElement e : this.enableElement) {
 				switch (e.getElementType()) {
 				case DECOR:
-					for (Decor d : level.getDecor()) {
-						if (d.getId() == e.getId()) {
-							d.setEnable(e.isNewState());
+					for (Decor decor : level.getDecor()) {
+						if (decor.getId() == e.getId()) {
+							decor.setEnable(e.isNewState());
 						}
 					}
 					break;
