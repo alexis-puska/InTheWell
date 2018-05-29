@@ -3211,7 +3211,38 @@
         "value" : ""
       } ],
       "decor" : [ ],
-      "event" : [ ],
+      "event" : [ {
+        "id" : 0,
+        "onlyOnce" : true,
+        "triggered" : false,
+        "near" : true,
+        "x" : 16,
+        "y" : 6,
+        "d" : 0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 0,
+          "elementType" : "VORTEX",
+          "newState" : true
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      } ],
       "door" : [ ],
       "lock" : [ ],
       "pick" : [ ],
@@ -3248,102 +3279,6 @@
         "displayed" : true,
         "length" : 2
       }, {
-        "id" : 4,
-        "enable" : true,
-        "x" : 3,
-        "y" : 7,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 16
-      }, {
-        "id" : 5,
-        "enable" : true,
-        "x" : 17,
-        "y" : 8,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 6,
-        "enable" : true,
-        "x" : 0,
-        "y" : 10,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 15
-      }, {
-        "id" : 7,
-        "enable" : true,
-        "x" : 0,
-        "y" : 11,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 8,
-        "enable" : true,
-        "x" : 0,
-        "y" : 9,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 9,
-        "enable" : true,
-        "x" : 0,
-        "y" : 15,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 10,
-        "enable" : true,
-        "x" : 0,
-        "y" : 16,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 9
-      }, {
-        "id" : 11,
-        "enable" : true,
-        "x" : 4,
-        "y" : 13,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 15
-      }, {
-        "id" : 12,
-        "enable" : true,
-        "x" : 18,
-        "y" : 14,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 1
-      }, {
-        "id" : 13,
-        "enable" : true,
-        "x" : 17,
-        "y" : 12,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 14,
-        "enable" : true,
-        "x" : 18,
-        "y" : 17,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 15,
-        "enable" : true,
-        "x" : 18,
-        "y" : 9,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 3
-      }, {
         "id" : 16,
         "enable" : true,
         "x" : 18,
@@ -3352,25 +3287,137 @@
         "displayed" : true,
         "length" : 3
       }, {
-        "id" : 17,
+        "id" : 10,
+        "enable" : true,
+        "x" : 0,
+        "y" : 17,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 9
+      }, {
+        "id" : 14,
+        "enable" : true,
+        "x" : 0,
+        "y" : 16,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 19,
+        "enable" : true,
+        "x" : 18,
+        "y" : 15,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 1
+      }, {
+        "id" : 4,
+        "enable" : true,
+        "x" : 0,
+        "y" : 12,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 5,
+        "enable" : true,
+        "x" : 4,
+        "y" : 14,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 15
+      }, {
+        "id" : 6,
+        "enable" : true,
+        "x" : 17,
+        "y" : 13,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 7,
+        "enable" : true,
+        "x" : 17,
+        "y" : 7,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 8,
+        "enable" : true,
+        "x" : 3,
+        "y" : 8,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 16
+      }, {
+        "id" : 9,
+        "enable" : true,
+        "x" : 17,
+        "y" : 9,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 11,
+        "enable" : true,
+        "x" : 0,
+        "y" : 10,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 12,
+        "enable" : true,
+        "x" : 0,
+        "y" : 11,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 15
+      }, {
+        "id" : 13,
+        "enable" : true,
+        "x" : 18,
+        "y" : 10,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 3
+      }, {
+        "id" : 15,
         "enable" : true,
         "x" : 0,
         "y" : 4,
         "vertical" : true,
         "displayed" : true,
-        "length" : 5
+        "length" : 6
       }, {
-        "id" : 18,
+        "id" : 17,
         "enable" : true,
         "x" : 0,
-        "y" : 12,
+        "y" : 13,
         "vertical" : true,
         "displayed" : true,
         "length" : 3
+      }, {
+        "id" : 18,
+        "enable" : true,
+        "x" : 18,
+        "y" : 18,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
-      "vortex" : [ ],
+      "vortex" : [ {
+        "id" : 0,
+        "x" : 5,
+        "y" : 4,
+        "zoomX" : 1.0,
+        "zoomY" : 1.0,
+        "enable" : false,
+        "destination" : 0
+      } ],
       "ennemies" : [ {
         "id" : 0,
         "enable" : true,
@@ -3404,8 +3451,8 @@
       }, {
         "id" : 5,
         "enable" : true,
-        "x" : 10,
-        "y" : 14,
+        "x" : 12,
+        "y" : 15,
         "type" : "CERISE"
       } ],
       "startPlayers" : null,

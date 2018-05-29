@@ -150,6 +150,11 @@ public class SpriteService {
 		TextureRegion[] t = sprites.get(name);
 		return t[idx];
 	}
+	
+	public int getAnimationSize(String name) {
+		TextureRegion[] t = sprites.get(name);
+		return t.length;
+	}
 
 	public TextureRegion[] getTexture(String name) {
 		return sprites.get(name);

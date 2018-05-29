@@ -154,6 +154,10 @@ public class GameScreen implements Screen {
 		SoundService.getInstance().playMusic(MusicEnum.HAMMERFEST);
 	}
 
+	
+	/***********************************
+	 * Destroy screen
+	 ***********************************/
 	@Override
 	public void dispose() {
 		backgroundLayer.dispose();
@@ -216,21 +220,17 @@ public class GameScreen implements Screen {
 		}
 		drawShadowMask(x1, y1, x2, y2);
 
-		// merge 5 layers
+		// merge 5 layers and draw finale image to screen
 		mergeFinalTexture();
-
-		// draw finale image to screen
-
 		game.getViewport().apply();
 		game.getBatch().begin();
 		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0, 420, 520);
 		drawInformation();
 		game.getBatch().end();
 
+		//Update 
 		world.step(1 / 40f, 6, 2);
-
 		currentLevel.update();
-
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
 			player.update();
 		} else if (game.getAccountService().getGameModeSelected() == GameModeEnum.MULTI_COOPERATIF) {
@@ -243,6 +243,51 @@ public class GameScreen implements Screen {
 		}
 	}
 
+	
+	public void incLevel() {
+		levelIndex++;
+		currentLevel.dispose();
+		game.getNotificationService().dispose();
+		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+		currentLevel.init(world, game);
+		player.enterLevel(currentLevel);
+	}
+
+	public void decLevel() {
+		levelIndex--;
+		currentLevel.dispose();
+		game.getNotificationService().dispose();
+		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
+		currentLevel.init(world, game);
+		player.enterLevel(currentLevel);
+	}
+
+	private void initFont() {
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana.ttf"));
+		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 10;
+		parameter.borderWidth = 0.1f;
+		parameter.borderColor = new Color(255, 255, 0, 255);
+		parameter.color = new Color(255, 255, 0, 255);
+		fontGold = generator.generateFont(parameter);
+		generator.dispose();
+
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_impact.ttf"));
+		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+		parameter.size = 14;
+		parameter.borderWidth = 2f;
+		parameter.borderColor = new Color(0.2f, 0.2f, 0.2f, 1f);
+		parameter.color = new Color(1f, 1f, 1f, 1f);
+		fontScore = generator.generateFont(parameter);
+
+		generator.dispose();
+	}
+	
+	/******************************************************************
+	 * --- DRAW PART ---
+	 ******************************************************************/
+	
 	/**
 	 * Draw information (FPS, Message, score and border)
 	 */
@@ -356,45 +401,5 @@ public class GameScreen implements Screen {
 		Gdx.gl.glColorMask(true, true, true, true);
 		shadowLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
-	}
-
-	public void incLevel() {
-		levelIndex++;
-		currentLevel.dispose();
-		game.getNotificationService().dispose();
-		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game);
-		player.enterLevel(currentLevel);
-	}
-
-	public void decLevel() {
-		levelIndex--;
-		currentLevel.dispose();
-		game.getNotificationService().dispose();
-		currentLevel = game.getLevelService().getLevel(GameModeEnum.SOLO, levelIndex);
-		currentLevel.init(world, game);
-		player.enterLevel(currentLevel);
-	}
-
-	private void initFont() {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 10;
-		parameter.borderWidth = 0.1f;
-		parameter.borderColor = new Color(255, 255, 0, 255);
-		parameter.color = new Color(255, 255, 0, 255);
-		fontGold = generator.generateFont(parameter);
-		generator.dispose();
-
-		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_impact.ttf"));
-		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-
-		parameter.size = 14;
-		parameter.borderWidth = 2f;
-		parameter.borderColor = new Color(0.2f, 0.2f, 0.2f, 1f);
-		parameter.color = new Color(1f, 1f, 1f, 1f);
-		fontScore = generator.generateFont(parameter);
-
-		generator.dispose();
 	}
 }
