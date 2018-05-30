@@ -1,6 +1,5 @@
 package com.mygdx.domain.common;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -30,23 +29,23 @@ public abstract class Ennemie extends BodyAble {
 
 	protected EnnemieStateEnum state;
 	protected Level level;
-	private boolean touchBorderRight;
-	private boolean touchBorderLeft;
-	private boolean touchRight;
-	private boolean touchLeft;
-	private boolean onPlatformBorderRight;
-	private boolean onPlatformBorderLeft;
-	private boolean canJumpRight;
-	private boolean canJumpLeft;
-	private boolean canStepRight;
-	private boolean canStepLeft;
-	private boolean canLargeStepRight;
-	private boolean canLargeStepLeft;
-	private boolean canJump;
-	private boolean canLargeJump;
-	private boolean canGoDown;
-	private boolean canGoDownRight;
-	private boolean canGoDownLeft;
+
+	protected boolean walkLeft;
+	protected boolean touchRight;
+	protected boolean touchLeft;
+	protected boolean onPlatformBorderRight;
+	protected boolean onPlatformBorderLeft;
+	protected boolean canJumpRight;
+	protected boolean canJumpLeft;
+	protected boolean canStepRight;
+	protected boolean canStepLeft;
+	protected boolean canLargeStepRight;
+	protected boolean canLargeStepLeft;
+	protected boolean canJump;
+	protected boolean canLargeJump;
+	protected boolean canGoDown;
+	protected boolean canGoDownRight;
+	protected boolean canGoDownLeft;
 
 	public void init(World world, InTheWellGame game, final Level level) {
 		this.init(game);
@@ -95,6 +94,7 @@ public abstract class Ennemie extends BodyAble {
 		Fixture fixture = body.createFixture(fixtureDef);
 		Filter filter = new Filter();
 		filter.categoryBits = CollisionConstante.CATEGORY_ENNEMIE;
+		filter.maskBits = CollisionConstante.GROUP_ENNEMIE;
 		fixture.setFilterData(filter);
 		bodyBox.dispose();
 	}
@@ -102,46 +102,9 @@ public abstract class Ennemie extends BodyAble {
 	public abstract void think();
 
 	protected void initView() {
-		Gdx.app.log("Ennemie think !", "");
-
 		Boolean[][] grid = this.level.getGrid();
 		int x = (int) body.getPosition().x;
 		int y = (int) body.getPosition().y;
-
-		// ennemie touch right border of screen ?
-		if (x + 1 < 20) {
-			if (grid[x + 1][y]) {
-				touchRight = true;
-			} else {
-				touchRight = false;
-			}
-			touchBorderRight = false;
-			if (y - 1 > 0) {
-				onPlatformBorderRight = !grid[x + 1][y - 1];
-			} else {
-				onPlatformBorderRight = false;
-			}
-		} else {
-			touchBorderRight = true;
-			onPlatformBorderRight = false;
-		}
-		// ennemie touch left border of screen ?
-		if (x - 1 > 0) {
-			if (grid[x - 1][y]) {
-				touchLeft = true;
-			} else {
-				touchLeft = false;
-			}
-			touchBorderLeft = false;
-			if (y - 1 > 0) {
-				onPlatformBorderLeft = !grid[x - 1][y - 1];
-			} else {
-				onPlatformBorderLeft = false;
-			}
-		} else {
-			touchBorderLeft = true;
-			onPlatformBorderLeft = false;
-		}
 
 		// ennemie can jump to the right ?
 		if (x + 3 < 20 && y - 1 > 0) {

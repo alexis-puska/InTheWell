@@ -14,12 +14,14 @@ import lombok.Setter;
 @Setter
 public class Cerise extends Ennemie {
 
-	private boolean walkLeft;
-
 	public Cerise() {
 		super();
 		int rand = ThreadLocalRandom.current().nextInt(0, 10);
 		walkLeft = rand % 2 == 0;
+		onPlatformBorderLeft = false;
+		onPlatformBorderRight = false;
+		touchLeft = false;
+		touchRight = false;
 	}
 
 	@Override
@@ -33,17 +35,17 @@ public class Cerise extends Ennemie {
 	@Override
 	public void think() {
 		this.initView();
-		if (isOnPlatformBorderLeft() && walkLeft) {
+		if (onPlatformBorderLeft && walkLeft) {
 			walkLeft = false;
 		}
-		if (isOnPlatformBorderRight() && !walkLeft) {
+		if (onPlatformBorderRight && !walkLeft) {
 			walkLeft = true;
 		}
 
-		if ((isTouchBorderLeft() || isTouchLeft()) && walkLeft) {
+		if (touchLeft && walkLeft) {
 			walkLeft = false;
 		}
-		if ((isTouchBorderRight() || isTouchRight()) && !walkLeft) {
+		if (touchRight && !walkLeft) {
 			walkLeft = true;
 		}
 

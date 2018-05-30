@@ -1,19 +1,11 @@
 package com.mygdx.domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Filter;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
@@ -53,7 +45,6 @@ public class Level {
 	private Position startPointObjets;
 	private List<Item> items;
 
-	private List<Body> borderWall;
 	private Timer timeObjetEffet;
 	private LevelObjectTimerTask objectPointTask;
 	private Timer timeObjetPoint;
@@ -63,16 +54,16 @@ public class Level {
 	public void init(World world, InTheWellGame game) {
 		this.game = game;
 		this.world = world;
-		borderWall = new ArrayList<>();
 
-		borderWall.add(createBorderWall(world, -1));
-		borderWall.add(createBorderWall(world, 20));
 		timeObjetEffet = new Timer();
 		timeObjetPoint = new Timer();
 		objectPointTask = new LevelObjectTimerTask(false, this, 0);
 		objectEffetTask = new LevelObjectTimerTask(false, this, 1);
 		timeObjetEffet.schedule(objectPointTask, 5000);
 		timeObjetPoint.schedule(objectEffetTask, 10000);
+
+		createWall();
+
 		for (Decor d : decor) {
 			d.init(game);
 		}
@@ -113,6 +104,27 @@ public class Level {
 		this.notifyEvent(EventNotificationType.ENTER_LEVEL);
 	}
 
+	private void createWall() {
+		Platform wallLeft = new Platform();
+		wallLeft.setId(-1);
+		wallLeft.setX(-1);
+		wallLeft.setY(0);
+		wallLeft.setVertical(true);
+		wallLeft.setDisplayed(false);
+		wallLeft.setLength(25);
+		wallLeft.setEnable(true);
+		Platform wallRight = new Platform();
+		wallRight.setId(-1);
+		wallRight.setX(20);
+		wallRight.setY(0);
+		wallRight.setVertical(true);
+		wallRight.setDisplayed(false);
+		wallRight.setLength(25);
+		wallRight.setEnable(true);
+		platform.add(wallLeft);
+		platform.add(wallRight);
+	}
+
 	public void dispose() {
 		for (Event ev : event) {
 			ev.dispose();
@@ -150,25 +162,6 @@ public class Level {
 		if (!objectEffetTask.isRunned()) {
 			timeObjetEffet.cancel();
 		}
-		// destroy lateral walls
-		for (Body b : borderWall) {
-			this.world.destroyBody(b);
-		}
-	}
-
-	private Body createBorderWall(World world, int x) {
-		BodyDef bodyDef = new BodyDef();
-		PolygonShape polygoneShape = new PolygonShape();
-		bodyDef.position.set(new Vector2(x + 0.5f, 12));
-		polygoneShape.setAsBox(0.5f, 24);
-		Body body = world.createBody(bodyDef);
-		Fixture fixture = body.createFixture(polygoneShape, 0.0f);
-		polygoneShape.dispose();
-		Filter filter = new Filter();
-		filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
-		fixture.setFilterData(filter);
-		fixture.setFriction(0.1f);
-		return body;
 	}
 
 	/**********************************************************************************
@@ -331,13 +324,15 @@ public class Level {
 			Arrays.fill(row, Boolean.FALSE);
 		}
 		for (Platform pl : platform) {
-			if (pl.isVertical()) {
-				for (int y = pl.getY(); y < pl.getY() + pl.getLength(); y++) {
-					grid[pl.getX()][y] = true;
-				}
-			} else {
-				for (int x = pl.getX(); x < pl.getX() + pl.getLength(); x++) {
-					grid[x][pl.getY()] = true;
+			if (pl.getId() != -1) {
+				if (pl.isVertical()) {
+					for (int y = pl.getY(); y < pl.getY() + pl.getLength(); y++) {
+						grid[pl.getX()][y] = true;
+					}
+				} else {
+					for (int x = pl.getX(); x < pl.getX() + pl.getLength(); x++) {
+						grid[x][pl.getY()] = true;
+					}
 				}
 			}
 		}
