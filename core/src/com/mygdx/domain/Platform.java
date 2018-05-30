@@ -40,17 +40,19 @@ public class Platform extends BodyAble {
 	private int horizontalIndex;
 	private boolean showPlatfomLevel;
 	private ShapeRenderer shapeRenderer;
+	private Level level;
 
 	private Fixture fixture;
-	
-	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex,
-			boolean showPlatfomLevel) {
+
+	public void init(World world, InTheWellGame game, int verticalIndex, int horizontalIndex, boolean showPlatfomLevel,
+			final Level level) {
 		this.shapeRenderer = new ShapeRenderer();
 		this.showPlatfomLevel = showPlatfomLevel;
 		this.world = world;
 		this.game = game;
 		this.verticalIndex = verticalIndex;
 		this.horizontalIndex = horizontalIndex;
+		this.level = level;
 		super.init(world, game);
 	}
 
@@ -90,7 +92,6 @@ public class Platform extends BodyAble {
 			Filter filter = new Filter();
 			filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;
 			fixture.setFilterData(filter);
-			fixture.setFriction(0.1f);
 		}
 	}
 
@@ -141,7 +142,19 @@ public class Platform extends BodyAble {
 	}
 
 	public void setFrixion(int iceValue) {
-		float value = (1f/255f) * iceValue;
+		float value = (1f / 255f) * iceValue;
 		fixture.setFriction(value);
+	}
+
+	@Override
+	public void update() {
+		if (enable && body == null) {
+			createBody();
+			level.updateGrid(Boolean.TRUE, vertical, x, y, length);
+		}
+		if (!enable && body != null) {
+			dispose();
+			level.updateGrid(Boolean.FALSE, vertical, x, y, length);
+		}
 	}
 }

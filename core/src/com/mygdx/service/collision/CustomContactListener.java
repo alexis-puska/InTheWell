@@ -106,7 +106,7 @@ public class CustomContactListener implements ContactListener {
 				if (other != null) {
 					if (other.getBody().getUserData() != null) {
 						if (other.getBody().getUserData().getClass() == Platform.class) {
-
+							Gdx.app.log("ennemie", "contact platform");
 						} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 							Ennemie o = (Ennemie) other.getBody().getUserData();
 							ennemie.touchEnnemie(o);
@@ -230,7 +230,7 @@ public class CustomContactListener implements ContactListener {
 				if (other != null) {
 					if (other.getBody().getUserData() != null) {
 						if (other.getBody().getUserData().getClass() == Platform.class) {
-
+							Gdx.app.log("ennemie", "contact plataaaaform");
 						} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 							contact.setEnabled(false);
 						} else if (other.getBody().getUserData().getClass() == Pick.class) {

@@ -23,4 +23,9 @@ public class AbricotNain extends Ennemie {
 				(body.getPosition().y * Constante.GRID_BLOC_SIZE) - (Constante.ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
 	}
 
+	@Override
+	public void think() {
+		this.initView();
+	}
+	
 }

@@ -1,6 +1,7 @@
 package com.mygdx.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 
@@ -57,11 +58,13 @@ public class Level {
 	private LevelObjectTimerTask objectPointTask;
 	private Timer timeObjetPoint;
 	private LevelObjectTimerTask objectEffetTask;
+	private Boolean[][] grid;
 
 	public void init(World world, InTheWellGame game) {
 		this.game = game;
 		this.world = world;
 		borderWall = new ArrayList<>();
+
 		borderWall.add(createBorderWall(world, -1));
 		borderWall.add(createBorderWall(world, 20));
 		timeObjetEffet = new Timer();
@@ -70,7 +73,6 @@ public class Level {
 		objectEffetTask = new LevelObjectTimerTask(false, this, 1);
 		timeObjetEffet.schedule(objectPointTask, 5000);
 		timeObjetPoint.schedule(objectEffetTask, 10000);
-
 		for (Decor d : decor) {
 			d.init(game);
 		}
@@ -87,7 +89,7 @@ public class Level {
 			p.init(world, game);
 		}
 		for (Platform pl : platform) {
-			pl.init(world, game, verticalPlateform, horizontalPlateform, showPlatform);
+			pl.init(world, game, verticalPlateform, horizontalPlateform, showPlatform, this);
 		}
 		for (Rayon r : rayon) {
 			r.init(world, game);
@@ -99,7 +101,7 @@ public class Level {
 			v.init(world, game);
 		}
 		for (Ennemie e : ennemies) {
-			e.init(world, game);
+			e.init(world, game, this);
 		}
 		for (Item i : items) {
 			i.init(world, game);
@@ -107,6 +109,7 @@ public class Level {
 		for (Event ev : event) {
 			ev.init(world, game, this);
 		}
+		initGrid();
 		this.notifyEvent(EventNotificationType.ENTER_LEVEL);
 	}
 
@@ -198,6 +201,7 @@ public class Level {
 		}
 		for (Ennemie e : ennemies) {
 			e.update();
+			e.think();
 		}
 		for (Item i : items) {
 			i.update();
@@ -208,6 +212,7 @@ public class Level {
 		if (this.allEnnemiesOutOrDead()) {
 			this.notifyEvent(EventNotificationType.NO_MORE_ENNEMIE);
 		}
+		initGrid();
 	}
 
 	public void drawOnPlayerLayer() {
@@ -317,6 +322,36 @@ public class Level {
 	public void notifyEvent(EventNotificationType type) {
 		for (Event e : event) {
 			e.enable(type);
+		}
+	}
+
+	private void initGrid() {
+		grid = new Boolean[20][25];
+		for (Boolean[] row : grid) {
+			Arrays.fill(row, Boolean.FALSE);
+		}
+		for (Platform pl : platform) {
+			if (pl.isVertical()) {
+				for (int y = pl.getY(); y < pl.getY() + pl.getLength(); y++) {
+					grid[pl.getX()][y] = true;
+				}
+			} else {
+				for (int x = pl.getX(); x < pl.getX() + pl.getLength(); x++) {
+					grid[x][pl.getY()] = true;
+				}
+			}
+		}
+	}
+
+	public void updateGrid(Boolean val, boolean vertical, int x, int y, int length) {
+		if (vertical) {
+			for (int i = y; i < y + length; i++) {
+				grid[x][i] = val;
+			}
+		} else {
+			for (int i = x; i < x + length; i++) {
+				grid[i][y] = val;
+			}
 		}
 	}
 }
