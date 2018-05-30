@@ -40,19 +40,22 @@ public class NotificationService {
 		parameter.borderColor = new Color(0, 0, 0, 255);
 		parameter.color = new Color(255, 255, 255, 255);
 		fontWhite = generator.generateFont(parameter);
+		fontWhite.getData().markupEnabled = true;
 
 		parameter.size = 12;
 		parameter.borderWidth = 1.8f;
 		parameter.borderColor = new Color(0, 0, 0, 255);
 		parameter.color = new Color(0.8f, 0.8f, 0.8f, 1f);
 		fontGrey = generator.generateFont(parameter);
+		fontGrey.getData().markupEnabled = true;
 
 		parameter.size = 10;
 		parameter.borderWidth = 1f;
 		parameter.borderColor = new Color(0, 0, 0, 255);
 		parameter.color = new Color(255, 255, 255, 255);
 		smallFontWhite = generator.generateFont(parameter);
-
+		smallFontWhite.getData().markupEnabled = true;
+		
 		generator.dispose();
 
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana_10pt.ttf"));
@@ -61,6 +64,7 @@ public class NotificationService {
 		parameter.borderColor = new Color(255, 255, 255, 255);
 		parameter.color = new Color(255, 255, 255, 255);
 		itemFont = generator.generateFont(parameter);
+		itemFont.getData().markupEnabled = true;
 		generator.dispose();
 	}
 
