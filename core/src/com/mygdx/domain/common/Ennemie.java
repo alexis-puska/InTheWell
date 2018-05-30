@@ -1,5 +1,7 @@
 package com.mygdx.domain.common;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -30,11 +32,9 @@ public abstract class Ennemie extends BodyAble {
 	protected EnnemieStateEnum state;
 	protected Level level;
 
+	protected int lastRequestAction;
 	protected boolean walkLeft;
-	protected boolean touchRight;
-	protected boolean touchLeft;
-	protected boolean onPlatformBorderRight;
-	protected boolean onPlatformBorderLeft;
+	protected boolean touchPlatform;
 	protected boolean canJumpRight;
 	protected boolean canJumpLeft;
 	protected boolean canStepRight;
@@ -52,10 +52,18 @@ public abstract class Ennemie extends BodyAble {
 		this.world = world;
 		this.level = level;
 		createBody();
+		walkLeft = ThreadLocalRandom.current().nextInt(0, 10) % 2 == 0;
+		lastRequestAction = 0;
 	}
 
 	public boolean isDead() {
 		return false;
+	}
+
+	public void requestAction() {
+		if (lastRequestAction == 0) {
+			lastRequestAction = 3;
+		}
 	}
 
 	public void kill() {
@@ -85,6 +93,7 @@ public abstract class Ennemie extends BodyAble {
 		data.mass = 100f;
 		body.setMassData(data);
 		body.setUserData(this);
+		body.setLinearVelocity(0f, 0f);
 		PolygonShape bodyBox = new PolygonShape();
 		bodyBox.setAsBox(Constante.ENNEMIE_BOX_WIDTH, Constante.ENNEMIE_BOX_HEIGHT);
 		FixtureDef fixtureDef = new FixtureDef();
@@ -102,6 +111,9 @@ public abstract class Ennemie extends BodyAble {
 	public abstract void think();
 
 	protected void initView() {
+		if (lastRequestAction > 0) {
+			lastRequestAction--;
+		}
 		Boolean[][] grid = this.level.getGrid();
 		int x = (int) body.getPosition().x;
 		int y = (int) body.getPosition().y;

@@ -1,7 +1,5 @@
 package com.mygdx.domain.ennemie;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
@@ -16,12 +14,7 @@ public class Cerise extends Ennemie {
 
 	public Cerise() {
 		super();
-		int rand = ThreadLocalRandom.current().nextInt(0, 10);
-		walkLeft = rand % 2 == 0;
-		onPlatformBorderLeft = false;
-		onPlatformBorderRight = false;
-		touchLeft = false;
-		touchRight = false;
+
 	}
 
 	@Override
@@ -35,25 +28,15 @@ public class Cerise extends Ennemie {
 	@Override
 	public void think() {
 		this.initView();
-		if (onPlatformBorderLeft && walkLeft) {
-			walkLeft = false;
-		}
-		if (onPlatformBorderRight && !walkLeft) {
-			walkLeft = true;
-		}
-
-		if (touchLeft && walkLeft) {
-			walkLeft = false;
-		}
-		if (touchRight && !walkLeft) {
-			walkLeft = true;
-		}
-
-		if (walkLeft) {
-			body.setLinearVelocity(-5f, 0f);
-		} else {
-			body.setLinearVelocity(5f, 0f);
+		if (touchPlatform) {
+			if (lastRequestAction == 2) {
+				walkLeft = !walkLeft;
+			}
+			if (walkLeft) {
+				body.setLinearVelocity(-5f, 0f);
+			} else {
+				body.setLinearVelocity(5f, 0f);
+			}
 		}
 	}
-
 }
