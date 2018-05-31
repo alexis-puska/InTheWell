@@ -2,7 +2,6 @@ package com.mygdx.service.timer;
 
 import java.util.TimerTask;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.domain.Level;
 
 import lombok.AllArgsConstructor;
@@ -23,12 +22,10 @@ public class LevelObjectTimerTask extends TimerTask {
 		this.runned = true;
 		switch (function) {
 		case 1:
-			Gdx.app.log("timer", "pop point");
 			level.addObjectPoint();
 			break;
 		case 0:
 		default:
-			Gdx.app.log("timer", "pop effet");
 			level.addObjectEffet();
 			break;
 

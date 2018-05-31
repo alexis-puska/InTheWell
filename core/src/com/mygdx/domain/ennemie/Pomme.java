@@ -33,7 +33,7 @@ public class Pomme extends Ennemie {
 	public void think() {
 		this.initView();
 		if (touchPlatform) {
-			if (lastRequestAction == 2) {
+			if (lastRequestAction == 3) {
 				walkLeft = !walkLeft;
 			}
 

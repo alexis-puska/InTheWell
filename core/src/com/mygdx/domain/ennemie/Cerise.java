@@ -29,13 +29,15 @@ public class Cerise extends Ennemie {
 	public void think() {
 		this.initView();
 		if (touchPlatform) {
-			if (lastRequestAction == 2) {
+			if (lastRequestAction == 3) {
 				walkLeft = !walkLeft;
+				// body.applyForceToCenter(new Vector2(0, 600f), true);
+				//touchPlatform = false;
 			}
 			if (walkLeft) {
-				body.setLinearVelocity(-5f, 0f);
+				body.setLinearVelocity(-5f, body.getLinearVelocity().y);
 			} else {
-				body.setLinearVelocity(5f, 0f);
+				body.setLinearVelocity(5f, body.getLinearVelocity().y);
 			}
 		}
 	}

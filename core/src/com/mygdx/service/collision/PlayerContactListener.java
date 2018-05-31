@@ -32,17 +32,16 @@ public class PlayerContactListener {
 						long idFrame = Gdx.graphics.getFrameId();
 						player.touchPlatorm(idFrame);
 						Platform p = (Platform) other.getBody().getUserData();
-						player.enterPlatform(p.getId());
+//						player.enterPlatform(p.getId());
 					} else if (playerBody.getLinearVelocity().y > 0) {
-						Platform p = (Platform) other.getBody().getUserData();
-						if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
-								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
-							contact.setEnabled(false);
-						}
+//						Platform p = (Platform) other.getBody().getUserData();
+//						if (p.getColXMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getColXMax()
+//								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
+//							contact.setEnabled(false);
+//						}
 					}
 				} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 					player.kill();
-					Gdx.app.log("CUSTOM CONTACT LISTENER", "KILL PLAYER !");
 				} else if (other.getBody().getUserData().getClass() == Door.class) {
 					Door door = (Door) other.getBody().getUserData();
 					player.unlockDoor(door);
@@ -79,12 +78,12 @@ public class PlayerContactListener {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
 					player.leavePlatorm();
 					Platform p = (Platform) other.getBody().getUserData();
-					player.goOutPlatform(p.getId());
+//					player.goOutPlatform(p.getId());
 				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 					player.teleporteOut(teleporter);
 				} else if (other.getBody().getUserData().getClass() == Item.class) {
-					Gdx.app.log("END ITEM", "END ITEM : " + contact.getWorldManifold().getPoints().length);
+					//Gdx.app.log("END ITEM", "END ITEM : " + contact.getWorldManifold().getPoints().length);
 				}
 			}
 		}
@@ -100,15 +99,15 @@ public class PlayerContactListener {
 						long idFrame = Gdx.graphics.getFrameId();
 						player.touchPlatorm(idFrame);
 						Platform p = (Platform) other.getBody().getUserData();
-						player.enterPlatform(p.getId());
+//						player.enterPlatform(p.getId());
 					}
-					if (playerBody.getLinearVelocity().y > 0) {
-						Platform p = (Platform) other.getBody().getUserData();
-						if (p.getMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getMax()
-								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
-							contact.setEnabled(false);
-						}
-					}
+//					if (playerBody.getLinearVelocity().y > 0) {
+//						Platform p = (Platform) other.getBody().getUserData();
+//						if (p.getColXMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getColXMax()
+//								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
+//							contact.setEnabled(false);
+//						}
+//					}
 				} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 					contact.setEnabled(false);
 				} else if (other.getBody().getUserData().getClass() == Door.class) {

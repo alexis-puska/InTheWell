@@ -30,10 +30,6 @@ public class Platform extends BodyAble {
 	private boolean displayed;
 	private int length;
 
-	// player collision
-	private float min;
-	private float max;
-
 	// commons
 
 	private int verticalIndex;
@@ -75,19 +71,12 @@ public class Platform extends BodyAble {
 				groundBodyDef.position.set(new Vector2(xb, yb));
 				groundBox.setAsBox(halfLength, 0.5f);
 			}
+			
 			groundBodyDef.position.set(new Vector2(xb, yb));
 
 			body = world.createBody(groundBodyDef);
 			fixture = body.createFixture(groundBox, 0.0f);
-			if (vertical) {
-				min = groundBodyDef.position.x - 0.5f;
-				max = groundBodyDef.position.x + 0.5f;
-				body.setUserData(this);
-			} else {
-				min = groundBodyDef.position.x - (length / 2.0f);
-				max = groundBodyDef.position.x + (length / 2.0f);
-				body.setUserData(this);
-			}
+			body.setUserData(this);
 			groundBox.dispose();
 			Filter filter = new Filter();
 			filter.categoryBits = CollisionConstante.CATEGORY_PLATFORM;

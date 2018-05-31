@@ -17,8 +17,6 @@ import com.mygdx.service.notification.Notification;
 
 public class NotificationService {
 
-	private static final String NOTIFICATION_SERVICE = "Notification Service";
-
 	private InTheWellGame game;
 	private GlyphLayout layout;
 	private BitmapFont fontGrey;
@@ -55,7 +53,7 @@ public class NotificationService {
 		parameter.color = new Color(255, 255, 255, 255);
 		smallFontWhite = generator.generateFont(parameter);
 		smallFontWhite.getData().markupEnabled = true;
-		
+
 		generator.dispose();
 
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("font/font_verdana_10pt.ttf"));
@@ -99,7 +97,6 @@ public class NotificationService {
 				delete = notif.draw(layout, fontGrey, fontWhite);
 			}
 			if (delete) {
-				Gdx.app.log(NOTIFICATION_SERVICE, "endNotification");
 				del.add(notif);
 			}
 		}

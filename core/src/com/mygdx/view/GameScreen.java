@@ -24,6 +24,7 @@ import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.Context;
 import com.mygdx.service.SoundService;
 import com.mygdx.service.SpriteService;
+import com.mygdx.service.collision.CustomContactFilter;
 import com.mygdx.service.collision.CustomContactListener;
 import com.mygdx.service.input_processor.GameInputProcessor;
 
@@ -125,6 +126,7 @@ public class GameScreen implements Screen {
 		this.debugCamera.zoom = 0.05f;
 		this.debugCamera.update();
 		this.world = new World(new Vector2(0, -60), true);
+		this.world.setContactFilter(new CustomContactFilter());
 		this.world.setContactListener(new CustomContactListener());
 		this.world.step(1 / 40f, 6, 2);
 
@@ -154,7 +156,6 @@ public class GameScreen implements Screen {
 		SoundService.getInstance().playMusic(MusicEnum.HAMMERFEST);
 	}
 
-	
 	/***********************************
 	 * Destroy screen
 	 ***********************************/
@@ -228,7 +229,7 @@ public class GameScreen implements Screen {
 		drawInformation();
 		game.getBatch().end();
 
-		//Update 
+		// Update
 		world.step(1 / 40f, 6, 2);
 		currentLevel.update();
 		if (game.getAccountService().getGameModeSelected() == GameModeEnum.SOLO) {
@@ -243,7 +244,6 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	
 	public void incLevel() {
 		levelIndex++;
 		currentLevel.dispose();
@@ -283,11 +283,11 @@ public class GameScreen implements Screen {
 
 		generator.dispose();
 	}
-	
+
 	/******************************************************************
 	 * --- DRAW PART ---
 	 ******************************************************************/
-	
+
 	/**
 	 * Draw information (FPS, Message, score and border)
 	 */

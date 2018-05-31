@@ -1,6 +1,5 @@
 package com.mygdx.service.input_processor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.mygdx.domain.Player;
@@ -15,7 +14,6 @@ public class GameInputProcessor implements InputProcessor {
 	private final GameScreen gameScreen;
 	private boolean multi;
 
-	private boolean playMusic;
 	private boolean ctrlPressed;
 	private boolean shiftPressed;
 	private boolean kPressed;
@@ -24,7 +22,6 @@ public class GameInputProcessor implements InputProcessor {
 		this.p1 = p1;
 		this.p2 = p2;
 		this.gameScreen = gameScreen;
-		this.playMusic = true;
 		if (p2 != null) {
 			multi = true;
 		}
@@ -259,13 +256,12 @@ public class GameInputProcessor implements InputProcessor {
 	 * Stop / play music
 	 */
 	private void toogleMusic() {
-		Gdx.app.log("input processor game", "toogle music");
-		if (playMusic) {
+		if (Context.isPlaySound()) {
 			SoundService.getInstance().stopMusic();
-			playMusic = false;
+			Context.setPlaySound(false);
 		} else {
 			SoundService.getInstance().playLastMusic();
-			playMusic = true;
+			Context.setPlaySound(true);
 		}
 	}
 

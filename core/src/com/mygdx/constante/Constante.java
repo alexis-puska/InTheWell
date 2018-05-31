@@ -45,10 +45,10 @@ public class Constante {
 	public static final int TELEPORTER_PIXEL_HIGH_SPEED = 16;
 
 	public static final float ENNEMIE_BOX_HEIGHT = 0.4f;
-	public static final float ENNEMIE_BOX_WIDTH = 0.4f;
+	public static final float ENNEMIE_BOX_WIDTH = 0.38f;
 
 	public static final float PLAYER_BOX_WIDTH = 0.2f;
-	public static final float PLAYER_BOX_HEIGHT = 0.4f;
+	public static final float PLAYER_BOX_HEIGHT = 0.38f;
 
 	public static final float ITEM_BOX_SIZE = 0.4f;
 

@@ -5,10 +5,12 @@ import com.mygdx.enumeration.LocaleEnum;
 public class Context {
 
 	private static LocaleEnum locale = LocaleEnum.FRENCH;
+	private static boolean playSound = true;
 	private static boolean showFps = false;
 	private static boolean pause = false;
 	private static boolean showMap = false;
 	private static float darknessValue;
+	
 
 	private Context() {
 		darknessValue = 0;
@@ -20,6 +22,14 @@ public class Context {
 
 	public static void setLocale(LocaleEnum locale) {
 		Context.locale = locale;
+	}
+	
+	public static boolean isPlaySound() {
+		return playSound;
+	}
+
+	public static void setPlaySound(boolean playSound) {
+		Context.playSound = playSound;
 	}
 
 	public static boolean isShowFps() {

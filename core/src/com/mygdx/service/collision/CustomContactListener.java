@@ -1,6 +1,5 @@
 package com.mygdx.service.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -30,12 +29,10 @@ public class CustomContactListener implements ContactListener {
 				playerContactListener.beginContact(contact, contact.getFixtureB(), contact.getFixtureA());
 			}
 		} else if (ennemieInvolve != -1) {
-			
+
 			if (ennemieInvolve == 0) {
-				Gdx.app.log("begin contact A" , Gdx.graphics.getFrameId()+" ");
 				ennemieContactListener.beginContact(contact, contact.getFixtureA(), contact.getFixtureB());
 			} else if (ennemieInvolve == 1) {
-				Gdx.app.log("begin contact B" , Gdx.graphics.getFrameId()+" ");
 				ennemieContactListener.beginContact(contact, contact.getFixtureB(), contact.getFixtureA());
 			}
 		}
@@ -53,10 +50,8 @@ public class CustomContactListener implements ContactListener {
 			}
 		} else if (ennemieInvolve != -1) {
 			if (ennemieInvolve == 0) {
-				Gdx.app.log("end contact A" , Gdx.graphics.getFrameId()+" ");
 				ennemieContactListener.endContact(contact, contact.getFixtureA(), contact.getFixtureB());
 			} else if (ennemieInvolve == 1) {
-				Gdx.app.log("end contact B" , Gdx.graphics.getFrameId()+" ");
 				ennemieContactListener.endContact(contact, contact.getFixtureB(), contact.getFixtureA());
 			}
 		}

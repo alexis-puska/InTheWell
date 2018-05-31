@@ -62,7 +62,7 @@ public abstract class Ennemie extends BodyAble {
 
 	public void requestAction() {
 		if (lastRequestAction == 0) {
-			lastRequestAction = 3;
+			lastRequestAction = 4;
 		}
 	}
 
@@ -212,5 +212,19 @@ public abstract class Ennemie extends BodyAble {
 		} else {
 			canGoDownLeft = false;
 		}
+	}
+
+	public boolean isInsidePlatform() {
+		Boolean[][] grid = level.getGrid();
+		int xx = (int) body.getPosition().x;
+		int yy = (int) body.getPosition().y;
+		if (yy < 0 || yy > 24) {
+			return true;
+		}
+
+		if (xx < 0 || xx > 19) {
+			return true;
+		}
+		return grid[xx][yy];
 	}
 }

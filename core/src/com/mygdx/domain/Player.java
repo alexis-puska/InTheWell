@@ -3,7 +3,6 @@ package com.mygdx.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -111,9 +110,17 @@ public class Player extends BodyAble {
 		}
 
 		if (walkRightPressed) {
-			body.setLinearVelocity(Constante.PLAYER_WALK_RIGHT_VELOCITY, body.getLinearVelocity().y);
+			if (!isInsidePlatform()) {
+				body.setLinearVelocity(Constante.PLAYER_WALK_RIGHT_VELOCITY, body.getLinearVelocity().y);
+			}else {
+				body.setLinearVelocity(0, body.getLinearVelocity().y);
+			}
 		} else if (walkLeftPressed) {
-			body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
+			if (!isInsidePlatform()) {
+				body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
+			}else {
+				body.setLinearVelocity(0, body.getLinearVelocity().y);
+			}
 		}
 
 		if (body.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
@@ -127,7 +134,6 @@ public class Player extends BodyAble {
 			Vector2 pos = new Vector2(body.getPosition().x, 35.0f);
 			body.setTransform(pos, body.getAngle());
 		}
-
 	}
 
 	/********************************
@@ -184,7 +190,6 @@ public class Player extends BodyAble {
 	public void kill() {
 		SoundService.getInstance().playSound(SoundEnum.DEAD);
 		level.notifyEvent(EventNotificationType.DEATH_PLAYER);
-		Gdx.app.log("player", "kill");
 	}
 
 	/**
@@ -193,7 +198,6 @@ public class Player extends BodyAble {
 	public void birth() {
 		SoundService.getInstance().playSound(SoundEnum.DEAD);
 		level.notifyEvent(EventNotificationType.BIRTH_PLAYER);
-		Gdx.app.log("player", "birth");
 	}
 
 	/**
@@ -250,7 +254,6 @@ public class Player extends BodyAble {
 					float posY = (tel.getY()) + diffY;
 					teleport = new Vector2(posX, posY);
 					destinationId = teleporter.getToId();
-					Gdx.app.log("TELEPORTER", "IN");
 					break;
 				}
 			}
@@ -267,7 +270,6 @@ public class Player extends BodyAble {
 	public void teleporteOut(Teleporter teleporter) {
 		if (destinationId != -1 && teleporter.getToId() != destinationId) {
 			destinationId = -1;
-			Gdx.app.log("TELEPORTER", "OUT");
 		}
 	}
 
@@ -384,6 +386,20 @@ public class Player extends BodyAble {
 	 */
 	public void releasePush() {
 		pushPressed = false;
+	}
+
+	public boolean isInsidePlatform() {
+		Boolean[][] grid = level.getGrid();
+		int xx = (int) body.getPosition().x;
+		int yy = (int) body.getPosition().y;
+		if (yy < 0 || yy > 24) {
+			return true;
+		}
+
+		if (xx < 0 || xx > 19) {
+			return true;
+		}
+		return grid[xx][yy];
 	}
 
 }
