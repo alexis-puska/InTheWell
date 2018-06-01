@@ -1,11 +1,11 @@
 package com.mygdx.service.collision;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.mygdx.constante.Constante;
 import com.mygdx.domain.Pick;
 import com.mygdx.domain.Platform;
 import com.mygdx.domain.Player;
@@ -19,19 +19,26 @@ public class EnnemieContactListener {
 			if (other.getBody().getUserData() != null) {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
 					if (contact.getWorldManifold().getPoints().length == 2) {
+						Gdx.app.log("2 CONTACT BC", "ENNEMIE");
 						Vector2 p0 = contact.getWorldManifold().getPoints()[0];
 						Vector2 p1 = contact.getWorldManifold().getPoints()[1];
 						float xx = ennemieFixture.getBody().getPosition().x;
 						float yy = ennemieFixture.getBody().getPosition().y;
-						if (p0.x > xx && p1.x > xx) {
-							ennemie.requestAction();
-						} else if (p0.x < xx && p1.x < xx) {
-							ennemie.requestAction();
-						} else if (p0.y < yy && p1.y < yy) {
+						if (p0.y < yy && p1.y < yy) {
+							Gdx.app.log("2 CONTACT BC", "cas3");
 							ennemie.setTouchPlatform(true);
 						} else if (p0.y > yy && p1.y > yy) {
-
+							Gdx.app.log("2 CONTACT BC", "cas4");
+						} else if (p0.x > xx && p1.x > xx) {
+							Gdx.app.log("2 CONTACT BC", "cas1");
+							ennemie.requestAction();
+						} else if (p0.x < xx && p1.x < xx) {
+							Gdx.app.log("2 CONTACT BC", "cas2");
+							ennemie.requestAction();
 						}
+					}
+					if (contact.getWorldManifold().getPoints().length == 1) {
+						Gdx.app.log("1 CONTACT", "ENNEMIE");
 					}
 				}
 			} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
@@ -53,14 +60,17 @@ public class EnnemieContactListener {
 						float xx = ennemieFixture.getBody().getPosition().x;
 						float yy = ennemieFixture.getBody().getPosition().y;
 						if (p0.x > xx && p1.x > xx) {
-
+							Gdx.app.log("2 CONTACT EC", "cas1");
 						} else if (p0.x < xx && p1.x < xx) {
-
+							Gdx.app.log("2 CONTACT EC", "cas1");
 						} else if (p0.y < yy && p1.y < yy) {
-
+							Gdx.app.log("2 CONTACT EC", "cas1");
 						} else if (p0.y > yy && p1.y > yy) {
-
+							Gdx.app.log("2 CONTACT EC", "cas1");
 						}
+					}
+					if (contact.getWorldManifold().getPoints().length == 1) {
+						Gdx.app.log("1 CONTACT", "ENNEMIE");
 					}
 				}
 			}
@@ -73,33 +83,28 @@ public class EnnemieContactListener {
 			if (other.getBody().getUserData() != null) {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
 					if (contact.getWorldManifold().getPoints().length == 2) {
+						Gdx.app.log("2 CONTACT PS", "ENNEMIE");
 						Vector2 p0 = contact.getWorldManifold().getPoints()[0];
 						Vector2 p1 = contact.getWorldManifold().getPoints()[1];
 						float xx = ennemieFixture.getBody().getPosition().x;
 						float yy = ennemieFixture.getBody().getPosition().y;
-						if (p0.x > xx && p1.x > xx) {
-
-						} else if (p0.x < xx && p1.x < xx) {
-
-						} else if (p0.y < yy && p1.y < yy) {
-							if (Math.abs(p0.x - p1.x) < 0.78) {
-								float abs0 = Math.abs(p0.x - ennemieFixture.getBody().getPosition().x);
-								float abs1 = Math.abs(p1.x - ennemieFixture.getBody().getPosition().x);
-								if (p0.x < p1.x) {
-									if (abs0 < Constante.ENNEMIE_BOX_WIDTH || abs1 < Constante.ENNEMIE_BOX_WIDTH) {
-										ennemie.requestAction();
-										return;
-									}
-								} else {
-									if (abs1 < Constante.ENNEMIE_BOX_WIDTH || abs0 < Constante.ENNEMIE_BOX_WIDTH) {
-										ennemie.requestAction();
-										return;
-									}
-								}
+						if (p0.y < yy && p1.y < yy) {
+							Gdx.app.log("2 CONTACT PS", "CAS3");
+							if (Math.abs(p0.x - p1.x) < 0.7f) {
+								Gdx.app.log("2 CONTACT PS", "CAS3.5");
+								ennemie.requestAction();
 							}
 						} else if (p0.y > yy && p1.y > yy) {
+							Gdx.app.log("2 CONTACT PS", "CAS4");
 
+						} else if (p0.x > xx && p1.x > xx) {
+							Gdx.app.log("2 CONTACT PS", "CAS1");
+						} else if (p0.x < xx && p1.x < xx) {
+							Gdx.app.log("2 CONTACT PS", "CAS2");
 						}
+					}
+					if (contact.getWorldManifold().getPoints().length == 1) {
+						Gdx.app.log("1 CONTACT PS", "ENNEMIE");
 					}
 				} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 					contact.setEnabled(false);
