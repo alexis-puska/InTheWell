@@ -1,8 +1,5 @@
 package com.mygdx.domain;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -48,20 +45,18 @@ public class Player extends BodyAble {
 	private boolean walkRightPressed;
 	private boolean pushPressed;
 	private boolean dropPressed;
+	private boolean touchPlatormTop;
 
 	private int destinationId;
 	private Vector2 teleport;
 
-	private Set<Long> insidePlatform;
 	private BombeTypeEnum bombeType;
-	private boolean touchPlatorm;
 	private Level level;
 
 	public Player(World world, InTheWellGame game, Level level, boolean igor) {
 		init(world, game);
 		this.level = level;
 		this.igor = igor;
-		this.insidePlatform = new HashSet<>();
 		this.destinationId = -1;
 	}
 
@@ -83,6 +78,7 @@ public class Player extends BodyAble {
 		fixtureDef.density = 1;
 		fixtureDef.restitution = 0f;
 		Fixture fixture = body.createFixture(fixtureDef);
+		fixture.setFriction(0f);
 		Filter filter = new Filter();
 		filter.categoryBits = CollisionConstante.CATEGORY_PLAYER;
 		filter.maskBits = CollisionConstante.GROUP_PLAYER;
@@ -112,13 +108,13 @@ public class Player extends BodyAble {
 		if (walkRightPressed) {
 			if (!isInsidePlatform()) {
 				body.setLinearVelocity(Constante.PLAYER_WALK_RIGHT_VELOCITY, body.getLinearVelocity().y);
-			}else {
+			} else {
 				body.setLinearVelocity(0, body.getLinearVelocity().y);
 			}
 		} else if (walkLeftPressed) {
 			if (!isInsidePlatform()) {
 				body.setLinearVelocity(Constante.PLAYER_WALK_LEFT_VELOCITY, body.getLinearVelocity().y);
-			}else {
+			} else {
 				body.setLinearVelocity(0, body.getLinearVelocity().y);
 			}
 		}
@@ -126,38 +122,16 @@ public class Player extends BodyAble {
 		if (body.getLinearVelocity().y < Constante.PLAYER_NORMAL_FALL_VELOCITY) {
 			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_NORMAL_FALL_VELOCITY);
 		}
-		if (touchPlatorm && jumpPressed) {
+
+		if (touchPlatormTop && jumpPressed && !isInsidePlatform() && body.getLinearVelocity().y <= 0f) {
 			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
+			touchPlatormTop = false;
 		}
 
 		if (body.getPosition().y < -10) {
 			Vector2 pos = new Vector2(body.getPosition().x, 35.0f);
 			body.setTransform(pos, body.getAngle());
 		}
-	}
-
-	/********************************
-	 * --- FUNCTION FOR PLATFORM ---
-	 ********************************/
-	public void touchPlatorm(long idFrame) {
-		// Gdx.app.log("touch platform : ", idFrame + "");
-		touchPlatorm = true;
-	}
-
-	public boolean isTouchPlatorm() {
-		return touchPlatorm;
-	}
-
-	public void leavePlatorm() {
-		touchPlatorm = false;
-	}
-
-	public void enterPlatform(long platformId) {
-		insidePlatform.add(platformId);
-	}
-
-	public void goOutPlatform(long platformId) {
-		insidePlatform.remove(platformId);
 	}
 
 	/****************************
@@ -348,9 +322,6 @@ public class Player extends BodyAble {
 	 */
 	public void pressJump() {
 		jumpPressed = true;
-		if (touchPlatorm) {
-			body.setLinearVelocity(body.getLinearVelocity().x, Constante.PLAYER_JUMP_VELOCITY);
-		}
 	}
 
 	/**

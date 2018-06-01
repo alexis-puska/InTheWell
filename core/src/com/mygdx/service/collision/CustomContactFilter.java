@@ -1,6 +1,5 @@
 package com.mygdx.service.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.ContactFilter;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -46,6 +45,7 @@ public class CustomContactFilter implements ContactFilter {
 			e = (Ennemie) fixtureA.getBody().getUserData();
 			float y1 = pBody.getPosition().y - Constante.PLAYER_BOX_HEIGHT;
 			float y2 = pBody.getPosition().y + Constante.PLAYER_BOX_HEIGHT;
+
 			return collideOtherSideBottom(y1, y2, pBody, pl, e.isInsidePlatform());
 		} else if (n == 1) {
 			pBody = fixtureB.getBody();
@@ -54,7 +54,7 @@ public class CustomContactFilter implements ContactFilter {
 			float y1 = pBody.getPosition().y - Constante.PLAYER_BOX_HEIGHT;
 			float y2 = pBody.getPosition().y + Constante.PLAYER_BOX_HEIGHT;
 			return collideOtherSideBottom(y1, y2, pBody, pl, e.isInsidePlatform());
-		}else if(n == 2) {
+		} else if (n == 2) {
 			return false;
 		}
 
@@ -100,10 +100,12 @@ public class CustomContactFilter implements ContactFilter {
 	private boolean collideOtherSideBottom(float y1, float y2, Body p, Platform pl, boolean inside) {
 		float y3 = pl.getY();
 		if (y3 > y1 || y3 > y2 || inside) {
-			Gdx.app.log("collide OFF", "y1 : " + y1 + ", y2 : " + y2 + ", y3 : " + y3 + "   " + pl.getY());
+			// Gdx.app.log("collide OFF", "y1 : " + y1 + ", y2 : " + y2 + ", y3 : " + y3 + "
+			// " + pl.getY());
 			return false;
 		}
-		Gdx.app.log("collide LAISSER ON", "y1 : " + y1 + ", y2 : " + y2 + ", y3 : " + y3 + "   " + pl.getY());
+		// Gdx.app.log("collide LAISSER ON", "y1 : " + y1 + ", y2 : " + y2 + ", y3 : " +
+		// y3 + " " + pl.getY());
 		return true;
 	}
 

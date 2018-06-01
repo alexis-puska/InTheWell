@@ -36,11 +36,12 @@ public class Pomme extends Ennemie {
 			if (lastRequestAction == 3) {
 				walkLeft = !walkLeft;
 			}
-
-			if (walkLeft) {
-				body.setLinearVelocity(-5f, 0f);
-			} else {
-				body.setLinearVelocity(5f, 0f);
+			if (touchPlatform) {
+				if (walkLeft) {
+					body.setLinearVelocity(-5f, body.getLinearVelocity().y);
+				} else {
+					body.setLinearVelocity(5f, body.getLinearVelocity().y);
+				}
 			}
 		}
 	}

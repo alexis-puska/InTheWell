@@ -1,7 +1,6 @@
 package com.mygdx.domain.ennemie;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.service.SpriteService;
@@ -32,13 +31,13 @@ public class Cerise extends Ennemie {
 		if (touchPlatform) {
 			if (lastRequestAction == 3) {
 				walkLeft = !walkLeft;
-				body.applyForceToCenter(new Vector2(0, 600f), true);
-				touchPlatform = false;
 			}
-			if (walkLeft) {
-				body.setLinearVelocity(-5f, body.getLinearVelocity().y);
-			} else {
-				body.setLinearVelocity(5f, body.getLinearVelocity().y);
+			if (touchPlatform) {
+				if (walkLeft) {
+					body.setLinearVelocity(-5f, body.getLinearVelocity().y);
+				} else {
+					body.setLinearVelocity(5f, body.getLinearVelocity().y);
+				}
 			}
 		}
 	}

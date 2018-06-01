@@ -1,8 +1,6 @@
 package com.mygdx.service.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -24,22 +22,10 @@ public class PlayerContactListener {
 
 	public void beginContact(Contact contact, Fixture playerFixture, Fixture other) {
 		Player player = (Player) playerFixture.getBody().getUserData();
-		Body playerBody = playerFixture.getBody();
 		if (other != null) {
 			if (other.getBody().getUserData() != null) {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
-					if (playerBody.getLinearVelocity().y == 0f) {
-						long idFrame = Gdx.graphics.getFrameId();
-						player.touchPlatorm(idFrame);
-						Platform p = (Platform) other.getBody().getUserData();
-//						player.enterPlatform(p.getId());
-					} else if (playerBody.getLinearVelocity().y > 0) {
-//						Platform p = (Platform) other.getBody().getUserData();
-//						if (p.getColXMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getColXMax()
-//								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
-//							contact.setEnabled(false);
-//						}
-					}
+					defineContactPlayerToPlatform(contact, playerFixture, true);
 				} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 					player.kill();
 				} else if (other.getBody().getUserData().getClass() == Door.class) {
@@ -66,6 +52,7 @@ public class PlayerContactListener {
 					Vector2[] points = contact.getWorldManifold().getPoints();
 					player.teleporte(teleporter, points);
 				} else if (other.getBody().getUserData().getClass() == Vortex.class) {
+
 				}
 			}
 		}
@@ -76,38 +63,46 @@ public class PlayerContactListener {
 		if (other != null) {
 			if (other.getBody().getUserData() != null) {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
-					player.leavePlatorm();
-					Platform p = (Platform) other.getBody().getUserData();
-//					player.goOutPlatform(p.getId());
+					defineContactPlayerToPlatform(contact, playerFixture, false);
 				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 					player.teleporteOut(teleporter);
-				} else if (other.getBody().getUserData().getClass() == Item.class) {
-					//Gdx.app.log("END ITEM", "END ITEM : " + contact.getWorldManifold().getPoints().length);
 				}
 			}
 		}
 	}
 
-	public void preSolve(Contact contact, Manifold oldManifold, Fixture playerFixture, Fixture other) {
+	private void definePresolveContactPlayerToPlatform(Contact contact, Fixture playerFixture) {
 		Player player = (Player) playerFixture.getBody().getUserData();
-		Body playerBody = playerFixture.getBody();
+		if (contact.getWorldManifold().getPoints().length == 2) {
+			Vector2[] points = contact.getWorldManifold().getPoints();
+			float y0 = points[0].y;
+			float y1 = points[1].y;
+			if (y0 == y1) {
+				if (playerFixture.getBody().getLinearVelocity().y == 0) {
+					player.setTouchPlatormTop(true);
+				}
+			}
+		}
+	}
+
+	private void defineContactPlayerToPlatform(Contact contact, Fixture playerFixture, boolean begin) {
+		Player player = (Player) playerFixture.getBody().getUserData();
+		if (contact.getWorldManifold().getPoints().length == 2) {
+			Vector2[] points = contact.getWorldManifold().getPoints();
+			float y0 = points[0].y;
+			float y1 = points[1].y;
+			if (y0 == y1) {
+				player.setTouchPlatormTop(begin);
+			}
+		}
+	}
+
+	public void preSolve(Contact contact, Manifold oldManifold, Fixture playerFixture, Fixture other) {
 		if (other != null) {
 			if (other.getBody().getUserData() != null) {
 				if (other.getBody().getUserData().getClass() == Platform.class) {
-					if (playerBody.getLinearVelocity().y == 0f) {
-						long idFrame = Gdx.graphics.getFrameId();
-						player.touchPlatorm(idFrame);
-						Platform p = (Platform) other.getBody().getUserData();
-//						player.enterPlatform(p.getId());
-					}
-//					if (playerBody.getLinearVelocity().y > 0) {
-//						Platform p = (Platform) other.getBody().getUserData();
-//						if (p.getColXMin() < playerBody.getPosition().x && playerBody.getPosition().x < p.getColXMax()
-//								&& playerBody.getLinearVelocity().y > 0 && !player.isTouchPlatorm()) {
-//							contact.setEnabled(false);
-//						}
-//					}
+					definePresolveContactPlayerToPlatform(contact, playerFixture);
 				} else if (Ennemie.class.isAssignableFrom(other.getBody().getUserData().getClass())) {
 					contact.setEnabled(false);
 				} else if (other.getBody().getUserData().getClass() == Door.class) {

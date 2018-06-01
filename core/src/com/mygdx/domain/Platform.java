@@ -76,6 +76,7 @@ public class Platform extends BodyAble {
 
 			body = world.createBody(groundBodyDef);
 			fixture = body.createFixture(groundBox, 0.0f);
+			fixture.setFriction(0f);
 			body.setUserData(this);
 			groundBox.dispose();
 			Filter filter = new Filter();
