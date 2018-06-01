@@ -41,21 +41,6 @@ public class EnnemieContactListener {
 	}
 
 	public void endContact(Contact contact, Fixture ennemieFixture, Fixture other) {
-		// Ennemie ennemie = (Ennemie) ennemieFixture.getBody().getUserData();
-		// if (other != null) {
-		// if (other.getBody().getUserData() != null) {
-		// if (other.getBody().getUserData().getClass() == Platform.class) {
-		// if (contact.getWorldManifold().getPoints().length == 2) {
-		// Vector2 p0 = contact.getWorldManifold().getPoints()[0];
-		// Vector2 p1 = contact.getWorldManifold().getPoints()[1];
-		// float yy = ennemieFixture.getBody().getPosition().y;
-		// if (p0.y < yy && p1.y < yy) {
-		// ennemie.setTouchPlatform(true);
-		// }
-		// }
-		// }
-		// }
-		// }
 	}
 
 	public void preSolve(Contact contact, Manifold oldManifold, Fixture ennemieFixture, Fixture other) {

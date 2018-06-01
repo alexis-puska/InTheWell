@@ -30,12 +30,12 @@ public class Orange extends Ennemie {
 		this.initView();
 		if (touchPlatform) {
 			if (lastRequestAction == 3) {
-				if ((walkLeft && canJumpLeft) || (!walkLeft && canJumpRight)) {
-					body.applyForceToCenter(new Vector2(0, 380f), true);
-					touchPlatform = false;
-				} else {
+//				if ((walkLeft && canJumpLeft) || (!walkLeft && canJumpRight)) {
+//					body.applyForceToCenter(new Vector2(0, 380f), true);
+//					touchPlatform = false;
+//				} else {
 					walkLeft = !walkLeft;
-				}
+//				}
 			}
 			if (touchPlatform) {
 				if (walkLeft) {

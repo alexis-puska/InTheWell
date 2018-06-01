@@ -68,7 +68,7 @@ public class Vortex extends BodyAble {
 			body.setUserData(this);
 			groundBox.dispose();
 			Filter filter = new Filter();
-			filter.categoryBits = CollisionConstante.CATEGORY_PICK;
+			filter.categoryBits = CollisionConstante.CATEGORY_VORTEX;
 			fixture.setFilterData(filter);
 			fixture.setFriction(0.1f);
 		}

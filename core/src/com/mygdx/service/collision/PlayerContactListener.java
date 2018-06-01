@@ -72,32 +72,7 @@ public class PlayerContactListener {
 		}
 	}
 
-	private void definePresolveContactPlayerToPlatform(Contact contact, Fixture playerFixture) {
-		Player player = (Player) playerFixture.getBody().getUserData();
-		if (contact.getWorldManifold().getPoints().length == 2) {
-			Vector2[] points = contact.getWorldManifold().getPoints();
-			float y0 = points[0].y;
-			float y1 = points[1].y;
-			if (y0 == y1) {
-				if (playerFixture.getBody().getLinearVelocity().y == 0) {
-					player.setTouchPlatormTop(true);
-				}
-			}
-		}
-	}
-
-	private void defineContactPlayerToPlatform(Contact contact, Fixture playerFixture, boolean begin) {
-		Player player = (Player) playerFixture.getBody().getUserData();
-		if (contact.getWorldManifold().getPoints().length == 2) {
-			Vector2[] points = contact.getWorldManifold().getPoints();
-			float y0 = points[0].y;
-			float y1 = points[1].y;
-			if (y0 == y1) {
-				player.setTouchPlatormTop(begin);
-			}
-		}
-	}
-
+	
 	public void preSolve(Contact contact, Manifold oldManifold, Fixture playerFixture, Fixture other) {
 		if (other != null) {
 			if (other.getBody().getUserData() != null) {
@@ -127,5 +102,31 @@ public class PlayerContactListener {
 	}
 
 	public void postSolve(Contact contact, ContactImpulse impulse, Fixture playerFixture, Fixture other) {
+	}
+	
+	private void definePresolveContactPlayerToPlatform(Contact contact, Fixture playerFixture) {
+		Player player = (Player) playerFixture.getBody().getUserData();
+		if (contact.getWorldManifold().getPoints().length == 2) {
+			Vector2[] points = contact.getWorldManifold().getPoints();
+			float y0 = points[0].y;
+			float y1 = points[1].y;
+			if (y0 == y1) {
+				if (playerFixture.getBody().getLinearVelocity().y == 0) {
+					player.setTouchPlatormTop(true);
+				}
+			}
+		}
+	}
+
+	private void defineContactPlayerToPlatform(Contact contact, Fixture playerFixture, boolean begin) {
+		Player player = (Player) playerFixture.getBody().getUserData();
+		if (contact.getWorldManifold().getPoints().length == 2) {
+			Vector2[] points = contact.getWorldManifold().getPoints();
+			float y0 = points[0].y;
+			float y1 = points[1].y;
+			if (y0 == y1) {
+				player.setTouchPlatormTop(begin);
+			}
+		}
 	}
 }

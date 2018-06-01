@@ -12,12 +12,12 @@ public class CollisionConstante {
 	public static final short CATEGORY_VORTEX	 	= 0b0000000001000000;
 	public static final short CATEGORY_TELEPORTER 	= 0b0000000010000000;
 	public static final short CATEGORY_PICK		 	= 0b0000000100000000;
-	public static final short CATEGORY_RAYON	 	= 0b0000001000000000;
+	public static final short CATEGORY_RAYON	 		= 0b0000001000000000;
 	public static final short CATEGORY_ITEM			= 0b0000010000000000;
 	public static final short CATEGORY_BULLET		= 0b0000100000000000;
-	public static final short CATEGORY_BOMBE		= 0b0001000000000000;
-	public static final short CATEGORY_EXPLOSION	= 0b0010000000000000;
-	public static final short CATEGORY_EVENT		= 0b0100000000000000;
+	public static final short CATEGORY_BOMBE			= 0b0001000000000000;
+	public static final short CATEGORY_EXPLOSION		= 0b0010000000000000;
+	public static final short CATEGORY_EVENT			= 0b0100000000000000;
 	
 	
 	/**
