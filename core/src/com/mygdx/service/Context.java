@@ -9,11 +9,9 @@ public class Context {
 	private static boolean showFps = false;
 	private static boolean pause = false;
 	private static boolean showMap = false;
-	private static float darknessValue;
+	private static float darknessValue = 0f;
 	
-
 	private Context() {
-		darknessValue = 0;
 	}
 
 	public static LocaleEnum getLocale() {
@@ -64,4 +62,12 @@ public class Context {
 		Context.darknessValue = darknessValue;
 	}
 	
+	public static void resetContext() {
+		locale = LocaleEnum.FRENCH;
+		playSound = true;
+		showFps = false;
+		pause = false;
+		showMap = false;
+		darknessValue = 0f;
+	}
 }

@@ -12,6 +12,8 @@ import lombok.Setter;
 @Setter
 public class Cerise extends Ennemie {
 
+	private int animationIndex = 0;
+
 	public Cerise() {
 		super();
 
@@ -19,10 +21,19 @@ public class Cerise extends Ennemie {
 
 	@Override
 	public void drawIt() {
-		TextureRegion tmp = SpriteService.getInstance().getTexture("cerise_walk", 0);
+		TextureRegion tmp = SpriteService.getInstance().getTexture("cerise_walk", animationIndex);
+		if(!tmp.isFlipX() && walkLeft) {
+			tmp.flip(true, false);
+		}else if(tmp.isFlipX() && !walkLeft) {
+			tmp.flip(true, false);
+		}
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
 				(body.getPosition().y * Constante.GRID_BLOC_SIZE)
 						- (Constante.ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
+		animationIndex++;
+		if (animationIndex >= 20) {
+			animationIndex = 0;
+		}
 	}
 
 	@Override

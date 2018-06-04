@@ -59,8 +59,8 @@ public class Level {
 		timeObjetPoint = new Timer();
 		objectPointTask = new LevelObjectTimerTask(false, this, 0);
 		objectEffetTask = new LevelObjectTimerTask(false, this, 1);
-		timeObjetEffet.schedule(objectPointTask, 5000);
-		timeObjetPoint.schedule(objectEffetTask, 10000);
+		timeObjetEffet.schedule(objectEffetTask, 10000);
+		timeObjetPoint.schedule(objectPointTask, 5000);
 
 		createWall();
 
