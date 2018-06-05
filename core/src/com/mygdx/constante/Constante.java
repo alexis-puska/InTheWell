@@ -2,7 +2,7 @@ package com.mygdx.constante;
 
 public class Constante {
 
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	public static final int START_LEVEL = 0;
 
 	public static final int SCREEN_SIZE_X = 420;
@@ -46,11 +46,15 @@ public class Constante {
 
 	public static final float ENNEMIE_BOX_HEIGHT = 0.4f;
 	public static final float ENNEMIE_BOX_WIDTH = 0.38f;
+	public static final float ENNEMIE_WALK = 3.2f;
+	public static final float ENNEMIE_ANGRY = 5.0f;
+	public static final float ENNEMIE_ANGRY_RUN = 7.6f;
 
 	public static final float PLAYER_BOX_WIDTH = 0.2f;
 	public static final float PLAYER_BOX_HEIGHT = 0.38f;
 
 	public static final float ITEM_BOX_SIZE = 0.4f;
+	
 
 	private Constante() {
 		// empty private constructor

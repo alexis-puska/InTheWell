@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.width = Constante.SCREEN_SIZE_X;
 		config.height = Constante.SCREEN_SIZE_Y;
 		config.foregroundFPS = 40;
+		config.backgroundFPS = 40;
 		config.vSyncEnabled = false;
 		config.fullscreen = false;
 		config.resizable = true;
