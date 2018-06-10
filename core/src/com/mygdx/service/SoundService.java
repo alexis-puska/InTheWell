@@ -106,29 +106,29 @@ public class SoundService {
 
 	public void playMusic(MusicEnum musicEnum) {
 		stopMusic();
-		switch (musicEnum) {
-		case BOSS:
-			boss.play();
-			boss.setLooping(true);
-			break;
-		case HAMMERFEST:
-			music.play();
-			music.setLooping(true);
-			break;
-		case HURRY_UP:
-			hurryUp.play();
-			hurryUp.setLooping(true);
-			break;
-		case LOST_TRACK:
-			lostTrack.play();
-			lostTrack.setLooping(true);
-			break;
-		case BOSS2:
-		default:
-			boss2.play();
-			boss2.setLooping(true);
-			break;
-		}
+//		switch (musicEnum) {
+//		case BOSS:
+//			boss.play();
+//			boss.setLooping(true);
+//			break;
+//		case HAMMERFEST:
+//			music.play();
+//			music.setLooping(true);
+//			break;
+//		case HURRY_UP:
+//			hurryUp.play();
+//			hurryUp.setLooping(true);
+//			break;
+//		case LOST_TRACK:
+//			lostTrack.play();
+//			lostTrack.setLooping(true);
+//			break;
+//		case BOSS2:
+//		default:
+//			boss2.play();
+//			boss2.setLooping(true);
+//			break;
+//		}
 		lastMusicPlayed = musicEnum;
 	}
 
@@ -141,67 +141,67 @@ public class SoundService {
 	 *******************/
 
 	public void playSound(SoundEnum soundEnum) {
-		switch (soundEnum) {
-		case BLACKBOMBE:
-			soundBlackBombe.play();
-			break;
-		case BLUEBOMBE:
-			soundBlueBombe.play();
-			break;
-		case CHANGETYPE:
-			soundChangeType.play();
-			break;
-		case CRISTAL:
-			soundCristal.play();
-			break;
-		case DEAD:
-			soundDead.play();
-			break;
-		case GREENBOMBE:
-			soundGreenBombe.play();
-			break;
-		case HURRYUP:
-			soundHurryUp.play();
-			break;
-		case IGORFALL:
-			soundIgorFall.play();
-			break;
-		case IGORJUMP:
-			soundIgorJump.play();
-			break;
-		case KICKBOMBE:
-			soundKickBombe.play();
-			break;
-		case KILLENNEMIS:
-			soundKillEnnemis.play();
-			break;
-		case LETTEREFFECTOBJECT:
-			soundLetterEffectObject.play();
-			break;
-		case NEXTLEVEL:
-			soundNextLevel.play();
-			break;
-		case NORMALBOMBE:
-			soundNormalBombe.play();
-			break;
-		case POP:
-			soundPop.play();
-			break;
-		case PUTBOMBE:
-			soundPutBombe.play();
-			break;
-		case TAKE_OBJECT:
-			soundTakeObject.play();
-			break;
-		case TELEPORTER:
-			soundTeleporter.play();
-			break;
-		case TUBERCULOZ:
-			soundTuberculoz.play();
-			break;
-		default:
-			soundBlackBombe.play();
-		}
+//		switch (soundEnum) {
+//		case BLACKBOMBE:
+//			soundBlackBombe.play();
+//			break;
+//		case BLUEBOMBE:
+//			soundBlueBombe.play();
+//			break;
+//		case CHANGETYPE:
+//			soundChangeType.play();
+//			break;
+//		case CRISTAL:
+//			soundCristal.play();
+//			break;
+//		case DEAD:
+//			soundDead.play();
+//			break;
+//		case GREENBOMBE:
+//			soundGreenBombe.play();
+//			break;
+//		case HURRYUP:
+//			soundHurryUp.play();
+//			break;
+//		case IGORFALL:
+//			soundIgorFall.play();
+//			break;
+//		case IGORJUMP:
+//			soundIgorJump.play();
+//			break;
+//		case KICKBOMBE:
+//			soundKickBombe.play();
+//			break;
+//		case KILLENNEMIS:
+//			soundKillEnnemis.play();
+//			break;
+//		case LETTEREFFECTOBJECT:
+//			soundLetterEffectObject.play();
+//			break;
+//		case NEXTLEVEL:
+//			soundNextLevel.play();
+//			break;
+//		case NORMALBOMBE:
+//			soundNormalBombe.play();
+//			break;
+//		case POP:
+//			soundPop.play();
+//			break;
+//		case PUTBOMBE:
+//			soundPutBombe.play();
+//			break;
+//		case TAKE_OBJECT:
+//			soundTakeObject.play();
+//			break;
+//		case TELEPORTER:
+//			soundTeleporter.play();
+//			break;
+//		case TUBERCULOZ:
+//			soundTuberculoz.play();
+//			break;
+//		default:
+//			soundBlackBombe.play();
+//		}
 	}
 
 	
