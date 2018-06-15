@@ -1,6 +1,5 @@
 package com.mygdx.service.collision;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
@@ -27,10 +26,8 @@ public class EnnemieContactListener {
 							ennemie.setTouchPlatform(true);
 						} else if (p0.x > xx && p1.x > xx) {
 							ennemie.requestAction(false);
-							Gdx.app.log("ECL BC", "DROIT");
 						} else if (p0.x < xx && p1.x < xx) {
 							ennemie.requestAction(true);
-							Gdx.app.log("ECL BC", "GAUCHE");
 						}
 					}
 				}
@@ -59,18 +56,14 @@ public class EnnemieContactListener {
 						if (p0.y < yy && p1.y < yy && Math.abs(p0.x - p1.x) < 0.7f) {
 							if (p0.x < p1.x) {
 								if (Math.abs(p0.x - xx) < 0.3f) {
-									Gdx.app.log("ECL", "GAUCHE");
 									ennemie.requestAction(true);
 								} else if (Math.abs(p1.x - xx) < 0.3f) {
-									Gdx.app.log("ECL", "DROITE");
 									ennemie.requestAction(false);
 								}
 							} else {
 								if (Math.abs(p0.x - xx) < 0.3f) {
-									Gdx.app.log("ECL", "DROITE");
 									ennemie.requestAction(false);
 								} else if (Math.abs(p1.x - xx) < 0.3f) {
-									Gdx.app.log("ECL", "GAUCHE");
 									ennemie.requestAction(true);
 								}
 							}

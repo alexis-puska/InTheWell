@@ -18,12 +18,10 @@ import com.mygdx.enumeration.EnnemieTypeEnum;
 import com.mygdx.game.InTheWellGame;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public abstract class Ennemie extends BodyAble {
 	protected int x;
 	protected int y;
@@ -32,7 +30,8 @@ public abstract class Ennemie extends BodyAble {
 	protected EnnemieStateEnum state;
 	protected Level level;
 
-	protected int lastRequestAction;
+	protected int animationIndex;
+	protected int animationIndexMax;
 	protected boolean walkLeft;
 	protected boolean touchPlatform;
 	protected boolean canJumpRight;
@@ -47,13 +46,20 @@ public abstract class Ennemie extends BodyAble {
 	protected boolean canGoDownRight;
 	protected boolean canGoDownLeft;
 
+	public Ennemie(EnnemieTypeEnum type) {
+		this.type = type;
+		this.state = EnnemieStateEnum.WALK;
+		this.walkLeft = ThreadLocalRandom.current().nextInt(0, 10) % 2 == 0;
+		this.touchPlatform = false;
+	}
+
 	public void init(World world, InTheWellGame game, final Level level) {
 		this.init(game);
 		this.world = world;
 		this.level = level;
 		createBody();
 		walkLeft = ThreadLocalRandom.current().nextInt(0, 10) % 2 == 0;
-		lastRequestAction = 0;
+		animationIndex = 0;
 	}
 
 	public boolean isDead() {
@@ -64,7 +70,7 @@ public abstract class Ennemie extends BodyAble {
 		if (touchPlatform) {
 			if (walkLeft && left) {
 				walkLeft = false;
-			}else if(!walkLeft && !left){
+			} else if (!walkLeft && !left) {
 				walkLeft = true;
 			}
 		}
@@ -115,9 +121,11 @@ public abstract class Ennemie extends BodyAble {
 	public abstract void think();
 
 	protected void initView() {
-		if (lastRequestAction > 0) {
-			lastRequestAction--;
+		if (y < 0) {
+			state = EnnemieStateEnum.DEAD;
+			return;
 		}
+
 		Boolean[][] grid = this.level.getGrid();
 		int x = (int) body.getPosition().x;
 		int y = (int) body.getPosition().y;
@@ -136,49 +144,49 @@ public abstract class Ennemie extends BodyAble {
 		}
 
 		// ennemie can jump on 1 case step on right ?
-		if (x + 1 < 20 && y + 1 < 25) {
+		if (x + 1 < 20 && y + 1 < 25 && y >= 0) {
 			canStepRight = grid[x + 1][y] && !grid[x + 1][y + 1];
 		} else {
 			canStepRight = false;
 		}
 
 		// ennemie can jump on 1 case step on left ?
-		if (x - 1 > 0 && y + 1 < 25) {
+		if (x - 1 > 0 && y + 1 < 25 && y >= 0) {
 			canStepLeft = grid[x - 1][y] && !grid[x - 1][y + 1];
 		} else {
 			canStepLeft = false;
 		}
 
 		// ennemie can jump on 1 case step on right ?
-		if (x + 1 < 20 && y + 2 < 25) {
+		if (x + 1 < 20 && y + 2 < 25 && y >= 0) {
 			canStepRight = grid[x + 1][y] && !grid[x + 1][y + 2];
 		} else {
 			canLargeStepRight = false;
 		}
 
 		// ennemie can jump on 1 case step on left ?
-		if (x - 1 > 0 && y + 2 < 25) {
+		if (x - 1 > 0 && y + 2 < 25 && y >= 0) {
 			canStepLeft = grid[x - 1][y] && !grid[x - 1][y + 2];
 		} else {
 			canLargeStepLeft = false;
 		}
 
 		// ennemie can jump 2 case top himself ?
-		if (y + 2 < 25) {
+		if (y + 2 < 25 && y >= 0) {
 			canJump = grid[x][y + 1] && !grid[x][y + 2];
 		} else {
 			canJump = false;
 		}
 
 		// ennemie can jump 3 case top himself ?
-		if (y + 3 < 25) {
+		if (y + 3 < 25 && y >= 0) {
 			canLargeJump = grid[x][y + 2] && !grid[x][y + 3];
 		} else {
 			canLargeJump = false;
 		}
 
 		// ennemie can go down ?
-		if (y - 2 > 0) {
+		if (y - 2 >= 0) {
 			canGoDown = false;
 			for (int yy = y - 2; yy > 0; yy--) {
 				if (grid[x][yy]) {
@@ -192,7 +200,7 @@ public abstract class Ennemie extends BodyAble {
 
 		// ennemie can go fall in right border ?
 
-		if (x + 1 < 20 && y - 2 > 0) {
+		if (x + 1 < 20 && y - 2 > 0 && y >= 0) {
 			canGoDownRight = false;
 			for (int yy = y - 2; yy > 0; yy--) {
 				if (grid[x + 1][yy]) {
@@ -205,7 +213,7 @@ public abstract class Ennemie extends BodyAble {
 		}
 
 		// ennemie can go fall in left border ?
-		if (x - 1 > 0 && y - 2 > 0) {
+		if (x - 1 > 0 && y - 2 > 0 && y >= 0) {
 			canGoDownLeft = false;
 			for (int yy = y - 2; yy > 0; yy--) {
 				if (grid[x - 1][yy]) {

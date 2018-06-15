@@ -45,9 +45,10 @@ public class Event extends BodyAble {
 
 	// declanchement par proximité
 	private boolean near;
-	private int x;
-	private int y;
-	private int d;
+	private double x;
+	private double y;
+	private double dx;
+	private double dy;
 	private int itemId;
 
 	// declanchement par decompte
@@ -109,10 +110,10 @@ public class Event extends BodyAble {
 		if (near || explosion) {
 			BodyDef groundBodyDef = new BodyDef();
 			PolygonShape groundBox = new PolygonShape();
-			float xb = x + 0.5f;
-			float yb = y + 0.5f;
+			float xb = (float)x + 0.5f;
+			float yb = (float)y + 0.5f;
 			groundBodyDef.position.set(new Vector2(xb, yb));
-			groundBox.setAsBox(0.5f + (d / 2f), 0.5f + (d / 2f));
+			groundBox.setAsBox(0.5f + ((float)dx / 2f), 0.5f + ((float)dy / 2f));
 			groundBodyDef.position.set(new Vector2(xb, yb));
 			body = world.createBody(groundBodyDef);
 			Fixture fixture = body.createFixture(groundBox, 0.0f);

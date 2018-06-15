@@ -271,7 +271,13 @@
       "rayon" : [ ],
       "teleporter" : [ ],
       "vortex" : [ ],
-      "ennemies" : [ ],
+      "ennemies" : [ {
+        "id" : 0,
+        "enable" : true,
+        "x" : 11,
+        "y" : 4,
+        "type" : "CERISE"
+      } ],
       "startPlayers" : {
         "x" : 2,
         "y" : 5
@@ -312,9 +318,10 @@
         "onlyOnce" : false,
         "triggered" : false,
         "near" : true,
-        "x" : 1,
-        "y" : 22,
-        "d" : 2,
+        "x" : 1.5,
+        "y" : 22.0,
+        "dx" : 1.0,
+        "dy" : 0.5,
         "itemId" : -1,
         "time" : false,
         "timeout" : 0,
@@ -417,9 +424,10 @@
         "onlyOnce" : true,
         "triggered" : false,
         "near" : false,
-        "x" : 10,
-        "y" : 19,
-        "d" : 0,
+        "x" : 10.0,
+        "y" : 19.0,
+        "dx" : 0.0,
+        "dy" : 0.0,
         "itemId" : -1,
         "time" : false,
         "timeout" : 0,
@@ -449,9 +457,10 @@
         "onlyOnce" : true,
         "triggered" : false,
         "near" : false,
-        "x" : 5,
-        "y" : 19,
-        "d" : 0,
+        "x" : 5.0,
+        "y" : 19.0,
+        "dx" : 0.0,
+        "dy" : 0.0,
         "itemId" : -1,
         "time" : true,
         "timeout" : 200,
@@ -481,9 +490,10 @@
         "onlyOnce" : false,
         "triggered" : false,
         "near" : false,
-        "x" : 14,
-        "y" : 19,
-        "d" : 0,
+        "x" : 14.0,
+        "y" : 19.0,
+        "dx" : 0.0,
+        "dy" : 0.0,
         "itemId" : -1,
         "time" : false,
         "timeout" : 0,
@@ -3298,9 +3308,10 @@
         "onlyOnce" : true,
         "triggered" : false,
         "near" : true,
-        "x" : 16,
-        "y" : 6,
-        "d" : 0,
+        "x" : 16.0,
+        "y" : 6.0,
+        "dx" : 0.0,
+        "dy" : 0.0,
         "itemId" : -1,
         "time" : false,
         "timeout" : 0,
@@ -8099,12 +8110,12 @@
         "lang" : "es",
         "value" : ""
       }, {
-        "id" : 1,
-        "lang" : "fr",
-        "value" : ""
-      }, {
         "id" : 2,
         "lang" : "en",
+        "value" : ""
+      }, {
+        "id" : 1,
+        "lang" : "fr",
         "value" : ""
       } ],
       "decor" : [ ],
@@ -8847,7 +8858,15 @@
         "displayed" : true,
         "length" : 2
       } ],
-      "rayon" : [ ],
+      "rayon" : [ {
+        "id" : 0,
+        "enable" : false,
+        "x" : 13,
+        "y" : 19,
+        "length" : 2,
+        "type" : "BLUE",
+        "vertical" : true
+      } ],
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -9677,7 +9696,23 @@
         "displayed" : true,
         "length" : 8
       } ],
-      "rayon" : [ ],
+      "rayon" : [ {
+        "id" : 0,
+        "enable" : false,
+        "x" : 9,
+        "y" : 20,
+        "length" : 1,
+        "type" : "BLACK",
+        "vertical" : false
+      }, {
+        "id" : 1,
+        "enable" : false,
+        "x" : 12,
+        "y" : 10,
+        "length" : 2,
+        "type" : "WHITE",
+        "vertical" : false
+      } ],
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -10329,15 +10364,7 @@
         "displayed" : true,
         "length" : 1
       } ],
-      "rayon" : [ {
-        "id" : 0,
-        "enable" : false,
-        "x" : 14,
-        "y" : 12,
-        "length" : 3,
-        "type" : "BLUE",
-        "vertical" : false
-      } ],
+      "rayon" : [ ],
       "teleporter" : [ ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -10381,12 +10408,12 @@
         "lang" : "es",
         "value" : ""
       }, {
-        "id" : 1,
-        "lang" : "fr",
-        "value" : ""
-      }, {
         "id" : 2,
         "lang" : "en",
+        "value" : ""
+      }, {
+        "id" : 1,
+        "lang" : "fr",
         "value" : ""
       } ],
       "decor" : [ ],
@@ -10857,7 +10884,7 @@
       } ],
       "rayon" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 11,
         "y" : 11,
         "length" : 5,
@@ -10865,7 +10892,7 @@
         "vertical" : false
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 3,
         "y" : 11,
         "length" : 2,
@@ -10873,21 +10900,21 @@
         "vertical" : true
       } ],
       "teleporter" : [ {
-        "id" : 1,
-        "enable" : false,
+        "id" : 0,
+        "enable" : true,
         "x" : 8,
         "y" : 7,
         "length" : 3,
         "vertical" : true,
-        "toId" : 0
+        "toId" : 1
       }, {
-        "id" : 0,
-        "enable" : false,
+        "id" : 1,
+        "enable" : true,
         "x" : 11,
         "y" : 1,
         "length" : 3,
         "vertical" : true,
-        "toId" : 1
+        "toId" : 0
       } ],
       "vortex" : [ {
         "id" : 0,
@@ -11143,21 +11170,21 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 1,
-        "enable" : false,
-        "x" : 7,
-        "y" : 0,
-        "length" : 5,
-        "vertical" : false,
-        "toId" : 0
-      }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 17,
         "length" : 4,
         "vertical" : false,
         "toId" : 1
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 7,
+        "y" : 0,
+        "length" : 4,
+        "vertical" : false,
+        "toId" : 0
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -11371,7 +11398,7 @@
       "rayon" : [ ],
       "teleporter" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 10,
         "y" : 3,
         "length" : 2,
@@ -11379,7 +11406,7 @@
         "toId" : 0
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 10,
         "y" : 22,
         "length" : 2,
@@ -11785,7 +11812,7 @@
       "rayon" : [ ],
       "teleporter" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 21,
         "length" : 2,
@@ -11793,7 +11820,7 @@
         "toId" : 0
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 3,
         "length" : 2,
@@ -12144,7 +12171,7 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 22,
         "length" : 2,
@@ -12846,28 +12873,28 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 18,
         "y" : 23,
         "length" : 2,
         "type" : "GREEN",
         "vertical" : false
       }, {
-        "id" : 1,
-        "enable" : false,
-        "x" : 3,
-        "y" : 10,
-        "length" : 2,
-        "type" : "WHITE",
-        "vertical" : true
-      }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 1,
         "y" : 21,
         "length" : 2,
         "type" : "GREEN",
         "vertical" : false
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 3,
+        "y" : 10,
+        "length" : 2,
+        "type" : "WHITE",
+        "vertical" : true
       } ],
       "teleporter" : [ ],
       "vortex" : [ ],
@@ -13290,7 +13317,7 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 13,
         "length" : 2,
@@ -13343,7 +13370,55 @@
         "value" : ""
       } ],
       "decor" : [ ],
-      "event" : [ ],
+      "event" : [ {
+        "id" : 0,
+        "onlyOnce" : true,
+        "triggered" : false,
+        "near" : false,
+        "x" : 1.0,
+        "y" : 11.0,
+        "dx" : 8.0,
+        "dy" : 8.0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 9,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 24,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 27,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 26,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 25,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      } ],
       "door" : [ ],
       "lock" : [ ],
       "pick" : [ ],
@@ -13416,14 +13491,6 @@
         "enable" : true,
         "x" : 5,
         "y" : 6,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 11
-      }, {
-        "id" : 9,
-        "enable" : true,
-        "x" : 5,
-        "y" : 3,
         "vertical" : false,
         "displayed" : true,
         "length" : 11
@@ -13539,10 +13606,50 @@
         "vertical" : true,
         "displayed" : true,
         "length" : 2
+      }, {
+        "id" : 24,
+        "enable" : false,
+        "x" : 7,
+        "y" : 0,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 3
+      }, {
+        "id" : 25,
+        "enable" : false,
+        "x" : 13,
+        "y" : 0,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 3
+      }, {
+        "id" : 26,
+        "enable" : false,
+        "x" : 5,
+        "y" : 3,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 3
+      }, {
+        "id" : 9,
+        "enable" : true,
+        "x" : 5,
+        "y" : 3,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 11
+      }, {
+        "id" : 27,
+        "enable" : false,
+        "x" : 13,
+        "y" : 3,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 3
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 12,
         "y" : 21,
         "length" : 2,
@@ -13550,21 +13657,21 @@
         "vertical" : false
       } ],
       "teleporter" : [ {
-        "id" : 1,
-        "enable" : false,
-        "x" : 14,
-        "y" : 4,
-        "length" : 2,
-        "vertical" : true,
-        "toId" : 0
-      }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 22,
         "length" : 2,
         "vertical" : true,
         "toId" : 1
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 14,
+        "y" : 4,
+        "length" : 2,
+        "vertical" : true,
+        "toId" : 0
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -14450,7 +14557,7 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 10,
         "length" : 2,
@@ -14696,7 +14803,7 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 11,
         "length" : 2,
@@ -14704,7 +14811,7 @@
         "vertical" : true
       }, {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 5,
         "y" : 10,
         "length" : 2,
@@ -14712,7 +14819,7 @@
         "vertical" : false
       }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 11,
         "y" : 10,
         "length" : 2,
@@ -14941,15 +15048,23 @@
       "rayon" : [ ],
       "teleporter" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 24,
         "length" : 2,
         "vertical" : false,
         "toId" : 0
       }, {
+        "id" : 3,
+        "enable" : true,
+        "x" : 12,
+        "y" : 24,
+        "length" : 2,
+        "vertical" : false,
+        "toId" : 2
+      }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 0,
         "length" : 2,
@@ -14957,20 +15072,12 @@
         "toId" : 1
       }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 12,
         "y" : 0,
         "length" : 2,
         "vertical" : false,
         "toId" : 3
-      }, {
-        "id" : 3,
-        "enable" : false,
-        "x" : 12,
-        "y" : 24,
-        "length" : 2,
-        "vertical" : false,
-        "toId" : 2
       } ],
       "vortex" : [ ],
       "ennemies" : [ {
@@ -16102,22 +16209,6 @@
         "displayed" : true,
         "length" : 7
       }, {
-        "id" : 16,
-        "enable" : true,
-        "x" : 11,
-        "y" : 8,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 7
-      }, {
-        "id" : 17,
-        "enable" : true,
-        "x" : 14,
-        "y" : 8,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 1
-      }, {
         "id" : 18,
         "enable" : true,
         "x" : 8,
@@ -16157,6 +16248,14 @@
         "vertical" : true,
         "displayed" : true,
         "length" : 2
+      }, {
+        "id" : 16,
+        "enable" : true,
+        "x" : 11,
+        "y" : 8,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 7
       } ],
       "rayon" : [ ],
       "teleporter" : [ ],
@@ -17057,7 +17156,7 @@
         "vertical" : false
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 7,
         "y" : 9,
         "length" : 1,
@@ -17487,7 +17586,7 @@
       } ],
       "rayon" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 4,
         "y" : 19,
         "length" : 2,
@@ -17495,7 +17594,7 @@
         "vertical" : true
       }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 19,
         "length" : 2,
@@ -17503,7 +17602,7 @@
         "vertical" : true
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 12,
         "y" : 15,
         "length" : 2,
@@ -17511,7 +17610,7 @@
         "vertical" : false
       }, {
         "id" : 4,
-        "enable" : false,
+        "enable" : true,
         "x" : 7,
         "y" : 7,
         "length" : 2,
@@ -17519,7 +17618,7 @@
         "vertical" : true
       }, {
         "id" : 3,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 6,
         "length" : 2,
@@ -17742,15 +17841,15 @@
       "rayon" : [ ],
       "teleporter" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 16,
         "y" : 2,
         "length" : 2,
         "vertical" : false,
-        "toId" : 0
+        "toId" : 1
       }, {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 18,
         "y" : 22,
         "length" : 2,
@@ -18806,34 +18905,7 @@
         "value" : ""
       } ],
       "decor" : [ ],
-      "event" : [ {
-        "id" : 0,
-        "onlyOnce" : false,
-        "triggered" : false,
-        "near" : false,
-        "x" : 0,
-        "y" : 7,
-        "d" : 0,
-        "itemId" : -1,
-        "time" : false,
-        "timeout" : 0,
-        "explosion" : false,
-        "noMoreEnnemie" : false,
-        "onBirth" : false,
-        "onDeath" : false,
-        "onLevelEnter" : false,
-        "mirror" : false,
-        "nightmare" : false,
-        "timeAttackeOption" : false,
-        "multiOption" : false,
-        "ninja" : false,
-        "enableElement" : null,
-        "message" : null,
-        "song" : null,
-        "sound" : null,
-        "darknessValue" : -1,
-        "iceValue" : -1
-      } ],
+      "event" : [ ],
       "door" : [ ],
       "lock" : [ ],
       "pick" : [ ],
@@ -19040,21 +19112,21 @@
       } ],
       "rayon" : [ ],
       "teleporter" : [ {
-        "id" : 1,
-        "enable" : false,
-        "x" : 18,
-        "y" : 12,
-        "length" : 2,
-        "vertical" : false,
-        "toId" : 0
-      }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 18,
         "y" : 24,
         "length" : 2,
         "vertical" : false,
         "toId" : 1
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 18,
+        "y" : 12,
+        "length" : 2,
+        "vertical" : false,
+        "toId" : 0
       } ],
       "vortex" : [ {
         "id" : 0,
@@ -19442,7 +19514,7 @@
       } ],
       "rayon" : [ {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 8,
         "y" : 14,
         "length" : 2,
@@ -19450,7 +19522,7 @@
         "vertical" : false
       }, {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 11,
         "y" : 14,
         "length" : 2,
@@ -19459,7 +19531,7 @@
       } ],
       "teleporter" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 0,
         "y" : 24,
         "length" : 2,
@@ -19467,31 +19539,31 @@
         "toId" : 0
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 0,
         "y" : 1,
         "length" : 2,
         "vertical" : false,
         "toId" : 1
       }, {
-        "id" : 3,
-        "enable" : false,
-        "x" : 5,
-        "y" : 14,
-        "length" : 2,
-        "vertical" : false,
-        "toId" : 2
-      }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 5,
         "y" : 1,
         "length" : 2,
         "vertical" : false,
         "toId" : 3
       }, {
+        "id" : 3,
+        "enable" : true,
+        "x" : 5,
+        "y" : 14,
+        "length" : 2,
+        "vertical" : false,
+        "toId" : 2
+      }, {
         "id" : 5,
-        "enable" : false,
+        "enable" : true,
         "x" : 14,
         "y" : 14,
         "length" : 2,
@@ -19499,7 +19571,7 @@
         "toId" : 4
       }, {
         "id" : 4,
-        "enable" : false,
+        "enable" : true,
         "x" : 14,
         "y" : 1,
         "length" : 2,
@@ -19781,7 +19853,7 @@
       "rayon" : [ ],
       "teleporter" : [ {
         "id" : 1,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 24,
         "length" : 3,
@@ -19789,28 +19861,28 @@
         "toId" : 0
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 6,
         "y" : 4,
         "length" : 3,
         "vertical" : false,
         "toId" : 1
       }, {
-        "id" : 3,
-        "enable" : false,
-        "x" : 11,
-        "y" : 24,
-        "length" : 3,
-        "vertical" : false,
-        "toId" : 2
-      }, {
         "id" : 2,
-        "enable" : false,
+        "enable" : true,
         "x" : 11,
         "y" : 4,
         "length" : 3,
         "vertical" : false,
         "toId" : 3
+      }, {
+        "id" : 3,
+        "enable" : true,
+        "x" : 11,
+        "y" : 24,
+        "length" : 3,
+        "vertical" : false,
+        "toId" : 2
       } ],
       "vortex" : [ {
         "id" : 0,
@@ -19877,19 +19949,147 @@
         "value" : ""
       } ],
       "decor" : [ ],
-      "event" : [ ],
+      "event" : [ {
+        "id" : 0,
+        "onlyOnce" : false,
+        "triggered" : false,
+        "near" : true,
+        "x" : 9.5,
+        "y" : 18.0,
+        "dx" : 1.0,
+        "dy" : 0.0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 16,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 5,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 26,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      }, {
+        "id" : 1,
+        "onlyOnce" : false,
+        "triggered" : false,
+        "near" : true,
+        "x" : 9.5,
+        "y" : 16.0,
+        "dx" : 1.0,
+        "dy" : 0.0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 3,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 4,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 27,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      }, {
+        "id" : 2,
+        "onlyOnce" : false,
+        "triggered" : false,
+        "near" : true,
+        "x" : 9.5,
+        "y" : 8.0,
+        "dx" : 1.0,
+        "dy" : 0.0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 17,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 18,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 19,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 20,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 25,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        }, {
+          "id" : 28,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 29,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      } ],
       "door" : [ ],
       "lock" : [ ],
       "pick" : [ ],
       "platform" : [ {
-        "id" : 0,
-        "enable" : true,
-        "x" : 8,
-        "y" : 24,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 4
-      }, {
         "id" : 1,
         "enable" : true,
         "x" : 7,
@@ -19905,30 +20105,6 @@
         "vertical" : false,
         "displayed" : true,
         "length" : 2
-      }, {
-        "id" : 3,
-        "enable" : true,
-        "x" : 7,
-        "y" : 18,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 4,
-        "enable" : true,
-        "x" : 11,
-        "y" : 18,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 5,
-        "enable" : true,
-        "x" : 8,
-        "y" : 17,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 4
       }, {
         "id" : 6,
         "enable" : true,
@@ -20010,46 +20186,6 @@
         "displayed" : true,
         "length" : 7
       }, {
-        "id" : 16,
-        "enable" : true,
-        "x" : 8,
-        "y" : 7,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 4
-      }, {
-        "id" : 17,
-        "enable" : true,
-        "x" : 8,
-        "y" : 6,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 1
-      }, {
-        "id" : 18,
-        "enable" : true,
-        "x" : 11,
-        "y" : 6,
-        "vertical" : false,
-        "displayed" : true,
-        "length" : 1
-      }, {
-        "id" : 19,
-        "enable" : true,
-        "x" : 8,
-        "y" : 8,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 2
-      }, {
-        "id" : 20,
-        "enable" : true,
-        "x" : 11,
-        "y" : 8,
-        "vertical" : true,
-        "displayed" : true,
-        "length" : 2
-      }, {
         "id" : 21,
         "enable" : true,
         "x" : 17,
@@ -20081,48 +20217,176 @@
         "vertical" : true,
         "displayed" : true,
         "length" : 2
-      } ],
-      "rayon" : [ {
-        "id" : 2,
+      }, {
+        "id" : 19,
+        "enable" : true,
+        "x" : 8,
+        "y" : 7,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 4
+      }, {
+        "id" : 20,
+        "enable" : true,
+        "x" : 8,
+        "y" : 6,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 1
+      }, {
+        "id" : 25,
+        "enable" : true,
+        "x" : 11,
+        "y" : 6,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 1
+      }, {
+        "id" : 29,
         "enable" : false,
-        "x" : 9,
-        "y" : 16,
-        "length" : 2,
-        "type" : "BLACK",
-        "vertical" : false
+        "x" : 11,
+        "y" : 6,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 4
+      }, {
+        "id" : 28,
+        "enable" : false,
+        "x" : 8,
+        "y" : 6,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 4
+      }, {
+        "id" : 17,
+        "enable" : true,
+        "x" : 8,
+        "y" : 8,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 18,
+        "enable" : true,
+        "x" : 11,
+        "y" : 8,
+        "vertical" : true,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 3,
+        "enable" : true,
+        "x" : 7,
+        "y" : 18,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 4,
+        "enable" : true,
+        "x" : 11,
+        "y" : 18,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 2
+      }, {
+        "id" : 27,
+        "enable" : false,
+        "x" : 7,
+        "y" : 18,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 6
+      }, {
+        "id" : 5,
+        "enable" : false,
+        "x" : 8,
+        "y" : 17,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 1
+      }, {
+        "id" : 16,
+        "enable" : false,
+        "x" : 11,
+        "y" : 17,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 1
+      }, {
+        "id" : 26,
+        "enable" : true,
+        "x" : 8,
+        "y" : 17,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 4
       }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
+        "x" : 8,
+        "y" : 24,
+        "vertical" : false,
+        "displayed" : true,
+        "length" : 4
+      } ],
+      "rayon" : [ {
+        "id" : 1,
+        "enable" : true,
+        "x" : 16,
+        "y" : 11,
+        "length" : 2,
+        "type" : "BLUE",
+        "vertical" : true
+      }, {
+        "id" : 0,
+        "enable" : true,
         "x" : 3,
         "y" : 11,
         "length" : 2,
         "type" : "BLUE",
         "vertical" : true
       }, {
-        "id" : 1,
-        "enable" : false,
-        "x" : 16,
-        "y" : 11,
+        "id" : 3,
+        "enable" : true,
+        "x" : 7,
+        "y" : 19,
         "length" : 2,
-        "type" : "BLUE",
+        "type" : "BLACK",
         "vertical" : true
+      }, {
+        "id" : 4,
+        "enable" : true,
+        "x" : 12,
+        "y" : 19,
+        "length" : 2,
+        "type" : "BLACK",
+        "vertical" : true
+      }, {
+        "id" : 2,
+        "enable" : true,
+        "x" : 9,
+        "y" : 16,
+        "length" : 2,
+        "type" : "BLACK",
+        "vertical" : false
       } ],
       "teleporter" : [ {
-        "id" : 1,
-        "enable" : false,
-        "x" : 9,
-        "y" : 6,
-        "length" : 2,
-        "vertical" : false,
-        "toId" : 0
-      }, {
         "id" : 0,
-        "enable" : false,
+        "enable" : true,
         "x" : 9,
         "y" : 23,
         "length" : 2,
         "vertical" : false,
         "toId" : 1
+      }, {
+        "id" : 1,
+        "enable" : true,
+        "x" : 9,
+        "y" : 6,
+        "length" : 2,
+        "vertical" : false,
+        "toId" : 0
       } ],
       "vortex" : [ ],
       "ennemies" : [ {

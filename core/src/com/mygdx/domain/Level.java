@@ -54,6 +54,7 @@ public class Level {
 	public void init(World world, InTheWellGame game) {
 		this.game = game;
 		this.world = world;
+		initGrid();
 
 		timeObjetEffet = new Timer();
 		timeObjetPoint = new Timer();
@@ -100,7 +101,7 @@ public class Level {
 		for (Event ev : event) {
 			ev.init(world, game, this);
 		}
-		initGrid();
+		
 		this.notifyEvent(EventNotificationType.ENTER_LEVEL);
 	}
 
@@ -324,7 +325,7 @@ public class Level {
 			Arrays.fill(row, Boolean.FALSE);
 		}
 		for (Platform pl : platform) {
-			if (pl.getId() != -1) {
+			if (pl.getId() != -1 && pl.isEnable()) {
 				if (pl.isVertical()) {
 					for (int y = pl.getY(); y < pl.getY() + pl.getLength(); y++) {
 						grid[pl.getX()][y] = true;

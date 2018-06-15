@@ -3,6 +3,7 @@ package com.mygdx.domain.ennemie;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
+import com.mygdx.enumeration.EnnemieTypeEnum;
 import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
@@ -12,16 +13,15 @@ import lombok.Setter;
 @Setter
 public class Cerise extends Ennemie {
 
-	private int animationIndex = 0;
-
 	public Cerise() {
-		super();
-
+		super(EnnemieTypeEnum.CERISE);
 	}
 
 	@Override
 	public void drawIt() {
-		TextureRegion tmp = SpriteService.getInstance().getTexture("cerise_angry", animationIndex / 2);
+		TextureRegion tmp = SpriteService.getInstance().getTexture(type.getName() + state.getStateName(),
+				animationIndex / 2);
+		animationIndexMax = SpriteService.getInstance().getAnimationSize(type.getName() + state.getStateName()) * 2;
 		if (!tmp.isFlipX() && walkLeft) {
 			tmp.flip(true, false);
 		} else if (tmp.isFlipX() && !walkLeft) {
@@ -31,7 +31,7 @@ public class Cerise extends Ennemie {
 				(body.getPosition().y * Constante.GRID_BLOC_SIZE)
 						- (Constante.ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
 		animationIndex++;
-		if (animationIndex >= 26) {
+		if (animationIndex >= animationIndexMax) {
 			animationIndex = 0;
 		}
 	}
@@ -46,6 +46,5 @@ public class Cerise extends Ennemie {
 				body.setLinearVelocity(Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
 			}
 		}
-
 	}
 }

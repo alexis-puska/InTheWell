@@ -21,7 +21,8 @@ public class EventMapper {
 			return null;
 		}
 		Event event = new Event();
-		event.setD(dto.getD());
+		event.setDx(dto.getDx());
+		event.setDy(dto.getDy());
 		event.setItemId(dto.getItemId());
 		event.setDarknessValue(dto.getDarknessValue());
 		event.setExplosion(dto.isExplosion());
