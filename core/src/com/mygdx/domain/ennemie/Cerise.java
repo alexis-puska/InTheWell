@@ -21,10 +21,10 @@ public class Cerise extends Ennemie {
 
 	@Override
 	public void drawIt() {
-		TextureRegion tmp = SpriteService.getInstance().getTexture("cerise_angry", animationIndex/2);
-		if(!tmp.isFlipX() && walkLeft) {
+		TextureRegion tmp = SpriteService.getInstance().getTexture("cerise_angry", animationIndex / 2);
+		if (!tmp.isFlipX() && walkLeft) {
 			tmp.flip(true, false);
-		}else if(tmp.isFlipX() && !walkLeft) {
+		} else if (tmp.isFlipX() && !walkLeft) {
 			tmp.flip(true, false);
 		}
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
@@ -40,16 +40,12 @@ public class Cerise extends Ennemie {
 	public void think() {
 		this.initView();
 		if (touchPlatform) {
-			if (lastRequestAction == 3) {
-				walkLeft = !walkLeft;
-			}
-			if (touchPlatform) {
-				if (walkLeft) {
-					body.setLinearVelocity(-Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
-				} else {
-					body.setLinearVelocity(Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
-				}
+			if (walkLeft) {
+				body.setLinearVelocity(-Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
+			} else {
+				body.setLinearVelocity(Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
 			}
 		}
+
 	}
 }

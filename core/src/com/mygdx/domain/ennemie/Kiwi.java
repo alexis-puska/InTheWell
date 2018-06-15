@@ -26,5 +26,12 @@ public class Kiwi extends Ennemie {
 	@Override
 	public void think() {
 		this.initView();
+		if (touchPlatform) {
+			if (walkLeft) {
+				body.setLinearVelocity(-5f, body.getLinearVelocity().y);
+			} else {
+				body.setLinearVelocity(5f, body.getLinearVelocity().y);
+			}
+		}
 	}
 }

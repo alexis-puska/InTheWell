@@ -1,7 +1,6 @@
 package com.mygdx.domain.ennemie;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.service.SpriteService;
@@ -29,20 +28,10 @@ public class Orange extends Ennemie {
 	public void think() {
 		this.initView();
 		if (touchPlatform) {
-			if (lastRequestAction == 3) {
-//				if ((walkLeft && canJumpLeft) || (!walkLeft && canJumpRight)) {
-//					body.applyForceToCenter(new Vector2(0, 380f), true);
-//					touchPlatform = false;
-//				} else {
-					walkLeft = !walkLeft;
-//				}
-			}
-			if (touchPlatform) {
-				if (walkLeft) {
-					body.setLinearVelocity(-5f, body.getLinearVelocity().y);
-				} else {
-					body.setLinearVelocity(5f, body.getLinearVelocity().y);
-				}
+			if (walkLeft) {
+				body.setLinearVelocity(-5f, body.getLinearVelocity().y);
+			} else {
+				body.setLinearVelocity(5f, body.getLinearVelocity().y);
 			}
 		}
 	}

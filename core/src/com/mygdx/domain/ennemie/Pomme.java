@@ -18,12 +18,16 @@ public class Pomme extends Ennemie {
 		super();
 		walkLeft = ThreadLocalRandom.current().nextInt(0, 10) % 2 == 0;
 		touchPlatform = false;
-		lastRequestAction = 0;
 	}
 
 	@Override
 	public void drawIt() {
 		TextureRegion tmp = SpriteService.getInstance().getTexture("pomme_walk", 0);
+		if (!tmp.isFlipX() && walkLeft) {
+			tmp.flip(true, false);
+		} else if (tmp.isFlipX() && !walkLeft) {
+			tmp.flip(true, false);
+		}
 		game.getBatch().draw(tmp, (body.getPosition().x * Constante.GRID_BLOC_SIZE) - (tmp.getRegionWidth() / 2.0f),
 				(body.getPosition().y * Constante.GRID_BLOC_SIZE)
 						- (Constante.ENNEMIE_BOX_HEIGHT * Constante.GRID_BLOC_SIZE));
@@ -33,15 +37,10 @@ public class Pomme extends Ennemie {
 	public void think() {
 		this.initView();
 		if (touchPlatform) {
-			if (lastRequestAction == 3) {
-				walkLeft = !walkLeft;
-			}
-			if (touchPlatform) {
-				if (walkLeft) {
-					body.setLinearVelocity(-5f, body.getLinearVelocity().y);
-				} else {
-					body.setLinearVelocity(5f, body.getLinearVelocity().y);
-				}
+			if (walkLeft) {
+				body.setLinearVelocity(-5f, body.getLinearVelocity().y);
+			} else {
+				body.setLinearVelocity(5f, body.getLinearVelocity().y);
 			}
 		}
 	}

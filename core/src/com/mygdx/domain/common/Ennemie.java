@@ -60,9 +60,13 @@ public abstract class Ennemie extends BodyAble {
 		return false;
 	}
 
-	public void requestAction() {
-		if (lastRequestAction == 0) {
-			lastRequestAction = 4;
+	public void requestAction(boolean left) {
+		if (touchPlatform) {
+			if (walkLeft && left) {
+				walkLeft = false;
+			}else if(!walkLeft && !left){
+				walkLeft = true;
+			}
 		}
 	}
 

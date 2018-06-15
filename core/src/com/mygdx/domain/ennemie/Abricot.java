@@ -26,5 +26,12 @@ public class Abricot extends Ennemie {
 	@Override
 	public void think() {
 		this.initView();
+		if (touchPlatform) {
+			if (walkLeft) {
+				body.setLinearVelocity(-Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
+			} else {
+				body.setLinearVelocity(Constante.ENNEMIE_ANGRY_RUN, body.getLinearVelocity().y);
+			}
+		}
 	}
 }
