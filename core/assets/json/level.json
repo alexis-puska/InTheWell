@@ -3075,7 +3075,7 @@
         "enable" : true,
         "x" : 18,
         "y" : 16,
-        "type" : 0,
+        "type" : 3,
         "locked" : true,
         "toLevel" : 0,
         "key" : null,
@@ -9697,20 +9697,20 @@
         "length" : 8
       } ],
       "rayon" : [ {
-        "id" : 0,
-        "enable" : false,
-        "x" : 9,
-        "y" : 20,
-        "length" : 1,
-        "type" : "BLACK",
-        "vertical" : false
-      }, {
         "id" : 1,
         "enable" : false,
         "x" : 12,
         "y" : 10,
         "length" : 2,
         "type" : "WHITE",
+        "vertical" : false
+      }, {
+        "id" : 0,
+        "enable" : true,
+        "x" : 9,
+        "y" : 20,
+        "length" : 1,
+        "type" : "BLACK",
         "vertical" : false
       } ],
       "teleporter" : [ ],
@@ -15397,12 +15397,12 @@
         "lang" : "es",
         "value" : ""
       }, {
-        "id" : 1,
-        "lang" : "fr",
-        "value" : ""
-      }, {
         "id" : 2,
         "lang" : "en",
+        "value" : ""
+      }, {
+        "id" : 1,
+        "lang" : "fr",
         "value" : ""
       } ],
       "decor" : [ ],
@@ -19950,46 +19950,6 @@
       } ],
       "decor" : [ ],
       "event" : [ {
-        "id" : 0,
-        "onlyOnce" : false,
-        "triggered" : false,
-        "near" : true,
-        "x" : 9.5,
-        "y" : 18.0,
-        "dx" : 1.0,
-        "dy" : 0.0,
-        "itemId" : -1,
-        "time" : false,
-        "timeout" : 0,
-        "explosion" : false,
-        "noMoreEnnemie" : false,
-        "onBirth" : false,
-        "onDeath" : false,
-        "onLevelEnter" : false,
-        "mirror" : false,
-        "nightmare" : false,
-        "timeAttackeOption" : false,
-        "multiOption" : false,
-        "ninja" : false,
-        "enableElement" : [ {
-          "id" : 16,
-          "elementType" : "PLATFORM",
-          "newState" : true
-        }, {
-          "id" : 5,
-          "elementType" : "PLATFORM",
-          "newState" : true
-        }, {
-          "id" : 26,
-          "elementType" : "PLATFORM",
-          "newState" : false
-        } ],
-        "message" : [ ],
-        "song" : null,
-        "sound" : null,
-        "darknessValue" : -1,
-        "iceValue" : -1
-      }, {
         "id" : 1,
         "onlyOnce" : false,
         "triggered" : false,
@@ -20030,10 +19990,50 @@
         "darknessValue" : -1,
         "iceValue" : -1
       }, {
-        "id" : 2,
+        "id" : 0,
         "onlyOnce" : false,
         "triggered" : false,
         "near" : true,
+        "x" : 9.5,
+        "y" : 18.0,
+        "dx" : 1.0,
+        "dy" : 0.0,
+        "itemId" : -1,
+        "time" : false,
+        "timeout" : 0,
+        "explosion" : false,
+        "noMoreEnnemie" : false,
+        "onBirth" : false,
+        "onDeath" : false,
+        "onLevelEnter" : false,
+        "mirror" : false,
+        "nightmare" : false,
+        "timeAttackeOption" : false,
+        "multiOption" : false,
+        "ninja" : false,
+        "enableElement" : [ {
+          "id" : 16,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 5,
+          "elementType" : "PLATFORM",
+          "newState" : true
+        }, {
+          "id" : 26,
+          "elementType" : "PLATFORM",
+          "newState" : false
+        } ],
+        "message" : [ ],
+        "song" : null,
+        "sound" : null,
+        "darknessValue" : -1,
+        "iceValue" : -1
+      }, {
+        "id" : 2,
+        "onlyOnce" : false,
+        "triggered" : false,
+        "near" : false,
         "x" : 9.5,
         "y" : 8.0,
         "dx" : 1.0,

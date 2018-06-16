@@ -250,6 +250,7 @@
 				{"x": 0, "y":  919, "nx":  1   ,"ny":1, "n":  1,"sx":   24, "sy":   23, "r": true, "animation": "blob_frozed","grp":""},
 				{"x": 0, "y":  942, "nx": 13   ,"ny":1, "n": 13,"sx":   22, "sy":   19, "r": true, "animation": "blob_shot","grp":""},
 				{"x": 0, "y":  961, "nx": 11   ,"ny":1, "n": 11,"sx":   55, "sy":   36, "r": true, "animation": "bombinos_walk","grp":""},
+				{"x": 0, "y":  961, "nx": 11   ,"ny":1, "n": 11,"sx":   55, "sy":   36, "r": true, "animation": "bombinos_angry","grp":""},
 				{"x": 0, "y":  997, "nx": 12   ,"ny":1, "n": 12,"sx":   43, "sy":   42, "r": true, "animation": "bombinos_knock_out","grp":""},
 				{"x": 0, "y": 1039, "nx": 12   ,"ny":1, "n": 12,"sx":   51, "sy":   47, "r": true, "animation": "bombinos_look","grp":""},
 				{"x": 0, "y": 1086, "nx": 15   ,"ny":1, "n": 15,"sx":   45, "sy":   47, "r": true, "animation": "bombinos_jump","grp":""},

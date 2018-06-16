@@ -48,7 +48,7 @@ public abstract class Ennemie extends BodyAble {
 
 	public Ennemie(EnnemieTypeEnum type) {
 		this.type = type;
-		this.state = EnnemieStateEnum.WALK;
+		this.state = EnnemieStateEnum.ANGRY;
 		this.walkLeft = ThreadLocalRandom.current().nextInt(0, 10) % 2 == 0;
 		this.touchPlatform = false;
 	}
