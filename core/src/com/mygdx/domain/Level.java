@@ -87,7 +87,7 @@ public class Level {
 			r.init(world, game);
 		}
 		for (Teleporter t : teleporter) {
-			t.init(world, game);
+			t.init(world, game, teleporter);
 		}
 		for (Vortex v : vortex) {
 			v.init(world, game);

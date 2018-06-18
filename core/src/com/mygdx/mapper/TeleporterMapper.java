@@ -19,7 +19,17 @@ public class TeleporterMapper {
 		teleporter.setVertical(dto.isVertical());
 		teleporter.setX(dto.getX());
 		teleporter.setY(dto.getY());
-		teleporter.setToId(dto.getToId());
+		String[] destinations = dto.getDestinations().split(",");
+		List<Integer> destinationsId = new ArrayList<>();
+		for (int i = 0; i < destinations.length; i++) {
+			destinationsId.add(Integer.valueOf(destinations[i]));
+		}
+		teleporter.setDestinations(destinationsId);
+		if (!destinationsId.isEmpty()) {
+			teleporter.setToId(destinationsId.get(0));
+		} else {
+			teleporter.setToId(0);
+		}
 		return teleporter;
 	}
 

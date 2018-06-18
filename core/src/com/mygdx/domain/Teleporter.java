@@ -1,14 +1,19 @@
 package com.mygdx.domain;
 
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.constante.CollisionConstante;
 import com.mygdx.constante.Constante;
 import com.mygdx.domain.common.BodyAble;
+import com.mygdx.game.InTheWellGame;
 import com.mygdx.service.SpriteService;
 
 import lombok.Getter;
@@ -25,12 +30,24 @@ public class Teleporter extends BodyAble {
 	private int length;
 	private boolean vertical;
 	private int toId;
+	private List<Integer> destinations;
 
+	private List<Teleporter> teleporter;
 	private int lastDrawPixel;
+	private boolean playerNearest;
+	private TeleporterArea area;
+	
+	public void init(World world, InTheWellGame game, final List<Teleporter> teleporter) {
+		this.teleporter = teleporter;
+		this.init(world, game);
+	}
 
 	@Override
 	public void drawIt() {
-		TextureRegion tmp = SpriteService.getInstance().getTexture("teleporter", 0);
+		TextureRegion tmp = SpriteService.getInstance().getTexture("teleporter", 1);
+		if (playerNearest) {
+			tmp = SpriteService.getInstance().getTexture("teleporter", 0);
+		}
 		int realSize = (length * Constante.GRID_BLOC_SIZE) - 10;
 		if (vertical) {
 			game.getBatch().draw(SpriteService.getInstance().getTexture(BASE_TELEPORTER, 2),
@@ -82,6 +99,52 @@ public class Teleporter extends BodyAble {
 			filter.categoryBits = CollisionConstante.CATEGORY_TELEPORTER;
 			fixture.setFilterData(filter);
 			fixture.setFriction(0.1f);
+
+			area = new TeleporterArea();
+			area.setEnable(true);
+			area.setId(0);
+			area.setLength(length);
+			area.setVertical(vertical);
+			area.setX(x);
+			area.setY(y);
+			area.setTeleporter(this);
+			area.init(world, game);
+		}
+	}
+
+	@Override
+	public void update() {
+		if (enable && body == null) {
+			createBody();
+		}
+		if (!enable && body != null) {
+			dispose();
+			area.dispose();
+		}
+		if (enable && ! playerNearest) {
+			if (ThreadLocalRandom.current().nextInt(0, 10) < 5) {
+				toId = destinations.get(ThreadLocalRandom.current().nextInt(0, destinations.size()));
+			}
+		}
+	}
+
+	public void dispose() {
+		if (body != null) {
+			this.world.destroyBody(body);
+			body = null;
+			area.dispose();
+			area = null;
+		}
+	}
+	
+	public void setPlayerNearest(boolean playerNearest, boolean fromArea) {
+		this.playerNearest = playerNearest;
+		if(fromArea) {
+			for(Teleporter t : teleporter) {
+				if(t.getId() == toId) {
+					t.setPlayerNearest(playerNearest, false);
+				}
+			}
 		}
 	}
 

@@ -13,6 +13,7 @@ import com.mygdx.domain.Platform;
 import com.mygdx.domain.Player;
 import com.mygdx.domain.Rayon;
 import com.mygdx.domain.Teleporter;
+import com.mygdx.domain.TeleporterArea;
 import com.mygdx.domain.Vortex;
 import com.mygdx.domain.common.Ennemie;
 import com.mygdx.domain.event.Event;
@@ -51,6 +52,9 @@ public class PlayerContactListener {
 					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 					Vector2[] points = contact.getWorldManifold().getPoints();
 					player.teleporte(teleporter, points);
+				} else if (other.getBody().getUserData().getClass() == TeleporterArea.class) {
+					TeleporterArea area = (TeleporterArea)other.getBody().getUserData();
+					area.playerNearest(true);
 				} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 
 				}
@@ -67,12 +71,14 @@ public class PlayerContactListener {
 				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 					Teleporter teleporter = (Teleporter) other.getBody().getUserData();
 					player.teleporteOut(teleporter);
+				}  else if (other.getBody().getUserData().getClass() == TeleporterArea.class) {
+					TeleporterArea area = (TeleporterArea)other.getBody().getUserData();
+					area.playerNearest(false);
 				}
 			}
 		}
 	}
 
-	
 	public void preSolve(Contact contact, Manifold oldManifold, Fixture playerFixture, Fixture other) {
 		if (other != null) {
 			if (other.getBody().getUserData() != null) {
@@ -94,6 +100,8 @@ public class PlayerContactListener {
 					contact.setEnabled(false);
 				} else if (other.getBody().getUserData().getClass() == Teleporter.class) {
 					contact.setEnabled(false);
+				} else if (other.getBody().getUserData().getClass() == TeleporterArea.class) {
+					contact.setEnabled(false);
 				} else if (other.getBody().getUserData().getClass() == Vortex.class) {
 					contact.setEnabled(false);
 				}
@@ -103,7 +111,7 @@ public class PlayerContactListener {
 
 	public void postSolve(Contact contact, ContactImpulse impulse, Fixture playerFixture, Fixture other) {
 	}
-	
+
 	private void definePresolveContactPlayerToPlatform(Contact contact, Fixture playerFixture) {
 		Player player = (Player) playerFixture.getBody().getUserData();
 		if (contact.getWorldManifold().getPoints().length == 2) {

@@ -3,7 +3,7 @@ package com.mygdx.constante;
 public class Constante {
 
 	public static final boolean DEBUG = true;
-	public static final int START_LEVEL = 75;
+	public static final int START_LEVEL = 73;
 
 	public static final int SCREEN_SIZE_X = 420;
 	public static final int SCREEN_SIZE_Y = 520;

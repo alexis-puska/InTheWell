@@ -242,7 +242,7 @@ public class Player extends BodyAble {
 	 *            the teleporter of the collision
 	 */
 	public void teleporteOut(Teleporter teleporter) {
-		if (destinationId != -1 && teleporter.getToId() != destinationId) {
+		if (destinationId != -1 && !teleporter.getDestinations().contains(destinationId)) {
 			destinationId = -1;
 		}
 	}
