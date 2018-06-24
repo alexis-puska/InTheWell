@@ -24263,6 +24263,10 @@
           "id" : 1,
           "elementType" : "RAYON",
           "newState" : true
+        }, {
+          "id" : 17,
+          "elementType" : "PLATFORM",
+          "newState" : false
         } ],
         "message" : [ ],
         "song" : null,

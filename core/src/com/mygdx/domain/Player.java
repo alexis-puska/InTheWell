@@ -1,5 +1,6 @@
 package com.mygdx.domain;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -213,7 +214,8 @@ public class Player extends BodyAble {
 	public void teleporte(Teleporter teleporter, Vector2[] points) {
 		if (teleport == null && destinationId == -1) {
 			for (Teleporter tel : level.getTeleporter()) {
-				if (tel.getId() == teleporter.getToId()) {
+				int dest = teleporter.getToId();
+				if (tel.getId() == dest) {
 					float moyX = 0;
 					float moyY = 0;
 					for (int i = 0; i < points.length; i++) {
@@ -227,7 +229,7 @@ public class Player extends BodyAble {
 					float posX = (tel.getX()) + diffX;
 					float posY = (tel.getY()) + diffY;
 					teleport = new Vector2(posX, posY);
-					destinationId = teleporter.getToId();
+					destinationId = dest;
 					if (teleporter.isInvX()) {
 						this.body.setLinearVelocity(-this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
 					}
@@ -248,7 +250,7 @@ public class Player extends BodyAble {
 	 *            the teleporter of the collision
 	 */
 	public void teleporteOut(Teleporter teleporter) {
-		if (destinationId != -1 && !teleporter.getDestinations().contains(destinationId)) {
+		if (destinationId != -1 && !teleporter.getDestinations().contains(Integer.valueOf(destinationId))) {
 			destinationId = -1;
 		}
 	}
