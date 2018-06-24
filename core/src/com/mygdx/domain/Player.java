@@ -228,6 +228,12 @@ public class Player extends BodyAble {
 					float posY = (tel.getY()) + diffY;
 					teleport = new Vector2(posX, posY);
 					destinationId = teleporter.getToId();
+					if (teleporter.isInvX()) {
+						this.body.setLinearVelocity(-this.body.getLinearVelocity().x, this.body.getLinearVelocity().y);
+					}
+					if (teleporter.isInvY()) {
+						this.body.setLinearVelocity(this.body.getLinearVelocity().x, -this.body.getLinearVelocity().y);
+					}
 					break;
 				}
 			}

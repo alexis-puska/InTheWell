@@ -324,6 +324,7 @@
 				{"x": 0, "y": 3175, "nx":  5   ,"ny":1, "n":  5,"sx":   45, "sy":   45, "r": true, "animation": "orange_knock_out","grp":""},
 				{"x": 0, "y": 3220, "nx": 14   ,"ny":1, "n": 14,"sx":   29, "sy":   27, "r": true, "animation": "orange_jump","grp":""},
 				{"x": 0, "y": 3247, "nx":  8   ,"ny":1, "n":  8,"sx":   25, "sy":   25, "r": true, "animation": "pasteque_walk","grp":""},
+				{"x": 0, "y": 3247, "nx":  8   ,"ny":1, "n":  8,"sx":   25, "sy":   25, "r": true, "animation": "pasteque_angry","grp":""},
 				{"x": 0, "y": 3272, "nx":  1   ,"ny":1, "n":  1,"sx":   29, "sy":   31, "r": true, "animation": "pasteque_frozed","grp":""},
 				{"x": 0, "y": 3303, "nx":  1   ,"ny":1, "n":  1,"sx":   27, "sy":   26, "r": true, "animation": "pasteque_knock_out","grp":""},
 				{"x": 0, "y": 3329, "nx":  4   ,"ny":1, "n":  4,"sx":   33, "sy":   25, "r": true, "animation": "poire_bombe","grp":""},

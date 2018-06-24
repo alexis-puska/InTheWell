@@ -17,6 +17,8 @@ public class TeleporterDTO extends IdentifiableDTO implements Serializable {
 	private int y;
 	private int length;
 	private boolean vertical;
+	private boolean invX;
+	private boolean invY;
 	private String destinations;
 
 	public TeleporterDTO(int id, boolean enable, int x, int y, int length, boolean vertical, String destinations) {

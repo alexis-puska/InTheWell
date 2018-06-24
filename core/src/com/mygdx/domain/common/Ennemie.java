@@ -224,6 +224,7 @@ public abstract class Ennemie extends BodyAble {
 		} else {
 			canGoDownLeft = false;
 		}
+
 	}
 
 	public boolean isInsidePlatform() {
@@ -238,5 +239,15 @@ public abstract class Ennemie extends BodyAble {
 			return true;
 		}
 		return grid[xx][yy];
+	}
+	
+	@Override
+	public void update() {
+		if (enable && body == null) {
+			createBody();
+		}
+		if (!enable && body != null) {
+			dispose();
+		}
 	}
 }

@@ -3,6 +3,7 @@ package com.mygdx.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.domain.Teleporter;
 import com.mygdx.service.dto.level.TeleporterDTO;
 
@@ -17,18 +18,24 @@ public class TeleporterMapper {
 		teleporter.setId(dto.getId());
 		teleporter.setLength(dto.getLength());
 		teleporter.setVertical(dto.isVertical());
+		teleporter.setInvX(dto.isInvX());
+		teleporter.setInvY(dto.isInvY());
 		teleporter.setX(dto.getX());
 		teleporter.setY(dto.getY());
-		String[] destinations = dto.getDestinations().split(",");
-		List<Integer> destinationsId = new ArrayList<>();
-		for (int i = 0; i < destinations.length; i++) {
-			destinationsId.add(Integer.valueOf(destinations[i]));
-		}
-		teleporter.setDestinations(destinationsId);
-		if (!destinationsId.isEmpty()) {
-			teleporter.setToId(destinationsId.get(0));
+		if (dto.getDestinations() == null) {
+			Gdx.app.log("TeleporterMapper", "Teleporter withour destination found !");
 		} else {
-			teleporter.setToId(0);
+			String[] destinations = dto.getDestinations().split(",");
+			List<Integer> destinationsId = new ArrayList<>();
+			for (int i = 0; i < destinations.length; i++) {
+				destinationsId.add(Integer.valueOf(destinations[i]));
+			}
+			teleporter.setDestinations(destinationsId);
+			if (!destinationsId.isEmpty()) {
+				teleporter.setToId(destinationsId.get(0));
+			} else {
+				teleporter.setToId(0);
+			}
 		}
 		return teleporter;
 	}

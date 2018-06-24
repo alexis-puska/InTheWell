@@ -29,6 +29,8 @@ public class Teleporter extends BodyAble {
 	private int y;
 	private int length;
 	private boolean vertical;
+	private boolean invX;
+	private boolean invY;
 	private int toId;
 	private List<Integer> destinations;
 
