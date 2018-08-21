@@ -315,9 +315,8 @@ public class AccountService {
 		 ********************/
 
 		for (QuestDTO quest : database.getQuests()) {
-			if (Constante.DEBUG) {
-				Gdx.app.log(LOG_NAME, "validation quete : " + quest.getId());
-			}
+
+			Gdx.app.debug(LOG_NAME, "validation quete : " + quest.getId());
 
 			boolean valide = true;
 			boolean started = false;
@@ -414,114 +413,112 @@ public class AccountService {
 			}
 		}
 
-		if (Constante.DEBUG) {
-			Gdx.app.log(LOG_NAME, "FAMILLE DISPONIBLE");
-			for (Integer i : familyAvailable) {
-				Gdx.app.log(LOG_NAME, database.getFamilys().get(i).getName().getFr());
-			}
-
-			Gdx.app.log(LOG_NAME, "QUEST STARTED DISPONIBLE");
-			for (QuestDTO q : questStarted.values()) {
-				Gdx.app.log(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
-			}
-
-			Gdx.app.log(LOG_NAME, "QUEST COMPLETE DISPONIBLE");
-			for (QuestDTO q : questCompleted.values()) {
-				Gdx.app.log(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
-			}
-
-			Gdx.app.log(LOG_NAME, "base item load");
-			Gdx.app.log(LOG_NAME, "base available point 7");
-			StringBuilder tmp = new StringBuilder();
-			for (int i : availableItemPoint7) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 6");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint6) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 5");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint5) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 4");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint4) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 3");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint3) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 2");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint2) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 1");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint1) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available point 0");
-			tmp = new StringBuilder();
-			for (int i : availableItemPoint0) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 6");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect6) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 5");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect5) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 4");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect4) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 3");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect3) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 2");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect2) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 1");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect1) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
-			Gdx.app.log(LOG_NAME, "base available effect 0");
-			tmp = new StringBuilder();
-			for (int i : availableItemEffect0) {
-				tmp.append(i + " ");
-			}
-			Gdx.app.log(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "FAMILLE DISPONIBLE");
+		for (Integer i : familyAvailable) {
+			Gdx.app.debug(LOG_NAME, database.getFamilys().get(i).getName().getFr());
 		}
+
+		Gdx.app.debug(LOG_NAME, "QUEST STARTED DISPONIBLE");
+		for (QuestDTO q : questStarted.values()) {
+			Gdx.app.debug(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
+		}
+
+		Gdx.app.debug(LOG_NAME, "QUEST COMPLETE DISPONIBLE");
+		for (QuestDTO q : questCompleted.values()) {
+			Gdx.app.debug(LOG_NAME, q.getTitre().getFr() + " " + q.getId());
+		}
+
+		Gdx.app.debug(LOG_NAME, "base item load");
+		Gdx.app.debug(LOG_NAME, "base available point 7");
+		StringBuilder tmp = new StringBuilder();
+		for (int i : availableItemPoint7) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 6");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint6) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 5");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint5) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 4");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint4) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 3");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint3) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 2");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint2) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 1");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint1) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available point 0");
+		tmp = new StringBuilder();
+		for (int i : availableItemPoint0) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 6");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect6) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 5");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect5) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 4");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect4) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 3");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect3) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 2");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect2) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 1");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect1) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
+		Gdx.app.debug(LOG_NAME, "base available effect 0");
+		tmp = new StringBuilder();
+		for (int i : availableItemEffect0) {
+			tmp.append(i + " ");
+		}
+		Gdx.app.debug(LOG_NAME, tmp.toString());
 	}
 
 	/**

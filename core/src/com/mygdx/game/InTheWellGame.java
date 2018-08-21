@@ -33,6 +33,7 @@ public class InTheWellGame extends Game {
 	private MenuInputProcessor menuInputProcessor;
 
 	public void create() {
+		Gdx.app.setLogLevel(Constante.LIBGDX_LOG_LEVEL);
 		MessageService.getInstance();
 		SpriteService.getInstance();
 
