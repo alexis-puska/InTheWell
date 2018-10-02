@@ -1,3 +1,4 @@
+
 package com.mygdx.domain;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
