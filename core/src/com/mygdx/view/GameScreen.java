@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -48,7 +50,19 @@ public class GameScreen implements Screen {
 	private FrameBuffer playerLayer;
 	private FrameBuffer frontLayer;
 	private FrameBuffer shadowLayer;
-	private FrameBuffer finalLayer;
+
+	private Texture backgroundLayerTexture;
+	private Texture platformLayerTexture;
+	private Texture playerLayerTexture;
+	private Texture frontLayerTexture;
+	private Texture shadowLayerTexture;
+
+	private TextureRegion backgroundLayerTextureRegion;
+	private TextureRegion platformLayerTextureRegion;
+	private TextureRegion playerLayerTextureRegion;
+	private TextureRegion frontLayerTextureRegion;
+	private TextureRegion shadowLayerTextureRegion;
+
 	private ShapeRenderer shapeRenderer;
 	// camera
 	private OrthographicCamera gridCamera;
@@ -104,7 +118,19 @@ public class GameScreen implements Screen {
 				false);
 		this.shadowLayer = new FrameBuffer(Format.RGBA8888, Constante.GAME_SCREEN_SIZE_X, Constante.GAME_SCREEN_SIZE_Y,
 				false);
-		this.finalLayer = new FrameBuffer(Format.RGBA8888, Constante.SCREEN_SIZE_X, Constante.SCREEN_SIZE_Y, false);
+
+		this.backgroundLayerTexture = backgroundLayer.getColorBufferTexture();
+		this.platformLayerTexture = platformLayer.getColorBufferTexture();
+		this.playerLayerTexture = playerLayer.getColorBufferTexture();
+		this.frontLayerTexture = frontLayer.getColorBufferTexture();
+		this.shadowLayerTexture = shadowLayer.getColorBufferTexture();
+		
+		this.backgroundLayerTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+		this.platformLayerTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+		this.playerLayerTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+		this.frontLayerTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+		this.shadowLayerTexture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+
 		this.shapeRenderer = new ShapeRenderer();
 
 		this.gridCamera = new OrthographicCamera(Constante.GRID_SCREEN_SIZE_X, Constante.GRID_SCREEN_SIZE_Y);
@@ -166,7 +192,6 @@ public class GameScreen implements Screen {
 		playerLayer.dispose();
 		frontLayer.dispose();
 		shadowLayer.dispose();
-		finalLayer.dispose();
 		fontGold.dispose();
 		SoundService.getInstance().playMusic(MusicEnum.BOSS2);
 		game.getMenuInputProcessor().reset();
@@ -222,10 +247,21 @@ public class GameScreen implements Screen {
 		drawShadowMask(x1, y1, x2, y2);
 
 		// merge 5 layers and draw finale image to screen
-		mergeFinalTexture();
+
 		game.getViewport().apply();
+		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
+		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getBatch().begin();
-		game.getBatch().draw(finalLayer.getColorBufferTexture(), 0, 0, 420, 520);
+		game.getBatch().draw(backgroundLayerTextureRegion, 0, 20, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y);
+		game.getBatch().draw(platformLayerTextureRegion, 10, 20, Constante.GRID_SCREEN_SIZE_X,
+				Constante.GRID_SCREEN_SIZE_Y);
+		game.getBatch().draw(playerLayerTextureRegion, 10, 20, Constante.GRID_SCREEN_SIZE_X,
+				Constante.GRID_SCREEN_SIZE_Y);
+		game.getBatch().draw(frontLayerTextureRegion, 0, 20, Constante.GAME_SCREEN_SIZE_X, Constante.GAME_SCREEN_SIZE_Y);
+		game.getBatch().draw(shadowLayerTextureRegion, 0, 20, Constante.GAME_SCREEN_SIZE_X,
+				Constante.GAME_SCREEN_SIZE_Y);
 		drawInformation();
 		game.getBatch().end();
 
@@ -306,30 +342,6 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	/**
-	 * Draw the final image to be renderer to the screen
-	 */
-	private void mergeFinalTexture() {
-		finalLayer.begin();
-		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
-		Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.getBatch().begin();
-		game.getBatch().draw(backgroundLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
-				Constante.GAME_SCREEN_SIZE_Y);
-		game.getBatch().draw(platformLayer.getColorBufferTexture(), 10, 0, Constante.GRID_SCREEN_SIZE_X,
-				Constante.GRID_SCREEN_SIZE_Y);
-		game.getBatch().draw(playerLayer.getColorBufferTexture(), 10, 0, Constante.GRID_SCREEN_SIZE_X,
-				Constante.GRID_SCREEN_SIZE_Y);
-		game.getBatch().draw(frontLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
-				Constante.GAME_SCREEN_SIZE_Y);
-		game.getBatch().draw(shadowLayer.getColorBufferTexture(), 0, 0, Constante.GAME_SCREEN_SIZE_X,
-				Constante.GAME_SCREEN_SIZE_Y);
-		game.getBatch().end();
-		finalLayer.end();
-
-	}
-
 	private void drawBackground() {
 		backgroundLayer.begin();
 		game.getBatch().setProjectionMatrix(gameCamera.combined);
@@ -338,6 +350,8 @@ public class GameScreen implements Screen {
 		game.getBatch().begin();
 		currentLevel.drawBackground();
 		game.getBatch().end();
+		backgroundLayerTextureRegion = new TextureRegion(backgroundLayerTexture);
+		backgroundLayerTextureRegion.flip(false, true);
 		backgroundLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
@@ -350,6 +364,8 @@ public class GameScreen implements Screen {
 		game.getBatch().begin();
 		currentLevel.drawOnPlatformLayer();
 		game.getBatch().end();
+		platformLayerTextureRegion = new TextureRegion(platformLayerTexture);
+		platformLayerTextureRegion.flip(false, true);
 		platformLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
@@ -366,6 +382,9 @@ public class GameScreen implements Screen {
 			player2.drawIt();
 		}
 		game.getBatch().end();
+		playerLayerTextureRegion = new TextureRegion(playerLayerTexture);
+		playerLayerTextureRegion.flip(false, true);
+		
 		playerLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
@@ -380,6 +399,9 @@ public class GameScreen implements Screen {
 		game.getBatch().draw(SpriteService.getInstance().getTexture("border_right", 0), 405, 0);
 		currentLevel.drawOnFrontLayer();
 		game.getBatch().end();
+		frontLayerTextureRegion = new TextureRegion(frontLayerTexture);
+		frontLayerTextureRegion.flip(false, true);
+		
 		frontLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}
@@ -399,6 +421,9 @@ public class GameScreen implements Screen {
 		}
 		shapeRenderer.end();
 		Gdx.gl.glColorMask(true, true, true, true);
+		shadowLayerTextureRegion = new TextureRegion(shadowLayerTexture);
+		shadowLayerTextureRegion.flip(false, true);
+		
 		shadowLayer.end();
 		game.getBatch().setProjectionMatrix(game.getScreenCamera().combined);
 	}

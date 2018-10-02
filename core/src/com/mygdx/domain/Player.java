@@ -1,6 +1,5 @@
 package com.mygdx.domain;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -149,8 +148,7 @@ public class Player extends BodyAble {
 	/**
 	 * Change type of bombe when player touch a ray
 	 * 
-	 * @param rayonType
-	 *            the ray type
+	 * @param rayonType the ray type
 	 */
 	public void changeBombeType(RayonTypeEnum rayonType) {
 		if (rayonType.getBombeType() != null && rayonType.getBombeType() != bombeType) {
@@ -178,8 +176,7 @@ public class Player extends BodyAble {
 	/**
 	 * Unlock a lock with the correct key
 	 * 
-	 * @param lock
-	 *            the lock to unlock
+	 * @param lock the lock to unlock
 	 */
 	public void unlockLock(final Lock lock) {
 		long quantity = game.getAccountService().getFridgeQuantity(lock.getKey().getItemId());
@@ -191,8 +188,7 @@ public class Player extends BodyAble {
 	/**
 	 * Player unlock the door if he have the key
 	 * 
-	 * @param door
-	 *            the door to unlock
+	 * @param door the door to unlock
 	 */
 	public void unlockDoor(final Door door) {
 		if (door.getKey() != null) {
@@ -206,10 +202,8 @@ public class Player extends BodyAble {
 	/**
 	 * The teleporter the teleporter in the collision with the player
 	 * 
-	 * @param teleporter
-	 *            the teleporter
-	 * @param points
-	 *            all points generate by the collision
+	 * @param teleporter the teleporter
+	 * @param points     all points generate by the collision
 	 */
 	public void teleporte(Teleporter teleporter, Vector2[] points) {
 		if (teleport == null && destinationId == -1) {
@@ -246,8 +240,7 @@ public class Player extends BodyAble {
 	/**
 	 * Player go out of the destination teleporter
 	 * 
-	 * @param teleporter
-	 *            the teleporter of the collision
+	 * @param teleporter the teleporter of the collision
 	 */
 	public void teleporteOut(Teleporter teleporter) {
 		if (destinationId != -1 && !teleporter.getDestinations().contains(Integer.valueOf(destinationId))) {
@@ -258,8 +251,7 @@ public class Player extends BodyAble {
 	/**
 	 * Player notify change Level
 	 * 
-	 * @param level
-	 *            the new Level
+	 * @param level the new Level
 	 */
 	public void enterLevel(Level level) {
 		this.level = level;
@@ -269,8 +261,7 @@ public class Player extends BodyAble {
 	/**
 	 * Pick an item in level. Add this in temporary fridge for game
 	 * 
-	 * @param item
-	 *            the Item
+	 * @param item the Item
 	 */
 	public void pickItem(Item item) {
 		if (game.getAccountService().addItemInGameFridge(item.getItemId())) {
